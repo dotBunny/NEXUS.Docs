@@ -70,7 +70,7 @@ const config = {
         title: 'NEXUS Framework',
         logo: {
           alt: 'NEXUS Framework Logo',
-          src: 'assets/svg/NEXUS.svg',
+          src: 'assets/svg/nexus.svg',
         },
         items: [
           {
