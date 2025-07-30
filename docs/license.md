@@ -1,4 +1,7 @@
 ---
+title: License
+description: BSL-1.0
+hide_table_of_contents: false
 sidebar_position: 4
 ---
 

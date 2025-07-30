@@ -4,25 +4,27 @@
  * work well for content-centric websites.
  */
 
- /*
+/*
 
 /* You can override the default Infima variables here. */
 :root {
 
   --ifm-color-primary: #1B469D;
 
-  --ifm-color-primary-dark: #183f8d; /* 10% darker */
-  --ifm-color-primary-darker: #16387e; /* 20% darker */
-  --ifm-color-primary-darkest: #13316e; /* 30% darker */
-
-  --ifm-color-primary-light: #2052b9; /* 10% lighter */
-  --ifm-color-primary-lighter: #255fd5; /* 20% lighter */
-  --ifm-color-primary-lightest: #3c72de; /* 30% lighter */
+  /* 10% darker */
+  --ifm-color-primary-dark: #183f8d;
+  /* 20% darker */
+  --ifm-color-primary-darker: #16387e;
+  /* 30% darker */
+  --ifm-color-primary-darkest: #13316e;
+  /* 10% lighter */
+  --ifm-color-primary-light: #2052b9;
+  /* 20% lighter */
+  --ifm-color-primary-lighter: #255fd5;
+  /* 30% lighter */
+  --ifm-color-primary-lightest: #3c72de;
 
   --ifm-code-font-size: 95%;
-
-  --ifm-footer-background-color: #0D1117;
-  
   --docusaurus-highlighted-code-line-bg: rgba(209, 90, 228, 0.1);
 
 }
@@ -31,14 +33,23 @@
 [data-theme='dark'] {
 
   --ifm-color-primary: #1ACCEE;
-
-  --ifm-color-primary-dark: #10bcdd; /* 10% darker */
-  --ifm-color-primary-darker: #0fa7c5; /* 20% darker */
-  --ifm-color-primary-darkest: #0d92ac; /* 30% darker */
-
-  --ifm-color-primary-light: #31d1f0; /* 10% lighter */
-  --ifm-color-primary-lighter: #48d6f1; /* 20% lighter */
-  --ifm-color-primary-lightest: #5fdbf3; /* 30% lighter */
+  /* 10% darker */
+  --ifm-color-primary-dark: #10bcdd;
+  /* 20% darker */
+  --ifm-color-primary-darker: #0fa7c5;
+  /* 30% darker */
+  --ifm-color-primary-darkest: #0d92ac;
+  /* 10% lighter */
+  --ifm-color-primary-light: #31d1f0;
+  /* 20% lighter */
+  --ifm-color-primary-lighter: #48d6f1;
+  /* 30% lighter */
+  --ifm-color-primary-lightest: #5fdbf3;
 
   --docusaurus-highlighted-code-line-bg: rgba(209, 90, 228, 0.3);
+  --ifm-footer-background-color: #323334 !important
+}
+
+.navbar__logo {
+  margin-right: -0.22em !important;
 }
