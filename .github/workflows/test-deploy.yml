@@ -1,12 +1,12 @@
-name: Test deployment
+name: Test Deployment
 
 on:
     workflow_dispatch:
 
 jobs:
   test-deploy:
-    name: Test deployment
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
+    name: Test deployment    
     steps:
       - uses: actions/checkout@v4
         with:
