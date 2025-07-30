@@ -85,9 +85,20 @@ const config = {
             label: 'Docs',
           },
           {
-            to: '/changelog', 
+            to: '/docs/contributing', 
+            label: 'Contributing', 
+            position: 'left'
+          },
+          {
+            to: '/docs/license', 
+            label: 'License', 
+            position: 'left'
+          },
+          {
+            to: '/docs/changelog', 
             label: 'Changelog', 
-            position: 'left'},
+            position: 'left'
+          },
           {
             href: 'https://github.com/dotBunny/NEXUS',
             label: 'GitHub',
