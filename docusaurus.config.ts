@@ -1,6 +1,7 @@
 import { themes as prismThemes } from 'prism-react-renderer';
 import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
+import type { Options as DocsOptions } from '@docusaurus/plugin-content-docs';
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
@@ -68,30 +69,27 @@ const config: Config = {
       items: [
         {
           type: 'docSidebar',
-          sidebarId: 'tutorialSidebar',
+          sidebarId: 'defaultSidebar',
           position: 'left',
           label: '📘Docs',
         },
         {
-          to: '/docs/contributing',
-          label: '💗Contributing',
-          position: 'left'
-        },
-        {
-          to: '/docs/license',
-          label: '📜License',
-          position: 'left'
-        },
-        {
-          to: '/docs/changelog',
-          label: '📣Changelog',
-          position: 'left'
+          to: '/community/contributing/',
+          position: 'left',
+          label: '🏘️Community',
+          activeBaseRegex: `/community/`
         },
         {
           href: 'https://github.com/dotBunny/NEXUS/issues/new/choose',
           label: '🐞Report Issue',
           position: 'right',
-        }
+        },
+        {
+          href: 'https://github.com/dotBunny/NEXUS',
+          position: 'right',
+          className: 'header-github-link',
+          'aria-label': 'GitHub repository',
+        },
       ],
     },
     footer: {
@@ -103,15 +101,15 @@ const config: Config = {
               label: 'Getting Started',
               to: '/docs/category/getting-started/',
             },
+            {
+              label: 'Contributing',
+              to: '/community/contributing/',
+            },
           ],
         },
         {
-          title: 'Project',
+          title: 'GitHub',
           items: [
-            {
-              label: 'Agile Board',
-              href: 'https://github.com/orgs/dotBunny/projects/6/views/1',
-            },
             {
               label: 'Roadmap',
               href: 'https://github.com/orgs/dotBunny/projects/6/views/2',
@@ -120,27 +118,21 @@ const config: Config = {
               label: 'Issues',
               href: 'https://github.com/orgs/dotBunny/projects/6/views/3',
             },
-            {
-              label: 'Bugs',
-              href: 'https://github.com/orgs/dotBunny/projects/6/views/9',
-            }
+
           ],
         },
         {
           title: 'More',
           items: [
             {
-              label: 'GitHub',
-              href: 'https://github.com/dotBunny/NEXUS',
-            },
-            {
-              label: 'Report A Bug',
-              href: 'https://github.com/dotBunny/NEXUS/issues/new/choose',
+              to: '/license',
+              label: 'License',
+
             },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} dotBunny Inc.`,
+      copyright: `<a class="muted" href="https://dotbunny.com">Copyright © ${new Date().getFullYear()} dotBunny</a>`,
     },
     prism: {
       theme: prismThemes.github,
@@ -182,7 +174,20 @@ const config: Config = {
     markdown: {
       mermaid: true,
     },
+
   } satisfies Preset.ThemeConfig,
+  plugins: [
+    [
+      'content-docs',
+      {
+        id: 'community',
+        path: 'community',
+        routeBasePath: 'community',
+        editCurrentVersion: false,
+        sidebarPath: './sidebarsCommunity.js',
+      } satisfies DocsOptions,
+    ]
+  ]
 };
 
 export default config;
