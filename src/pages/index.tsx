@@ -39,7 +39,7 @@ export default function Home(): ReactNode {
       title={`${siteConfig.title}`}
       description={`${siteConfig.tagline}`}>
       <main>
-        <CoverElement content={<CoverContent />} background="/assets/images/background.jpg" borderTopWidth={0} borderTopColor="" borderBottomWidth={1} borderBottomColor="#64676a" padding={45} />
+        <CoverElement content={<CoverContent />} background="/assets/images/background.jpg" padding={45} />
       </main>
     </Layout >
   );

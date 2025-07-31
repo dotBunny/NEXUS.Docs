@@ -12,14 +12,14 @@
 
 img.brand {
   width: 35vh;
-  padding-top: 10vh;
+  padding-top: 9vh;
   padding-bottom: 8vh;
 }
 
 .tagline {
   color: #f5f6f7;
   font-weight: 100;
-  font-size: var(--ifm-h3-font-size)
+  font-size: var(--ifm-h2-font-size)
 }
 
 .tagline strong,
@@ -33,7 +33,8 @@ img.brand {
 }
 
 .buttons a {
-  margin-right: 0.5rem;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
 }
 
 .buttons a:nth-last-child(1) {
