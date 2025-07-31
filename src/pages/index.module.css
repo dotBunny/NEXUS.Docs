@@ -32,6 +32,33 @@ img.brand {
   margin-bottom: 3rem;
 }
 
+.buttonDownload {
+  color: #f5f6f7;
+  font-weight: 700;
+  border-color: #f5f6f7;
+  border-width: 5px;
+  border-style: solid;
+  border-radius: 5px;
+  ;
+}
+
+.buttonSVG {
+  line-height: 24px;
+  height: 24px;
+  width: 24px;
+  margin-left: -10px;
+  vertical-align: sub;
+}
+
+.buttonSVGRP {
+  line-height: 24px;
+  height: 24px;
+  width: 24px;
+  margin-left: -10px;
+  margin-right: 5px;
+  vertical-align: sub;
+}
+
 .buttons a {
   margin-right: 1rem;
   margin-bottom: 1rem;

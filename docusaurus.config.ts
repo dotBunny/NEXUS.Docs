@@ -64,32 +64,27 @@ const config: Config = {
       title: 'EXUS Framework',
       logo: {
         alt: 'NEXUS Framework Logo',
-        src: 'assets/svg/nexus-black.svg',
-        srcDark: 'assets/svg/nexus-white.svg',
+        src: 'assets/svg/nexus.svg'
       },
       items: [
         {
           type: 'docSidebar',
           sidebarId: 'defaultSidebar',
           position: 'left',
-          label: '📘Docs',
+          label: 'Docs',
+          className: 'header-docs-link'
         },
         {
           to: '/community/contributing/',
           position: 'left',
-          label: '🏘️Community',
-          activeBaseRegex: `/community/`
+          label: 'Community',
+          activeBaseRegex: `/community/`,
+          className: 'header-community-link',
         },
         {
           href: 'https://github.com/dotBunny/NEXUS/issues/new/choose',
-          label: '🐞Report Issue',
+          label: 'Report Issue',
           position: 'right',
-        },
-        {
-          href: 'https://github.com/dotBunny/NEXUS',
-          position: 'right',
-          className: 'header-github-link',
-          'aria-label': 'GitHub repository',
         },
       ],
     },
