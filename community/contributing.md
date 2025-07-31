@@ -1,8 +1,8 @@
 ---
 title: Contributing
-description: my hello page description
+description: We feel the love already.
 hide_table_of_contents: false
-sidebar_position: 2
+sidebar_position: 1
 ---
 
 # Contributing

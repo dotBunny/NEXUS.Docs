@@ -1,8 +1,8 @@
 ---
 title: Changelog
-description: my hello page description
+description: A semantic versioned changelog.
 hide_table_of_contents: false
-sidebar_position: 2
+sidebar_position: 3
 ---
 
 # Changelog
