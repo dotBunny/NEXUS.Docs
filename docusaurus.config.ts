@@ -128,7 +128,7 @@ const config: Config = {
           ],
         },
       ],
-      copyright: `<a class="muted" href="https://dotbunny.com">Copyright © ${new Date().getFullYear()} dotBunny</a>`,
+      copyright: `<a class="muted" href="https://dotbunny.com">&copy; dotBunny</a>`,
     },
     prism: {
       theme: prismThemes.github,
