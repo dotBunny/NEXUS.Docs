@@ -40,7 +40,7 @@ While thorough testing is a core pillar of the framework, it is also important t
 
 ## Assisting With Documentaion
 
-The documentation is meant to be a living document that allows for easy additions and corrections. The documentation is statically generated from a GitHub repository that can be easily edited. Each page has a corresponding **Edit this page** link at the bottom. 
+The documentation is meant to be a living document that allows for easy additions and corrections. The documentation is statically generated from a GitHub repository that can be easily edited. Each page of the documentation has a corresponding **Edit this page** link at the bottom. 
 
 *Let's not kid ourselves...* We are all a little lacking in documenting our work area, so this is our best bet at creating a spot to collate formalized documentation. Code documentation should still be present to mark up methods and other elements. 
 

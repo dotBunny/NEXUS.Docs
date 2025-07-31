@@ -64,7 +64,8 @@ const config: Config = {
       title: 'EXUS Framework',
       logo: {
         alt: 'NEXUS Framework Logo',
-        src: 'assets/svg/nexus.svg',
+        src: 'assets/svg/nexus-black.svg',
+        srcDark: 'assets/svg/nexus-white.svg',
       },
       items: [
         {
@@ -93,6 +94,7 @@ const config: Config = {
       ],
     },
     footer: {
+      style: 'dark',
       links: [
         {
           title: 'Docs',

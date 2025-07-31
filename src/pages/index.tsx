@@ -5,7 +5,6 @@ import clsx from 'clsx';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
-import HomepageFeatures from '@site/src/components/HomepageFeatures';
 import Heading from '@theme/Heading';
 
 import styles from './index.module.css';
@@ -40,7 +39,7 @@ export default function Home(): ReactNode {
       title={`${siteConfig.title}`}
       description={`${siteConfig.tagline}`}>
       <main>
-        <CoverElement content={<CoverContent />} background="/assets/images/background.jpg" />
+        <CoverElement content={<CoverContent />} background="/assets/images/background.jpg" borderTopWidth={0} borderTopColor="" borderBottomWidth={1} borderBottomColor="#64676a" padding={45} />
       </main>
     </Layout >
   );
