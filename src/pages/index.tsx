@@ -1,4 +1,6 @@
 import type { ReactNode } from 'react';
+import classnames from "classnames";
+import useBaseUrl from "@docusaurus/useBaseUrl";
 import clsx from 'clsx';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
@@ -7,25 +9,27 @@ import HomepageFeatures from '@site/src/components/HomepageFeatures';
 import Heading from '@theme/Heading';
 
 import styles from './index.module.css';
+import CoverElement from '../components/CoverElement';
 
-function HomepageHeader() {
+
+function CoverContent(): ReactNode {
   const { siteConfig } = useDocusaurusContext();
   return (
-    <header className={clsx('hero hero--primary', styles.heroBanner)}>
-      <div className="container">
-        <Heading as="h1" className="hero__title">
-          {siteConfig.title}
-        </Heading>
-        <p className="hero__subtitle">{siteConfig.tagline}</p>
-        <div className={styles.buttons}>
-          <Link
-            className="button button--secondary button--lg"
-            to="/docs/category/getting-started">
-            Docusaurus Tutorial - 5min ⏱️
-          </Link>
-        </div>
+    <div className={styles.coverContent} >
+      <img src="/assets/images/brand.png" className={styles.brand} alt="NEXUS Framework" />
+      <p className={styles.tagline}>A <strong>battle-tested</strong> collection of game-ready plugins for <strong>Unreal Engine</strong>.</p>
+      <p className={styles.tagline}>The <strong>NEXUS Framework</strong> offers commonly used patterns and <strong><em>opinionated</em></strong> solutions for various areas of <strong>game development</strong>.</p>
+      <div className={styles.buttons}>
+        <Link className={classnames("button button--primary button--lg shadow--tl", styles.getStarted)}
+          to={"https://github.com/dotBunny/NEXUS"}>
+          Download From GitHub
+        </Link>
+        <Link className={classnames("button button--secondary button--lg shadow--tl", styles.getStarted)}
+          to={useBaseUrl("docs/category/getting-started/")}>
+          Getting Started
+        </Link>
       </div>
-    </header>
+    </div>
   );
 }
 
@@ -35,9 +39,8 @@ export default function Home(): ReactNode {
     <Layout
       title={`${siteConfig.title}`}
       description={`${siteConfig.tagline}`}>
-      < HomepageHeader />
       <main>
-        <HomepageFeatures />
+        <CoverElement content={<CoverContent />} background="/assets/images/background.jpg" />
       </main>
     </Layout >
   );

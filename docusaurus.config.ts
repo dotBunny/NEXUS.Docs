@@ -122,7 +122,7 @@ const config: Config = {
           ],
         },
         {
-          title: 'More',
+          title: 'Extras',
           items: [
             {
               to: '/license',

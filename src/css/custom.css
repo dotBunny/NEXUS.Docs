@@ -54,14 +54,12 @@
   margin-right: -0.22em !important;
 }
 
-.muted {
-  opacity: 0.5;
+.navbar__logo img {
+  height: 22px;
+  width: 22px;
+  margin-top: 0.3em;
+  margin-right: 0.12em;
 }
-
-a.muted {
-  color: var(--ifm-color-dark);
-}
-
 
 .header-github-link:before {
   content: "";
@@ -76,4 +74,12 @@ a.muted {
 
 .header-github-link:hover:before {
   background-color: var(--ifm-navbar-link-hover-color)
+}
+
+.muted {
+  opacity: 0.5;
+}
+
+a.muted {
+  color: var(--ifm-color-dark);
 }
