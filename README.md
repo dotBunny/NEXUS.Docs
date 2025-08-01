@@ -44,6 +44,6 @@ You will need to install [Node.js](https://nodejs.org/en/download), and navigate
 
 Using the `npm run start` command will build an **live** hosting environment which will react to changes in the source files. This is typically how you will want to work on changes so that you can see the output in real-time. If you've built the output already (`npm run build`) you can also statically host that content via `npm run serve`. 
 
-## Deploying
+## Deployment
 
 We utilize a GitHub Workflow to generate the documentation based on the repository and upload it directly via the GitHub pages deployment action.
