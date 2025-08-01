@@ -39,10 +39,10 @@ img.brand {
   border-width: 5px;
   border-style: solid;
   border-radius: 5px;
-  ;
 }
 
-.buttonSVG {
+.buttonSVG,
+.buttonSVGRP {
   line-height: 24px;
   height: 24px;
   width: 24px;
@@ -51,19 +51,11 @@ img.brand {
 }
 
 .buttonSVGRP {
-  line-height: 24px;
-  height: 24px;
-  width: 24px;
-  margin-left: -10px;
   margin-right: 5px;
-  vertical-align: sub;
 }
 
 .buttons a {
-  margin-right: 1rem;
+  margin-right: 0.75rem;
+  margin-left: 0.75rem
   margin-bottom: 1rem;
-}
-
-.buttons a:nth-last-child(1) {
-  margin-right: 0rem;
 }
