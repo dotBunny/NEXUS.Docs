@@ -14,13 +14,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.1] - 2025-08-01
 
-### Fixes
+### Changed
 
-- Resolves issues with `Shipping` build configuration (accidental reference to `FunctionalTesting` modules in `Core`)
-
-### Known Issues
-
-- The `NSamplesDisplayActor` is still based off of the `AFunctionalTest` which is part of `FunctionalTesting`, thus any usage of it will prevent a shipping build from completing.
+- Resolves issues with `Shipping` build configuration (accidental reference to `FunctionalTesting` modules in `Core`).
+- Resolves issues with `Shipping` build configuration for `NSamplesDisplayActor`, in shipping builds the test portions will not function.
 
 ## [0.1.0] - 2025-07-31
 
@@ -35,5 +32,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `NPicker` *Selection functionality for points and other items.*
 - `NUI` *Components for creating a user interface based on UMG/Slate.*
 
-[0.1.1]: https://github.com/olivierlacan/keep-a-changelog/compare/v0.1.0...v0.1.1
+[0.1.1]: https://github.com/dotBunny/NEXUS/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/dotBunny/NEXUS/releases/tag/v0.1.0
