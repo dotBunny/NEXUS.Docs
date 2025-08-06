@@ -182,7 +182,63 @@ const config: Config = {
         editCurrentVersion: false,
         sidebarPath: './sidebarsCommunity.js',
       } satisfies DocsOptions,
-    ]
+    ],
+    // CHANGELOG - MAIN
+    [
+      "docusaurus-plugin-remote-content",
+      {
+        name: "changelog",
+        sourceBaseUrl: "https://raw.githubusercontent.com/dotBunny/NEXUS/refs/heads/main/",
+        outDir: "community",
+        documents: ["CHANGELOG.md"],
+        modifyContent(filename, content) {
+          if (filename.includes("CHANGELOG")) {
+            return {
+              filename: "changelog.md",
+              content: `---
+title: Changelog (Main)
+description: A semantic versioned changelog.
+hide_table_of_contents: false
+sidebar_position: 3
+---
+
+${content}`, // <-- this last part adds in the rest of the content, which would otherwise be discarded
+            }
+          }
+
+          // we don't want to modify this item, since it doesn't contain "README" in the name
+          return undefined
+        },
+      },
+    ],
+    // CHANGELOG - DEV
+    [
+      "docusaurus-plugin-remote-content",
+      {
+        name: "changelog-dev", // used by CLI, must be path safe
+        sourceBaseUrl: "https://raw.githubusercontent.com/dotBunny/NEXUS/refs/heads/dev/", // the base url for the markdown (gets prepended to all of the documents when fetching)
+        outDir: "community", // the base directory to output to.
+        documents: ["CHANGELOG.md"], // the file names to download
+        modifyContent(filename, content) {
+          if (filename.includes("CHANGELOG")) {
+            return {
+              filename: "changelog-dev.md",
+              content: `---
+title: Changelog (Dev)
+description: A semantic versioned changelog.
+hide_table_of_contents: false
+sidebar_position: 4
+---
+
+${content}`, // <-- this last part adds in the rest of the content, which would otherwise be discarded
+            }
+          }
+
+          // we don't want to modify this item, since it doesn't contain "README" in the name
+          return undefined
+        },
+      },
+    ],
   ]
 };
 

@@ -1,8 +1,8 @@
 ---
-title: Changelog (Main)
+title: Changelog (Dev)
 description: A semantic versioned changelog.
 hide_table_of_contents: false
-sidebar_position: 3
+sidebar_position: 4
 ---
 
 # Changelog
@@ -12,9 +12,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.0] - ???
+
+### Added
+
+- [[#31](https://github.com/dotBunny/NEXUS/issues/31)] Added watermark option to `NSamplesDisplayActor`. 
+- [[#45](https://github.com/dotBunny/NEXUS/issues/45)] Configurable default `NActorPool` settings via project settings (`Projct Settings > Nexus > Actor Pools`).
+- [[#47](https://github.com/dotBunny/NEXUS/issues/47)] Add update channel support to the framework.
+- Ability to determine if game is running inside of a multiplayer test via both utility and blueprint library methods.
+- Support to programatically allow config files to be staged via `FNEditorUtils::AllowConfigFileForStaging`.
+  
+### Changed
+
+- [[#48](https://github.com/dotBunny/NEXUS/issues/48)] Use `HideCategories` instead of using a layout customizer pattern.  
+- Corrected comparison link at bottom of `CHANGELOG`.
+- Renamed `InstanceObjects` to `DelayedEditorTask` types.
+
 ## [0.1.1] - 2025-08-01
 
-### Fixes
+### Changed
 
 - Resolves issues with `Shipping` build configuration (accidental reference to `FunctionalTesting` modules in `Core`).
 - Resolves issues with `Shipping` build configuration for `NSamplesDisplayActor`, in shipping builds the test portions will not function.
@@ -32,5 +48,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `NPicker` *Selection functionality for points and other items.*
 - `NUI` *Components for creating a user interface based on UMG/Slate.*
 
-[0.1.1]: https://github.com/olivierlacan/keep-a-changelog/compare/v0.1.0...v0.1.1
+[0.1.1]: https://github.com/dotBunny/NEXUS/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/dotBunny/NEXUS/releases/tag/v0.1.0
