@@ -183,7 +183,6 @@ const config: Config = {
         sidebarPath: './sidebarsCommunity.js',
       } satisfies DocsOptions,
     ],
-    // CHANGELOG - MAIN
     [
       "docusaurus-plugin-remote-content",
       {
@@ -202,23 +201,20 @@ hide_table_of_contents: false
 sidebar_position: 3
 ---
 
-${content}`, // <-- this last part adds in the rest of the content, which would otherwise be discarded
+${content}`
             }
           }
-
-          // we don't want to modify this item, since it doesn't contain "README" in the name
           return undefined
         },
       },
     ],
-    // CHANGELOG - DEV
     [
       "docusaurus-plugin-remote-content",
       {
-        name: "changelog-dev", // used by CLI, must be path safe
-        sourceBaseUrl: "https://raw.githubusercontent.com/dotBunny/NEXUS/refs/heads/dev/", // the base url for the markdown (gets prepended to all of the documents when fetching)
-        outDir: "community", // the base directory to output to.
-        documents: ["CHANGELOG.md"], // the file names to download
+        name: "changelog-dev",
+        sourceBaseUrl: "https://raw.githubusercontent.com/dotBunny/NEXUS/refs/heads/dev/",
+        outDir: "community",
+        documents: ["CHANGELOG.md"],
         modifyContent(filename, content) {
           if (filename.includes("CHANGELOG")) {
             return {
@@ -230,11 +226,9 @@ hide_table_of_contents: false
 sidebar_position: 4
 ---
 
-${content}`, // <-- this last part adds in the rest of the content, which would otherwise be discarded
+${content}`
             }
           }
-
-          // we don't want to modify this item, since it doesn't contain "README" in the name
           return undefined
         },
       },
