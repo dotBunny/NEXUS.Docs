@@ -22,8 +22,4 @@ While there are aspirations of distributing the framework via [Fab](https://www.
 
 ## Placement
 
-### Project Plugins
-
-### External Plugins
-
-### Engine Plugins
+The framework has been tested to work when placed inside of a Project's `Plugins` folder, as well as referenced via External Plugins references.
