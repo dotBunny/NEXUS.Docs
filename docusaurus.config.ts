@@ -123,6 +123,10 @@ const config: Config = {
             {
               to: '/license',
               label: 'License',
+            },
+            {
+              to: '/docs/tags',
+              label: 'Tags',
 
             },
           ],

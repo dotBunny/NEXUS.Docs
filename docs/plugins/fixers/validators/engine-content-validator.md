@@ -1,5 +1,6 @@
 ---
 sidebar_position: 2
+tags: [0.2.0]
 ---
 
 # NEngineContentValidator
@@ -31,3 +32,20 @@ The severity and behaviour of this validator can be configured, project-wide in 
 
 ![Engine Content Preferences](engine-content-preferences.png)
 
+### Gotcha (Materials)
+
+One culprit that can cause changes to be reflected in the Engine Content comes from Materials and the default behaviour of applying flag changes based on their usage.
+
+A contrived example of this would be if you used the `WorldGridMaterial` on a Niagara visual effect with mesh particles. This would automatically toggle on the `Used with Niagara Mesh Particles` flag on the material; a change would happen with very little awareness to the user outside of their initial assignment action.
+
+Because of this scenario, it can be recommended that for your own base materials you disable the `Automatically Set Usage In Editor` setting.
+
+![Automatically Set Editor Usage](engine-content-material-usage.png)
+
+Why isn't this disabled for the Editor materials? Great question! _crickets ..._
+
+### Critical Workflows
+
+Some assets identified as **Default Materials** inside of `/Engine/` are so critical that they have explicit warnings when you go to open them for editing. Unfortunately, there are many scenarios where such expressive warnings are not presented to the user, like in the above scenario. This further validates the importance of contributors being able to reason about what's in their changelists.
+
+![Content Warning](engine-content-material-warning.png)
