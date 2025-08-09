@@ -14,7 +14,7 @@ In the spirit of openness and accountability, we are utilizing a GitHub project 
 
 | Version                                                | High-Level Goal(s)                                                                                           | ETA          |
 | ------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------ |
-| [0.2.0](https://github.com/dotBunny/NEXUS/milestone/2) | **Procedural Generation**<br/>A mix of different systems and techniques to create level geometry at runtime. | October 2025 |
-| [0.3.0](https://github.com/dotBunny/NEXUS/milestone/3) | **Developer Console/Menu**<br />A visual developer console that allows for UI-based commands.                | January 2026 |
-| [0.4.0](https://github.com/dotBunny/NEXUS/milestone/4) | TBD                                                                                                          |              |
+| [0.2.0](https://github.com/dotBunny/NEXUS/milestone/2) | **Documentation**<br/>Bring up the documentation to an acceptable level, as well as clean up API.            | October 2025 |
+| [0.3.0](https://github.com/dotBunny/NEXUS/milestone/2) | **Procedural Generation**<br/>A mix of different systems and techniques to create level geometry at runtime. | January 2026 |
+| [0.4.0](https://github.com/dotBunny/NEXUS/milestone/3) | **Developer Console/Menu**<br />A visual developer console that allows for UI-based commands.                | May 2026     |
 | [0.5.0](https://github.com/dotBunny/NEXUS/milestone/5) | **Fab Release**<br />A gift to game developers.                                                              | July 2026    |
