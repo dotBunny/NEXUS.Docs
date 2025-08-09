@@ -1,0 +1,13 @@
+.pluginDetails {}
+
+.pluginDetailsContainer {}
+
+.pluginDetailsIcon {}
+
+.pluginDetailsRow {
+  display: flex !important;
+}
+
+.pluginDetailsRow :nth-child(1) {
+  min-width: 6vw;
+}

@@ -8,7 +8,7 @@ sidebar_position: 2
 
 By going to the `Edit -> Plugins` you can configure what parts of the **NEXUS** Framework are loaded.
 
-![Plugins Window](configuration-plugins-window.png)
+![Plugins Window](configuration-plugins-window.webp)
 
 ### NEXUS
 
@@ -22,7 +22,7 @@ For many plugins, there is a counterpart plugin that houses sample content. They
 
 Depending on the plugin, corresponding entries will appear in the **NEXUS** section of the **Editor Preferences**.
 
-![Editor Preferences Window](configuration-editor-preferences.png)
+![Editor Preferences Window](configuration-editor-preferences.webp)
 
 :::info
 
