@@ -12,7 +12,7 @@ By going to the `Edit -> Plugins` you can configure what parts of the **NEXUS** 
 
 ### NEXUS
 
-A full list of the available plugins in the **NEXUS** Framework, with only [NEXUS: Core](/docs/category/core/) being enabled by default. This pattern enables users to selectively utilize only what they need for their project, minimizing any additional overhead that plugins may cause.
+A full list of the available plugins in the **NEXUS** Framework, with only [NEXUS: Core](/docs/plugins/core/) being enabled by default. This pattern enables users to selectively utilize only what they need for their project, minimizing any additional overhead that plugins may cause.
 
 ### NEXUS Samples
 
