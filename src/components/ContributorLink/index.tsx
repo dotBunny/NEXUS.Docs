@@ -20,6 +20,6 @@ var Contributors: { [id: string]: IContributor; } = {
 
 export default function ContributorLink({ id }): ReactNode {
   return (
-    Contributors[id].alias
+    <a href={Contributors[id].social}>{`@${Contributors[id].alias}`}</a>
   )
 }
