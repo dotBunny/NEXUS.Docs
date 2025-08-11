@@ -1,12 +1,17 @@
 ---
-sidebar_position: 1
+description: Generalized pooling system for Actors.
+sidebar_position: 2
 ---
 
+import DocCardList from '@theme/DocCardList';
 import PluginDetails from '../../../src/components/PluginDetails';
 
-# Overview
+# Actor Pools
 
-<PluginDetails icon="/assets/images/plugins/actor-pools/actor-pools-icon.webp" iconAlt="NActorPools" initialVersion="0.1.0" />
+<PluginDetails icon="/assets/images/plugins/actor-pools-icon.webp" moduleName="NexusActorPools" shortName="NActorPools" initialRelease="0.1.0" owner="reapazor">
+  <dt>Description:</dt>
+  <dd>{frontMatter.description}</dd>
+</PluginDetails>
 
 This plugin is purpose-built for scenarios with high-frequency `AActor` reusage:
 
@@ -16,3 +21,5 @@ This plugin is purpose-built for scenarios with high-frequency `AActor` reusage:
 
 The pooling concept dramatically improves performance by eliminating the cost of spawning `AActors` and the associated garbage collection spikes, resulting in reduced hiccups and overhead associated with `AActor` usage. 
 It is important to note that there are bespoke pooling systems included with different parts of the engine; these should be utilized when available.
+
+<DocCardList />
