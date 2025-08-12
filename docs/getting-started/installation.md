@@ -1,11 +1,11 @@
 ---
 sidebar_position: 1
+description: It has got to go somewhere, and that somewhere is entirely up to you!
 ---
 
 # Installation
 
 ## Acquiring The Framework
-
 
 There are numerous ways to include the framework into your Unreal project; ultimately, you control where you place your plugins. How and where you acquire **NEXUS** really is entirely dependent on you.
 

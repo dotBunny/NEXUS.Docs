@@ -1,5 +1,6 @@
 ---
 sidebar_position: 2
+description: No one wants to be forced into having a bunch of overhead, so we utilize a plugin à la carte setup where you opt into just the functionality you want.
 ---
 
 # Configuration

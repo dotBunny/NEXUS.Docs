@@ -132,3 +132,8 @@ a.muted {
 .dropshadow {
   text-shadow: -1px -1px 0 var(--ifm-footer-background-color), 1px -1px 0 var(--ifm-footer-background-color), -1px 1px 0 var(--ifm-footer-background-color), 1px 1px 0 var(--ifm-footer-background-color);
 }
+
+a.card p.text--truncate {
+  overflow: unset;
+  white-space: normal;
+}
