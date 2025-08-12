@@ -3,6 +3,7 @@ title: License
 description: BSL-1.0
 hide_table_of_contents: false
 sidebar_position: 11
+keywords: [license, bsl, terms, legal]
 ---
 
 # License
