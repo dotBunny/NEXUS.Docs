@@ -139,36 +139,11 @@ const config: Config = {
       darkTheme: prismThemes.dracula,
     },
     algolia: {
-      // The application ID provided by Algolia
       appId: 'D8GP244DEM',
-
-      // Public API key: it is safe to commit it
       apiKey: 'bd75718f03cda407bf3d9fb59f637d96',
-
       indexName: 'nexus_framework_com_d8gp244dem_articles',
-
-      // Optional: see doc section below
-      contextualSearch: true,
-
-      // Optional: Specify domains where the navigation should occur through window.location instead on history.push. Useful when our Algolia config crawls multiple documentation sites and we want to navigate with window.location.href to them.
-      externalUrlRegex: 'external\\.com|domain\\.com',
-
-      // Optional: Replace parts of the item URLs from Algolia. Useful when using the same search index for multiple deployments using a different baseUrl. You can use regexp or string in the `from` param. For example: localhost:3000 vs myCompany.com/docs
-      replaceSearchResultPathname: {
-        from: '/docs/', // or as RegExp: /\/docs\//
-        to: '/',
-      },
-
-      // Optional: Algolia search parameters
-      searchParameters: {},
-
-      // Optional: path for search page that enabled by default (`false` to disable it)
+      contextualSearch: false,
       searchPagePath: 'search',
-
-      // Optional: whether the insights feature is enabled or not on Docsearch (`false` by default)
-      insights: false,
-
-      //... other Algolia params
     },
 
     markdown: {
