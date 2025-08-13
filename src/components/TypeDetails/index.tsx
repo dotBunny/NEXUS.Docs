@@ -1,16 +1,16 @@
 import type { ReactNode } from 'react';
 import styles from './styles.module.css';
 
-export default function TypeDetails({ icon, moduleName, shortName, initialRelease, owner, children }): ReactNode {
+export default function TypeDetails({ icon, typeName, typeNameExtra, headerFile, children }): ReactNode {
 
   return (
     <div className={styles.typeDetails}>
-      <div className={styles.typeDetailsIcon}><img src={icon} alt={moduleName} /></div>
+      <div className={styles.typeDetailsIcon}>{icon}</div>
       <dl>
-        <dt>Module Name:</dt>
-        <dd>{moduleName}</dd>
-        <dt>Initial Release:</dt>
-        <dd>{initialRelease}</dd>
+        <dt>Type Name:</dt>
+        <dd>{typeName} <span>{typeNameExtra}</span></dd>
+        <dt>Header File:</dt>
+        <dd>{headerFile}</dd>
         {children}
       </dl>
     </div>

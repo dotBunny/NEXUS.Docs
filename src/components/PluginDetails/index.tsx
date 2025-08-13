@@ -9,13 +9,13 @@ export default function PluginDetails({ icon, moduleName, shortName, initialRele
       <div className={styles.pluginDetailsIcon}><img src={icon} alt={moduleName} /></div>
       <dl>
         <dt>Module Name:</dt>
-        <dd>{moduleName}</dd>
+        <dd>{moduleName} <span>/ {shortName}</span></dd>
         <dt>Initial Release:</dt>
         <dd>{initialRelease}</dd>
         {children}
         <dt>Area Owner:</dt>
         <dd><ContributorLink id={owner} /></dd>
       </dl>
-    </div>
+    </div >
   );
 }

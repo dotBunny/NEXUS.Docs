@@ -1,5 +1,5 @@
 ---
-sidebar_position: 4
+sidebar_position: 5
 sidebar_label: FAQ
 description: Some of the more common questions that come to mind are answered.
 ---
