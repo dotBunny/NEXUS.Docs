@@ -2,6 +2,7 @@
 sidebar_position: 8
 sidebar_label: Actor Pool Subsystem
 sidebar_class_name: type ue-world-subsystem
+description: TBD
 ---
 
 import TypeDetails from '../../../../src/components/TypeDetails';

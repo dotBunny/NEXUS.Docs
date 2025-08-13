@@ -2,6 +2,7 @@
 sidebar_position: 1
 sidebar_label: Actor Pool
 sidebar_class_name: type native-class
+description: A runtime object pool that efficiently manages a collections of spawned AActors.
 ---
 
 import TypeDetails from '../../../../src/components/TypeDetails';
@@ -24,7 +25,7 @@ Refer to [UNActorPoolSubsystem](actor-pool-subsystem.md) for both _blueprint_ an
 - **Efficient Actor Management**: Pre-spawns a configurable number of actors and keeps them ready for immediate use.
 - **Seamless Spawning**: Provides `Get()` and `Spawn()` methods that retrieve actors from the pool instantly, avoiding the overhead of traditional actor spawning.
 - **Automatic Return**: Allows actors to be returned to the pool via the `Return()` method for reuse.
-- **Configurable Settings**: Supports customizable pool settings including minimum pool sizes and spawning strategies.
+- **Configurable Settings**: Supports customizable pool settings via [UNActorPoolSettings](actor-pool-settings.md) including minimum pool sizes and spawning strategies.
 - **Smart Initialization**: Can pre-fill or "warm" the pool with a specified number of actors.
 
 ## Key Benefits

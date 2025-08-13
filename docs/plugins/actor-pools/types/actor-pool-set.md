@@ -2,6 +2,7 @@
 sidebar_position: 3
 sidebar_label: Actor Pool Set
 sidebar_class_name: type ue-data-asset
+description: TBD
 ---
 
 import TypeDetails from '../../../../src/components/TypeDetails';

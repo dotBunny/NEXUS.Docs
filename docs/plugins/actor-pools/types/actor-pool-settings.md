@@ -2,6 +2,7 @@
 sidebar_position: 2
 sidebar_label: Actor Pool Settings
 sidebar_class_name: type native-struct
+description: TBD
 ---
 
 import TypeDetails from '../../../../src/components/TypeDetails';

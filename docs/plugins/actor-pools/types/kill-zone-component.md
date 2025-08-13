@@ -2,6 +2,7 @@
 sidebar_position: 7
 sidebar_label: Kill Zone Component
 sidebar_class_name: type ue-actor-component
+description: TBD
 ---
 
 import TypeDetails from '../../../../src/components/TypeDetails';
