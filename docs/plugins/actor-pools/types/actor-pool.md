@@ -10,11 +10,11 @@ import TypeDetails from '../../../../src/components/TypeDetails';
 
 <TypeDetails icon="native-class" base="class" type="FNActorPool" typeExtra="" headerFile="NexusActorPools/Public/NActorPool.h" />
 
-A runtime object pool that efficiently manages a collections of spawned `AActors`. It's designed to improve performance by reusing actors instead of constantly creating and destroying them, which is particularly beneficial for frequently spawned objects like projectiles or enemies.
+A runtime object pool that efficiently manages a collections of spawned `AActors`. It's designed to improve performance by reusing actors instead of constantly creating and destroying them, which is particularly beneficial for frequently spawned objects like projectiles or enemies. This particular object should typically only be interacted with _natively_ and through accessors from the `UNActorPoolSubsystem`.
 
 :::tip[Usage]
 
-Refer to [UNActorPoolSubsystem](actor-pool-subsystem.md) for usage examples.
+Refer to [UNActorPoolSubsystem](actor-pool-subsystem.md) for both _blueprint_ and _native_ usage examples.
 
 :::
 
@@ -27,10 +27,11 @@ Refer to [UNActorPoolSubsystem](actor-pool-subsystem.md) for usage examples.
 - **Configurable Settings**: Supports customizable pool settings including minimum pool sizes and spawning strategies.
 - **Smart Initialization**: Can pre-fill or "warm" the pool with a specified number of actors.
 
-## Key Benefits:
+## Key Benefits
+
 - **Performance**: Eliminates the cost of repeatedly spawning and destroying actors.
 - **Memory Management**: Reduces garbage collection pressure by reusing existing objects.
 - **Consistency**: Provides predictable performance for systems that require frequent actor creation.
 - **Flexibility**: Works with any Subclass of `AActor` and supports interface-based customization through `INActorPoolItem`.
 
-This system is particularly valuable in scenarios where you need to spawn many similar actors frequently, such as bullet hell games, or any situation where object creation/destruction becomes a performance bottleneck.
+This technique is particularly valuable in scenarios where you need to spawn many similar actors frequently, such as bullet hell games, or any situation where object creation/destruction becomes a performance bottleneck.

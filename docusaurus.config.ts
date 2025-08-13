@@ -103,7 +103,7 @@ const config: Config = {
           items: [
             {
               label: 'Getting Started',
-              to: '/docs/category/getting-started/',
+              to: '/docs/getting-started/',
             },
             {
               label: 'Contributing',
