@@ -137,3 +137,42 @@ a.card p.text--truncate {
   overflow: unset;
   white-space: normal;
 }
+
+
+li.type a::before {
+  content: "";
+  background-color: var(--ifm-menu-color);
+  width: 16px;
+  height: 16px;
+  margin-right: 0.3rem;
+  vertical-align: middle;
+}
+
+li.type a.menu__link--active::before {
+  background-color: var(--ifm-menu-color-active);
+}
+
+/* li.interface a::before {
+  -webkit-mask-image: url("/assets/svg/gear-rounded.svg");
+  mask-image: url("/assets/svg/gear-rounded.svg");
+}
+
+li.class a::before {
+  -webkit-mask-image: url("/assets/svg/types/class.svg");
+  mask-image: url("/assets/svg/types/class.svg");
+}
+
+li.struct a::before {
+  -webkit-mask-image: url("/assets/svg/types/struct.svg");
+  mask-image: url("/assets/svg/types/struct.svg");
+}
+
+li.uobject a::before {
+  -webkit-mask-image: url("/assets/svg/types/uobject.svg");
+  mask-image: url("/assets/svg/types/uobject.svg");
+}
+
+li.component a::before {
+  -webkit-mask-image: url("/assets/svg/types/component.svg");
+  mask-image: url("/assets/svg/types/component.svg");
+} */
