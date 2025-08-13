@@ -5,8 +5,8 @@ import ContributorLink from '../ContributorLink'
 export default function PluginDetails({ icon, moduleName, shortName, initialRelease, owner, children }): ReactNode {
 
   return (
-    <div className={styles.pluginDetails}>
-      <div className={styles.pluginDetailsIcon}><img src={icon} alt={moduleName} /></div>
+    <div className="pluginDetails">
+      <div className="pluginDetailsIcon"><img src={icon} alt={moduleName} /></div>
       <dl>
         <dt>Module Name:</dt>
         <dd>{moduleName} <span>/ {shortName}</span></dd>
@@ -16,6 +16,6 @@ export default function PluginDetails({ icon, moduleName, shortName, initialRele
         <dt>Area Owner:</dt>
         <dd><ContributorLink id={owner} /></dd>
       </dl>
-    </div >
+    </div>
   );
 }

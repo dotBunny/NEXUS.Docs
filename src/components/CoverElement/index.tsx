@@ -15,12 +15,12 @@ export default function CoverElement({ content, background, padding }: CoverElem
   };
 
   return (
-    <div className={styles.coverElement} style={divStyle}>
+    <div className="coverElement" style={divStyle}>
       <div className="container">
         <div className="row">
           {content}
         </div>
       </div>
-    </div >
+    </div>
   );
 }

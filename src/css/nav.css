@@ -1,0 +1,68 @@
+/* NAV / HEADER */
+
+.navbar__title:before {
+  content: "";
+  background-color: var(--ifm-navbar-link-color);
+  width: 24px;
+  height: 24px;
+  transition: background-color var(--ifm-transition-fast)var(--ifm-transition-timing-default);
+  float: left;
+  margin-top: .1em;
+  margin-right: -.1em;
+  -webkit-mask-image: url("/assets/svg/nexus-current.svg");
+  mask-image: url("/assets/svg/nexus-current.svg");
+  mask-size: 24px 24px;
+}
+
+.navbar__title:hover:before {
+  background-color: var(--ifm-navbar-link-hover-color)
+}
+
+
+.navbar__logo {
+  display: none;
+  margin-right: -0.22em !important;
+}
+
+.navbar__logo img {
+  height: 22px;
+  width: 22px;
+  margin-top: 0.3em;
+  margin-right: 0.12em;
+}
+
+.header-docs-link:before,
+.header-community-link:before {
+  content: "";
+  background-color: var(--ifm-navbar-link-color);
+  width: 16px;
+  height: 16px;
+  transition: background-color var(--ifm-transition-fast)var(--ifm-transition-timing-default);
+  float: left;
+  vertical-align: middle;
+  margin-right: 5px;
+  margin-top: 5px;
+}
+
+.header-docs-link:before {
+  -webkit-mask-image: url("/assets/svg/journal-bookmark-fill.svg");
+  mask-image: url("/assets/svg/journal-bookmark-fill.svg");
+}
+
+.header-community-link:before {
+  margin-right: 3px;
+  -webkit-mask-image: url("/assets/svg/house-heart.svg");
+  mask-image: url("/assets/svg/house-heart.svg");
+}
+
+.header-docs-link:hover:before,
+.header-community-link:hover:before {
+  background-color: var(--ifm-navbar-link-hover-color)
+}
+
+.header-docs-link.navbar__link--active:before,
+.header-community-link.navbar__link--active:before,
+.header-docs-link.menu__link--active:before,
+.header-community-link.menu__link--active:before {
+  background-color: var(--ifm-navbar-link-hover-color)
+}

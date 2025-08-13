@@ -1,0 +1,149 @@
+/* TYPE DEFINITIONS PREAMBLE */
+
+li.type a::before {
+  content: "";
+  background-color: var(--ifm-menu-color);
+  width: 16px;
+  height: 16px;
+  margin-right: 0.5rem;
+  vertical-align: top;
+}
+
+li.type a.menu__link--active::before {
+  background-color: var(--ifm-menu-color-active);
+}
+
+/* TYPE DEFINITIONS */
+
+a.card.type.native-class h2::before,
+.typeDetailsIcon .type.native-class,
+.type.native-class a::before {
+  -webkit-mask-image: url("/assets/svg/types/native-class.svg");
+  mask-image: url("/assets/svg/types/native-class.svg");
+}
+
+a.card.type.native-interface h2::before,
+.typeDetailsIcon .type.native-interface,
+.type.native-interface a::before {
+  -webkit-mask-image: url("/assets/svg/types/native-interface.svg");
+  mask-image: url("/assets/svg/types/native-interface.svg");
+}
+
+a.card.type.ue-interface h2::before,
+.typeDetailsIcon .type.ue-interface,
+.type.ue-interface a::before {
+  -webkit-mask-image: url("/assets/svg/types/ue-interface.svg");
+  mask-image: url("/assets/svg/types/ue-interface.svg");
+}
+
+a.card.type.native-enum h2::before,
+.typeDetailsIcon .type.native-enum,
+.type.native-enum a::before {
+  -webkit-mask-image: url("/assets/svg/types/native-enum.svg");
+  mask-image: url("/assets/svg/types/native-enum.svg");
+}
+
+a.card.type.ue-enum h2::before,
+.typeDetailsIcon .type.ue-enum,
+.type.ue-enum a::before {
+  -webkit-mask-image: url("/assets/svg/types/ue-enum.svg");
+  mask-image: url("/assets/svg/types/ue-enum.svg");
+}
+
+a.card.type.native-struct h2::before,
+.typeDetailsIcon .type.native-struct,
+.type.native-struct a::before {
+  -webkit-mask-image: url("/assets/svg/types/native-struct.svg");
+  mask-image: url("/assets/svg/types/native-struct.svg");
+}
+
+a.card.type.type.ue-actor-component h2::before,
+.typeDetailsIcon .type.ue-actor-component,
+.type.ue-actor-component a::before {
+  -webkit-mask-image: url("/assets/svg/types/ue-actor-component.svg");
+  mask-image: url("/assets/svg/types/ue-actor-component.svg");
+}
+
+a.card.type.ue-actor h2::before,
+.typeDetailsIcon .type.ue-actor,
+.type.ue-actor a::before {
+  -webkit-mask-image: url("/assets/svg/types/ue-actor.svg");
+  mask-image: url("/assets/svg/types/ue-actor.svg");
+}
+
+a.card.type.ue-blueprint-function-library h2::before,
+.typeDetailsIcon .type.ue-blueprint-function-library,
+.type.ue-blueprint-function-library a::before {
+  -webkit-mask-image: url("/assets/svg/types/ue-blueprint-function-library.svg");
+  mask-image: url("/assets/svg/types/ue-blueprint-function-library.svg");
+}
+
+a.card.type.ue-data-asset h2::before,
+.typeDetailsIcon .type.ue-data-asset,
+.type.ue-data-asset a::before {
+  -webkit-mask-image: url("/assets/svg/types/ue-data-asset.svg");
+  mask-image: url("/assets/svg/types/ue-data-asset.svg");
+}
+
+a.card.type.ue-data-table h2::before,
+.typeDetailsIcon .type.ue-data-table,
+.type.ue-data-table a::before {
+  -webkit-mask-image: url("/assets/svg/types/ue-data-table.svg");
+  mask-image: url("/assets/svg/types/ue-data-table.svg");
+}
+
+a.card.type.ue-object h2::before,
+.typeDetailsIcon .type.ue-object,
+.type.ue-object a::before {
+  -webkit-mask-image: url("/assets/svg/types/ue-object.svg");
+  mask-image: url("/assets/svg/types/ue-object.svg");
+}
+
+a.card.type.ue-pawn h2::before,
+.typeDetailsIcon .type.ue-pawn,
+.type.ue-pawn a::before {
+  -webkit-mask-image: url("/assets/svg/types/ue-pawn.svg");
+  mask-image: url("/assets/svg/types/ue-pawn.svg");
+}
+
+a.card.type.ue-scene-component h2::before,
+.typeDetailsIcon .type.ue-scene-component,
+.type.ue-scene-component a::before {
+  -webkit-mask-image: url("/assets/svg/types/ue-scene-component.svg");
+  mask-image: url("/assets/svg/types/ue-scene-component.svg");
+}
+
+a.card.type.ue-widget-blueprint h2::before,
+.typeDetailsIcon .type.ue-widget-blueprint,
+.type.ue-widget-blueprint a::before {
+  -webkit-mask-image: url("/assets/svg/types/ue-widget-blueprint.svg");
+  mask-image: url("/assets/svg/types/ue-widget-blueprint.svg");
+}
+
+a.card.type.ue-settings h2::before,
+.typeDetailsIcon .type.ue-settings,
+.type.ue-settings a::before {
+  -webkit-mask-image: url("/assets/svg/types/ue-settings.svg");
+  mask-image: url("/assets/svg/types/ue-settings.svg");
+}
+
+a.card.type.ue-widget h2::before,
+.typeDetailsIcon .type.ue-widget,
+.type.ue-widget a::before {
+  -webkit-mask-image: url("/assets/svg/types/ue-widget.svg");
+  mask-image: url("/assets/svg/types/ue-widget.svg");
+}
+
+a.card.type.ue-world h2::before,
+.typeDetailsIcon .type.ue-world,
+.type.ue-world a::before {
+  -webkit-mask-image: url("/assets/svg/types/ue-world.svg");
+  mask-image: url("/assets/svg/types/ue-world.svg");
+}
+
+a.card.type.ue-world-subsystem h2::before,
+.typeDetailsIcon .type.ue-world-subsystem,
+.type.ue-world-subsystem a::before {
+  -webkit-mask-image: url("/assets/svg/types/ue-world-subsystem.svg");
+  mask-image: url("/assets/svg/types/ue-world-subsystem.svg");
+}

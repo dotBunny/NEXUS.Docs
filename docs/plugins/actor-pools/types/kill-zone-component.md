@@ -1,6 +1,11 @@
 ---
 sidebar_position: 7
-sidebar_label: UNKillZoneComponent
+sidebar_label: Kill Zone Component
+sidebar_class_name: type ue-actor-component
 ---
 
+import TypeDetails from '../../../../src/components/TypeDetails';
+
 # Kill Zone Component
+
+<TypeDetails icon="ue-actor-component" base="UActorComponent" type="UNKillZoneComponent" typeExtra="" headerFile="NexusActorPools/Public/NKillZoneComponent.h" />

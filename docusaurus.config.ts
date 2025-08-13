@@ -51,7 +51,15 @@ const config: Config = {
         },
         blog: false,
         theme: {
-          customCss: './src/css/custom.css',
+          customCss: [
+            './src/css/base.css',
+            './src/css/nav.css',
+            './src/css/lander.css',
+            './src/css/category.css',
+            './src/css/type-details.css',
+            './src/css/type-definitions.css',
+            './src/css/plugin-details.css'
+          ]
         },
       } satisfies Preset.Options,
     ],

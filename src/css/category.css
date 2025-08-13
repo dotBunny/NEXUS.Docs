@@ -1,0 +1,21 @@
+/* CATEGORY */
+
+a.card p.text--truncate {
+  overflow: unset;
+  white-space: normal;
+}
+
+a.card.type h2 {
+  overflow-x: hidden;
+  text-indent: -32px;
+}
+
+a.card.type h2::before {
+  content: "";
+  background-color: var(--ifm-menu-color);
+  width: 2rem;
+  height: 2rem;
+  vertical-align: top;
+  float: right;
+  mask-size: 2rem 2rem;
+}
