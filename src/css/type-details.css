@@ -47,7 +47,7 @@
 .typeDetails dd.headerFile {
 
   font-family: var(--ifm-font-family-monospace);
-  margin-top: 0.15rem;
+  margin-top: auto;
 }
 
 .typeDetailsIcon {
@@ -65,8 +65,7 @@
   height: 3rem;
   content: "";
   background-color: var(--ifm-navbar-link-hover-color);
-  margin: 0px;
-  margin-left: 1rem;
+  margin: auto;
   mask-size: 3rem 3rem;
 }
 
