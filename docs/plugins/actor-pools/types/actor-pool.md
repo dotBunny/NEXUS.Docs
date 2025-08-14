@@ -28,7 +28,7 @@ Refer to [UNActorPoolSubsystem](actor-pool-subsystem.md) for both _blueprint_ an
 - **Configurable Settings**: Supports customizable pool settings via [UNActorPoolSettings](actor-pool-settings.md) including minimum pool sizes and spawning strategies.
 - **Smart Initialization**: Can pre-fill or "warm" the pool with a specified number of actors.
 
-## Key Benefits
+## Benefits
 
 - **Performance**: Eliminates the cost of repeatedly spawning and destroying actors.
 - **Memory Management**: Reduces garbage collection pressure by reusing existing objects.

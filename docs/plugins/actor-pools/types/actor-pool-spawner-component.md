@@ -9,6 +9,6 @@ import TypeDetails from '../../../../src/components/TypeDetails';
 
 # Actor Pool Spawner Component
 
-<TypeDetails icon="ue-actor-component" base="UActorComponent" type="UNActorPoolSpawnerComponent" typeExtra="" headerFile="NexusActorPools/Public/NActorPoolSpawnerComponent.h" />
+<TypeDetails icon="/assets/svg/actor-pools/actor-pool-spawner-component.svg" iconType="img" base="UActorComponent" type="UNActorPoolSpawnerComponent" typeExtra="" headerFile="NexusActorPools/Public/NActorPoolSpawnerComponent.h" />
 
 ![UNActorPoolSpawnerComponent](actor-pool-spawner-component.webp)

@@ -69,6 +69,13 @@
   mask-size: 3rem 3rem;
 }
 
+.typeDetailsIcon img {
+  margin-left: auto;
+  margin-right: auto;
+  width: 4rem;
+  height: 4rem;
+}
+
 .typeDetails span {
   color: var(--ifm-color-emphasis-300);
   font-weight: normal;
