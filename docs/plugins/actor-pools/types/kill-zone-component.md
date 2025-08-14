@@ -10,3 +10,5 @@ import TypeDetails from '../../../../src/components/TypeDetails';
 # Kill Zone Component
 
 <TypeDetails icon="ue-actor-component" base="UActorComponent" type="UNKillZoneComponent" typeExtra="" headerFile="NexusActorPools/Public/NKillZoneComponent.h" />
+
+![UNKillZoneComponent](kill-zone-component.webp)
