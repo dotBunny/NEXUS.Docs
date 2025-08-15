@@ -1,21 +1,140 @@
 import type { ReactNode } from 'react';
-import styles from './styles.module.css';
 import ContributorLink from '../ContributorLink'
 
-export default function PluginDetails({ icon, moduleName, shortName, initialRelease, owner, children }): ReactNode {
+interface IPlugin {
+  icon: string;
+  moduleName: string;
+  shortName: string;
+  initialRelease: string;
+  owner: string;
+  description: string;
+  link: string;
+}
 
-  return (
-    <div className="pluginDetails">
-      <div className="pluginDetailsIcon"><img src={icon} alt={moduleName} /></div>
-      <dl>
-        <dt>Module Name:</dt>
-        <dd>{moduleName} <span>/ {shortName}</span></dd>
-        <dt>Initial Release:</dt>
-        <dd>{initialRelease}</dd>
-        {children}
-        <dt>Area Owner:</dt>
-        <dd><ContributorLink id={owner} /></dd>
-      </dl>
-    </div>
-  );
+var Plugins: { [id: string]: IPlugin; } = {
+
+  "NexusCore": {
+    icon: "/assets/images/plugins/core-icon.webp",
+    moduleName: "NexusCore",
+    shortName: "NCore",
+    initialRelease: "0.1.0",
+    owner: "reapazor",
+    description: "Functionality used by all NEXUS plugins in the framework.",
+    link: "plugins/core/"
+  },
+
+  "NexusActorPools": {
+    icon: "/assets/images/plugins/actor-pools-icon.webp",
+    moduleName: "NexusActorPools",
+    shortName: "NActorPools",
+    initialRelease: "0.1.0",
+    owner: "reapazor",
+    description: "Generalized pooling system for Actors.",
+    link: "plugins/actor-pools/"
+  },
+
+  "NexusDynamicReferences": {
+    icon: "/assets/images/plugins/dynamic-references-icon.webp",
+    moduleName: "NexusDynamicReferences",
+    shortName: "NDynamicReferences",
+    initialRelease: "0.1.0",
+    owner: "reapazor",
+    description: "Method for referring to runtime Actors without knowing them.",
+    link: "plugins/dynamic-references/"
+  },
+
+  "NexusFixers": {
+    icon: "/assets/images/plugins/fixers-icon.webp",
+    moduleName: "NexusFixers",
+    shortName: "NFixers",
+    initialRelease: "0.1.0",
+    owner: "reapazor",
+    description: "A collection of tools for fixing content in the Unreal Editor.",
+    link: "plugins/fixers/"
+  },
+
+  "NexusMaterialLibrary": {
+    icon: "/assets/images/plugins/material-library-icon.webp",
+    moduleName: "NexusMaterialLibrary",
+    shortName: "NMaterialLibrary",
+    initialRelease: "0.1.0",
+    owner: "reapazor",
+    description: "Library of Materials commonly used.",
+    link: "plugins/material-library/"
+  },
+
+  "NexusMultiplayer": {
+    icon: "/assets/images/plugins/multiplayer-icon.webp",
+    moduleName: "NexusMultiplayer",
+    shortName: "NMultiplayer",
+    initialRelease: "0.1.0",
+    owner: "reapazor",
+    description: "Functionality and tools that are useful when developing multiplayer games.",
+    link: "plugins/multiplayer/"
+  },
+
+  "NexusPicker": {
+    icon: "/assets/images/plugins/picker-icon.webp",
+    moduleName: "NexusPicker",
+    shortName: "NPicker",
+    initialRelease: "0.1.0",
+    owner: "reapazor",
+    description: "Selection functionality for points and other items.",
+    link: "plugins/picker/"
+  },
+
+  "NexusUserInterface": {
+    icon: "/assets/images/plugins/ui-icon.webp",
+    moduleName: "NexusUserInterface",
+    shortName: "NUI",
+    initialRelease: "0.1.0",
+    owner: "reapazor",
+    description: "Components for creating a user interface based on UMG/Slate.",
+    link: "plugins/ui/"
+  },
+};
+
+export default function PluginDetails({ moduleName, link, children }): ReactNode {
+
+  if (link) {
+    return (
+      <a href={Plugins[moduleName].link} className="pluginDetailsLink">
+        <div className="pluginDetails">
+          <div className="pluginDetailsIcon"><img src={Plugins[moduleName].icon} alt={moduleName} /></div>
+          <dl>
+            <dt>Module Name:</dt>
+            <dd>{moduleName} <span>/ {Plugins[moduleName].shortName}</span></dd>
+            <dt>Initial Release:</dt>
+            <dd>{Plugins[moduleName].initialRelease}</dd>
+            <dt>Description:</dt>
+            <dd>{Plugins[moduleName].description}</dd>
+            {children}
+            <dt>Area Owner:</dt>
+            <dd><ContributorLink id={Plugins[moduleName].owner} /></dd>
+          </dl>
+        </div>
+      </a>
+    );
+  }
+  else {
+    return (
+      <div className="pluginDetails">
+        <div className="pluginDetailsIcon"><img src={Plugins[moduleName].icon} alt={moduleName} /></div>
+        <dl>
+          <dt>Module Name:</dt>
+          <dd>{moduleName} <span>/ {Plugins[moduleName].shortName}</span></dd>
+          <dt>Initial Release:</dt>
+          <dd>{Plugins[moduleName].initialRelease}</dd>
+          <dt>Description:</dt>
+          <dd>{Plugins[moduleName].description}</dd>
+          {children}
+          <dt>Area Owner:</dt>
+          <dd><ContributorLink id={Plugins[moduleName].owner} /></dd>
+        </dl>
+      </div>
+    );
+
+  }
+
+
 }

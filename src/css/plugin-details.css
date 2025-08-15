@@ -1,5 +1,10 @@
 /* PLUGIN DETAILS */
 
+.pluginDetailsLink {
+  text-decoration: none;
+  color: unset;
+}
+
 .pluginDetails {
   display: flex;
   border-width: 1px;
@@ -19,6 +24,10 @@
   background-color: #090a0e;
   display: flex;
   align-items: center;
+}
+
+.pluginDetailsIcon img {
+  min-width: 128px;
 }
 
 .pluginDetails dl {

@@ -55,3 +55,37 @@ a.muted {
 .dropshadow {
   text-shadow: -1px -1px 0 var(--ifm-footer-background-color), 1px -1px 0 var(--ifm-footer-background-color), -1px 1px 0 var(--ifm-footer-background-color), 1px 1px 0 var(--ifm-footer-background-color);
 }
+
+
+.blueprintue {
+  width: 100%;
+}
+
+li.tab-blueprint::before {
+  width: 1rem;
+  height: 1rem;
+  content: "";
+  margin: auto;
+  mask-size: 1rem 1rem;
+  background-color: var(--ifm-tabs-color);
+  -webkit-mask-image: url("/assets/svg/types/ue-blueprint.svg");
+  mask-image: url("/assets/svg/types/ue-blueprint.svg");
+  margin-right: 0.25rem;
+}
+
+li.tab-native::before {
+  width: 1rem;
+  height: 1rem;
+  content: "";
+  margin: auto;
+  mask-size: 1rem 1rem;
+  background-color: var(--ifm-tabs-color);
+  -webkit-mask-image: url("/assets/svg/types/native-code.svg");
+  mask-image: url("/assets/svg/types/native-code.svg");
+  margin-right: 0.25rem;
+}
+
+li.tab-blueprint.tabs__item--active::before,
+li.tab-native.tabs__item--active::before {
+  background-color: var(--ifm-tabs-color-active);
+}
