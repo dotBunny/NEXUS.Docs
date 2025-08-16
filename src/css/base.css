@@ -88,3 +88,7 @@ li.tab-blueprint.tabs__item--active::before,
 li.tab-native.tabs__item--active::before {
   background-color: var(--ifm-tabs-color-active);
 }
+
+.footer__copyright a:hover {
+  text-decoration: none;
+}
