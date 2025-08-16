@@ -69,7 +69,13 @@
 }
 
 .pluginDetails span {
-  color: var(--ifm-color-emphasis-300);
+  color: var(--ifm-color-emphasis-600);
+}
+
+[data-theme='dark'] {
+  .pluginDetails span {
+    color: var(--ifm-color-emphasis-300);
+  }
 }
 
 @media screen and (max-width: 450px) {
