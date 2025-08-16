@@ -22,7 +22,7 @@ var Plugins: { [id: string]: IPlugin; } = {
     initialRelease: "0.1.0",
     owner: "reapazor",
     description: "Functionality used by all NEXUS plugins in the framework.",
-    link: "plugins/core/"
+    link: "/docs/plugins/core/"
   },
 
   "NexusActorPools": {
@@ -33,7 +33,7 @@ var Plugins: { [id: string]: IPlugin; } = {
     initialRelease: "0.1.0",
     owner: "reapazor",
     description: "Generalized pooling system for Actors.",
-    link: "plugins/actor-pools/"
+    link: "/docs/plugins/actor-pools/"
   },
 
   "NexusDynamicReferences": {
@@ -44,7 +44,7 @@ var Plugins: { [id: string]: IPlugin; } = {
     initialRelease: "0.1.0",
     owner: "reapazor",
     description: "Method for referring to runtime Actors without knowing them.",
-    link: "plugins/dynamic-references/"
+    link: "/docs/plugins/dynamic-references/"
   },
 
   "NexusFixers": {
@@ -55,7 +55,7 @@ var Plugins: { [id: string]: IPlugin; } = {
     initialRelease: "0.1.0",
     owner: "reapazor",
     description: "A collection of tools for fixing content in the Unreal Editor.",
-    link: "plugins/fixers/"
+    link: "/docs/plugins/fixers/"
   },
 
   "NexusMaterialLibrary": {
@@ -66,7 +66,7 @@ var Plugins: { [id: string]: IPlugin; } = {
     initialRelease: "0.1.0",
     owner: "reapazor",
     description: "Library of Materials commonly used.",
-    link: "plugins/material-library/"
+    link: "/docs/plugins/material-library/"
   },
 
   "NexusMultiplayer": {
@@ -77,7 +77,7 @@ var Plugins: { [id: string]: IPlugin; } = {
     initialRelease: "0.1.0",
     owner: "reapazor",
     description: "Functionality and tools that are useful when developing multiplayer games.",
-    link: "plugins/multiplayer/"
+    link: "/docs/plugins/multiplayer/"
   },
 
   "NexusPicker": {
@@ -88,7 +88,7 @@ var Plugins: { [id: string]: IPlugin; } = {
     initialRelease: "0.1.0",
     owner: "reapazor",
     description: "Selection functionality for points and other items.",
-    link: "plugins/picker/"
+    link: "/docs/plugins/picker/"
   },
 
   "NexusUserInterface": {
@@ -99,7 +99,7 @@ var Plugins: { [id: string]: IPlugin; } = {
     initialRelease: "0.1.0",
     owner: "reapazor",
     description: "Components for creating a user interface based on UMG/Slate.",
-    link: "plugins/ui/"
+    link: "/docs/plugins/ui/"
   },
 };
 

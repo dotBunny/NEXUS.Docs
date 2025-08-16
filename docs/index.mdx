@@ -5,47 +5,26 @@ sidebar_position: 1
 ---
 
 import DocCardList from '@theme/DocCardList';
-import PluginDetails from '../src/components/PluginDetails';
 
 # Introduction
 
-The **NEXUS** Framework aims to help you ship amazing games built on top of Unreal Engine.
+The **NEXUS** Framework aims to help game developers ship amazing content built on top of the Unreal Engine.
 
 :::tip
 
-You want to start on the [Getting Started](getting-started/) article! This page is just a lander of sorts.
+You **WANT** to read the **[Getting Started](getting-started/)** article!
 
 :::
 
-## Plugins
 
-We do our best to keep the framework split up into bespoke functional plugins. Allowing for developer agency when it comes to choosing what they want to enable/use.
+## Documentation
 
-<PluginDetails moduleName="NexusCore" link={true} />
+The documentation process of the library is ultimately a never-ending process. We are **not** technical writers and are doing this by the seat of our pants. So *feedback* is critical to ensure the documentation is developed in a way that is helpful to developers.
 
-### Systems
+### Examples
 
-Bespoke `UWorldSubsystem`-based systems that have a specific, described functionality.
+Examples spread throughout the documentation are presented in a two-tab format, with a **Blueprint** example being visible first. Native **C++** will always be more performant, but for the sake of argument, the most likely person to be reading this documentation will be someone looking to reference example Blueprints; thus, it gets first-up status. 
 
-<PluginDetails moduleName="NexusActorPools" link={true} />
-<PluginDetails moduleName="NexusDynamicReferences" link={true} />
+### Iconography
 
-### Helpers
-
-Utility-like collections of functionality which haven't yet grown to system-like status but are equally helpful.
-
-<PluginDetails moduleName="NexusPicker" link={true} />
-<PluginDetails moduleName="NexusMultiplayer" link={true} />
-
-### Content
-
-While **NEXUS** is predominantly about providing code-based solutions to problems, there is still room for some opinionated content.
-
-<PluginDetails moduleName="NexusMaterialLibrary" link={true} />
-<PluginDetails moduleName="NexusUserInterface" link={true} />
-
-### Editor-Only
-
-Stuff that should never find its way into any cook — *ever*.
-
-<PluginDetails moduleName="NexusFixers" link={true} />
+We've kept similar iconography to what you would expect to see in Unreal Engine when it comes to listing types in the documentation menu. However, if a custom icon is present for a particular type, that will be present when you drill down to that specific type's article/page.

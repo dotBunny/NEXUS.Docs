@@ -1,0 +1,40 @@
+---
+sidebar_label: Plugins
+description: All of the NEXUS Framework plugins.
+sidebar_position: 2
+---
+
+import PluginDetails from '../../src/components/PluginDetails';
+
+# Plugins
+
+We do our best to keep the framework split up into bespoke functionality modules/plugins. Allowing for *developer agency* when it comes to choosing what they want to enable/use. The [NCore](/docs/plugins/core/) module is enabled by *default*, as it is a dependency of all other plugins.
+
+<PluginDetails moduleName="NexusCore" link={true} />
+
+### Systems
+
+Bespoke `UWorldSubsystem`-based systems that have a specific, well-described functionality. These typically provide opinionated systemic solutions to the underlying technical needs of developing games. 
+
+<PluginDetails moduleName="NexusActorPools" link={true} />
+<PluginDetails moduleName="NexusDynamicReferences" link={true} />
+
+### Helpers
+
+Utility-like collections of functionality which haven't yet grown to system-like status but are equally helpful.
+
+<PluginDetails moduleName="NexusPicker" link={true} />
+<PluginDetails moduleName="NexusMultiplayer" link={true} />
+
+### Content
+
+While **NEXUS** is predominantly about providing code-based solutions to problems, there is still room for some opinionated content.
+
+<PluginDetails moduleName="NexusMaterialLibrary" link={true} />
+<PluginDetails moduleName="NexusUserInterface" link={true} />
+
+### Editor-Only
+
+Stuff that should never find its way into any cook — *ever*.
+
+<PluginDetails moduleName="NexusFixers" link={true} />
