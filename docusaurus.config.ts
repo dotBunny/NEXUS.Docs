@@ -58,7 +58,8 @@ const config: Config = {
             './src/css/category.css',
             './src/css/type-details.css',
             './src/css/type-definitions.css',
-            './src/css/plugin-details.css'
+            './src/css/plugin-details.css',
+            './src/css/responsive.css'
           ]
         },
       } satisfies Preset.Options,

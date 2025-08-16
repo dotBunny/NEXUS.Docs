@@ -3,6 +3,7 @@ import ContributorLink from '../ContributorLink'
 
 interface IPlugin {
   icon: string;
+  category: string;
   moduleName: string;
   shortName: string;
   initialRelease: string;
@@ -17,6 +18,7 @@ var Plugins: { [id: string]: IPlugin; } = {
     icon: "/assets/images/plugins/core-icon.webp",
     moduleName: "NexusCore",
     shortName: "NCore",
+    category: "N/A",
     initialRelease: "0.1.0",
     owner: "reapazor",
     description: "Functionality used by all NEXUS plugins in the framework.",
@@ -27,6 +29,7 @@ var Plugins: { [id: string]: IPlugin; } = {
     icon: "/assets/images/plugins/actor-pools-icon.webp",
     moduleName: "NexusActorPools",
     shortName: "NActorPools",
+    category: "Systems",
     initialRelease: "0.1.0",
     owner: "reapazor",
     description: "Generalized pooling system for Actors.",
@@ -37,6 +40,7 @@ var Plugins: { [id: string]: IPlugin; } = {
     icon: "/assets/images/plugins/dynamic-references-icon.webp",
     moduleName: "NexusDynamicReferences",
     shortName: "NDynamicReferences",
+    category: "Systems",
     initialRelease: "0.1.0",
     owner: "reapazor",
     description: "Method for referring to runtime Actors without knowing them.",
@@ -47,6 +51,7 @@ var Plugins: { [id: string]: IPlugin; } = {
     icon: "/assets/images/plugins/fixers-icon.webp",
     moduleName: "NexusFixers",
     shortName: "NFixers",
+    category: "Editor",
     initialRelease: "0.1.0",
     owner: "reapazor",
     description: "A collection of tools for fixing content in the Unreal Editor.",
@@ -57,6 +62,7 @@ var Plugins: { [id: string]: IPlugin; } = {
     icon: "/assets/images/plugins/material-library-icon.webp",
     moduleName: "NexusMaterialLibrary",
     shortName: "NMaterialLibrary",
+    category: "Content",
     initialRelease: "0.1.0",
     owner: "reapazor",
     description: "Library of Materials commonly used.",
@@ -67,6 +73,7 @@ var Plugins: { [id: string]: IPlugin; } = {
     icon: "/assets/images/plugins/multiplayer-icon.webp",
     moduleName: "NexusMultiplayer",
     shortName: "NMultiplayer",
+    category: "Helpers",
     initialRelease: "0.1.0",
     owner: "reapazor",
     description: "Functionality and tools that are useful when developing multiplayer games.",
@@ -77,6 +84,7 @@ var Plugins: { [id: string]: IPlugin; } = {
     icon: "/assets/images/plugins/picker-icon.webp",
     moduleName: "NexusPicker",
     shortName: "NPicker",
+    category: "Helpers",
     initialRelease: "0.1.0",
     owner: "reapazor",
     description: "Selection functionality for points and other items.",
@@ -87,6 +95,7 @@ var Plugins: { [id: string]: IPlugin; } = {
     icon: "/assets/images/plugins/ui-icon.webp",
     moduleName: "NexusUserInterface",
     shortName: "NUI",
+    category: "Content",
     initialRelease: "0.1.0",
     owner: "reapazor",
     description: "Components for creating a user interface based on UMG/Slate.",
@@ -94,47 +103,44 @@ var Plugins: { [id: string]: IPlugin; } = {
   },
 };
 
+
 export default function PluginDetails({ moduleName, link, children }): ReactNode {
 
-  if (link) {
-    return (
-      <a href={Plugins[moduleName].link} className="pluginDetailsLink">
-        <div className="pluginDetails">
-          <div className="pluginDetailsIcon"><img src={Plugins[moduleName].icon} alt={moduleName} /></div>
-          <dl>
-            <dt>Module Name:</dt>
-            <dd>{moduleName} <span>/ {Plugins[moduleName].shortName}</span></dd>
-            <dt>Initial Release:</dt>
-            <dd>{Plugins[moduleName].initialRelease}</dd>
-            <dt>Description:</dt>
-            <dd>{Plugins[moduleName].description}</dd>
-            {children}
-            <dt>Area Owner:</dt>
-            <dd><ContributorLink id={Plugins[moduleName].owner} /></dd>
-          </dl>
-        </div>
-      </a>
-    );
-  }
-  else {
-    return (
-      <div className="pluginDetails">
-        <div className="pluginDetailsIcon"><img src={Plugins[moduleName].icon} alt={moduleName} /></div>
-        <dl>
-          <dt>Module Name:</dt>
-          <dd>{moduleName} <span>/ {Plugins[moduleName].shortName}</span></dd>
-          <dt>Initial Release:</dt>
-          <dd>{Plugins[moduleName].initialRelease}</dd>
-          <dt>Description:</dt>
-          <dd>{Plugins[moduleName].description}</dd>
-          {children}
-          <dt>Area Owner:</dt>
-          <dd><ContributorLink id={Plugins[moduleName].owner} /></dd>
-        </dl>
+  const isLink: boolean = link ? true : false;
+  var classes = 'pluginDetails';
+  if (isLink) classes += ' pluginDetailsLink';
+
+  const content = (
+    <div className={classes}>
+      <div className="pluginDetailsIcon">
+        <img src={Plugins[moduleName].icon} alt={moduleName} />
       </div>
-    );
-
-  }
-
-
+      <dl>
+        <dt>Module Name:</dt>
+        <dd>{moduleName} <span>/ {Plugins[moduleName].shortName}</span></dd>
+        {!isLink && (
+          <>
+            <dt className="small-hide">Initial Release:</dt>
+            <dd className="small-hide">{Plugins[moduleName].initialRelease}</dd>
+          </>
+        )}
+        <dt>Description:</dt>
+        <dd>{Plugins[moduleName].description}</dd>
+        {children}
+        {!isLink && (
+          <>
+            <dt className="small-hide">Area Owner:</dt>
+            <dd className="small-hide"><ContributorLink id={Plugins[moduleName].owner} /></dd>
+          </>
+        )}
+      </dl>
+    </div >
+  );
+  return isLink ? (
+    <a href={Plugins[moduleName].link} className="pluginDetailsLink">
+      {content}
+    </a>
+  ) : (
+    content
+  );
 }

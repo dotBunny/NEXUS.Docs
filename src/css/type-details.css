@@ -80,3 +80,13 @@
   color: var(--ifm-color-emphasis-300);
   font-weight: normal;
 }
+
+@media screen and (max-width: 450px) {
+  .typeDetails dt {
+    display: none;
+  }
+
+  .typeDetails dd {
+    margin-left: 1rem;
+  }
+}
