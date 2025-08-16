@@ -9,27 +9,43 @@ import PluginDetails from '../src/components/PluginDetails';
 
 # Introduction
 
-The NEXUS Framework aims to help you ship amazing games built on-top of Unreal Engine.
+The **NEXUS** Framework aims to help you ship amazing games built on top of Unreal Engine.
+
+:::tip
+
+You want to start on the [Getting Started](getting-started/) article! This page is just a lander of sorts.
+
+:::
 
 ## Plugins
+
+We do our best to keep the framework split up into bespoke functional plugins. Allowing for developer agency when it comes to choosing what they want to enable/use.
 
 <PluginDetails moduleName="NexusCore" link={true} />
 
 ### Systems
+
+Bespoke `UWorldSubsystem`-based systems that have a specific, described functionality.
 
 <PluginDetails moduleName="NexusActorPools" link={true} />
 <PluginDetails moduleName="NexusDynamicReferences" link={true} />
 
 ### Helpers
 
+Utility-like collections of functionality which haven't yet grown to system-like status but are equally helpful.
+
 <PluginDetails moduleName="NexusPicker" link={true} />
 <PluginDetails moduleName="NexusMultiplayer" link={true} />
 
 ### Content
 
+While **NEXUS** is predominantly about providing code-based solutions to problems, there is still room for some opinionated content.
+
 <PluginDetails moduleName="NexusMaterialLibrary" link={true} />
 <PluginDetails moduleName="NexusUserInterface" link={true} />
 
 ### Editor-Only
+
+Stuff that should never find its way into any cook — *ever*.
 
 <PluginDetails moduleName="NexusFixers" link={true} />
