@@ -2,7 +2,7 @@
 sidebar_position: 2
 sidebar_label: Actor Pool Settings
 sidebar_class_name: type native-struct
-description: TBD
+description: A Blueprint-compatible struct that defines configuration parameters for managing object pooling inside of a NActorPool.
 ---
 
 import TypeDetails from '../../../../src/components/TypeDetails';
