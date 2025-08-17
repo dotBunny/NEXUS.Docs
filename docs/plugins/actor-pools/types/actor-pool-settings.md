@@ -15,22 +15,37 @@ A Blueprint-compatible struct that defines configuration parameters for managing
 
 ## Highlights
 
-- **Pool Size Management**: Controls minimum (default: 10) and maximum (default: 100) actor counts in the pool
-- **Performance Optimization**: Configurable objects-per-tick creation limit and pool expansion policies
-- **Flexible Strategies**: Supports different pooling strategies through the `ENActorPoolStrategy` enum
-- **Spawn Behavior Control**: Options for deferred construction, finish spawning behavior, and location management
-- **Return Mechanics**: Configurable return location and movement behavior for recycled actors
+- **Pool Size Management**: Controls minimum (default: 10) and maximum (default: 100) actor counts in the pool.
+- **Performance Optimization**: Configurable objects-per-tick creation limit and pool expansion policies.
+- **Flexible Strategies**: Supports different pooling strategies through [ENActorPoolStrategy](#creation-strategies).
+- **Spawn Behavior Control**: Options for deferred construction, finish spawning behavior, and location management.
+- **Return Mechanics**: Configurable return location and movement behavior for recycled `AActor`s.
 
 ## Configuration Options
 
-- `MinimumActorCount` / `MaximumActorCount`: Define pool size boundaries
-- `CreateObjectsPerTick`: Throttles object creation for performance (-1 for unlimited)
-- `bAllowCreateMoreObjects`: Enables pool expansion beyond maximum when needed
-- `Strategy`: Determines the pooling approach (Create, Reuse, etc.)
-- `bDeferConstruction`: Controls whether actor construction is deferred when creating new actors.
-- `bShouldFinishSpawning`: Manages FinishSpawning calls for non-INActorPoolItem actors
+| Setting  | Base | Description | Default |
+| :-- | :-- | --- | :-- |
+| `MinimumActorCount` | `int` | When the [NActorPool](actor-pool.md) is being filled during creation, what is the number of prewarmed `AActor`s that should be created, either syncronously or divided across a number of frames. | `10` |
+| `MaximumActorCount` | `int` | The number of pooled `AActor`s that a pool can use/have. This is tied more to the `Strategy` being used for what happens when the pool has to create new `AActor`s when the pool has no `AActor`s available to `Spawn()`/`Get()`. | `100` |
+| `CreateObjectsPerTick` | `int` | Throttles the number of `AActor`s that can be created per **Tick**. This can be useful to spread the cost of warming a pool up across multiple frames (-1 for unlimited). | `-1` |
+| `Strategy` | [ENActorPoolStrategy](#creation-strategies) | Determines the approach taken when the pool does not have any `AActor` remaining in the "In" pool, and needs to create one (or reuse). | `APS_Create` |
+| `bSpawnSweepBeforeSettingLocation` | `bool` | Should a sweep be done when setting the location of an `AActor` being spawned. | `false` |
+| `bReturnMoveToLocation` | `bool` | Should `AActor` being returned to the pool be moved to a storage location? | `true` |
+| `ReturnMoveLocation` | `FVector` | The location to move an `AActor` when it is returned to the pool for later reuse (if enabled). This also gets applied to newly created `AActor` as well.  | `(0,0,0)` |
+| `bDeferConstruction` | `bool` | Controls whether `AActor` construction is deferred when creating new `AActor`s; allowing for additional calls to be made to the `INActorPoolItem::OnDeferredConstruction()` before calling the `AActor`s `FinishSpawning()`. | `true` | 
+| `bShouldFinishSpawning` | `bool` | Manages `FinishSpawning()` calls for non-[INActorPoolItem](actor-pool-item.md) `AActors`. | `true` |
 
-This settings struct is essential for fine-tuning actor pool performance and behavior in games that require efficient object management, such as those with many spawnable entities like NPCs, projectiles, or environmental objects.
+## Creation Strategies
+
+| Native | Display | Description |
+| :-- | :-- | :-- |
+| `APS_Create` | Create | Create `AActor` as needed. | 
+| `APS_CreateLimited` | Create Till Cap | Create `AActor` until `MaximumActorCount` is reached and stop, returning a `nullptr` in such cases. |
+| `APS_CreateRecycleFirst` | Create Till Cap, Recycle First | Create `AActor` until `MaximumActorCount` is reached, any requests beyond provides the oldest already spawned `AActor` in a FIFO behaviour. | 
+| `APS_CreateRecycleLast` | Create Till Cap, Recycle Last | Create `AActor` until `MaximumActorCount` is reached, any requests beyond provides the newest spawned `AActor` in a LIFO behaviour. | 
+| `APS_Fixed` | Fixed Availabilty | Deploys `AActor` as needed from fixed pools, exceeding availibility results in a `nullptr` being returned.| 
+| `APS_FixedRecycleFirst` | Fixed Availabilty, Recycle First | Deploys `AActor` as needed from fixed pools, exceeding availibility will return the oldested already spawned `AActor` in a FIFO behaviour. |
+| `APS_FixedRecycleLast` | Fixed Availabilty, Recycle Last | Deploys `AActor` as needed from fixed pools, exceeding availibility will return the newest already spawned `AActor` in a LIFO behaviour. |
 
 ## Project-Wide Defaults
 

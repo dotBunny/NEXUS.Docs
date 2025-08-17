@@ -11,9 +11,12 @@ import TypeDetails from '../../../../src/components/TypeDetails';
 
 <TypeDetails icon="/assets/svg/actor-pools/actor-pool-set.svg" iconType="img" base="UDataAsset" type="UNActorPoolSet" typeExtra="" headerFile="NexusActorPools/Public/NActorPoolSet.h" />
 
-A `UDataAsset` that serves as a collection of preconfigured [FNActorPoolSettings](actor-pool-settings.md)s to allow for easily warming up actor pools with given context.
+A `UDataAsset` that serves as a collection of preconfigured [FNActorPoolSettings](actor-pool-settings.md) to allow for easily warming up [NActorPools](actor-pool.md) with the given context.
 
-
+## Creating
 ![Creating a new UNActorPoolSet](actor-pool-set-create.webp)
 
+## Editing 
 ![Editing a UNActorPoolSet](actor-pool-set-edit.webp)
+
+## Using
