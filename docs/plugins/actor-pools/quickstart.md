@@ -32,6 +32,41 @@ The real advantage of pooling objects comes from when you have an opportunity to
 
 ### Method Call
 
+Because the `FNActorPool` is not a `UObject`, there is no interaction with a given pool directly via Blueprint. It is strongly encouraged to use the provided `UFUNCTION` on [NActorPoolSubsystem](types/actor-pool-subsystem.md) to accomplish similar outcomes. 
+
+:::info
+This is intentional and creates some unique preferred workflows in **C++**.
+:::
+
+```cpp title="Spawn Actor"
+FNActorPool* Pool = UNActorPoolSubsystem::Get(GetWorld())->GetActorPool(MyActorClass);
+if (Pool != nullptr)
+{
+  Pool->Warm(20);
+}
+```
+
 ### Applying NActorPoolSets
 
+The [NActorPoolSet](types/actor-pool-set.md) lets you create a data asset which houses the definitions of multiple pools for the [NActorPoolSubsystem](types/actor-pool-subsystem.md) to create when [applied](/docs/plugins/actor-pools/types/actor-pool-set/#applying).
+
 ## Returning An Actor
+
+
+<Tabs>
+  <TabItem value="blueprint" label="Blueprint" default attributes={{className: 'tab-blueprint' }}>
+    <iframe src="https://blueprintue.com/render/mtuyqlwn/" allowfullscreen="yes" scrolling="no" class="blueprintue" style={{ height : '325px' }}></iframe>
+  </TabItem>
+  <TabItem value="native" label="C++" attributes={{className: 'tab-native' }}>
+
+```cpp title="Ambiguous Return"
+UNActorPoolSubsystem::Get(GetWorld())->ReturnActor(TargetActor);
+``` 
+
+While the Blueprint logic is the most generic, one of the benefits of utilizing the [INActorPoolItem](types/actor-pool-item.md) interfaces is that there are baked-in fast paths.
+
+```cpp title="INActorPoolItem-Based Return"
+TargetActor->ReturnToActorPool();
+```    
+  </TabItem>
+</Tabs>
