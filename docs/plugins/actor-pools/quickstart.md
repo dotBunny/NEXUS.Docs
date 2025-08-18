@@ -28,11 +28,11 @@ AMyActorType* SpawnedActor = UNActorPoolSubsystem::Get(GetWorld())->SpawnActor<A
 
 ## Prewarm Pools
 
-The real advantage of pooling objects comes from when you have an opportunity to create an approximate number of objects you are going to need during a non-performance sensistive moment (think loading screen). There are a few options to being able to do this with [NActorPools](/docs/plugins/actor-pools/types/actor-pool/).
+The real advantage of pooling objects comes from when you have an opportunity to create an approximate number of objects you are going to need during a non-performance sensistive moment (think loading screen). There are a few options to being able to do this with [FNActorPool](/docs/plugins/actor-pools/types/actor-pool/)s.
 
 ### Method Call
 
-Because the `FNActorPool` is not a `UObject`, there is no interaction with a given pool directly via Blueprint. It is strongly encouraged to use the provided `UFUNCTION` on [NActorPoolSubsystem](types/actor-pool-subsystem.md) to accomplish similar outcomes. 
+Because the `FNActorPool` is not a `UObject`, there is no interaction with a given pool directly via Blueprint. It is strongly encouraged to use the provided `UFUNCTION` on [UNActorPoolSubsystem](types/actor-pool-subsystem.md) to accomplish similar outcomes. 
 
 :::info
 This is intentional and creates some unique preferred workflows in **C++**.
@@ -48,7 +48,7 @@ if (Pool != nullptr)
 
 ### Applying NActorPoolSets
 
-The [NActorPoolSet](types/actor-pool-set.md) lets you create a data asset which houses the definitions of multiple pools for the [NActorPoolSubsystem](types/actor-pool-subsystem.md) to create when [applied](/docs/plugins/actor-pools/types/actor-pool-set/#applying).
+The [UNActorPoolSet](types/actor-pool-set.md) lets you create a data asset which houses the definitions of multiple pools for the [UNActorPoolSubsystem](types/actor-pool-subsystem.md) to create when [applied](/docs/plugins/actor-pools/types/actor-pool-set/#applying).
 
 ## Returning An Actor
 
