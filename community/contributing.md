@@ -26,13 +26,13 @@ Included with the project is an [EditorConfig](https://github.com/dotBunny/NEXUS
 
 ## AI Policy
 
-**Touchy subject!** At times, we have used [JetBrains AI](https://www.jetbrains.com/ai/) to generate the initial code summaries/documentation. We then review and edit them accordingly, but this has allowed us to accelerate the code documentation process. A common prompt we have used is:
+**Touchy subject!** At times, we have used [JetBrains AI](https://www.jetbrains.com/ai/) to generate the initial code summaries/documentation. We then review and edit them accordingly; this has allowed us to accelerate the code documentation process. A common prompt we have used is:
 
 ```prompt title="AI Prompt"
 id like a blurb explaining what this class does and is used for
 ```
 
-Where the class/file and classes/files that references the class are attached for context. This is the extent to which AI is involved in this project's codebase. 
+Where the class/file and classes/files that references the class are attached for context. This is the extent to which AI is involved in this project's codebase.
 
 ## Automation
 
