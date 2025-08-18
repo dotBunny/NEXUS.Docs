@@ -23,20 +23,20 @@ From the **Content Browser**, right-click to bring up the **context menu** and n
 
 ## Editing 
 
-By double-clicking on a `NActorPoolSet` asset, it will open the *default* Data Asset editor window. From there, you create entries in the array for the specific `AActor` and its corresponding settings.
+By double-clicking on a `UNActorPoolSet` asset, it will open the *default* Data Asset editor window. From there, you create entries in the array for the specific `AActor` and its corresponding settings.
 
 ![Editing a UNActorPoolSet](actor-pool-set-edit.webp)
 
 ## Applying
 
-Once you have a valid reference to the desired `NActorPoolSet`, you instruct the [NActorPoolSubsystem](actor-pool-subsystem.md) to apply the given set.
+Once you have a valid reference to the desired `UNActorPoolSet`, you instruct the [UNActorPoolSubsystem](actor-pool-subsystem.md) to apply the given set.
 
 <Tabs>
   <TabItem value="blueprint" label="Blueprint" default attributes={{className: 'tab-blueprint' }}>
     <iframe src="https://blueprintue.com/render/ftq66hj3/" allowfullscreen="yes" scrolling="no" class="blueprintue" style={{ height : '325px' }}></iframe>
   </TabItem>
   <TabItem value="native" label="C++" attributes={{className: 'tab-native' }}>
-```cpp title="Apply NActorPoolSet"
+```cpp title="Apply UNActorPoolSet"
 UNActorPoolSubsystem::Get(GetWorld())->ApplyActorPoolSet(TargetActorPoolSet);
 ```    
   </TabItem>

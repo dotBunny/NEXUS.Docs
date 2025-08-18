@@ -25,7 +25,7 @@ A Blueprint-compatible struct that defines configuration parameters for managing
 
 | Setting  | Type | Description | Default |
 | :-- | :-- | --- | :-- |
-| `MinimumActorCount` | `int` | When the [NActorPool](actor-pool.md) is being filled during creation, what is the number of prewarmed `AActor`s that should be created, either syncronously or divided across a number of frames. | `10` |
+| `MinimumActorCount` | `int` | When the [FNActorPool](actor-pool.md) is being filled during creation, what is the number of prewarmed `AActor`s that should be created, either syncronously or divided across a number of frames. | `10` |
 | `MaximumActorCount` | `int` | The number of pooled `AActor`s that a pool can use/have. This is tied more to the `Strategy` being used for what happens when the pool has to create new `AActor`s when the pool has no `AActor`s available to `Spawn()`/`Get()`. | `100` |
 | `CreateObjectsPerTick` | `int` | Throttles the number of `AActor`s that can be created per **Tick**. This can be useful to spread the cost of warming a pool up across multiple frames (-1 for unlimited). | `-1` |
 | `Strategy` | [ENActorPoolStrategy](#creation-strategies) | Determines the approach taken when the pool does not have any `AActor` remaining in the "In" pool, and needs to create one (or reuse). | `APS_Create` |
