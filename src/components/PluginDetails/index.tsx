@@ -136,7 +136,7 @@ export default function PluginDetails({ moduleName, link, children }): ReactNode
         )}
         <dt>Description:</dt>
         <dd>{Plugins[moduleName].description}</dd>
-        {hasBlueprintCategory && (
+        {(!isLink && hasBlueprintCategory) && (
           <>
             <dt className="small-hide">BP Category:</dt>
             <dd className="small-hide"><code>{Plugins[moduleName].blueprintCategory}</code></dd>
