@@ -23,3 +23,7 @@ While there are aspirations of distributing the framework via [Fab](https://www.
 ## Placement
 
 The framework has been tested to work when placed inside of a Project's `Plugins` folder, as well as referenced via External Plugins references.
+
+## Upgrading
+
+While we do our best to minimize the impact of API changes, there are times when an API may change in definition between versions.  We will do our best to call out those changes in the [CHANGELOG](/community/changelog/), as well as provide a set of [Core Redirects](https://dev.epicgames.com/documentation/en-us/unreal-engine/core-redirects-in-unreal-engine) that can be implemented to resolve any content remapping.
