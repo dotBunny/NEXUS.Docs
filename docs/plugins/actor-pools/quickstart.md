@@ -52,7 +52,6 @@ The [UNActorPoolSet](types/actor-pool-set.md) lets you create a data asset which
 
 ## Returning An Actor
 
-
 <Tabs>
   <TabItem value="blueprint" label="Blueprint" default attributes={{className: 'tab-blueprint' }}>
     <iframe src="https://blueprintue.com/render/mtuyqlwn/" allowfullscreen="yes" scrolling="no" class="blueprintue" style={{ height : '325px' }}></iframe>

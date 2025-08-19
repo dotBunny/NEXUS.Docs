@@ -10,6 +10,7 @@ interface IPlugin {
   owner: string;
   description: string;
   link: string;
+  blueprintCategory: string;
 }
 
 var Plugins: { [id: string]: IPlugin; } = {
@@ -22,7 +23,8 @@ var Plugins: { [id: string]: IPlugin; } = {
     initialRelease: "0.1.0",
     owner: "reapazor",
     description: "Functionality used by all NEXUS plugins in the framework.",
-    link: "/docs/plugins/core/"
+    link: "/docs/plugins/core/",
+    blueprintCategory: ""
   },
 
   "NexusActorPools": {
@@ -33,7 +35,8 @@ var Plugins: { [id: string]: IPlugin; } = {
     initialRelease: "0.1.0",
     owner: "reapazor",
     description: "Generalized pooling system for Actors.",
-    link: "/docs/plugins/actor-pools/"
+    link: "/docs/plugins/actor-pools/",
+    blueprintCategory: "NEXUS > Actor Pools"
   },
 
   "NexusDynamicReferences": {
@@ -44,7 +47,8 @@ var Plugins: { [id: string]: IPlugin; } = {
     initialRelease: "0.1.0",
     owner: "reapazor",
     description: "Method for referring to runtime Actors without knowing them.",
-    link: "/docs/plugins/dynamic-references/"
+    link: "/docs/plugins/dynamic-references/",
+    blueprintCategory: ""
   },
 
   "NexusFixers": {
@@ -55,7 +59,8 @@ var Plugins: { [id: string]: IPlugin; } = {
     initialRelease: "0.1.0",
     owner: "reapazor",
     description: "A collection of tools for fixing content in the Unreal Editor.",
-    link: "/docs/plugins/fixers/"
+    link: "/docs/plugins/fixers/",
+    blueprintCategory: ""
   },
 
   "NexusMaterialLibrary": {
@@ -66,7 +71,8 @@ var Plugins: { [id: string]: IPlugin; } = {
     initialRelease: "0.1.0",
     owner: "reapazor",
     description: "Library of Materials commonly used.",
-    link: "/docs/plugins/material-library/"
+    link: "/docs/plugins/material-library/",
+    blueprintCategory: ""
   },
 
   "NexusMultiplayer": {
@@ -77,7 +83,8 @@ var Plugins: { [id: string]: IPlugin; } = {
     initialRelease: "0.1.0",
     owner: "reapazor",
     description: "Functionality and tools that are useful when developing multiplayer games.",
-    link: "/docs/plugins/multiplayer/"
+    link: "/docs/plugins/multiplayer/",
+    blueprintCategory: ""
   },
 
   "NexusPicker": {
@@ -88,7 +95,8 @@ var Plugins: { [id: string]: IPlugin; } = {
     initialRelease: "0.1.0",
     owner: "reapazor",
     description: "Selection functionality for points and other items.",
-    link: "/docs/plugins/picker/"
+    link: "/docs/plugins/picker/",
+    blueprintCategory: "NEXUS > Picker"
   },
 
   "NexusUserInterface": {
@@ -99,7 +107,8 @@ var Plugins: { [id: string]: IPlugin; } = {
     initialRelease: "0.1.0",
     owner: "reapazor",
     description: "Components for creating a user interface based on UMG/Slate.",
-    link: "/docs/plugins/ui/"
+    link: "/docs/plugins/ui/",
+    blueprintCategory: ""
   },
 };
 
@@ -107,6 +116,7 @@ var Plugins: { [id: string]: IPlugin; } = {
 export default function PluginDetails({ moduleName, link, children }): ReactNode {
 
   const isLink: boolean = link ? true : false;
+  const hasBlueprintCategory: boolean = (Plugins[moduleName].blueprintCategory.length > 0);
   var classes = 'pluginDetails';
   if (isLink) classes += ' pluginDetailsLink';
 
@@ -126,6 +136,12 @@ export default function PluginDetails({ moduleName, link, children }): ReactNode
         )}
         <dt>Description:</dt>
         <dd>{Plugins[moduleName].description}</dd>
+        {hasBlueprintCategory && (
+          <>
+            <dt className="small-hide">BP Category:</dt>
+            <dd className="small-hide"><code>{Plugins[moduleName].blueprintCategory}</code></dd>
+          </>
+        )}
         {children}
         {!isLink && (
           <>
