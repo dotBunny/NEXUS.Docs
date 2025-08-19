@@ -25,7 +25,11 @@ A centralized management system that provides `UWorld`-specific access to `AActo
 
 ### Creating An Actor Pool
 
+When trying to maximize the usefulness of the actor pooling pattern, it is essential to try to create pools ahead of the actual usage of the `AActors` so that the initial creation cost is controlled. 
+
 #### Manually
+
+The time-tested, I know what I want, let me handle this approach.  You can tell the `UNActorPoolSubsystem` to spin up pools via `CreateActorPool()`.
 
 <Tabs>
   <TabItem value="blueprint" label="Blueprint" default attributes={{className: 'tab-blueprint' }}>
@@ -40,9 +44,16 @@ UNActorPoolSubsystem::Get(GetWorld())->CreateActorPool(MyActorClass, UNActorPool
 
 #### Actor Pool Sets
 
-#### Automatiacally
+Utilizing [UNActorPoolSets](/docs/plugins/actor-pools/types/actor-pool-set/) to define collections of [NActorPools](/docs/plugins/actor-pools/types/actor-pool/) that should be created when [applied](/docs/plugins/actor-pools/types/actor-pool-set/#applying) is a great way to develop reusable implementations across different levels and scenarios.
+
+#### Automatically
+
+While not the best, it is the easiest way to create a [NActorPools](/docs/plugins/actor-pools/types/actor-pool/) for an `AActor`. Requesting an `AActor` from the `UNActorPoolSubsystem` without an existing [NActorPool](/docs/plugins/actor-pools/types/actor-pool/) for it will cause a new one to be created with the default settings.
 
 ### Spawning An Actor
+
+The most common of interactions with the `NActorPoolSystem` that you will have is asking it for an `AActor`. The API is as streamlined as possible.
+
 <Tabs>
   <TabItem value="blueprint" label="Blueprint" default attributes={{className: 'tab-blueprint' }}>
     <iframe src="https://blueprintue.com/render/tlzo2p-f/" allowfullscreen="yes" scrolling="no" class="blueprintue" style={{ height : '325px' }}></iframe>
@@ -55,6 +66,8 @@ AMyActorType* SpawnedActor = UNActorPoolSubsystem::Get(GetWorld())->SpawnActor<A
 </Tabs>
 
 ### Returning An Actor
+
+When you're finished with an `AActor`, you can interact with the `UNActorPoolSubsystem` and have it return the `AActor` to its designated [NActorPool](/docs/plugins/actor-pools/types/actor-pool/). If the `AActor` implements the [INActorPoolItem](/docs/plugins/actor-pools/types/actor-pool-item/) interface, you also have a more direct method call available, `ReturnToActorPool()`.
 
 <Tabs>
   <TabItem value="blueprint" label="Blueprint" default attributes={{className: 'tab-blueprint' }}>
