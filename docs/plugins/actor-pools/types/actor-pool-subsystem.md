@@ -44,11 +44,11 @@ UNActorPoolSubsystem::Get(GetWorld())->CreateActorPool(MyActorClass, UNActorPool
 
 #### Actor Pool Sets
 
-Utilizing [UNActorPoolSets](/docs/plugins/actor-pools/types/actor-pool-set/) to define collections of [NActorPools](/docs/plugins/actor-pools/types/actor-pool/) that should be created when [applied](/docs/plugins/actor-pools/types/actor-pool-set/#applying) is a great way to develop reusable implementations across different levels and scenarios.
+Utilizing [UNActorPoolSets](actor-pool-set.md) to define collections of [FNActorPools](actor-pool.md) that should be created when [applied](/docs/plugins/actor-pools/types/actor-pool-set/#applying) is a great way to develop reusable implementations across different levels and scenarios.
 
 #### Automatically
 
-While not the best, it is the easiest way to create a [NActorPools](/docs/plugins/actor-pools/types/actor-pool/) for an `AActor`. Requesting an `AActor` from the `UNActorPoolSubsystem` without an existing [NActorPool](/docs/plugins/actor-pools/types/actor-pool/) for it will cause a new one to be created with the default settings.
+While not the best, it is the easiest way to create a [FNActorPools](actor-pool.md) for an `AActor`. Requesting an `AActor` from the [UNActorPoolSubsystem](actor-pool-subsystem.md) without an existing [FNActorPools](actor-pool.md) for it will cause a new one to be created with the default settings.
 
 ### Spawning An Actor
 
@@ -67,7 +67,7 @@ AMyActorType* SpawnedActor = UNActorPoolSubsystem::Get(GetWorld())->SpawnActor<A
 
 ### Returning An Actor
 
-When you're finished with an `AActor`, you can interact with the `UNActorPoolSubsystem` and have it return the `AActor` to its designated [NActorPool](/docs/plugins/actor-pools/types/actor-pool/). If the `AActor` implements the [INActorPoolItem](/docs/plugins/actor-pools/types/actor-pool-item/) interface, you also have a more direct method call available, `ReturnToActorPool()`.
+When you're finished with an `AActor`, you can interact with the [UNActorPoolSubsystem](actor-pool-subsystem.md) and have it return the `AActor` to its designated [FNActorPool](actor-pool.md). If the `AActor` implements the [INActorPoolItem](actor-pool-item.md) interface, you also have a more direct method call available, `ReturnToActorPool()`.
 
 <Tabs>
   <TabItem value="blueprint" label="Blueprint" default attributes={{className: 'tab-blueprint' }}>

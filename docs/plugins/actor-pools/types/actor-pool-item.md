@@ -11,10 +11,10 @@ import TypeDetails from '../../../../src/components/TypeDetails';
 
 <TypeDetails icon="ue-interface" base="interface" type="INActorPoolItem" typeExtra="/ UNActorPoolItem" headerFile="NexusActorPools/Public/INActorPoolItem.h" />
 
-An interface that defines the contract between a `AActor` and the `FNActorPool`. It serves as the communication bridge that allows any actor to participate in object pooling, providing standardized lifecycle hooks and management capabilities.
+An interface that defines the contract between a `AActor` and the [FNActorPool](actor-pool.md). It serves as the communication bridge that allows any actor to participate in object pooling, providing standardized lifecycle hooks and management capabilities.
 
 ## What It Is
-- **Interface Contract**: Defines the required methods and behaviors for actors that work with `FNActorPool`.
+- **Interface Contract**: Defines the required methods and behaviors for actors that work with [FNActorPool](actor-pool.md).
 - **Lifecycle Manager**: Tracks and manages the operational state of pooled actors through defined stages.
 - **Pool Integration Layer**: Provides the necessary plumbing for actors to communicate with their owning pool.
 
