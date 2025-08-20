@@ -52,7 +52,7 @@ While not the best, it is the easiest way to create a [FNActorPools](actor-pool.
 
 ### Spawning An Actor
 
-The most common of interactions with the `NActorPoolSystem` that you will have is asking it for an `AActor`. The API is as streamlined as possible.
+The most common of interactions with the [UNActorPoolSubsystem](actor-pool-subsystem.md) that you will have is asking it for an `AActor`. The API is as streamlined as possible.
 
 <Tabs>
   <TabItem value="blueprint" label="Blueprint" default attributes={{className: 'tab-blueprint' }}>

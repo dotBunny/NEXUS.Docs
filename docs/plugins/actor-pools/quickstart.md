@@ -28,7 +28,7 @@ AMyActorType* SpawnedActor = UNActorPoolSubsystem::Get(GetWorld())->SpawnActor<A
 
 ## Prewarm Pools
 
-The real advantage of pooling objects comes from when you have an opportunity to create an approximate number of objects you are going to need during a non-performance sensistive moment (think loading screen). There are a few options to being able to do this with [FNActorPool](/docs/plugins/actor-pools/types/actor-pool/)s.
+The real advantage of pooling objects comes from when you have an opportunity to create an approximate number of objects you are going to need during a non-performance sensistive moment (think loading screen). There are a few options to being able to do this with [FNActorPools](/docs/plugins/actor-pools/types/actor-pool/).
 
 ### Method Call
 

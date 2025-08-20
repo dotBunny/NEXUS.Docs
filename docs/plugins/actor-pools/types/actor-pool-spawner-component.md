@@ -35,7 +35,7 @@ This is a rudimentary example of how to spawn things; it has some use cases in a
 | Count | `int` | The number of items to spawn at any given spawn event. | `1` |
 | Randomize Seed | `bool` | Should a random seed be selected on `BeginPlay()` for this component?| `false` |
 | Seed | `int` | The seed used for all random selection related to this component. | `0` |
-| Templates | `FNActorPoolSpawnerTemplate[]` | A weighted collection of `AActors` and their default `FNActorPoolSettings` for usage with the component. | `Empty` |
+| Templates | `FNActorPoolSpawnerTemplate[]` | A weighted collection of `AActors` and their default [FNActorPoolSettings](actor-pool-settings.md) for usage with the component. | `Empty` |
 
 ## Distribution Types
 

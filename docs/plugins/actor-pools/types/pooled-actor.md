@@ -11,12 +11,12 @@ import TypeDetails from '../../../../src/components/TypeDetails';
 
 <TypeDetails icon="/assets/svg/actor-pools/pooled-actor.svg" iconType="img" base="AActor" type="ANPooledActor" typeExtra="" headerFile="NexusActorPools/Public/NPooledActor.h" />
 
-A specialized `AActor` base-class designed to work seamlessly with a `FNActorPool`. 
+A specialized `AActor` base-class designed to work seamlessly with a [FNActorPool](actor-pool.md). 
 
 ## What It Is
 
 - **Base Actor Class**: Inherits from `AActor` to provide all standard functionality.
-- **Pool-Ready**: Implements the `INActorPoolItem` interface, making it fully compatible with actor pools.
+- **Pool-Ready**: Implements the [INActorPoolItem](actor-pool-item.md) interface, making it fully compatible with actor pools.
 
 ## Key Benefits
 
