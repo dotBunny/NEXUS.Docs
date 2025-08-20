@@ -32,7 +32,7 @@ The real advantage of pooling objects comes from when you have an opportunity to
 
 ### Method Call
 
-Because the `FNActorPool` is not a `UObject`, there is no interaction with a given pool directly via Blueprint. It is strongly encouraged to use the provided `UFUNCTION` on [UNActorPoolSubsystem](types/actor-pool-subsystem.md) to accomplish similar outcomes. 
+Because the [FNActorPools](/docs/plugins/actor-pools/types/actor-pool/) is not a `UObject`, there is no interaction with a given pool directly via Blueprint. It is strongly encouraged to use the provided `UFUNCTION` on [UNActorPoolSubsystem](types/actor-pool-subsystem.md) to accomplish similar outcomes. 
 
 :::info
 This is intentional and creates some unique preferred workflows in **C++**.
