@@ -25,15 +25,12 @@ A Blueprint-compatible struct that defines configuration parameters for managing
 
 | Setting  | Type | Description | Default |
 | :-- | :-- | --- | :-- |
-| `MinimumActorCount` | `int` | When the [FNActorPool](actor-pool.md) is being filled during creation, what is the number of prewarmed `AActor`s that should be created, either syncronously or divided across a number of frames. | `10` |
-| `MaximumActorCount` | `int` | The number of pooled `AActor`s that a pool can use/have. This is tied more to the `Strategy` being used for what happens when the pool has to create new `AActor`s when the pool has no `AActor`s available to `Spawn()`/`Get()`. | `100` |
-| `CreateObjectsPerTick` | `int` | Throttles the number of `AActor`s that can be created per **Tick**. This can be useful to spread the cost of warming a pool up across multiple frames (-1 for unlimited). | `-1` |
+| `MinimumActorCount` | `int` | When the [FNActorPool](actor-pool.md) is being filled during creation, what is the number of prewarmed `AActors` that should be created, either synchronously or divided across a number of frames. | `10` |
+| `MaximumActorCount` | `int` | The number of pooled `AActor`s that a pool can use/have. This is tied more to the `Strategy` being used for what happens when the pool has to create new `AActor`s when the pool has no `AActors` available to `Spawn()`/`Get()`. | `100` |
+| `CreateObjectsPerTick` | `int` | Throttles the number of `AActors` that can be created per **Tick**. This can be useful to spread the cost of warming a pool up across multiple frames (-1 for unlimited). | `-1` |
 | `Strategy` | [ENActorPoolStrategy](#creation-strategies) | Determines the approach taken when the pool does not have any `AActor` remaining in the "In" pool, and needs to create one (or reuse). | `APS_Create` |
-| `bSpawnSweepBeforeSettingLocation` | `bool` | Should a sweep be done when setting the location of an `AActor` being spawned. | `false` |
-| `bReturnMoveToLocation` | `bool` | Should `AActor` being returned to the pool be moved to a storage location? | `true` |
-| `ReturnMoveLocation` | `FVector` | The location to move an `AActor` when it is returned to the pool for later reuse (if enabled). This also gets applied to newly created `AActor` as well.  | `(0,0,0)` |
-| `bDeferConstruction` | `bool` | Controls whether `AActor` construction is deferred when creating new `AActor`s; allowing for additional calls to be made to the `INActorPoolItem::OnDeferredConstruction()` before calling the `AActor`s `FinishSpawning()`. | `true` | 
-| `bShouldFinishSpawning` | `bool` | Manages `FinishSpawning()` calls for non-[INActorPoolItem](actor-pool-item.md) `AActors`. | `true` |
+| `Flags` | [ENActorPoolFlags](#flags) | The behavioral flags to evaluate when doing operations with this pool. | `APF_ReturnToStorageLocation, APF_DeferConstruction, APF_ShouldFinishSpawning` |
+| `StorageLocation` | `FVector` | The location to move an `AActor` when it is returned to the pool for later reuse (if enabled). This also gets applied to newly created `AActor` as well.  | `(0,0,0)` |
 
 ## Creation Strategies
 
@@ -46,6 +43,15 @@ A Blueprint-compatible struct that defines configuration parameters for managing
 | `APS_Fixed` | Fixed Availabilty | Deploys `AActor` as needed from fixed pools, exceeding availibility results in a `nullptr` being returned.| 
 | `APS_FixedRecycleFirst` | Fixed Availabilty, Recycle First | Deploys `AActor` as needed from fixed pools, exceeding availibility will return the oldested already spawned `AActor` in a FIFO behaviour. |
 | `APS_FixedRecycleLast` | Fixed Availabilty, Recycle Last | Deploys `AActor` as needed from fixed pools, exceeding availibility will return the newest already spawned `AActor` in a LIFO behaviour. |
+
+## Flags
+
+| Native | Display | Description |
+| :-- | :-- | :-- |
+| `APF_SweepBeforeSettingLocation` | Sweep Before Setting Location | Should a sweep be done when setting the location of an `AActor` being spawned. | 
+| `APF_ReturnToStorageLocation` | Return To Storage Location | Should the `AActor` being returned to the pool be moved to a storage location? |
+| `APF_DeferConstruction` | Defer Construction | Controls whether `AActor` construction is deferred when creating new `AActors`; allowing for additional calls to be made to the `INActorPoolItem::OnDeferredConstruction()` before calling the `AActors` `FinishSpawning()`. | 
+| `APF_ShouldFinishSpawning` | Should Finish Spawning | Manages `FinishSpawning()` calls for non-[INActorPoolItem](actor-pool-item.md) `AActors`. | 
 
 ## Project-Wide Defaults
 
