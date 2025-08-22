@@ -17,7 +17,7 @@ A small collection of functionality to help with connecting Blueprints to the na
 
 ### Bind OnActorOperationalStateChanged
 
-A utility method to allow for Blueprints and any `UFUNCTION` defined methods to be bound to the native interface's state change delegate. The named `FunctionName` must match the delegates expected expression of taking two `ENActorOperationalState` enums as inputs.
+A utility method to allow for Blueprints and any `UFUNCTION` defined methods to be bound to the native interface's state change delegate. The named `FunctionName` signature must match the delegates expected expression of taking two `ENActorOperationalState` enums as inputs.
 
 ```cpp
 UFUNCTION(BlueprintCallable, DisplayName = "Bind OnActorOperationalStateChanged", Category = "NEXUS|Actor Pool")
