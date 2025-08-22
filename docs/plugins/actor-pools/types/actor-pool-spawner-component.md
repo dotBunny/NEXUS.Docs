@@ -1,5 +1,5 @@
 ---
-sidebar_position: 6
+sidebar_position: 7
 sidebar_label: Actor Pool Spawner Component
 sidebar_class_name: type ue-actor-component
 description: A fundamental spawning component which will interact with the NActorPoolSubsystem to periodically spawn defined AActors in predefined distributions (shapes). 
@@ -32,9 +32,9 @@ This is a rudimentary example of how to spawn things; it has some use cases in a
 | Distribution | `ENActorPoolSpawnerDistribution`  | The specific distribution-shape to use when selecting a point/location to spawn an `AActor` at. | `APSD_Point` |
 | Distrubtion Range | `FVector` | The axis-based ranges to use when outlining the shapes size, and or any sort of exclusionary range. | `(1.f,20.f,20.f)`|
 | Spline Level Reference | `FComponentReference` | When `ASPD_Spline` is selected as `Distribution`, this option will be visible to select a SplineComponent in the current level. | `nullptr` |
-| Count | `int` | The number of items to spawn at any given spawn event. | `1` |
+| Count | `int32` | The number of items to spawn at any given spawn event. | `1` |
 | Randomize Seed | `bool` | Should a random seed be selected on `BeginPlay()` for this component?| `false` |
-| Seed | `int` | The seed used for all random selection related to this component. | `0` |
+| Seed | `int32` | The seed used for all random selection related to this component. | `0` |
 | Templates | `FNActorPoolSpawnerTemplate[]` | A weighted collection of `AActors` and their default [FNActorPoolSettings](actor-pool-settings.md) for usage with the component. | `Empty` |
 
 ## Distribution Types

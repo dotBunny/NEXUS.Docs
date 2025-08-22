@@ -17,12 +17,15 @@ While items on the Roadmap correspond to our own needs and ambitions, that doesn
 
 We follow the published [Epic C++ Coding Standard](https://dev.epicgames.com/documentation/en-us/unreal-engine/epic-cplusplus-coding-standard-for-unreal-engine) wherever possible. There are some minor cases where we will diverge with an opinionated purpose, with inspirations from Michael Allar’s [UE5 Style Guide](https://github.com/Allar/ue5-style-guide/tree/v2) as well.
 
-
 :::info[Editor Config]
 
 Included with the project is an [EditorConfig](https://github.com/dotBunny/NEXUS/blob/main/TestProject/.editorconfig) which attempts to enforce our coding standard while working on the **TestProject**.
 
 :::
+
+### Reminders
+
+- Prefer to use `int32` over `int` to match typedef and remove any ambiguity between 32-bit and 64-bit values.
 
 ## AI Policy
 

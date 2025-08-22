@@ -1,5 +1,5 @@
 ---
-sidebar_position: 7
+sidebar_position: 8
 sidebar_label: Kill Zone Component
 sidebar_class_name: type ue-actor-component
 description: A kill plane implementation built to automatically pool properly configured AActor upon overlap.
