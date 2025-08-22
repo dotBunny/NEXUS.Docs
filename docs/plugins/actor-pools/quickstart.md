@@ -42,7 +42,7 @@ This is intentional and creates some unique preferred workflows in **C++**.
 FNActorPool* Pool = UNActorPoolSubsystem::Get(GetWorld())->GetActorPool(MyActorClass);
 if (Pool != nullptr)
 {
-  Pool->Warm(20);
+  Pool->Prewarm(20);
 }
 ```
 
