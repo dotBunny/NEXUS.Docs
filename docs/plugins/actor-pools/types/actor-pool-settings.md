@@ -29,7 +29,7 @@ A Blueprint-compatible struct that defines configuration parameters for managing
 | `MaximumActorCount` | `int32` | The number of pooled `AActor`s that a pool can use/have. This is tied more to the `Strategy` being used for what happens when the pool has to create new `AActor`s when the pool has no `AActors` available to `Spawn()`/`Get()`. | `100` |
 | `CreateObjectsPerTick` | `int32` | Throttles the number of `AActors` that can be created per **Tick**. This can be useful to spread the cost of warming a pool up across multiple frames (-1 for unlimited). | `-1` |
 | `Strategy` | [ENActorPoolStrategy](#creation-strategies) | Determines the approach taken when the pool does not have any `AActor` remaining in the "In" pool, and needs to create one (or reuse). | `APS_Create` |
-| `Flags` | [ENActorPoolFlags](#flags) | The behavioral flags to evaluate when doing operations with this pool. | `APF_ReturnToStorageLocation, APF_DeferConstruction, APF_ShouldFinishSpawning` |
+| `Flags` | [ENActorPoolFlags](#flags) | The behavioral flags to evaluate when doing operations with this pool. | `APF_ReturnToStorageLocation, APF_DeferConstruction, APF_ShouldFinishSpawning`, `APF_ServerOnly` |
 | `StorageLocation` | `FVector` | The location to move an `AActor` when it is returned to the pool for later reuse (if enabled). This also gets applied to newly created `AActor` as well.  | `(0,0,0)` |
 
 ## Creation Strategies
