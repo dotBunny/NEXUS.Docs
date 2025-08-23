@@ -29,6 +29,10 @@ An interface that defines the contract between a `AActor` and the [FNActorPool](
   - `ReturnToActorPool()`: Allows actors to return themselves to their pool.
   - `IsAttachedToActorPool()`: Checks if the actor belongs to a pool.
   - `GetActorPoolSettings()`: Provides pool configuration settings.
+- **Lifecycle Management**: Provides methods to query and change state.
+  - `SetActorOperationalState()`: Set the state of the actor, triggering `OnActorOperationalStateChanged` delegate. 
+
 - **Automatic Initialization**: Handles the connection between actors and their owning pools.
 
 This interface is essential for any actor that wants to work with the pooling system, providing the necessary hooks for proper initialization, activation, deactivation, and cleanup within the pool lifecycle.
+

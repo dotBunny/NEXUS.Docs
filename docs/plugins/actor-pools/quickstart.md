@@ -26,6 +26,16 @@ AMyActorType* SpawnedActor = UNActorPoolSubsystem::Get(GetWorld())->SpawnActor<A
   </TabItem>
 </Tabs>
 
+:::warning CAN BE NOTHING!
+
+There are **two causes** where a [FNActorPool](types/actor-pool.md) will return a `nullptr`.
+
+**Strategy** - There are specific `Strategy` that can be set on a [FNActorPool](types/actor-pool.md) which when the pool of `AActors` has been expended it will not create a new `AActor`, but instead return a `nullptr`.
+
+**Server-Only Pools** - If a [FNActorPool](types/actor-pool.md) has been created with the `APF_ServerOnly` flag (*on by default*), and a client requests an `AActor` from that pool.
+
+:::
+
 ## Prewarm Pools
 
 The real advantage of pooling objects comes from when you have an opportunity to create an approximate number of objects you are going to need during a non-performance sensistive moment (think loading screen). There are a few options to being able to do this with [FNActorPools](/docs/plugins/actor-pools/types/actor-pool/).

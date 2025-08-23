@@ -30,7 +30,7 @@ A Blueprint-compatible struct that defines configuration parameters for managing
 | `CreateObjectsPerTick` | `int32` | Throttles the number of `AActors` that can be created per **Tick**. This can be useful to spread the cost of warming a pool up across multiple frames (-1 for unlimited). | `-1` |
 | `Strategy` | [ENActorPoolStrategy](#creation-strategies) | Determines the approach taken when the pool does not have any `AActor` remaining in the "In" pool, and needs to create one (or reuse). | `APS_Create` |
 | `Flags` | [ENActorPoolFlags](#flags) | The behavioral flags to evaluate when doing operations with this pool. | `APF_ReturnToStorageLocation, APF_DeferConstruction, APF_ShouldFinishSpawning`, `APF_ServerOnly` |
-| `DefaultTransform` | `FTransform` | The default applied transform when creating an `AActor`, with the location component being used as the storage location when an `AActor` is returned to the pool, and the scale applied when spawned. | `(0,0,0)` & `(1,1,1)` |
+| `DefaultTransform` | `FTransform` | The default applied transform when creating an `AActor`, with the location component being used as the storage location when an `AActor` is returned to the pool, and the scale applied when spawned. | `Translation(0,0,0)` `Rotator(0,0,0)` `Scale(1,1,1)` |
 
 ## Creation Strategies
 
