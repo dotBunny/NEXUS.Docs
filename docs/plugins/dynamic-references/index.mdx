@@ -8,21 +8,15 @@ import PluginDetails from '../../../src/components/PluginDetails';
 
 # Dynamic References
 
-:::warning[UNDER DEVELOPMENT - ETA v0.2.0]
-
-This section of the documentation is not yet complete. Please check the [roadmap](https://github.com/orgs/dotBunny/projects/6/views/2) for our estimate of when it will receive its initial content. 
-
-:::
-
 <PluginDetails moduleName="NexusDynamicReferences" />
 
-This plugin functions very much like a **service locator pattern** for `AActors` with some benefits:
+This plugin functions in a **service locator pattern** for `AActors` with some benefits:
 
-- **Decoupling**: Removes hard dependencies between `AActors`
-- **Flexibility**: Easy to add/remove `AActors` from reference groups at runtime
-- **Scalability**: Can handle many `AActors` of the same type without performance issues
-- **Blueprint Integration**: Fully accessible from Blueprint for designers
+- **Decoupling**: Removes hard dependencies between `AActors`.
+- **Flexibility**: Easy to add/remove `AActors` from reference groups at runtime.
+- **Scalability**: Can handle many `AActors` of the same type without performance issues.
+- **Blueprint Integration**: Fully accessible from Blueprint for designers. 
 
-Utilzing this pattern allows for developers to reference collections of typed objects safely without actually knowing at author-time.
+Utilzing this pattern allows for developers to reference collections of typed objects safely without any direct knowledge of them at author-time.
 
 <DocCardList />

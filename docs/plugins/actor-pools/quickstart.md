@@ -26,7 +26,7 @@ AMyActorType* SpawnedActor = UNActorPoolSubsystem::Get(GetWorld())->SpawnActor<A
   </TabItem>
 </Tabs>
 
-:::warning CAN BE NOTHING!
+:::warning[Can Be Nothing!]
 
 There are **two causes** where a [FNActorPool](types/actor-pool.md) will return a `nullptr`.
 

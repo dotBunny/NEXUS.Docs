@@ -48,7 +48,7 @@ var Plugins: { [id: string]: IPlugin; } = {
     owner: "reapazor",
     description: "Method for referring to runtime Actors without knowing them.",
     link: "/docs/plugins/dynamic-references/",
-    blueprintCategory: ""
+    blueprintCategory: "NEXUS > Dynamic References"
   },
 
   "NexusFixers": {
