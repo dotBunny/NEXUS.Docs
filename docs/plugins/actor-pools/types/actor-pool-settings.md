@@ -53,6 +53,7 @@ A Blueprint-compatible struct that defines configuration parameters for managing
 | `APF_DeferConstruction` | Defer Construction | Controls whether `AActor` construction is deferred when creating new `AActors`; allowing for additional calls to be made to the `INActorPoolItem::OnDeferredConstruction()` before calling the `AActors` `FinishSpawning()`. | 
 | `APF_ShouldFinishSpawning` | Should Finish Spawning | Manages `FinishSpawning()` calls for non-[INActorPoolItem](actor-pool-item.md) `AActors`. | 
 | `APF_ServerOnly` | Server Only | Safely ensure all actions only actually occur on world authority (server), transparently making the pool networked. |
+| `APF_BroadcastDestroy` | Broadcast Destroy | Broadcast destroy event on the Actor through the operational change state delegate. |
 
 ## Project-Wide Defaults
 
