@@ -102,6 +102,51 @@ const config: Config = {
           label: 'Report Issue',
           position: 'right',
         },
+        {
+          label: 'NEXUS Plugins',
+          to: "/docs/plugins/",
+          className: 'plugin-menu plugin-menu-base'
+        },
+        {
+          to: '/docs/plugins/core',
+          label: 'Core',
+          className: 'plugin-menu'
+        },
+        {
+          to: '/docs/plugins/actor-pools',
+          label: 'Actor Pools',
+          className: 'plugin-menu'
+        },
+        {
+          to: '/docs/plugins/dynamic-references',
+          label: 'Dynamic References',
+          className: 'plugin-menu'
+        },
+        {
+          to: '/docs/plugins/fixers',
+          label: 'Fixers',
+          className: 'plugin-menu'
+        },
+        {
+          to: '/docs/plugins/material-library',
+          label: 'Material Library',
+          className: 'plugin-menu'
+        },
+        {
+          to: '/docs/plugins/multiplayer',
+          label: 'Multiplayer',
+          className: 'plugin-menu'
+        },
+        {
+          to: '/docs/plugins/picker',
+          label: 'Picker',
+          className: 'plugin-menu'
+        },
+        {
+          to: '/docs/plugins/ui',
+          label: 'User Interface',
+          className: 'plugin-menu'
+        },
       ],
     },
     footer: {

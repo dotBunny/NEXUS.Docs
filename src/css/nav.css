@@ -66,3 +66,17 @@
 .header-community-link.menu__link--active:before {
   background-color: var(--ifm-navbar-link-hover-color)
 }
+
+.plugin-menu {
+  display: none;
+}
+
+.theme-layout-navbar-sidebar-panel .plugin-menu {
+  display: flex;
+  margin-left: 0.8rem;
+}
+
+.theme-layout-navbar-sidebar-panel .plugin-menu-base {
+  margin-top: 1.5rem;
+  margin-left: 0rem;
+}
