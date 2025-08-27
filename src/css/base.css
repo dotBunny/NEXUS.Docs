@@ -101,6 +101,19 @@ div.image-thumbnails p img {
 }
 
 
+@media screen and (max-width: 490px) {
+  div.image-thumbnails p img {
+    width: 11rem;
+  }
+}
+
+@media screen and (max-width: 389px) {
+  div.image-thumbnails p img {
+    width: 100%;
+  }
+}
+
+
 .footer__copyright a:hover {
   text-decoration: none;
 }

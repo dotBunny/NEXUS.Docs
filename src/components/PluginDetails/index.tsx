@@ -70,7 +70,7 @@ var Plugins: { [id: string]: IPlugin; } = {
     category: "Content",
     initialRelease: "0.1.0",
     owner: "reapazor",
-    description: "Library of Materials commonly used.",
+    description: "A collection of useful Material related content and functionality.",
     link: "/docs/plugins/material-library/",
     blueprintCategory: ""
   },
