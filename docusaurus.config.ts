@@ -68,6 +68,12 @@ const config: Config = {
   ],
 
   themeConfig: {
+    docs: {
+      sidebar: {
+        hideable: true
+      },
+    },
+
     // Replace with your project's social card
     image: 'assets/images/social/social-square.png',
     navbar: {
@@ -79,7 +85,7 @@ const config: Config = {
       items: [
         {
           type: 'docSidebar',
-          sidebarId: 'defaultSidebar',
+          sidebarId: 'docs',
           position: 'left',
           label: 'Docs',
           className: 'header-docs-link'
