@@ -89,6 +89,18 @@ li.tab-native.tabs__item--active::before {
   background-color: var(--ifm-tabs-color-active);
 }
 
+
+
+div.image-thumbnails p {
+  display: block;
+}
+
+div.image-thumbnails p img {
+  width: 14rem;
+  padding-left: 3px;
+}
+
+
 .footer__copyright a:hover {
   text-decoration: none;
 }
