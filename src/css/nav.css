@@ -18,6 +18,13 @@
   background-color: var(--ifm-navbar-link-hover-color)
 }
 
+.navbar__brand {
+  margin-right: 1.5rem;
+}
+
+.theme-layout-navbar-sidebar .navbar__brand {
+  margin-right: 1rem;
+}
 
 .navbar__logo {
   display: none;
@@ -29,42 +36,6 @@
   width: 22px;
   margin-top: 0.3em;
   margin-right: 0.12em;
-}
-
-.header-docs-link:before,
-.header-community-link:before {
-  content: "";
-  background-color: var(--ifm-navbar-link-color);
-  width: 16px;
-  height: 16px;
-  transition: background-color var(--ifm-transition-fast)var(--ifm-transition-timing-default);
-  float: left;
-  vertical-align: middle;
-  margin-right: 5px;
-  margin-top: 5px;
-}
-
-.header-docs-link:before {
-  -webkit-mask-image: url("/assets/svg/journal-bookmark-fill.svg");
-  mask-image: url("/assets/svg/journal-bookmark-fill.svg");
-}
-
-.header-community-link:before {
-  margin-right: 3px;
-  -webkit-mask-image: url("/assets/svg/house-heart.svg");
-  mask-image: url("/assets/svg/house-heart.svg");
-}
-
-.header-docs-link:hover:before,
-.header-community-link:hover:before {
-  background-color: var(--ifm-navbar-link-hover-color)
-}
-
-.header-docs-link.navbar__link--active:before,
-.header-community-link.navbar__link--active:before,
-.header-docs-link.menu__link--active:before,
-.header-community-link.menu__link--active:before {
-  background-color: var(--ifm-navbar-link-hover-color)
 }
 
 .plugin-menu {

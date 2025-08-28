@@ -87,15 +87,13 @@ const config: Config = {
           type: 'docSidebar',
           sidebarId: 'docs',
           position: 'left',
-          label: 'Docs',
-          className: 'header-docs-link'
+          label: 'Docs'
         },
         {
           to: '/community/contributing/',
           position: 'left',
           label: 'Community',
-          activeBaseRegex: `/community/`,
-          className: 'header-community-link',
+          activeBaseRegex: `/community/`
         },
         {
           href: 'https://github.com/dotBunny/NEXUS/issues/new/choose',
