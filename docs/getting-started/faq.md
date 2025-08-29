@@ -16,6 +16,10 @@ Testing is done against the current state of the repository, not bespoke version
 
 :::
 
+## What does `(User)` indicate when found at the end of preference category?
+
+This indicates that these options are saved locally to the developers machine and are not pushed upon other team members. While default values are setup and spread in the project, the local developer overrides them however they please.
+
 ## Why doesn’t NEXUS have &lt;insert feature here&gt;?
 
 Let’s pivot that question — why haven’t you [added that feature](/community/contributing/) to **NEXUS**?

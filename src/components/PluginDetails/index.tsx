@@ -84,7 +84,7 @@ var Plugins: { [id: string]: IPlugin; } = {
     owner: "reapazor",
     description: "Functionality and tools that are useful when developing multiplayer games.",
     link: "/docs/plugins/multiplayer/",
-    blueprintCategory: ""
+    blueprintCategory: "NEXUS > Multiplayer"
   },
 
   "NexusPicker": {
