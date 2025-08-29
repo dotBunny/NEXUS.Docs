@@ -46,8 +46,15 @@ While the default settings should get most developers started, every game has it
 | Seperate Server | A rarely used option that will launch a separate server (possibly hidden in-process depending on RunUnderOneProcess) even if the net mode does not require a server (such as Standalone). If the net mode requires a server (such as Client) a server will be launched for you (regardless of this setting). | `false` |
 | Parameters | Additional launch parameters to pass to the server being launched. These parameters are on top of the existing client parameters. |`<none>` |
 
-:::tip
+## Network Profiler
 
-Network profiles are stored in `<PROJECT_DIRECTORY>/Saved/Profiling/`
+One of the options available for the **Multiplayer Test** is to generate a network profile alongside the test, which is stored in the local `<PROJECT_DIRECTORY>/Saved/Profiling/` folder. 
+These profiles can provide vital information about the makeup of your network communications and reveal crucial optimization opportunities. 
 
+:::warning
+This [tool](https://dev.epicgames.com/documentation/en-us/unreal-engine/using-the-network-profiler-in-unreal-engine) is **NOT** bundled with the downloadable Epic Game Launcher version of the Unreal Engine, and must be built from [source](https://github.com/EpicGames/UnrealEngine/tree/master/Engine/Source/Programs/NetworkProfiler). There is a [public rewrite](https://github.com/ryanjon2040/UnrealNetworkProfiler) of the tool available from 2021, but is not as feature complete as the internal tool.
 :::
+
+When the tool (`NetworkProfiler.exe`) is present in the engines' folder under `Binaries/DotNet`, the **NexusCoreEditor** will automatically add an entry into the `Tools > Profile` menu.
+
+![External Tool -> Network Profiler](/assets/svg/core/network-profiler-command.webp)
