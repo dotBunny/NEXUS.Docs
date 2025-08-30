@@ -15,6 +15,10 @@ import TypeDetails from '../../../../src/components/TypeDetails';
 
 ## Functions
 
+### SetFromName
+
+Sets the text of the `NTextRenderComponent` from a `FName`, with `Server_SetFromName` allowing clients to change the text as well so long as `bAllowRPC` is `true`.
+
 ```cpp
 UFUNCTION(BlueprintCallable, DisplayName="Set From Name", Category = "NEXUS|Multiplayer")
 void SetFromName(const FName& NewValue);
@@ -23,8 +27,11 @@ UFUNCTION(Server, Reliable, BlueprintCallable, DisplayName="Set From Name (Serve
 void Server_SetFromName(const FName& NewValue);
 ```
 
-```cpp
+### SetFromString
 
+Sets the text of the `NTextRenderComponent` from a `FString`, with `Server_SetFromString` allowing clients to change the text as well so long as `bAllowRPC` is `true`.
+
+```cpp
 UFUNCTION(BlueprintCallable, DisplayName="Set From String", Category = "NEXUS|Multiplayer")
 void SetFromString(const FString& NewValue);
 
@@ -32,8 +39,11 @@ UFUNCTION(Server, Reliable, BlueprintCallable, DisplayName="Set From String (Ser
 void Server_SetFromString(const FString& NewValue);
 ```
 
-```cpp
+### SetFromText
 
+Sets the text of the `NTextRenderComponent` from a `FText`, with `Server_SetFromText` allowing clients to change the text as well so long as `bAllowRPC` is `true`.
+
+```cpp
 UFUNCTION(BlueprintCallable, DisplayName="Set From Text",  Category = "NEXUS|Multiplayer")
 void SetFromText(const FText& NewValue);
 
