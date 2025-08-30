@@ -3,6 +3,7 @@ sidebar_position: 1
 sidebar_label: Multiplayer Library
 sidebar_class_name: type ue-blueprint-function-library
 description: A handful of methods meant to support the building logic that works in multiplayer scenarios.
+tags: [0.1.0]
 ---
 
 import TypeDetails from '../../../../src/components/TypeDetails';

@@ -1,6 +1,7 @@
 ---
 description: A selection of colored material instances useful for prototyping and simple tests. 
 sidebar_position: 1
+tags: [0.1.0]
 ---
 
 # Debug

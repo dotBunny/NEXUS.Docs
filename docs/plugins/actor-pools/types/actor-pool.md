@@ -3,6 +3,7 @@ sidebar_position: 1
 sidebar_label: Actor Pool
 sidebar_class_name: type native-class
 description: A runtime object pool that efficiently manages a collection of spawned AActors.
+tags: [0.1.0]
 ---
 
 import TypeDetails from '../../../../src/components/TypeDetails';

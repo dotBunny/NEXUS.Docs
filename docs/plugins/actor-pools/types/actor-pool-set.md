@@ -3,6 +3,7 @@ sidebar_position: 3
 sidebar_label: Actor Pool Set
 sidebar_class_name: type ue-data-asset
 description: A UDataAsset that serves as a collection of preconfigured FNActorPoolSettings.
+tags: [0.1.0]
 ---
 
 import TypeDetails from '../../../../src/components/TypeDetails';

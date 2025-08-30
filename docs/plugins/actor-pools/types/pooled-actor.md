@@ -3,6 +3,7 @@ sidebar_position: 5
 sidebar_label: Pooled Actor
 sidebar_class_name: type ue-actor
 description: A specialized AActor base-class designed to work seamlessly with a FNActorPool.
+tags: [0.1.0]
 ---
 
 import TypeDetails from '../../../../src/components/TypeDetails';

@@ -1,8 +1,8 @@
 {
-  "label": "Content",
+  "label": "Find & Fix",
   "position": 1,
   "link": {
     "type": "generated-index",
-    "description": "A pre-built collection of content fixers."
+    "description": "A pre-built collection of fixers which analyze project content and fix oddities."
   }
 }

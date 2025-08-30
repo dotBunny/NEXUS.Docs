@@ -1,6 +1,7 @@
 ---
 description: A selection of metal-based material instances useful to portray the look of anodized metals (usually aluminum).
 sidebar_position: 2
+tags: [0.2.0]
 ---
 
 # Metal: Anodized

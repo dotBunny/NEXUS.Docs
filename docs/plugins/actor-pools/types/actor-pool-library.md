@@ -3,6 +3,7 @@ sidebar_position: 5
 sidebar_label: Actor Pool Library
 sidebar_class_name: type ue-blueprint-function-library
 description: A small collection of functionality to help with connecting Blueprints to the native INActorPoolItem interface.
+tags: [0.2.0]
 ---
 
 import TypeDetails from '../../../../src/components/TypeDetails';

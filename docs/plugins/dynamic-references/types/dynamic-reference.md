@@ -3,6 +3,7 @@ sidebar_position: 2
 sidebar_label: Dynamic Reference
 sidebar_class_name: type ue-enum
 description: An enumerated list of possible reference types.
+tags: [0.1.0]
 ---
 
 import TypeDetails from '../../../../src/components/TypeDetails';

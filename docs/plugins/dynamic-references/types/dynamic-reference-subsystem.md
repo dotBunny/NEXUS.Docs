@@ -3,6 +3,7 @@ sidebar_position: 3
 sidebar_label: Dynamic References Subsystem
 sidebar_class_name: type ue-world-subsystem
 description: A locator system that maintains a map that organizes actors into predefined categories.
+tags: [0.1.0]
 ---
 
 import TypeDetails from '../../../../src/components/TypeDetails';

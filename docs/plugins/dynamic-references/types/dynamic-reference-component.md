@@ -3,6 +3,7 @@ sidebar_position: 1
 sidebar_label: Dynamic Reference Component
 sidebar_class_name: type ue-actor-component
 description: A component which registers and unregisters the owning AActor with the UNDynamicReferencesSubsystem for future query.
+tags: [0.1.0]
 ---
 
 import TypeDetails from '../../../../src/components/TypeDetails';
