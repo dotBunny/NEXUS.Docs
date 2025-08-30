@@ -3,7 +3,7 @@ sidebar_position: 2
 tags: [0.2.0]
 ---
 
-# NEngineContentValidator
+# Engine Content Validator
 
 A single path validator ensuring changes to Engine Content bubble up.
 
