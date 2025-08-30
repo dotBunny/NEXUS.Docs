@@ -20,6 +20,10 @@ Testing is done against the current state of the repository, not bespoke version
 
 This indicates that these options are saved locally to the developers machine and are not pushed upon other team members. While default values are setup and spread in the project, the local developer overrides them however they please.
 
+## What is the deal with the Blueprint functions that DisplayName starts with `?`
+
+These are Blueprint functions that return a `bool` value, but instead of treating it as a traditional return value, the Blueprint node is modified to have two output pins (`true`/`false`). These are often direct clones of an existing function, but with their return context altered.
+
 ## Why doesn’t NEXUS have &lt;insert feature here&gt;?
 
 Let’s pivot that question — why haven’t you [added that feature](/community/contributing/) to **NEXUS**?
