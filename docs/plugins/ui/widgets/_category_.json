@@ -1,8 +1,0 @@
-{
-  "label": "Widgets",
-  "position": 1,
-  "link": {
-    "type": "generated-index",
-    "description": "Custom UI widgets to fill gaps in functionality added by NUI."
-  }
-}

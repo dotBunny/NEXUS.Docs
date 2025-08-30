@@ -108,7 +108,7 @@ var Plugins: { [id: string]: IPlugin; } = {
     owner: "reapazor",
     description: "Components for creating a user interface based on UMG/Slate.",
     link: "/docs/plugins/ui/",
-    blueprintCategory: ""
+    blueprintCategory: "NEXUS > User Interface"
   },
 };
 
