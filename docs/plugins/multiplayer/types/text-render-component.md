@@ -2,14 +2,16 @@
 sidebar_position: 3
 sidebar_label: Text Render Component
 sidebar_class_name: type ue-actor-component
-description: TBD
+description: A component that builds a network-synchronized UTextRenderComponent between clients.
 ---
 
 import TypeDetails from '../../../../src/components/TypeDetails';
 
 # Text Render Component
 
-<TypeDetails icon="ue-actor-component" base="UActorComponent" type="UNTextRenderComponent" typeExtra="" headerFile="NexusMultiplayer/Public/UTextRenderComponent.h" />
+<TypeDetails icon="ue-actor-component" base="UTextRenderComponent" type="UNTextRenderComponent" typeExtra="" headerFile="NexusMultiplayer/Public/UTextRenderComponent.h" />
+
+A component that builds a network-synchronized `UTextRenderComponent` between clients.
 
 ![Text Render Component](text-render-component.webp)
 
