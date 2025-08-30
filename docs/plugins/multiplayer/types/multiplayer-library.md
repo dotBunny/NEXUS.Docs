@@ -10,7 +10,7 @@ import TypeDetails from '../../../../src/components/TypeDetails';
 
 # Multiplayer Library
 
-<TypeDetails icon="ue-blueprint-function-library" base="UBlueprintFunctionLibrary" type="UNMultiplayerLibrary" typeExtra="" headerFile="NexusMultiplayer/Public/NMultiplayerLibrary.h" />
+<TypeDetails icon="ue-blueprint-function-library" base="UBlueprintFunctionLibrary" type="UNMultiplayerLibrary" typeExtra="/ FNMultiplayerUtils" headerFile="NexusMultiplayer/Public/NMultiplayerLibrary.h" />
 
 A handful of methods meant to support the building logic that works in multiplayer scenarios.
 
