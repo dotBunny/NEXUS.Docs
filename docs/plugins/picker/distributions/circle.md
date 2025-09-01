@@ -2,6 +2,8 @@
 sidebar_label: Circle
 sidebar_class_name: type ue-blueprint-function-library
 description: TBD
+toc_min_heading_level: 2
+toc_max_heading_level: 5
 tags: [0.1.0]
 ---
 
@@ -13,13 +15,11 @@ import TypeDetails from '../../../../src/components/TypeDetails';
 
 The `UNCirclePickerLibrary` wraps the native `FNCirclePicker` functionality in a **Blueprint** friendly manner. Should you be wanting to utilize a picker in _native_ code it is best to directly reference `FNCirclePicker` directly to avoid the abstraction layer as it has a similar API.
 
-## Deterministic
+## Parameters
 
-### Next Point (Inside Or On)
+### Base
 
-![Circle: Next Point](circle/circle-next-point.webp)
-
-Generates a deterministic point inside or on the perimeter of a circle. Uses the deterministic random generator to ensure reproducible results.
+All methods have a base set of parameters which affect their behaviour.
 
 |Parameter|Type|Description|Default|
 |:--|:--|:--|---|
@@ -28,50 +28,62 @@ Generates a deterministic point inside or on the perimeter of a circle. Uses the
 | MaximumRadius | `float` |The maximum radius of the circle (outer bound). ||
 | Rotation | `FRotator` | Optional rotation to apply to the circle plane | `FRotator::ZeroRotator`|
 
-### Next Point Projected (Inside Or On)
+### Projected
 
-Generates a deterministic point inside or on the perimeter of a circle, then projects it to the world. The point is projected in the given direction until it hits something in the world.
+The projected series of methods require a bit of additional context.
+
+|Parameter|Type|Description|Default|
+|:--|:--|:--|---|
+| WorldContextObject | `UObject*` | Object that provides access to the world, usally auto-filled in Blueprint. | `WorldContext` |
+| Projection | `FVector` | Direction and distance for the line trace. | `FVector(0,0,-500.f)` |
+| CollisionChannel | `ECollisionChannel` | The collision channel to use for tracing. | `ECC_WorldStatic` |
+
+## Methods
+
+### Next Point (IO)
+
+![Circle: Next Point](circle/circle-next-point.webp) 
+
+Generates a deterministic point ***[i]nside or [o]n*** the perimeter of a circle. Uses the deterministic random generator to ensure reproducible results.
+
+### Next Point Projected (IO)
 
 ![Circle: Next Point Projected](circle/circle-next-point-projected.webp)
 
-## Random
+Generates a deterministic point ***[i]nside or [o]n*** the perimeter of a circle, then projects it to the world. The point is projected in the given direction until it hits something in the world.
 
-### Random Point (Inside Or On)
-
-Generates a random point inside or on the perimeter of a circle. Uses the non-deterministic random generator for true randomness.
+### Random Point (IO)
 
 ![Circle: Random Point](circle/circle-random-point.webp)
 
-### Random Point Projected (Inside Or On)
+Generates a random point ***[i]nside or [o]n*** the perimeter of a circle. Uses the non-deterministic random generator for true randomness.
 
-Generates a random point inside or on the perimeter of a circle, then projects it to the world. The point is projected in the given direction until it hits something in the world.
+### Random Point Projected (IO)
 
 ![Circle: Random Point Projected](circle/circle-random-point-projected.webp)
 
-## One-Shot
+Generates a random point ***[i]nside or [o]n*** the perimeter of a circle, then projects it to the world. The point is projected in the given direction until it hits something in the world.
 
-### Random One-Shot Point (Inside Or On)
-
-Generates a random point inside or on the perimeter of a circle using a provided seed. Useful for one-time random point generation with reproducible results.
+### Random One-Shot Point (IO)
 
 ![Circle: Random One-Shot Point](circle/circle-random-one-shot-point.webp)
 
-### Random One-Shot Point Projected (Inside Or On)
+Generates a random point ***[i]nside or [o]n*** the perimeter of a circle using a provided seed. Useful for one-time random point generation with reproducible results.
 
-Generates a random point inside or on the perimeter of a circle using a provided seed, then projects it to the world. The point is projected in the given direction until it hits something in the world.
+### Random One-Shot Point Projected (IO)
 
 ![Circle: Random One-Shot Point Projected](circle/circle-random-one-shot-point-projected.webp)
 
-## Tracked
+Generates a random point ***[i]nside or [o]n*** the perimeter of a circle using a provided seed, then projects it to the world. The point is projected in the given direction until it hits something in the world.
 
-### Random Tracked Point (Inside Or On)
-
-Generates a random point inside or on the perimeter of a circle while tracking the random seed state. Updates the seed value to enable sequential random point generation.
+### Random Tracked Point (IO)
 
 ![Circle: Random Tracked Point](circle/circle-random-tracked-point.webp)
 
-### Random Tracked Point Projected (Inside Or On)
+Generates a random point ***[i]nside or [o]n*** the perimeter of a circle while tracking the random seed state. Updates the seed value to enable sequential random point generation.
 
-Generates a random point inside or on the perimeter of a circle while tracking the random seed state, then projects it to the world. Updates the seed value to enable sequential random point generation. The point is projected in the given direction until it hits something in the world.
+### Random Tracked Point Projected (IO)
 
 ![Circle: Random Tracked Point Projected](circle/circle-random-tracked-point-projected.webp)
+
+Generates a random point ***[i]nside or [o]n*** the perimeter of a circle while tracking the random seed state, then projects it to the world. Updates the seed value to enable sequential random point generation. The point is projected in the given direction until it hits something in the world.
