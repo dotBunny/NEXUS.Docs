@@ -1,0 +1,2 @@
+bAlwaysShowFrameRateAndMemory
+Cap
