@@ -13,3 +13,4 @@ The terminology for the pickers was becoming far to verbose and lengthy so some 
 | Abbreviation | Terminology | Description |
 |:--|---|---|
 | IO | Inside or On | The concept that a point generated would fall inside of the provide dimensions or on.
+| | Simple | Indicates a removal of some exclusionary zone logic, for a more performant method. | 
