@@ -1,7 +1,7 @@
 ---
 sidebar_label: Rectangle
 sidebar_class_name: type ue-blueprint-function-library
-description: Provides various functions for generating points the plane of a rectangle using different random generation strategies..
+description: Provides various functions for generating points the plane of a rectangle using different random generation strategies.
 toc_min_heading_level: 2
 toc_max_heading_level: 5
 tags: [0.1.0]
@@ -13,7 +13,7 @@ import TypeDetails from '../../../../src/components/TypeDetails';
 
 <TypeDetails icon="ue-blueprint-function-library" base="UBlueprintFunctionLibrary" type="UNRectanglePickerLibrary" typeExtra="/ FNRectanglePicker" headerFile="NexusActorPools/Public/NRectanglePickerLibrary.h" />
 
-Provides various functions for generating points the plane of a rectangle using different random generation strategies (deterministic, non-deterministic, seeded).
+Provides various functions for generating points the plane of a **rectangle** using different random generation strategies (deterministic, non-deterministic, seeded).
 
 The `UNRectanglePickerLibrary` wraps the native `FNRectanglePicker` functionality in a **Blueprint** friendly manner. Should you be wanting to utilize a picker in _native_ code it is best to directly reference `FNRectanglePicker` directly to avoid the abstraction layer as it has a similar API.
 

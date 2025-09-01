@@ -13,7 +13,7 @@ import TypeDetails from '../../../../src/components/TypeDetails';
 
 <TypeDetails icon="ue-blueprint-function-library" base="UBlueprintFunctionLibrary" type="UNBoxPickerLibrary" typeExtra="/ FNBoxPicker" headerFile="NexusActorPools/Public/NBoxPickerLibrary.h" />
 
-Provides various functions for generating points inside or on the surface of a `FBox` using different random generation strategies (deterministic, non-deterministic, seeded).
+Provides various functions for generating points inside or on the surface of a **`FBox`** using different random generation strategies (deterministic, non-deterministic, seeded).
 
 The `UNBoxPickerLibrary` wraps the native `FNBoxPicker` functionality in a **Blueprint** friendly manner. Should you be wanting to utilize a picker in _native_ code it is best to directly reference `FNBoxPicker` directly to avoid the abstraction layer as it has a similar API.
 
