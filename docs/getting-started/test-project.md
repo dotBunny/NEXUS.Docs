@@ -17,3 +17,17 @@ The secondary part is where the `DEMO_` prefixed levels are used as sub-levels t
 ## Finding
 
 The project is right at the root of the repository, under the `TestProject` folder. There is a `NEXUS.uproject` that can be quickly opened using a rocket-build there.
+
+## Controls
+
+The samples project contains some custom input to assist with taking screenshots for this documentation.
+
+|Key|Description|
+|:--|---|
+|`Tab`, `}`| Select next `NSamplesDisplayActor`'s camera. |
+| `{` | Select previous `NSamplesDisplayActor`'s camera. |
+| `Backspace` | Toggle the HUD's visibility. |
+| `\` | Return camera view to pawn. |
+| `F12` | Take hi-rez screenshot, saving to the default `<ProjectFolder>\Saved\Screenshots`. |
+| `=` | Increase screenshot resolution multiplier. |
+| `-` | Decrease screenshot resolution multiplier. |
