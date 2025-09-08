@@ -14,7 +14,7 @@ import TypeDetails from '../../../../src/components/TypeDetails';
 
 A small collection of functionality to help with connecting Blueprints to the native [INActorPoolItem](actor-pool-item.md) interface.
 
-## Functions
+## Operational State
 
 ### Bind OnActorOperationalStateChanged
 
