@@ -27,3 +27,7 @@ These are Blueprint functions that return a `bool` value, but instead of treat
 ## Why doesn’t NEXUS have &lt;insert feature here&gt;?
 
 Let’s pivot that question — why haven’t you [added that feature](/community/contributing/) to **NEXUS**?
+
+## Is the documentation complete and fully discoverable?
+
+No. We wish it were, but without the skills of a dedicated technical writing team, we are going to drop the ball. We aim to cover general topics, but developers will need to take some responsibility for discovering additional functionality throughout the framework.
