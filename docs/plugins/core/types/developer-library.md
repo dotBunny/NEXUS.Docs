@@ -67,7 +67,7 @@ static FNObjectSnapshotDiff CreateSnapshotDiff(const FNObjectSnapshot& OldSnapsh
 
 Get an output-friendly `FString` of a `FNObjectSnapshotEntry` from a `FNObjectSnapshot`.
 
-```
+```txt title="Example Content"
 (0) [R] [G] Name /Path	
 ```
 
@@ -80,7 +80,7 @@ static FString GetObjectSnapshotEntrySummary(const FNObjectSnapshotEntry& Entry)
 
 Get an output-friendly `FString` that summarizes the contents of a `FNObjectSnapshot`.
 
-```
+```txt title="Example Content"
 Captured %i Objects (%i Untracked)
 ```
 
@@ -93,7 +93,7 @@ static FString GetObjectSnapshotSummary(const FNObjectSnapshot& Snapshot)
 
 Get an output-friendly `FString` that contains a list of all `FNObjectSnapshotEntry` in a formatted manner.
 
-```
+```txt title="Example Content"
 Captured %i Objects (%i Untracked)
 ...
 ```
@@ -107,7 +107,7 @@ static FString GetObjectSnapshotDetailedSummary(const FNObjectSnapshot& Snapshot
 
 Get an output-friendly `FString` that summarizes the number of changes found in a `FNObjectSnapshotDiff`.
 
-```
+```txt title="Example Content"
 Total %i (%i Changes | %i Previously Untracked | %i Currently Untracked) - Added %i / Maintained %i / Removed %i
 ```
 
@@ -120,7 +120,7 @@ static FString GetObjectSnapshotDiffSummary(const FNObjectSnapshotDiff& Diff)
 
 Get an output-friendly `FString` that contains a list of all changes found in a `FNObjectSnapshotDiff` in a formatted manner.
 
-```
+```txt title="Example Content"
 Captured %i Objects (%i Changes)
 Previously %i Untracked Objects | Currently %i Untracked Objects
 Added (%i):
@@ -140,7 +140,7 @@ static FString GetObjectSnapshotDiffDetailedSummary(const FNObjectSnapshotDiff& 
 
 Simple way to output the contents of a `FNOjectSnapshotDiff` to `LogNexus`.
 
-```
+```txt title="Example Log Output"
 [FNObjectSnapshotDiff::DumpToLog] Captured %i Objects (%i Changes)
 Previously %i Untracked Objects | Currently %i Untracked Objects
 Added (%i):
