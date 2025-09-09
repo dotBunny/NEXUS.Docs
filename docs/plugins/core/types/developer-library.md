@@ -24,6 +24,7 @@ Gets the current number of known `UObjects` by looking at the global `UObject` a
 UFUNCTION(BlueprintCallable, DisplayName = "Get UObject Count", Category = "NEXUS|Developer")
 static int32 GetCurrentObjectCount()
 ```
+
 ## Snapshots
 
 ### Create UObject Snapshot
@@ -58,6 +59,13 @@ static FNObjectSnapshot CreateObjectSnapshot()
 ### Create UObject Snapshot Diff
 
 Compares two already created `FNObjectSnapshots` to formulate a difference report of what changed.
+
+:::warning
+
+This process can cause a bit of a performance hit as it will itterate over potentially a large array of `FNObjectSnapshotEntry`.
+
+:::
+
 ```cpp
 UFUNCTION(BlueprintCallable, DisplayName = "Create UObject Snapshot Diff", Category = "NEXUS|Developer")
 static FNObjectSnapshotDiff CreateSnapshotDiff(const FNObjectSnapshot& OldSnapshot, const FNObjectSnapshot& NewSnapshot, const bool bRemoveKnownLeaks = false)
@@ -67,58 +75,73 @@ static FNObjectSnapshotDiff CreateSnapshotDiff(const FNObjectSnapshot& OldSnapsh
 
 Get an output-friendly `FString` of a `FNObjectSnapshotEntry` from a `FNObjectSnapshot`.
 
-```txt title="Example Content"
-(0) [R] [G] Name /Path	
-```
-
 ```cpp
 UFUNCTION(BlueprintCallable, DisplayName = "Get UObject Snapshot Entry Summary", Category = "NEXUS|Developer")
 static FString GetObjectSnapshotEntrySummary(const FNObjectSnapshotEntry& Entry)
 ```
 
+```txt title="Snapshot Entry Line"
+(0) [R] [G] Package /Script/DeveloperSettings
+```
+
+| Reference Count | Is Root Set? | Is Flagged For GC? | FullName |
+|:--|:-:|:-:|:--|
+|(0) | [R] | [G] | Package /Script/DeveloperSettings |
+
+:::info
+
+The *Reference Count* does not always seem to be accurate as polled from the `UObject`, and the *FullName* is replaced with the `FName` if the `UObject` is no longer valid.
+
+:::
+
 ### Get UObject Snapshot Summary
 
 Get an output-friendly `FString` that summarizes the contents of a `FNObjectSnapshot`.
-
-```txt title="Example Content"
-Captured %i Objects (%i Untracked)
-```
 
 ```cpp
 UFUNCTION(BlueprintCallable, DisplayName = "Get UObject Snapshot Summary", Category = "NEXUS|Developer")
 static FString GetObjectSnapshotSummary(const FNObjectSnapshot& Snapshot)
 ```
 
+```txt title="Example Content"
+Captured %i Objects (%i Untracked)
+```
+
 ### Get UObject Snapshot Detailed Summary
 
 Get an output-friendly `FString` that contains a list of all `FNObjectSnapshotEntry` in a formatted manner.
-
-```txt title="Example Content"
-Captured %i Objects (%i Untracked)
-...
-```
 
 ```cpp
 UFUNCTION(BlueprintCallable, DisplayName = "Get UObject Snapshot Detailed Summary", Category = "NEXUS|Developer")
 static FString GetObjectSnapshotDetailedSummary(const FNObjectSnapshot& Snapshot)
 ```
 
+```txt title="Example Content"
+Captured %i Objects (%i Untracked)
+...
+```
+
 ### Get UObject Snapshot Diff Summary
 
 Get an output-friendly `FString` that summarizes the number of changes found in a `FNObjectSnapshotDiff`.
-
-```txt title="Example Content"
-Total %i (%i Changes | %i Previously Untracked | %i Currently Untracked) - Added %i / Maintained %i / Removed %i
-```
 
 ```cpp
 UFUNCTION(BlueprintCallable, DisplayName = "Get UObject Snapshot Diff Summary", Category = "NEXUS|Developer")
 static FString GetObjectSnapshotDiffSummary(const FNObjectSnapshotDiff& Diff)
 ```
 
+```txt title="Example Content"
+Total %i (%i Changes | %i Previously Untracked | %i Currently Untracked) - Added %i / Maintained %i / Removed %i
+```
+
 ### Get UObject Snapshot Diff Detailed Summary
 
 Get an output-friendly `FString` that contains a list of all changes found in a `FNObjectSnapshotDiff` in a formatted manner.
+
+```cpp
+UFUNCTION(BlueprintCallable, DisplayName = "Get UObject Snapshot Diff Detailed Summary", Category = "NEXUS|Developer")
+static FString GetObjectSnapshotDiffDetailedSummary(const FNObjectSnapshotDiff& Diff)
+```
 
 ```txt title="Example Content"
 Captured %i Objects (%i Changes)
@@ -131,14 +154,14 @@ Removed (%i):
 ...
 ```
 
-```cpp
-UFUNCTION(BlueprintCallable, DisplayName = "Get UObject Snapshot Diff Detailed Summary", Category = "NEXUS|Developer")
-static FString GetObjectSnapshotDiffDetailedSummary(const FNObjectSnapshotDiff& Diff)
-```
-
 ### Output Snapshot To Log
 
 Simple way to output the contents of a `FNOjectSnapshotDiff` to `LogNexus`.
+
+```cpp
+UFUNCTION(BlueprintCallable, DisplayName = "Output Snapshot To Log", Category = "NEXUS|Developer")
+static void DumpSnapshotDiffToLog(const FNObjectSnapshotDiff& Diff)
+```
 
 ```txt title="Example Log Output"
 [FNObjectSnapshotDiff::DumpToLog] Captured %i Objects (%i Changes)
@@ -149,9 +172,4 @@ Maintained (%i)
 ...
 Removed (%i):
 ...
-```
-
-```cpp
-UFUNCTION(BlueprintCallable, DisplayName = "Output Snapshot To Log", Category = "NEXUS|Developer")
-static void DumpSnapshotDiffToLog(const FNObjectSnapshotDiff& Diff)
 ```
