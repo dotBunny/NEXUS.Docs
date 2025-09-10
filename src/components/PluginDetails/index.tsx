@@ -63,15 +63,15 @@ var Plugins: { [id: string]: IPlugin; } = {
     blueprintCategory: ""
   },
 
-  "NexusMaterialLibrary": {
-    icon: "/assets/images/plugins/material-library-icon.webp",
-    moduleName: "NexusMaterialLibrary",
-    shortName: "NMaterialLibrary",
+  "NexusBlockout": {
+    icon: "/assets/images/plugins/blockout.webp",
+    moduleName: "NexusBlockout",
+    shortName: "NBlockout",
     category: "Content",
-    initialRelease: "0.1.0",
+    initialRelease: "0.2.0",
     owner: "reapazor",
-    description: "A collection of useful Material related content and functionality.",
-    link: "/docs/plugins/material-library/",
+    description: "A collection of useful content for blocking out a level or two early in development.",
+    link: "/docs/plugins/blockout/",
     blueprintCategory: ""
   },
 
