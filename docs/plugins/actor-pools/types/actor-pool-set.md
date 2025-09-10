@@ -28,6 +28,12 @@ By double-clicking on a `UNActorPoolSet` asset, it will open the *default* Data 
 
 ![Editing a UNActorPoolSet](actor-pool-set-edit.webp)
 
+:::tip
+
+You can nest / link `UNActorPoolSets` with others, so when one set is applied, the nested `UNActorPoolSets` will also be used.
+
+:::
+
 ## Applying
 
 Once you have a valid reference to the desired `UNActorPoolSet`, you instruct the [UNActorPoolSubsystem](actor-pool-subsystem.md) to apply the given set.
