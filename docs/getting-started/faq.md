@@ -31,3 +31,7 @@ Let’s pivot that question — why haven’t you [added that feature](/communit
 ## Is the documentation complete and fully discoverable?
 
 **No.** We wish it were, but without the skills of a dedicated technical writing team, we are going to drop the ball. We aim to cover general topics, but developers will need to take some responsibility for discovering additional functionality throughout the framework.
+
+## Types vs Editor Types vs Developer Types
+
+We will often use **Types**, over the definitives **Runtime Types**. Whereas, we will clearly indicate **Editor Types** to demonstrate something as only available in the Unreal Editor or **Developer Types** to indiicate availability in Development builds only.
