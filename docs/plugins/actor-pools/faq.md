@@ -19,3 +19,9 @@ The basic premise of making pooling work in a networked environment is to ensure
 :::tip
 The default [FNActorPoolSettings](types/actor-pool-settings.md) includes the `APF_ServerOnly` flag being set. This will ensure that all functionality will only execute on the server (world authority).
 :::
+
+## How can I see stats about the NActorPools in real time?
+
+Ensure that you have `Stats Tracking` turned on in your project's preferences for `NActorPools` (`Project Settings ... > NEXUS > Actor Pools`). 
+
+Then the `stats NActorPools` [command](console-commands.md) should show real-time pool usage statistics.
