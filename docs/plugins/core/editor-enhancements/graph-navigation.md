@@ -1,5 +1,5 @@
 ---
-description: TBD
+description: A mechanism for touchpad navigation of blueprint graphs with ease.
 ---
 
 # Graph Navigation
