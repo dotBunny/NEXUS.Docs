@@ -7,7 +7,7 @@ description: TBD
 
 A particularily interesting problem emerged when we started using laptops with Unreal Engine, a distinct inability to easily move around graphs. 
 
-We added [FNEditorInputProcessor](input-processor.md) to create a processing layer that could be queried and even respond to specific situations.
+We added [FNEditorInputProcessor](../types/input-processor.md) to create a processing layer that could be queried and even respond to specific situations.
 
 ## Settings
 
