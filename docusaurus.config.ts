@@ -116,6 +116,11 @@ const config: Config = {
           className: 'plugin-menu'
         },
         {
+          to: '/docs/plugins/blockout',
+          label: 'Blockout',
+          className: 'plugin-menu'
+        },
+        {
           to: '/docs/plugins/dynamic-references',
           label: 'Dynamic References',
           className: 'plugin-menu'
@@ -123,11 +128,6 @@ const config: Config = {
         {
           to: '/docs/plugins/fixers',
           label: 'Fixers',
-          className: 'plugin-menu'
-        },
-        {
-          to: '/docs/plugins/material-library',
-          label: 'Material Library',
           className: 'plugin-menu'
         },
         {
