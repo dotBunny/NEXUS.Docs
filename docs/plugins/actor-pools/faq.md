@@ -25,3 +25,7 @@ The default [FNActorPoolSettings](types/actor-pool-settings.md) includes the `AP
 Ensure that you have `Stats Tracking` turned on in your project's preferences for `NActorPools` (`Project Settings ... > NEXUS > Actor Pools`). 
 
 Then the `stats NActorPools` [command](console-commands.md) should show real-time pool usage statistics.
+
+### What's up with the scale of my spawned AActors?
+
+When an actor is taken from its associated pool and made active, it's scale is reset to the predefined scale set in the [FNActorPools](types/actor-pool.md) settings (`FNActorPoolSettings::DefaultTransform`).
