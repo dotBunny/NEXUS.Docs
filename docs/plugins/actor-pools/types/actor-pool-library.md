@@ -18,17 +18,25 @@ A small collection of functionality to help with connecting Blueprints to the na
 
 ### Bind OnActorOperationalStateChanged
 
-A utility method to allow for Blueprints and any `UFUNCTION` defined methods to be bound to the native interface's state change delegate. The named `FunctionName` signature must match the delegates expected expression of taking two `ENActorOperationalState` enums as inputs.
-
 ```cpp
+/**
+  * An inconvenient way to bind to the OnActorOperationalStateChanged delegate on an INActorPoolItem.
+  * @note The function definition should be Function(const ENActorOperationalState OldState, const ENActorOperationalState NewState).
+  * @param Actor The target Actor which implements the INActorPoolItem interface.
+  * @param Object The UObject to bind to.
+  * @param FunctionName The function name to bind to.
+  */
 static void BindOnActorOperationalStateChanged(const TScriptInterface<INActorPoolItem> Actor, UObject* Object, const FName FunctionName)
 ```
 
 
 ### Unbind OnActorOperationalStateChanged
 
-Unbinds all bound functions from a given `Object` to the `Actor`'s `OnActorOperationalStateChanged` delegate.
-
 ```cpp
+/**
+  * Removes all bindings for the given Object to the OnActorOperationalStateChanged delegate.	 
+  * @param Actor The target Actor which implements the INActorPoolItem interface.
+  * @param Object The UObject to have its matched bindings removed.
+  */
 static void UnbindOnActorOperationalStateChanged(const TScriptInterface<INActorPoolItem> Actor, UObject* Object)
 ```

@@ -31,27 +31,34 @@ By default the component will automatically change its collision profile to `Ove
 
 ## UFunctions
 
+The methods exposted to Blueprint.
+
 ### Get Kill Count
 
-Gets the internal counter tracking the number of `AActors` the component has _killed_ (destroyed).
-
 ```cpp
+/**
+  * Gets the internal counter tracking the number of AActors the component has killed.
+  * @return The kill count.
+  */
 int32 GetKillCount() const { return KillCount; }
 ```
 
 ### Set Kill Count
 
-Sets the internal counter tracking the number of `AActors` the component has _killed_ (destroyed) to the specified `NewKillCount`.
-
 ```cpp
+/**
+  * Sets the internal counter tracking the number of AActors the component has killed.
+  * @param NewKillCount The new value to use as the kill count.
+  */
 void SetKillCount(const int32 NewKillCount) { KillCount = NewKillCount; }
 ```
 
 ### Reset Kill Count
 
-Resets the internal counter tracking the number of `AActors` the component has _killed_ (destroyed) to `0`.
-
 ```cpp
+/**
+  * Resets the internal counter tracking the number of AActors the component has killed to 0.
+  */
 void ResetKillCount() { KillCount = 0; }
 ```
 

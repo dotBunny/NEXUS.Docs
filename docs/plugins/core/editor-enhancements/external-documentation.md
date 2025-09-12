@@ -16,6 +16,17 @@ UFUNCTION(BlueprintCallable, DisplayName = "Set Baseline", Category = "NEXUS|Dev
 void SetBaseline();
 ```
 
+
+:::tip
+
+If you would like to open multiple external links seperate them with a comma.
+
+```cpp
+meta=(DocsURL="https://address.one,https://address.two"))
+```
+
+:::
+
 :::warning
 
 Yes, we have hijacked the `DocsURL` option, but we feel like it is globally understood and should not conflict with anything.

@@ -80,3 +80,89 @@ UNActorPoolSubsystem::Get(GetWorld())->ReturnActor(TargetActor);
 ```
   </TabItem>
 </Tabs>
+
+## UFunctions
+
+The methods exposted to Blueprint.
+
+### Get Actor
+
+```cpp
+/**
+  * Gets an actor from a given pool, creating a pool as necessary.
+  * @note This does not trigger any events on the given actor, it does not activate them in any way.
+  * @param ActorClass The class of the actor which you would like to get from the actor pool.
+  * @param ReturnedActor The returned actor.
+  */
+void GetActor(TSubclassOf<AActor> ActorClass, AActor*& ReturnedActor);
+```
+
+:::warning
+
+This does not trigger any events on the given actor, it does not activate them in any way.
+
+:::
+
+### Spawn Actor
+
+```cpp
+/**
+* Spawns an actor from a given pool, creating a pool as necessary.
+* @param ActorClass The class of the actor which you would like to get from the actor pool.
+* @param Position The world position to spawn the actor at.
+* @param Rotation The world rotation to apply to the spawned actor.
+* @param SpawnedActor The returned actor.
+*/
+void SpawnActor(TSubclassOf<AActor> ActorClass, FVector Position, FRotator Rotation, AActor*& SpawnedActor);
+```
+
+:::tip
+
+If you are working in native, use the native templated version of this function as it will let you pre-cast the return value to your desired type.
+
+:::
+
+### Return Actor
+
+```cpp
+/**
+  * Attempts to return an Actor to its owning pool.
+  * @note If the returned actor does not belong in a pool, it may be destroyed, in that case it will return true.
+  * @param Actor The target actor to return to a pool.
+  * @return true/false if the Actor was returned to a pool.
+  */
+bool ReturnActor(AActor* Actor);
+```
+
+### Create Actor Pool
+
+```cpp
+/**
+  * Create an actor pool for the provided Actor class, if one does not already exist.
+  * @param ActorClass The class of the actor which you would like to create a pool for.
+  * @param Settings  The settings to apply to the created pool.
+  * @return true/false if a new pool was created.
+  */
+bool CreateActorPool(TSubclassOf<AActor> ActorClass, FNActorPoolSettings Settings);
+```
+
+### Has Actor Pool
+
+```cpp
+/**
+  * Does the given Actor class have a pool already created?
+  * @param ActorClass The class of the actor which you would like to check for a pool.
+  * @return true/false if a pool already exists.
+  */
+bool HasActorPool(const TSubclassOf<AActor>& ActorClass) const { return ActorPools.Contains(ActorClass); }
+```
+
+### Apply ActorPoolSet
+
+```cpp
+/**
+  * Apply a preconfigured ActorPoolSet, creating the defined pools.
+  * @param ActorPoolSet  The ActorPoolSet to evaluate.
+  */
+void ApplyActorPoolSet(UNActorPoolSet* ActorPoolSet);
+```

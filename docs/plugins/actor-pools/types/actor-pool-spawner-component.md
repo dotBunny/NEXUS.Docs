@@ -50,20 +50,32 @@ This is a rudimentary example of how to spawn things; it has some use cases in a
 
 ## UFunctions
 
+The methods exposted to Blueprint.
+
 ### Spawn
 
 ```cpp
+/**
+  * Initiate a spawn call for the component, ignoring any timers.
+  * @param bIgnoreSpawningFlag Should the internal spawning flag state be ignored?
+  */
 void Spawn(bool bIgnoreSpawningFlag = false);
 ```
 
 ### Disable Spawning
 
 ```cpp
+/**
+  * Disables the component's internal flag to stop any spawning from occuring.
+  */
 void DisableSpawning()
 ```
 
 ### Enable Spawning
 
 ```cpp
+/**
+  * Enables the component's internal flag to allow spawning to occur (on by default).
+  */
 void EnableSpawning()
 ```
