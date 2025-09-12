@@ -29,3 +29,29 @@ By default the component will automatically change its collision profile to `Ove
 | Ignore Static Actors? | `bool` | Ignore static (Non-movable) actors that trigger an overlap event.  | `true` |
 | Ignore Non-INActorPoolItem Actors | `bool` | Ignore actors who do not implement the [INActorPoolItem](actor-pool-item.md) interface. | `false` |
 
+## UFunctions
+
+### Get Kill Count
+
+Gets the internal counter tracking the number of `AActors` the component has _killed_ (destroyed).
+
+```cpp
+int32 GetKillCount() const { return KillCount; }
+```
+
+### Set Kill Count
+
+Sets the internal counter tracking the number of `AActors` the component has _killed_ (destroyed) to the specified `NewKillCount`.
+
+```cpp
+void SetKillCount(const int32 NewKillCount) { KillCount = NewKillCount; }
+```
+
+### Reset Kill Count
+
+Resets the internal counter tracking the number of `AActors` the component has _killed_ (destroyed) to `0`.
+
+```cpp
+void ResetKillCount() { KillCount = 0; }
+```
+

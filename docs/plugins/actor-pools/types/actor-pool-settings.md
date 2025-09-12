@@ -2,7 +2,7 @@
 sidebar_position: 2
 sidebar_label: Actor Pool Settings
 sidebar_class_name: type native-struct
-description: A Blueprint-compatible struct that defines configuration parameters for managing object pooling inside of a NActorPool.
+description: A Blueprint-compatible struct that defines configuration parameters for managing object pooling inside of a FNActorPool.
 tags: [0.1.0]
 ---
 
@@ -12,7 +12,7 @@ import TypeDetails from '../../../../src/components/TypeDetails';
 
 <TypeDetails icon="native-struct" base="UStruct" type="FNActorPoolSettings" typeExtra="" headerFile="NexusActorPools/Public/NActorPoolSettings.h" />
 
-A Blueprint-compatible struct that defines configuration parameters for managing object pooling inside of a [NActorPool](actor-pool.md). This struct provides comprehensive settings to control how actors are created, managed, and recycled.
+A Blueprint-compatible struct that defines configuration parameters for managing object pooling inside of a [FNActorPool](actor-pool.md). This struct provides comprehensive settings to control how actors are created, managed, and recycled.
 
 ## Highlights
 

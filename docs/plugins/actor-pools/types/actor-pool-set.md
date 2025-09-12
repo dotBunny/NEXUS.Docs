@@ -14,7 +14,7 @@ import TabItem from '@theme/TabItem';
 
 <TypeDetails icon="/assets/svg/actor-pools/actor-pool-set.svg" iconType="img" base="UDataAsset" type="UNActorPoolSet" typeExtra="" headerFile="NexusActorPools/Public/NActorPoolSet.h" />
 
-A `UDataAsset` that serves as a collection of preconfigured [FNActorPoolSettings](actor-pool-settings.md) to allow for easily warming up [NActorPools](actor-pool.md) with the given context. One compelling usage of these sets is to process a level on save, or cook and determine a good amount of the spawnable actors and create an `NActorPoolSet` per level. That way, when a level is loaded, you can apply its `NActorPoolSet` and have all of the spawnable `AActor` prewarmed.
+A `UDataAsset` that serves as a collection of preconfigured [FNActorPoolSettings](actor-pool-settings.md) to allow for easily warming up [FNActorPools](actor-pool.md) with the given context. One compelling usage of these sets is to process a level on save, or cook and determine a good amount of the spawnable actors and create an `UNActorPoolSet` per level. That way, when a level is loaded, you can apply its `UNActorPoolSet` and have all of the spawnable `AActor` prewarmed.
 
 ## Creating
 

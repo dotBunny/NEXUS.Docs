@@ -47,3 +47,23 @@ This is a rudimentary example of how to spawn things; it has some use cases in a
 | `APSD_Sphere` | Sphere | Selects a point at the given component's location + `Offset`, in a sphere, with a minimum radius of `DistributionRange.X` and a maximum radius of `DistributionRange.Y`. | 
 | `APSD_Box` | Box | Selects a point at the given component's location + `Offset`, in an axis-aligned box, using the `DistributionRange` for size. |
 | `APSD_Spline` | Spline | Selects a point along the target `SplineLevelReference`.  | 
+
+## UFunctions
+
+### Spawn
+
+```cpp
+void Spawn(bool bIgnoreSpawningFlag = false);
+```
+
+### Disable Spawning
+
+```cpp
+void DisableSpawning()
+```
+
+### Enable Spawning
+
+```cpp
+void EnableSpawning()
+```

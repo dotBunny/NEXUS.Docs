@@ -1,6 +1,7 @@
 ---
 sidebar_position: 9
 description: Some console commands for developers to use provided by NActorPools.
+tags: [0.2.0]
 ---
 
 # Console Commands

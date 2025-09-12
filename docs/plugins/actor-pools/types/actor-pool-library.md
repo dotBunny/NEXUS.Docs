@@ -21,7 +21,6 @@ A small collection of functionality to help with connecting Blueprints to the na
 A utility method to allow for Blueprints and any `UFUNCTION` defined methods to be bound to the native interface's state change delegate. The named `FunctionName` signature must match the delegates expected expression of taking two `ENActorOperationalState` enums as inputs.
 
 ```cpp
-UFUNCTION(BlueprintCallable, DisplayName = "Bind OnActorOperationalStateChanged", Category = "NEXUS|Actor Pool")
 static void BindOnActorOperationalStateChanged(const TScriptInterface<INActorPoolItem> Actor, UObject* Object, const FName FunctionName)
 ```
 
@@ -31,6 +30,5 @@ static void BindOnActorOperationalStateChanged(const TScriptInterface<INActorPoo
 Unbinds all bound functions from a given `Object` to the `Actor`'s `OnActorOperationalStateChanged` delegate.
 
 ```cpp
-UFUNCTION(BlueprintCallable, DisplayName = "Unbind OnActorOperationalStateChanged", Category = "NEXUS|Actor Pool")
 static void UnbindOnActorOperationalStateChanged(const TScriptInterface<INActorPoolItem> Actor, UObject* Object)
 ```
