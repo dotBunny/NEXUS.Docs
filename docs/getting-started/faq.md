@@ -34,4 +34,4 @@ Let’s pivot that question — why haven’t you [added that feature](/communit
 
 ## Types vs Editor Types vs Developer Types
 
-We will often use **Types**, over the definitives **Runtime Types**. Whereas, we will clearly indicate **Editor Types** to demonstrate something as only available in the Unreal Editor or **Developer Types** to indiicate availability in Development builds only.
+We will often refer to **Types**, instead of using the definitive **Runtime Types**. Whereas, we clearly indicate **Editor Types** to demonstrate something as only available in the Unreal Editor. Callouts for **Developer Types** indicate that they are restricted to the development environment (Editor/Development builds).
