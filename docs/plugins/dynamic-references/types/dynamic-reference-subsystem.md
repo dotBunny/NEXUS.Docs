@@ -41,3 +41,44 @@ for (TArray<AActor*>& ReferencedActors = UNDynamicReferenceSubsystem::Get(GetWor
   </TabItem>
 </Tabs>
 
+## UFunctions
+
+### Add Reference
+
+```cpp
+/**
+  * Add a reference by ENDynamicReference to a specified AActor.
+  * @remark Be careful with the manual add method. If you add it, you must remove it!
+  * @param InType The desired dynamic reference type to add too.
+  * @param InActor The AActor to be referenced by the InType.
+  */
+void AddReference(ENDynamicReference InType, AActor* InActor);
+```
+
+:::tip
+
+The [UNDynamicReferenceComponent](dynamic-reference-component.md) automatically manages the registration lifecycle.
+
+:::
+
+### Remove Reference
+```cpp
+/**
+  * Remove a reference by ENDynamicReference to a specified AActor.
+  * @param InType The desired dynamic reference type to remove from.
+  * @param InActor The AActor to be have its reference removed by the InType.
+  */
+void RemoveReference(ENDynamicReference InType, AActor* InActor);
+```
+
+### Get References
+
+```cpp
+/**
+  * Gets the array of AActors dynamically associated with the provided type.
+  * @param InType The desired dynamic reference type to access.
+  * @return An array of AActors. 
+  */
+TArray<AActor*>& GetReferences(const ENDynamicReference InType) { return ReferenceMap[InType]; }
+```
+
