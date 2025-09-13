@@ -138,7 +138,7 @@ bool ReturnActor(AActor* Actor);
 
 ```cpp
 /**
-  * Create an actor pool for the provided Actor class, if one does not already exist.
+  * Create an actor pool for the provided Actor class; if one does not already exist.
   * @param ActorClass The class of the actor which you would like to create a pool for.
   * @param Settings  The settings to apply to the created pool.
   * @return true/false if a new pool was created.

@@ -27,6 +27,22 @@ Included with the project is an [EditorConfig](https://github.com/dotBunny/NEXUS
 
 - Prefer to use `int32` over `int` to match typedef and remove any ambiguity between 32-bit and 64-bit values.
 
+### Resharper Warnings
+
+#### Potential GC
+
+```cpp
+// ReSharper disable once CppUE4ProbableMemoryIssuesWithUObjectsInContainer
+```
+
+#### Enums
+
+```cpp
+// ReSharper disable IdentifierTypo, CppUE4CodingStandardNamingViolationWarning
+...
+// ReSharper enable IdentifierTypo, CppUE4CodingStandardNamingViolationWarning
+```
+
 ## AI Policy
 
 **Touchy subject!** At times, we have used [JetBrains AI](https://www.jetbrains.com/ai/) to generate the initial code summaries/documentation. We then review and edit them accordingly; this has allowed us to accelerate the code documentation process. A common prompt we have used is:
