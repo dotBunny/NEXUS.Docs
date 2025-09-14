@@ -9,4 +9,4 @@ description:  The sample content provided for NUI.
 
 The `DEMO_NUI` sample map is available once you have enabled the `NEXUS Samples: UI` plugin. This is found in the `NEXUS Samples` category in the `Edit > Plugins` window.
 
-The map demonstrates all of the provided [widgets](../widgets).
+The map demonstrates all of the provided [widgets](../types).
