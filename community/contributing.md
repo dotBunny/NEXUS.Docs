@@ -23,19 +23,21 @@ Included with the project is an [EditorConfig](https://github.com/dotBunny/NEXUS
 
 :::
 
-### Reminders
+### Choices
 
 - Prefer to use `int32` over `int` to match typedef and remove any ambiguity between 32-bit and 64-bit values.
 
 ### Resharper Warnings
 
-#### Potential GC
+We disable warnings which are considered expected behaviour.
+
+#### Potential GC Of Private Raw Pointers
 
 ```cpp
 // ReSharper disable once CppUE4ProbableMemoryIssuesWithUObjectsInContainer
 ```
 
-#### Enums
+#### Enumeration Naming
 
 ```cpp
 // ReSharper disable IdentifierTypo, CppUE4CodingStandardNamingViolationWarning
