@@ -16,7 +16,14 @@ import TypeDetails from '../../../../src/components/TypeDetails';
 
 An extension on the UMG `USpinBox` which adds functionality to set its value without broadcasting / triggering events.
 
+## UFunctions
+
+### Set Value (No Broadcast)
+
 ```cpp
-UFUNCTION(BlueprintCallable, Category="NEXUS|User Interface", DisplayName="Set Value (No Broadcast)")
+/**
+  * Set the value of the USpinBox without triggering exposed event bindings.
+  * @param NewValue The new value.
+  */
 void SetValue_NoBroadcast(const float NewValue);
 ```
