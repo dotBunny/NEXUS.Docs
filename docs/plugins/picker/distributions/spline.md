@@ -84,7 +84,6 @@ Generates a random point on a `USplineComponent`'s spline while tracking the ran
 |Variant|Parameter|Type|Description|Default|
 |:--|:--|:--|:--|:--|
 | _Base_ | SplineComponent | `USplineComponent*` |The spline component to generate points on. ||
-| **Projected** | WorldContextObject | `UObject*` | Object that provides access to the world, usally auto-filled in Blueprint. | `WorldContext` |
 | **Projected** | Projection | `FVector` | Direction and distance for the line trace. | `FVector(0,0,-500.f)` |
 | **Projected** | CollisionChannel | `ECollisionChannel` | The collision channel to use for tracing. | `ECC_WorldStatic` |
 | **Tracked** | Seed | `int32&` | The seed to be used when generating, and altered for determinism. | |
