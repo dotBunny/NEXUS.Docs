@@ -37,15 +37,43 @@ Once you have a reference to the instance, you can then use its methods to query
 ### Shift
 
 ```cpp
+/**
+  * Is the left shift-key pressed?
+  * @return true/false the key is pressed on the keyboard.
+  */
 bool IsLeftShiftDown() const;
+
+/**
+  * Is the right shift-key pressed?
+  * @return true/false the key is pressed on the keyboard.
+  */
 bool IsRightShiftDown() const;
+
+/**
+  * Is either shift-key pressed?
+  * @return true/false either key is pressed on the keyboard.
+  */	
 bool IsShiftDown() const;
 ```
 
 ### Control
 ```cpp
+/**
+  * Is the left control-key pressed?
+  * @return true/false the key is pressed on the keyboard.
+  */
 bool IsLeftControlDown() const;
+
+/**
+  * Is the right control-key pressed?
+  * @return true/false the key is pressed on the keyboard.
+  */	
 bool IsRightControlDown() const;
+
+/**
+  * Is either shift-key pressed?
+  * @return true/false either key is pressed on the keyboard.
+  */	
 bool IsControlDown() const;
 ```
 
@@ -54,14 +82,37 @@ bool IsControlDown() const;
 ### Spacebar
 
 ```cpp
+/**
+  * Is the space bar pressed?
+  * @return true/false the key is pressed on the keyboard.
+  */		
 bool IsSpaceBarDown() const;
 ```
 
 ### Mouse Buttons
 
 ```cpp
+/**
+  * Is the left mouse-button pressed?
+  * @return true/false the mouse-button is pressed.
+  */	
 bool IsLeftMouseButtonDown() const;
+
+/**
+  * Is the right mouse-button pressed?
+  * @return true/false the mouse-button is pressed.
+  */		
 bool IsRightMouseButtonDown() const;
+
+/**
+  * Is the middle mouse-button pressed?
+  * @return true/false the mouse-button is pressed.
+  */	
 bool IsMiddleMouseButtonDown() const;
+
+/**
+  * Is any mouse-button pressed?
+  * @return true/false any of the three mouse-buttons are pressed.
+  */	
 bool IsAnyMouseButtonDown() const;
 ```
