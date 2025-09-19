@@ -14,78 +14,107 @@ import TypeDetails from '../../../../src/components/TypeDetails';
 
 A handful of methods meant to support the building logic that works in multiplayer scenarios.
 
-## Admin Functions
+## UFunctions
 
-### HasRemotePlayers
+### Admin Functions
 
-Evaluates the GameState's player array for any local controllers.
+#### Has Remote Players
 
 ```cpp
-UFUNCTION(BlueprintCallable, BlueprintPure = false, DisplayName = "Has Remote Players", Category = "NEXUS|Multiplayer", meta = (WorldContext = "WorldContextObject"))
+/**
+  * Does the current world have remotely connected clients to it?
+  * @remark Clients won't have remote connections, only the server will.
+  * @param WorldContextObject Object that provides the context of which world to operate in.
+  * @return true/false if remote clients are found.
+  */
 static bool HasRemotePlayers(UObject* WorldContextObject);
 ```
 
-### HasLocalPlayersOnly
-
-Evaluates the `GameState`'s player array, ensuring their are only local controllers.
+#### Has Local Players Only
 
 ```cpp
-UFUNCTION(BlueprintCallable, BlueprintPure = false, DisplayName = "Has Local Players", Category = "NEXUS|Multiplayer", meta = (WorldContext = "WorldContextObject"))
+/**
+  * Does the current world have locally connected clients only?
+  * @remark Couch Co-op.
+  * @param WorldContextObject Object that provides the context of which world to operate in.
+  * @return true/false if only local clients are found.
+  */	
 static bool HasLocalPlayersOnly(UObject* WorldContextObject);
 ```
 
-### HasGameStateAuthority
-
-Checks the `GameState` role to ensure it is `ROLE_Authority`.
+#### Has GameState Authority
 
 ```cpp
-UFUNCTION(BlueprintCallable, BlueprintPure = false, DisplayName = "Has GameState Authority", Category = "NEXUS|Multiplayer", meta = (WorldContext = "WorldContextObject"))
+/**
+  * Does the current callstack have GameState authority?
+  * @remark One of many ways to check if the logic is being operated on the host/server.
+  * @param WorldContextObject Object that provides the context of which world to operate in.
+  * @return true/false if authority is found.
+  */
 static bool HasGameStateAuthority(UObject* WorldContextObject);
 ```
 
-### HasWorldAuthority
-
-Queries the `World->GetAuthGameMode()` to see if a valid `GameMode` is present.
+#### Has World Authority
 
 ```cpp
-UFUNCTION(BlueprintCallable, BlueprintPure = false, DisplayName = "Has World Authority", Category = "NEXUS|Multiplayer", meta = (WorldContext = "WorldContextObject"))
+/**
+  * Does the current callstack have World authority?
+  * @remark Developer preference, use this to determine if logic is operating on the host.
+  * @param WorldContextObject Object that provides the context of which world to operate in.
+  * @return true/false if authority is found.
+  */	
 static bool HasWorldAuthority(UObject* WorldContextObject);
 ```
 
-### IsServer
-
-Checks what the `World` network mode is; specifically comparing aginst `NM_Client`.
+#### Is Server
 
 ```cpp
-UFUNCTION(BlueprintCallable, DisplayName = "Is Host", Category = "NEXUS|Multiplayer", meta = (WorldContext = "WorldContextObject", ExpandBoolAsExecs="ReturnValue"))
+/**
+  * An explicit check that the network mode of the world is not NM_Client, thus either a listen server (w/ client) or a dedicated server.	 
+  * @param WorldContextObject Object that provides the context of which world to operate in.
+  * @return true/false if the world is not operating in NM_Client mode.
+  */	
 static bool IsServer(UObject* WorldContextObject);
 ```
 
-### KickPlayer
-
-Kicks the provided player from the session, validating that the call is being executed by an authority.
+#### Kick Player
 
 ```cpp
-UFUNCTION(BlueprintCallable, BlueprintPure = false, DisplayName = "Kick Player", Category = "NEXUS|Multiplayer", meta = (WorldContext = "WorldContextObject"))
+/**
+  * Kicks a player from a session.
+  * @remark This should be only called on the server or world owner.
+  * @param WorldContextObject Object that provides the context of which world to operate in.
+  * @param PlayerState The target player to kick.
+  * @return Was the player able to be kicked? true/false.
+  */
 static bool KickPlayer(UObject* WorldContextObject, APlayerState* PlayerState);
 ```
 
-## Utility Functions
+:::warning
 
-### IsMultiplayerTest
+Will fail if not done by server/host.
 
-Checks the startup commandline for an appended flag that indicates that the client/server is of initiation from a **Multiplayer Test**.
+:::
+
+### Utility Functions
+
+#### Is Multiplayer Test
 
 ```cpp
-UFUNCTION(BlueprintCallable, BlueprintPure = false, DisplayName = "Is Multiplayer Test", Category = "NEXUS|Multiplayer")
+/**
+  * Is the current session created from the MultiplayerTest editor command?
+  * @return true/false if it is.
+  */
 static bool IsMultiplayerTest();
 ```
 
-### Ping
-
-Returns the ping of the current client to the server.
+#### Ping
 
 ```cpp
-UFUNCTION(BlueprintPure, DisplayName = "Get Ping", Category = "NEXUS|Multiplayer", meta = (WorldContext = "WorldContextObject"))
+/**
+  * Get the current ping to the host/server.
+  * @param WorldContextObject Object that provides the context of which world to operate in.
+  * @return The numerical ping (ms) to the session host.
+  */
 static float Ping(const UObject* WorldContextObject);
 ```

@@ -16,41 +16,62 @@ A component that builds a network-synchronized `UTextRenderComponent` between cl
 
 ![Text Render Component](text-render-component.webp)
 
-## Functions
+## UFunctions
 
-### SetFromName
+### Set From Name
 
 Sets the text of the `NTextRenderComponent` from a `FName`, with `Server_SetFromName` allowing clients to change the text as well so long as `bAllowRPC` is `true`.
 
 ```cpp
-UFUNCTION(BlueprintCallable, DisplayName="Set From Name", Category = "NEXUS|Multiplayer")
+/**
+  * Set the value of the text component from an FName.
+  * @param NewValue The desired text value.
+  */	
 void SetFromName(const FName& NewValue);
 
-UFUNCTION(Server, Reliable, BlueprintCallable, DisplayName="Set From Name (Server)", Category = "NEXUS|Multiplayer")
+/**
+  * Set the value of the text component from an FName via RPC.
+  * @remark Client setter requires bAllowRPC to be true.
+  * @param NewValue The desired text value.
+  */
 void Server_SetFromName(const FName& NewValue);
 ```
 
-### SetFromString
+### Set From String
 
 Sets the text of the `NTextRenderComponent` from a `FString`, with `Server_SetFromString` allowing clients to change the text as well so long as `bAllowRPC` is `true`.
 
 ```cpp
-UFUNCTION(BlueprintCallable, DisplayName="Set From String", Category = "NEXUS|Multiplayer")
+/**
+  * Set the value of the text component from an FString.
+  * @param NewValue The desired text value.
+  */		
 void SetFromString(const FString& NewValue);
 
-UFUNCTION(Server, Reliable, BlueprintCallable, DisplayName="Set From String (Server)", Category = "NEXUS|Multiplayer")
+/**
+  * Set the value of the text component from an FString via RPC.
+  * @remark Client setter requires bAllowRPC to be true.
+  * @param NewValue The desired text value.
+  */
 void Server_SetFromString(const FString& NewValue);
 ```
 
-### SetFromText
+### Set From Text
 
 Sets the text of the `NTextRenderComponent` from a `FText`, with `Server_SetFromText` allowing clients to change the text as well so long as `bAllowRPC` is `true`.
 
 ```cpp
-UFUNCTION(BlueprintCallable, DisplayName="Set From Text",  Category = "NEXUS|Multiplayer")
+/**
+  * Set the value of the text component from an FText.
+  * @param NewValue The desired text value.
+  */	
 void SetFromText(const FText& NewValue);
 
-UFUNCTION(Server, Reliable, BlueprintCallable, DisplayName="Set From Text (Server)", Category = "NEXUS|Multiplayer")
+/**
+  * Set the value of the text component from an FText via RPC.
+  * @remark Client setter requires bAllowRPC to be true.
+  * @param NewValue The desired text value.
+  */	
 void Server_SetFromText(const FText& NewValue);
 ```
 
