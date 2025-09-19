@@ -1,7 +1,7 @@
 ---
 sidebar_label: Delayed Editor Task
 sidebar_class_name: type ue-object
-description: An abstract class designed to encompass work to be completed at some level of delay from the time of its inception.
+description: An abstract class designed to encompass work to be completed at some level of delay from the time of its creation.
 tags: [0.1.0]
 ---
 
@@ -13,6 +13,6 @@ import TabItem from '@theme/TabItem';
 
 <TypeDetails icon="ue-object" base="UObject" type="UNDelayedEditorTask" typeExtra="" headerFile="NexusCoreEditor/Public/NDelayedEditorTask.h" />
 
-An **abstract**  class designed to encompass work to be completed at some level of delay from the time of its inception.
+An **abstract**  class designed to encompass work to be completed at some level of delay from the time of its creation.
 
 For implementation examples look at `NLeakTestDelayedEditorTask` or `NUpdateCheckDelayedEditorTask`.
