@@ -55,6 +55,7 @@ A Blueprint-compatible struct that defines configuration parameters for managing
 | `APF_ShouldFinishSpawning` | Should Finish Spawning | Manages `FinishSpawning()` calls for non-[INActorPoolItem](actor-pool-item.md) `AActors`. | 
 | `APF_ServerOnly` | Server Only | Safely ensure all actions only actually occur on world authority (server), transparently making the pool networked. |
 | `APF_BroadcastDestroy` | Broadcast Destroy | Broadcast destroy event on the Actor through the operational change state delegate. |
+| `APF_SetNetDormancy` | Set Net Dormancy | Should an Actor's network dormancy be updated based on state? |
 
 ## Project-Wide Defaults
 
