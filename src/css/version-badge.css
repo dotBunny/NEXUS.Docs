@@ -1,0 +1,14 @@
+/* VERSION BADGE */
+
+.badge-header {
+  margin-left: 0.5em;
+}
+
+.badge-dev,
+.badge-dev a:link,
+.badge-dev a:hover,
+.badge-dev a:visited {
+  background-color: var(--ifm-color-warning-dark);
+  color: var(--ifm-font-color-base);
+  text-decoration: none;
+}

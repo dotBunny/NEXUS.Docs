@@ -1,0 +1,73 @@
+.devBanner {
+  background-color: var(--ifm-color-warning-contrast-background);
+  margin-bottom: 15px;
+  width: 100%;
+  border: var(--ifm-alert-border-width) solid var(--ifm-color-warning);
+  border-left-width: var(--ifm-alert-border-left-width);
+  border-right-width: var(--ifm-alert-border-left-width);
+  border-bottom-width: 1px;
+  border-top-width: 1px;
+  border-radius: var(--ifm-alert-border-radius);
+  box-shadow: var(--ifm-alert-shadow);
+  color: var(--ifm-alert-foreground-color);
+  padding: var(--ifm-alert-padding-vertical) var(--ifm-alert-padding-horizontal);
+}
+
+.devBannerIcon-left {
+  display: inline-block;
+  font-size: 24px;
+  vertical-align: middle;
+  margin-top: -8px;
+  margin-left: -4px;
+  margin-right: 0.1em;
+}
+
+.devBannerIcon-right {
+  display: inline-block;
+  font-size: 24px;
+  vertical-align: middle;
+  margin-top: -8px;
+  margin-left: 0.1em;
+}
+
+.devBannerTitle {
+  margin-bottom: 0.25em;
+  font: var(--ifm-heading-font-weight) var(--ifm-h5-font-size) / var(--ifm-heading-line-height) var(--ifm-heading-font-family);
+  text-transform: uppercase;
+}
+
+.devBannerMessage {
+  line-height: normal;
+  margin-bottom: 0px;
+}
+
+.devBannerMessage a:link,
+.devBannerMessage a:visited,
+.devBannerMessage a:hover {
+  color: var(--ifm-font-color-base);
+  text-decoration: underline;
+}
+
+.devBannerMessage code,
+.devBannerMessage code a:link,
+.devBannerMessage code a:visited,
+.devBannerMessage code a:hover {
+  color: var(--ifm-font-color-base);
+  text-decoration: none;
+}
+
+.devBannerMessage p {
+  margin-bottom: 0.5em;
+}
+
+.devBannerMessage p:first-child {
+  margin-top: 0.5em;
+}
+
+.devBannerMessage p:last-child {
+  margin-bottom: 0px;
+}
+
+.devBannerMessage code {
+  font-weight: var(--ifm-heading-font-weight);
+}

@@ -65,6 +65,8 @@ const config: Config = {
             './src/css/type-details.css',
             './src/css/type-definitions.css',
             './src/css/plugin-details.css',
+            './src/css/version-badge.css',
+            './src/css/dev-banner.css',
             './src/css/responsive.css'
           ]
         },

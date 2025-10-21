@@ -39,7 +39,7 @@ export default function TypeDetails({ icon, iconType, base, type, typeExtra, hea
           <dd className="headerFile">{headerFile}</dd>
           {children}
         </dl>
-      </div >
+      </div>
     );
   }
 }

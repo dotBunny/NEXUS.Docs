@@ -3,14 +3,15 @@ sidebar_position: 1
 sidebar_label: Developer Library
 sidebar_class_name: type ue-blueprint-function-library
 description: A small collection of functionality to wrap the usage of developer tools.
-tags: [0.2.0]
+tags: [0.2.0, 0.3.0]
 ---
 
 import TypeDetails from '../../../../src/components/TypeDetails';
+import VersionBadge from '../../../../src/components/VersionBadge';
 
 # Developer Library
 
-<TypeDetails icon="ue-blueprint-function-library" base="UBlueprintFunctionLibrary" type="UNDeveloperLibrary" typeExtra="" headerFile="NexusCore/Public/Developer/NDeveloperLibrary" />
+<TypeDetails icon="ue-blueprint-function-library" base="UBlueprintFunctionLibrary" type="UNDeveloperLibrary" typeExtra="" headerFile="NexusCore/Public/Developer/NDeveloperLibrary.h" />
 
 A small collection of functionality to wrap the usage of developer tools.
 
@@ -209,13 +210,7 @@ static void DumpSnapshotDiffToLog(const FNObjectSnapshotDiff& Diff) { Diff.DumpT
 
 ### Drawing
 
-:::warning[In-Development]
-
-This functionality is only available in the `dev` branch.
-
-:::
-
-#### Draw Debug String
+#### Draw Debug String<VersionBadge version="0.3.0" branch="dev" type="header" />
 
 Renders a `FString` in the `UWorld` via a pseudo `DebugDrawLine` utiling the [FNPrimitiveFont](primitive-font.md).
 
