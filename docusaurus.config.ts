@@ -187,6 +187,10 @@ const config: Config = {
           title: 'Extras',
           items: [
             {
+              to: 'https://discord.gg/2M9HczHanW',
+              label: 'Discord',
+            },
+            {
               to: '/license',
               label: 'License',
             },

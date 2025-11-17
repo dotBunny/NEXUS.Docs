@@ -2,7 +2,7 @@
 title: Roadmap
 description: Where are we headed?
 hide_table_of_contents: false
-sidebar_position: 2
+sidebar_position: 3
 ---
 
 On **July 12, 2025**, we pushed the button to make the **NEXUS** Framework public.
