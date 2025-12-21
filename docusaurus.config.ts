@@ -187,6 +187,10 @@ const config: Config = {
           title: 'Extras',
           items: [
             {
+              to: 'https://discord.gg/2M9HczHanW',
+              label: 'Discord',
+            },
+            {
               to: '/license',
               label: 'License',
             },
@@ -243,7 +247,7 @@ const config: Config = {
 title: Changelog (Main)
 description: A semantic versioned changelog.
 hide_table_of_contents: false
-sidebar_position: 3
+sidebar_position: 4
 ---
 
 ${content}`
@@ -268,7 +272,7 @@ ${content}`
 title: Changelog (Dev)
 description: A semantic versioned changelog.
 hide_table_of_contents: false
-sidebar_position: 4
+sidebar_position: 5
 ---
 
 ${content}`

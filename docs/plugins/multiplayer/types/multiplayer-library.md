@@ -3,10 +3,11 @@ sidebar_position: 1
 sidebar_label: Multiplayer Library
 sidebar_class_name: type ue-blueprint-function-library
 description: A handful of methods meant to support the building logic that works in multiplayer scenarios.
-tags: [0.1.0]
+tags: [0.1.0, 0.3.0]
 ---
 
 import TypeDetails from '../../../../src/components/TypeDetails';
+import VersionBadge from '../../../../src/components/VersionBadge';
 
 # Multiplayer Library
 
@@ -95,6 +96,54 @@ static bool KickPlayer(UObject* WorldContextObject, APlayerState* PlayerState);
 Will fail if not done by server/host.
 
 :::
+
+### Player Functions
+
+#### Get PlayerIdentifier<VersionBadge version="0.3.0" branch="dev" type="header" />
+
+```cpp
+/**
+  * Get a player's unique identifier from the APlayerController.
+  * @param PlayerController The target APlayerController to use when querying for the player identification number.
+  * @return The player's identifier.
+  */
+static int32 GetPlayerIdentifier(const APlayerController* PlayerController)
+```
+
+#### Get First PlayerIdentifier<VersionBadge version="0.3.0" branch="dev" type="header" />
+
+```cpp
+/**
+  * Get the first player's unique identifier.
+  * @param WorldContextObject An object to get the UWorld from.
+  * @return The player's identifier.
+  */
+static int32 GetFirstPlayerIdentifier(UObject* WorldContextObject);
+```
+
+#### Get Pawn From PlayerIdentifier<VersionBadge version="0.3.0" branch="dev" type="header" />
+
+```cpp
+/**
+  * Get the APawn for the given player's unique identifier.
+  * @param WorldContextObject An object to get the UWorld from.
+  * @param PlayerIdentifier The target identifier to query for.
+  * @return If found, APawn, or nullptr.
+  */	
+static APawn* GetPawnFromPlayerIdentifier(UObject* WorldContextObject, const int32 PlayerIdentifier);
+```
+
+#### Get PlayerController From PlayerIdentifier<VersionBadge version="0.3.0" branch="dev" type="header" />
+
+```cpp
+/**
+  * Get the AActor for the given player's unique identifier.
+  * @param WorldContextObject An object to get the UWorld from.
+  * @param PlayerIdentifier The target identifier to query for.
+  * @return If found, AActor, or nullptr.
+  */
+static AActor* GetPlayerControllerFromPlayerIdentifier(UObject* WorldContextObject, const int32 PlayerIdentifier);
+```
 
 ### Utility Functions
 
