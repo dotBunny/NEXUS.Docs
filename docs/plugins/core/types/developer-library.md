@@ -3,7 +3,7 @@ sidebar_position: 1
 sidebar_label: Developer Library
 sidebar_class_name: type ue-blueprint-function-library
 description: A small collection of functionality to wrap the usage of developer tools.
-tags: [0.2.0, 0.3.0]
+tags: [0.2.0, 0.2.3]
 ---
 
 import TypeDetails from '../../../../src/components/TypeDetails';
@@ -210,7 +210,7 @@ static void DumpSnapshotDiffToLog(const FNObjectSnapshotDiff& Diff) { Diff.DumpT
 
 ### Drawing
 
-#### Draw Debug String<VersionBadge version="0.3.0" branch="dev" type="header" />
+#### Draw Debug String<VersionBadge version="0.2.3" branch="dev" type="header" />
 
 Renders a `FString` in the `UWorld` via a pseudo `DebugDrawLine` utiling the [FNPrimitiveFont](primitive-font.md).
 
