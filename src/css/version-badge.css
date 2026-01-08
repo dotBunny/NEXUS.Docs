@@ -4,10 +4,10 @@
   margin-left: 0.5em;
 }
 
-.badge-dev,
-.badge-dev a:link,
-.badge-dev a:hover,
-.badge-dev a:visited {
+.badge-main,
+.badge-main a:link,
+.badge-main a:hover,
+.badge-main a:visited {
   background-color: var(--ifm-color-warning-dark);
   color: var(--ifm-font-color-base);
   text-decoration: none;

@@ -256,7 +256,7 @@ const config: Config = {
             return {
               filename: "changelog.md",
               content: `---
-title: Changelog (Main)
+title: Changelog
 description: A semantic versioned changelog.
 hide_table_of_contents: false
 sidebar_position: 4
@@ -268,32 +268,7 @@ ${content}`
           return undefined
         },
       },
-    ],
-    [
-      "docusaurus-plugin-remote-content",
-      {
-        name: "changelog-dev",
-        sourceBaseUrl: "https://raw.githubusercontent.com/dotBunny/NEXUS/refs/heads/dev/",
-        outDir: "community",
-        documents: ["CHANGELOG.md"],
-        modifyContent(filename, content) {
-          if (filename.includes("CHANGELOG")) {
-            return {
-              filename: "changelog-dev.md",
-              content: `---
-title: Changelog (Dev)
-description: A semantic versioned changelog.
-hide_table_of_contents: false
-sidebar_position: 5
----
-
-${content}`
-            }
-          }
-          return undefined
-        },
-      },
-    ],
+    ]
   ]
 };
 

@@ -10,11 +10,16 @@ description: It has got to go somewhere, and that somewhere is entirely up to yo
 There are numerous ways to include the framework into your Unreal project; ultimately, you control where you place your plugins. How and where you acquire **NEXUS** really is entirely dependent on you.
 
 ### GitHub
-The most straightforward approach to getting **NEXUS** is to check it out into your plugins folder. You can do this by running the command below (from within your plugins folder):
+The most straightforward approach to getting **NEXUS** is to check it out into your plugins folder. You can do this by running the commands below (from within your plugins folder):
 
 ````bash
 git clone https://github.com/dotBunny/NEXUS.git
+git checkout -b release origin/release
 ````
+
+:::note
+The second part checks out the `release` branch — a more stable branch to get started with!
+:::
 
 ### Fab
 

@@ -3,7 +3,7 @@ sidebar_position: 1
 sidebar_label: Multiplayer Library
 sidebar_class_name: type ue-blueprint-function-library
 description: A handful of methods meant to support the building logic that works in multiplayer scenarios.
-tags: [0.1.0, 0.3.0]
+tags: [0.1.0, 0.2.4]
 ---
 
 import TypeDetails from '../../../../src/components/TypeDetails';
@@ -99,7 +99,7 @@ Will fail if not done by server/host.
 
 ### Player Functions
 
-#### Get PlayerIdentifier<VersionBadge version="0.3.0" branch="dev" type="header" />
+#### Get PlayerIdentifier<VersionBadge version="0.2.4" type="header" />
 
 ```cpp
 /**
@@ -110,7 +110,7 @@ Will fail if not done by server/host.
 static int32 GetPlayerIdentifier(const APlayerController* PlayerController)
 ```
 
-#### Get First PlayerIdentifier<VersionBadge version="0.3.0" branch="dev" type="header" />
+#### Get First PlayerIdentifier<VersionBadge version="0.2.4" type="header" />
 
 ```cpp
 /**
@@ -121,7 +121,7 @@ static int32 GetPlayerIdentifier(const APlayerController* PlayerController)
 static int32 GetFirstPlayerIdentifier(UObject* WorldContextObject);
 ```
 
-#### Get Pawn From PlayerIdentifier<VersionBadge version="0.3.0" branch="dev" type="header" />
+#### Get Pawn From PlayerIdentifier<VersionBadge version="0.2.4" type="header" />
 
 ```cpp
 /**
@@ -133,7 +133,7 @@ static int32 GetFirstPlayerIdentifier(UObject* WorldContextObject);
 static APawn* GetPawnFromPlayerIdentifier(UObject* WorldContextObject, const int32 PlayerIdentifier);
 ```
 
-#### Get PlayerController From PlayerIdentifier<VersionBadge version="0.3.0" branch="dev" type="header" />
+#### Get PlayerController From PlayerIdentifier<VersionBadge version="0.2.4" type="header" />
 
 ```cpp
 /**

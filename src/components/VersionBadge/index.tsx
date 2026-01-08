@@ -7,8 +7,8 @@ export default function VersionBadge({ version, branch, type }): ReactNode {
     baseClass += ' badge-header';
   }
 
-  if (branch == 'dev') {
-    baseClass += ' badge-dev';
+  if (branch == 'main') {
+    baseClass += ' badge-main';
     version = '🚧' + version + '🚧';
     return (<span className={baseClass}><a href="https://github.com/orgs/dotBunny/projects/6/views/1">{version}</a></span>);
   }

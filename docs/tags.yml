@@ -1,13 +1,17 @@
-dev:
-  label: Development
+main:
+  label: Under Development
 
 0.3.0:
   label: Version 0.3.0
   description: Minimum version requirement of v0.3.0
 
+0.2.4:
+  label: Version 0.2.4
+  description: Minimum version requirement of v0.2.4
+
 0.2.3:
-  label: Version 0.3.0
-  description: Minimum version requirement of v0.3.0
+  label: Version 0.2.3
+  description: Minimum version requirement of v0.2.3
 
 0.2.0:
   label: Version 0.2.0

@@ -57,7 +57,7 @@ Where the class/file and classes/files that references the class are attached fo
 
 ## Automation
 
-Every commit to the `main` and `dev` branches (and PRs before being merged) undergoes an [initial smoke test](https://github.com/dotBunny/NEXUS/actions/workflows/push-unit-tests.yml), followed by more intensive daily tests (including [performance](https://github.com/dotBunny/NEXUS/actions/workflows/schedule-performance-tests.yml) and [functional](https://github.com/dotBunny/NEXUS/actions/workflows/schedule-functional-tests.yml) tests, as well as [packaging](https://github.com/dotBunny/NEXUS/actions/workflows/schedule-buildcookrun.yml)). This allows us to have some level of confidence in the framework and its capabilities.
+Every commit to the `main` branch (and PRs before being merged) undergoes an [initial smoke test](https://github.com/dotBunny/NEXUS/actions/workflows/push-unit-tests.yml), followed by more intensive tests (including daily [performance](https://github.com/dotBunny/NEXUS/actions/workflows/schedule-performance-tests.yml) and [functional](https://github.com/dotBunny/NEXUS/actions/workflows/dispatch-functional-tests.yml) tests, as well as [packaging](https://github.com/dotBunny/NEXUS/actions/workflows/dispatch-buildcookrun.yml)). This allows us to have some level of confidence in the framework and its capabilities.
 
 There is also a [manual test dispatcher](https://github.com/dotBunny/NEXUS/actions/workflows/manual-tests.yml) (for approved contributors), which allows us to run tests ad hoc as needed. We also have some built GitHub actions which parse both the results JSON and the Unreal Editor log to bubble up details for ease of access.
 
