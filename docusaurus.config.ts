@@ -29,11 +29,6 @@ const config: Config = {
 
   onBrokenLinks: 'throw',
 
-  markdown: {
-    hooks: {
-      onBrokenMarkdownLinks: 'throw'
-    }
-  },
 
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you
@@ -201,6 +196,23 @@ const config: Config = {
             },
           ],
         },
+        {
+          title: 'Static Analysis',
+          items: [
+            {
+              html: '<a href="https://sonarcloud.io/summary/new_code?id=dotBunny_NEXUS"><img src="https://sonarcloud.io/api/project_badges/measure?project=dotBunny_NEXUS&metric=code_smells" alt="Code Smells" /></a>',
+            },
+            {
+              html: '<a href="https://sonarcloud.io/summary/new_code?id=dotBunny_NEXUS"><img src="https://sonarcloud.io/api/project_badges/measure?project=dotBunny_NEXUS&metric=sqale_rating" alt="Maintainability" /></a>',
+            },
+            {
+              html: '<a href="https://sonarcloud.io/summary/new_code?id=dotBunny_NEXUS"><img src="https://sonarcloud.io/api/project_badges/measure?project=dotBunny_NEXUS&metric=reliability_rating" alt="Reliability" /></a>',
+            },
+            {
+              html: '<a href="https://sonarcloud.io/summary/new_code?id=dotBunny_NEXUS"><img src="https://sonarcloud.io/api/project_badges/measure?project=dotBunny_NEXUS&metric=vulnerabilities" alt="Vulnerabilities" /></a>',
+            }
+          ]
+        }
       ],
       copyright: `<a class="muted" href="https://dotbunny.com">&copy; dotBunny</a>`,
     },
