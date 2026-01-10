@@ -51,6 +51,10 @@ We disable warnings which are considered expected behaviour.
 
 A special thanks to the folks at [SonarSource](https://www.sonarsource.com/) for the free static analysis of the framework, on _every_ commit. :heart:
 
+#### Duplication Exclusions
+
+- `**/NCardinalDirection.h`
+
 #### Source File Exclusions
 
 - `.github/**`
