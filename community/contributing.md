@@ -45,6 +45,23 @@ We disable warnings which are considered expected behaviour.
 // ReSharper enable IdentifierTypo, CppUE4CodingStandardNamingViolationWarning
 ```
 
+### SonarQube Analysis
+
+[![SonarQube Cloud](https://sonarcloud.io/images/project_badges/sonarcloud-highlight.svg)](https://sonarcloud.io/summary/overall?id=dotBunny_NEXUS&branch=main)
+
+A special thanks to the folks at [SonarSource](https://www.sonarsource.com/) for the free static analysis of the framework, on _every_ commit. :heart:
+
+#### Source File Exclusions
+
+- `.github/**`
+- `SourceAssets/**`
+  
+#### Ignore Issues on Multiple Criteria
+
+| Rule Key Pattern | File Path Pattern | Choice |
+| :-- | :-- | :-- |
+| [`cpp:S3471`](https://sonarcloud.io/organizations/dotbunny/rules?open=cpp%3AS3471&rule_key=cpp%3AS3471), [`cpp:S3576`](https://sonarcloud.io/organizations/dotbunny/rules?open=cpp%3AS3576&rule_key=cpp%3AS3576) |  `**/` | This is a developer choice; where the `override` and `virtual` specifiers are used easily identify methods being replaced from the `Super`. This **also** matches the practice done in the Unreal Engine codebase. |
+
 ## AI Policy
 
 **Touchy subject!** At times, we have used [JetBrains AI](https://www.jetbrains.com/ai/) to generate the initial code summaries/documentation. We then review and edit them accordingly; this has allowed us to accelerate the code documentation process. A common prompt we have used is:
