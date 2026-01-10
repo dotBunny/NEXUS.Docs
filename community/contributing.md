@@ -53,7 +53,8 @@ A special thanks to the folks at [SonarSource](https://www.sonarsource.com/) for
 
 #### Duplication Exclusions
 
-- `**/NCardinalDirection.h`
+- `**/Macros/NActorMacros.h`
+- `**/Types/NCardinalDirection.h`
 
 #### Source File Exclusions
 
