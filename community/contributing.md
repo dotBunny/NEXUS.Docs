@@ -51,10 +51,15 @@ We disable warnings which are considered expected behaviour.
 
 A special thanks to the folks at [SonarSource](https://www.sonarsource.com/) for the free static analysis of the framework, on _every_ commit. :heart:
 
-#### Duplication Exclusions
+#### Tags
 
-- `**/Macros/NActorMacros.h`
-- `**/Types/NCardinalDirection.h`
+We primarily are using a tag based exclusion method when a rule needs to be violated.
+
+```cpp
+// #SONARQUBE-DISABLE: <reason>
+...
+// #SONARQUBE-ENABLE
+```
 
 #### Source File Exclusions
 
@@ -65,8 +70,6 @@ A special thanks to the folks at [SonarSource](https://www.sonarsource.com/) for
 
 | Rule Key Pattern | File Path Pattern | Choice |
 | :-- | :-- | :-- |
-
-| [`cpp:S107`](https://sonarcloud.io/organizations/dotbunny/rules?open=cpp%3AS107&rule_key=cpp%3AS107) | `**` | While we agree in general that you do not want overly complicated methods; with blueprints there is a time and a place for verbose method definitions. |
 | [`cpp:S3471`](https://sonarcloud.io/organizations/dotbunny/rules?open=cpp%3AS3471&rule_key=cpp%3AS3471), [`cpp:S3576`](https://sonarcloud.io/organizations/dotbunny/rules?open=cpp%3AS3576&rule_key=cpp%3AS3576) |  `**` | This is a developer choice; where the `override` and `virtual` specifiers are used easily identify methods being replaced from the `Super`. This **also** matches the practice done in the Unreal Engine codebase. |
 
 ## AI Policy
