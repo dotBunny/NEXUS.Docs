@@ -56,7 +56,7 @@ A special thanks to the folks at [SonarSource](https://www.sonarsource.com/) for
 We primarily are using a tag based exclusion method when a rule needs to be violated.
 
 ```cpp
-// #SONARQUBE-DISABLE: <reason>
+// #SONARQUBE-DISABLE-<LANGUAGE>_<RULE> <reason>
 ...
 // #SONARQUBE-ENABLE
 ```
