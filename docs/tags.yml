@@ -2,25 +2,33 @@ main:
   label: Under Development
 
 0.3.0:
-  label: Version 0.3.0
-  description: Minimum version requirement of v0.3.0
+  label: v0.3.0
+  description: Changes related to the v0.3.0 release.
+
+0.2.6:
+  label: v0.2.6
+  description: Changes related to the v0.2.6 release.
+
+0.2.5:
+  label: v0.2.5
+  description: Changes related to the v0.2.5 release.
 
 0.2.4:
-  label: Version 0.2.4
-  description: Minimum version requirement of v0.2.4
+  label: v0.2.4
+  description: Changes related to the v0.2.4 release.
 
 0.2.3:
-  label: Version 0.2.3
-  description: Minimum version requirement of v0.2.3
+  label: v0.2.3
+  description: Changes related to the v0.2.3 release.
 
 0.2.0:
-  label: Version 0.2.0
-  description: Minimum version requirement of v0.2.0
+  label: v0.2.0
+  description: Changes related to the v0.2.0 release.
 
 0.1.1:
-  label: Version 0.1.1
-  description: Minimum version requirement of v0.1.1
+  label: v0.1.1
+  description: Changes related to the v0.1.1 release.
 
 0.1.0:
-  label: Version 0.1.0
-  description: Minimum version requirement of v0.1.0
+  label: v0.1.0
+  description: Changes related to the v0.1.0 release.

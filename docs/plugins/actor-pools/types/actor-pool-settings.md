@@ -3,7 +3,7 @@ sidebar_position: 2
 sidebar_label: Actor Pool Settings
 sidebar_class_name: type native-struct
 description: A Blueprint-compatible struct that defines configuration parameters for managing object pooling inside of a FNActorPool.
-tags: [0.1.0]
+tags: [0.1.0, 0.2.6]
 ---
 
 import TypeDetails from '../../../../src/components/TypeDetails';
@@ -29,33 +29,33 @@ A Blueprint-compatible struct that defines configuration parameters for managing
 | `MinimumActorCount` | `int32` | When the [FNActorPool](actor-pool.md) is being filled during creation, what is the number of prewarmed `AActors` that should be created, either synchronously or divided across a number of frames. | `10` |
 | `MaximumActorCount` | `int32` | The number of pooled `AActor`s that a pool can use/have. This is tied more to the `Strategy` being used for what happens when the pool has to create new `AActor`s when the pool has no `AActors` available to `Spawn()`/`Get()`. | `100` |
 | `CreateObjectsPerTick` | `int32` | Throttles the number of `AActors` that can be created per **Tick**. This can be useful to spread the cost of warming a pool up across multiple frames (-1 for unlimited). | `-1` |
-| `Strategy` | [ENActorPoolStrategy](#creation-strategies) | Determines the approach taken when the pool does not have any `AActor` remaining in the "In" pool, and needs to create one (or reuse). | `APS_Create` |
-| `Flags` | [ENActorPoolFlags](#flags) | The behavioral flags to evaluate when doing operations with this pool. | `APF_ReturnToStorageLocation, APF_DeferConstruction, APF_ShouldFinishSpawning`, `APF_ServerOnly` |
+| `Strategy` | [ENActorPoolStrategy](#creation-strategies) | Determines the approach taken when the pool does not have any `AActor` remaining in the "In" pool, and needs to create one (or reuse). | `Create` |
+| `Flags` | [ENActorPoolFlags](#flags) | The behavioral flags to evaluate when doing operations with this pool. | `ReturnToStorageLocation, DeferConstruction, ShouldFinishSpawning`, `ServerOnly` |
 | `DefaultTransform` | `FTransform` | The default applied transform when creating an `AActor`, with the location component being used as the storage location when an `AActor` is returned to the pool, and the scale applied when spawned. | `Translation(0,0,0)` `Rotator(0,0,0)` `Scale(1,1,1)` |
 
 ## Creation Strategies
 
 | Native | Display | Description |
 | :-- | :-- | :-- |
-| `APS_Create` | Create | Create `AActor` as needed. | 
-| `APS_CreateLimited` | Create Till Cap | Create `AActor` until `MaximumActorCount` is reached and stop returning a `nullptr` in such cases. |
-| `APS_CreateRecycleFirst` | Create Till Cap, Recycle First | Create `AActor` until `MaximumActorCount` is reached, any requests beyond provide the oldest already spawned `AActor` in a FIFO behavior. | 
-| `APS_CreateRecycleLast` | Create Till Cap, Recycle Last | Create `AActor` until `MaximumActorCount` is reached, any requests beyond provide the newest spawned `AActor` in a LIFO behavior. | 
-| `APS_Fixed` | Fixed Availabilty | Deploys `AActor` as needed from fixed pools, exceeding availability results in a `nullptr` being returned.| 
-| `APS_FixedRecycleFirst` | Fixed Availabilty, Recycle First | Deploys `AActor` as needed from fixed pools, exceeding availability will return the oldest already spawned `AActor` in a FIFO behavior. |
-| `APS_FixedRecycleLast` | Fixed Availabilty, Recycle Last | Deploys `AActor` as needed from fixed pools, exceeding availability will return the newest already spawned `AActor` in a LIFO behavior. |
+| `Create` | Create | Create `AActor` as needed. | 
+| `CreateLimited` | Create Till Cap | Create `AActor` until `MaximumActorCount` is reached and stop returning a `nullptr` in such cases. |
+| `CreateRecycleFirst` | Create Till Cap, Recycle First | Create `AActor` until `MaximumActorCount` is reached, any requests beyond provide the oldest already spawned `AActor` in a FIFO behavior. | 
+| `CreateRecycleLast` | Create Till Cap, Recycle Last | Create `AActor` until `MaximumActorCount` is reached, any requests beyond provide the newest spawned `AActor` in a LIFO behavior. | 
+| `Fixed` | Fixed Availabilty | Deploys `AActor` as needed from fixed pools, exceeding availability results in a `nullptr` being returned.| 
+| `FixedRecycleFirst` | Fixed Availabilty, Recycle First | Deploys `AActor` as needed from fixed pools, exceeding availability will return the oldest already spawned `AActor` in a FIFO behavior. |
+| `FixedRecycleLast` | Fixed Availabilty, Recycle Last | Deploys `AActor` as needed from fixed pools, exceeding availability will return the newest already spawned `AActor` in a LIFO behavior. |
 
 ## Flags
 
 | Native | Display | Description |
 | :-- | :-- | :-- |
-| `APF_SweepBeforeSettingLocation` | Sweep Before Setting Location | Should a sweep be done when setting the location of an `AActor` being spawned? | 
-| `APF_ReturnToStorageLocation` | Return To Storage Location | Should the `AActor` being returned to the pool be moved to a storage location? |
-| `APF_DeferConstruction` | Defer Construction | Controls whether `AActor` construction is deferred when creating new `AActors`; allowing for additional calls to be made to the `INActorPoolItem::OnDeferredConstruction()` before calling the `AActors` `FinishSpawning()`. | 
-| `APF_ShouldFinishSpawning` | Should Finish Spawning | Manages `FinishSpawning()` calls for non-[INActorPoolItem](actor-pool-item.md) `AActors`. | 
-| `APF_ServerOnly` | Server Only | Safely ensure all actions only actually occur on world authority (server), transparently making the pool networked. |
-| `APF_BroadcastDestroy` | Broadcast Destroy | Broadcast destroy event on the Actor through the operational change state delegate. |
-| `APF_SetNetDormancy` | Set Net Dormancy | Should an Actor's network dormancy be updated based on state? |
+| `SweepBeforeSettingLocation` | Sweep Before Setting Location | Should a sweep be done when setting the location of an `AActor` being spawned? | 
+| `ReturnToStorageLocation` | Return To Storage Location | Should the `AActor` being returned to the pool be moved to a storage location? |
+| `DeferConstruction` | Defer Construction | Controls whether `AActor` construction is deferred when creating new `AActors`; allowing for additional calls to be made to the `INActorPoolItem::OnDeferredConstruction()` before calling the `AActors` `FinishSpawning()`. | 
+| `ShouldFinishSpawning` | Should Finish Spawning | Manages `FinishSpawning()` calls for non-[INActorPoolItem](actor-pool-item.md) `AActors`. | 
+| `ServerOnly` | Server Only | Safely ensure all actions only actually occur on world authority (server), transparently making the pool networked. |
+| `BroadcastDestroy` | Broadcast Destroy | Broadcast destroy event on the Actor through the operational change state delegate. |
+| `SetNetDormancy` | Set Net Dormancy | Should an Actor's network dormancy be updated based on state? |
 
 ## Project-Wide Defaults
 

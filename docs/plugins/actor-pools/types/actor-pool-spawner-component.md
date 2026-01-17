@@ -30,9 +30,9 @@ This is a rudimentary example of how to spawn things; it has some use cases in a
 | Server Authoritative | `bool` | Should the spawner only spawn on servers, ignoring itself on client-only. | `true` |
 | Spawn Rate | `float` | The rate at which things should be spawned. | `0.5f` |
 | Offset | `FVector` | Offset from the component location to treat as the origin when calculating a position to spawn an `AActor`. | `(0,0,0)` |
-| Distribution | `ENActorPoolSpawnerDistribution`  | The specific distribution-shape to use when selecting a point/location to spawn an `AActor` at. | `APSD_Point` |
+| Distribution | `ENActorPoolSpawnerDistribution`  | The specific distribution-shape to use when selecting a point/location to spawn an `AActor` at. | `Point` |
 | Distrubtion Range | `FVector` | The axis-based ranges to use when outlining the shapes size, and or any sort of exclusionary range. | `(1.f,20.f,20.f)`|
-| Spline Level Reference | `FComponentReference` | When `ASPD_Spline` is selected as `Distribution`, this option will be visible to select a SplineComponent in the current level. | `nullptr` |
+| Spline Level Reference | `FComponentReference` | When `Spline` is selected as `Distribution`, this option will be visible to select a SplineComponent in the current level. | `nullptr` |
 | Count | `int32` | The number of items to spawn at any given spawn event. | `1` |
 | Randomize Seed | `bool` | Should a random seed be selected on `BeginPlay()` for this component?| `false` |
 | Seed | `int32` | The seed used for all random selection related to this component. | `0` |
@@ -42,11 +42,11 @@ This is a rudimentary example of how to spawn things; it has some use cases in a
 
 | Native | Display | Description |
 | :-- | :-- | :-- |
-| `APSD_Point` | Point | Always spawn at the given component's location + `Offset`. | 
-| `APSD_Radius` | Radius | Selects a point at the given component's location + `Offset`, with a minimum radius of `DistributionRange.X` and a maximum radius of `DistributionRange.Y` on the horizontal axis. |
-| `APSD_Sphere` | Sphere | Selects a point at the given component's location + `Offset`, in a sphere, with a minimum radius of `DistributionRange.X` and a maximum radius of `DistributionRange.Y`. | 
-| `APSD_Box` | Box | Selects a point at the given component's location + `Offset`, in an axis-aligned box, using the `DistributionRange` for size. |
-| `APSD_Spline` | Spline | Selects a point along the target `SplineLevelReference`.  | 
+| `Point` | Point | Always spawn at the given component's location + `Offset`. | 
+| `Radius` | Radius | Selects a point at the given component's location + `Offset`, with a minimum radius of `DistributionRange.X` and a maximum radius of `DistributionRange.Y` on the horizontal axis. |
+| `Sphere` | Sphere | Selects a point at the given component's location + `Offset`, in a sphere, with a minimum radius of `DistributionRange.X` and a maximum radius of `DistributionRange.Y`. | 
+| `Box` | Box | Selects a point at the given component's location + `Offset`, in an axis-aligned box, using the `DistributionRange` for size. |
+| `Spline` | Spline | Selects a point along the target `SplineLevelReference`.  | 
 
 ## UFunctions
 

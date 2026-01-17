@@ -127,7 +127,7 @@ If you are working in native, use the native templated version of this function 
 ```cpp
 /**
   * Attempts to return an Actor to its owning pool.
-  * @note If the returned actor does not belong in a pool, it may be destroyed, in that case it will return true.
+  * @note If the returned actor does not belong in a pool the UNActorPoolsSettings::UnknownBehaviour is applied.
   * @param Actor The target actor to return to a pool.
   * @return true/false if the Actor was returned to a pool.
   */
