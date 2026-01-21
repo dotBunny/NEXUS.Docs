@@ -17,14 +17,22 @@ When you start to dig into different areas of the engine, you quickly realize, w
 The basic premise of making pooling work in a networked environment is to ensure only the host/server creates, spawns, and returns `AActors` from the pooling system. On the host, the `AActors` will be associated with the appropriate pools. On clients, they will be `AActors` in the world, sleeping, until activated via the server spawning them and those state changes being replicated.
 
 :::tip
-The default [FNActorPoolSettings](types/actor-pool-settings.md) includes the `APF_ServerOnly` flag being set. This will ensure that all functionality will only execute on the server (world authority).
+The default [FNActorPoolSettings](types/actor-pool-settings.md) includes the `ServerOnly` flag being set. This will ensure that all functionality will only execute on the server (world authority).
 :::
 
 ## How can I see stats about the NActorPools in real time?
 
-Ensure that you have `Stats Tracking` turned on in your project's preferences for `NActorPools` (`Project Settings ... > NEXUS > Actor Pools`). 
+Whist in the editor there is a EUW wrapped version of `/NexusActorPools/WB_NActorPoolsDeveloperOverlay` available by going to `Window > NEXUS > Actor Pools`. This `UWidgetBlueprint` is available for usage at runtime as well!
 
-Then the `stat NActorPools` [command](console-commands.md) should show real-time pool usage statistics.
+![Actor Pools](actor-pools-developer-overlay.webp)
+
+:::info
+
+There is a `NActorPools` category added to the built-in `stat` system when `N.ActorPools.TrackStats` is toggled on. It is however not as robust in providing individual pool statistics as using the Developer Overlay method.
+
+:::
+
+
 
 ### What's up with the scale of my spawned AActors?
 
