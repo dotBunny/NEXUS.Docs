@@ -16,7 +16,7 @@ import TabItem from '@theme/TabItem';
 
 A locator system that maintains a map that organizes UObject into predefined categories [ENDynamicRef](dynamic-ref.md) or named buckets (FName).
 
-## Getting Actors Example
+## Getting Actors
 
 Accessing the referenced `AActor`s can be done with minimal overhead.
 

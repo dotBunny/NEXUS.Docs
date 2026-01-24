@@ -17,4 +17,4 @@ Add a [UNDynamicRefComponnet](types/dynamic-ref-component.md) to an `AActor` (*m
 
 ## Getting Actor References
 
-Accessing the [UNDynamicRefSubsystem](types/dynamic-ref-subsystem.md#getting-actor-references), referenced `AActors` can be queried.
+Accessing the [UNDynamicRefSubsystem](types/dynamic-ref-subsystem.md#getting-actors), referenced `AActors` can be queried.
