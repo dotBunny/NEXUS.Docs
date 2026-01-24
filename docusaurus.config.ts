@@ -260,6 +260,8 @@ title: Changelog
 description: A semantic versioned changelog.
 hide_table_of_contents: false
 sidebar_position: 4
+toc_min_heading_level: 2
+toc_max_heading_level: 2
 ---
 
 ${content}`
