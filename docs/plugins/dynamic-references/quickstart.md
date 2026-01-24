@@ -1,7 +1,7 @@
 ---
 sidebar_position: 1
 sidebar_label: Quickstart
-description: What you need to know to get up and running fast using NDynamicReferences.
+description: What you need to know to get up and running fast using NDynamicRef.
 ---
 
 import Tabs from '@theme/Tabs';
@@ -11,10 +11,10 @@ import TabItem from '@theme/TabItem';
 
 ## Add Component
 
-Add a [UNDynamicReferenceComponnet](types/dynamic-reference-component.md) to an `AActor` (*most likely your doing this on a `Blueprint`*), and assign it's References from the details inspector.
+Add a [UNDynamicRefComponnet](types/dynamic-ref-component.md) to an `AActor` (*most likely your doing this on a `Blueprint`*), and assign it's References from the details inspector.
 
-![NDynamicReferencesComponent](types/dynamic-references-component.webp)
+![NDynamicRefComponent](types/dynamic-ref-component.webp)
 
 ## Getting Actor References
 
-Accessing the [UNDynamicReferencesSubsystem](types/dynamic-reference-subsystem.md#getting-actor-references), referenced `AActors` can be queried.
+Accessing the [UNDynamicRefSubsystem](types/dynamic-ref-subsystem.md#getting-actor-references), referenced `AActors` can be queried.

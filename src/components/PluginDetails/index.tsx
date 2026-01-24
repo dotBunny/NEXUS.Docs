@@ -39,16 +39,16 @@ var Plugins: { [id: string]: IPlugin; } = {
     blueprintCategory: "NEXUS > Actor Pools"
   },
 
-  "NexusDynamicReferences": {
+  "NexusDynamicRefs": {
     icon: "/assets/images/plugins/dynamic-references-icon.webp",
-    moduleName: "NexusDynamicReferences",
-    shortName: "NDynamicReferences",
+    moduleName: "NexusDynamicRef",
+    shortName: "NDynamicRef",
     category: "Systems",
     initialRelease: "0.1.0",
     owner: "reapazor",
-    description: "Method for referring to runtime Actors without knowing them.",
-    link: "/docs/plugins/dynamic-references/",
-    blueprintCategory: "NEXUS > Dynamic References"
+    description: "Method for referring to UObjects prior to runtime, and by developer readable names.",
+    link: "/docs/plugins/dynamic-ref/",
+    blueprintCategory: "NEXUS > DynamicRef"
   },
 
   "NexusFixers": {
