@@ -1,6 +1,6 @@
 ---
 sidebar_position: 1
-sidebar_label: Dynamic Reference Component
+sidebar_label: DynamicRef Component
 sidebar_class_name: type ue-actor-component
 description: A component which registers and unregisters the owning AActor with the UNDynamicRefSubsystem for future query.
 tags: [0.1.0]
@@ -10,7 +10,7 @@ import TypeDetails from '../../../../src/components/TypeDetails';
 
 # Dynamic Reference Component
 
-<TypeDetails icon="/assets/svg/dynamic-refs/dynamic-refs-component.svg" iconType="img" base="UActorComponent" type="UNDynamicRefComponent" typeExtra="" headerFile="NexusDynamicRef/Public/NDynamicRefComponent.h" />
+<TypeDetails icon="/assets/svg/dynamic-refs/dynamic-ref-component.svg" iconType="img" base="UActorComponent" type="UNDynamicRefComponent" typeExtra="" headerFile="NexusDynamicRefs/Public/NDynamicRefComponent.h" />
 
 A component which registers and unregisters the owning `AActor` with the [UNDynamicRefSubsystem](dynamic-ref-subsystem.md) for future lookup.
 
@@ -24,8 +24,8 @@ Utilizes a `ENActorComponentLifecycleStart` enumeration to determine when to reg
 
 | Setting  | Display | Behaviour |
 | :-- | :-- | --- |
-| `ACLS_BeginPlay` | Begin Play | Triggers registration during the components `BeginPlay()` call. |
-| `ACLS_InitializeComponent` | Initialize Component | Triggers registration during the components `InitializeComponent()` call. |
+| `BeginPlay` | Begin Play | Triggers registration during the components `BeginPlay()` call. |
+| `InitializeComponent` | Initialize Component | Triggers registration during the components `InitializeComponent()` call. |
 
 ### Break Phase
 
@@ -33,8 +33,8 @@ Utilizes a `ENActorComponentLifecycleEnd` enumeration to determine when to unreg
 
 | Setting  | Display | Behaviour |
 | :-- | :-- | --- |
-| `ACLE_EndPlay` | End Play | Triggers unregistering during the components `EndPlay()` call. |
-| `ACLE_UninitializeComponent` | Uninitialize Component | Triggers unregistering during the components `UninitializeComponent()` call. |
+| `EndPlay` | End Play | Triggers unregistering during the components `EndPlay()` call. |
+| `UninitializeComponent` | Uninitialize Component | Triggers unregistering during the components `UninitializeComponent()` call. |
 
 ## References
 
