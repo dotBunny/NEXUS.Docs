@@ -43,25 +43,16 @@ for (TArray<AActor*>& ReferencedActors = UNDynamicRefubsystem::Get(GetWorld())->
 
 ## UFunctions
 
-### Add Reference
-
-```cpp
-/**
-  * Add a reference by ENDynamicRef to a specified AActor.
-  * @remark Be careful with the manual add method. If you add it, you must remove it!
-  * @param InType The desired dynamic reference type to add too.
-  * @param InActor The AActor to be referenced by the InType.
-  */
-void AddReference(ENDynamicRef InType, AActor* InActor);
-```
-
 :::tip
 
 The [UNDynamicRefComponent](dynamic-ref-component.md) automatically manages the registration lifecycle.
 
 :::
 
-### Add Object
+
+### Adding References
+
+#### Add Object
 
 ```cpp
 /**
@@ -73,7 +64,7 @@ The [UNDynamicRefComponent](dynamic-ref-component.md) automatically manages the 
 void AddObject(ENDynamicRef DynamicRef, UObject* InObject);
 ```
 
-### Add Object (By Name)
+#### Add Object (By Name)
 
 ```cpp
 /**
@@ -85,7 +76,33 @@ void AddObject(ENDynamicRef DynamicRef, UObject* InObject);
 void AddObjectByName(FName Name, UObject* InObject);
 ```
 
-### Remove Object	
+#### Add Objects
+
+```cpp
+/**
+  * Add a reference by ENDynamicRef to a TArray of UObjects.
+  * @remark Be careful with the manual add method. If you add it, you must remove it!
+  * @param DynamicRef The desired ENDynamicRef to add too.
+  * @param InObjects The TArray of UObjects to be referenced by the provided ENDynamicRef.
+  */
+void AddObjects(ENDynamicRef DynamicRef, TArray<UObject*> InObjects);
+```
+
+#### Add Objects (By Name)
+
+```cpp
+/**
+  * Add a reference by FName to a TArray of UObjects.
+  * @remark Be careful with the manual add method. If you add it, you must remove it!
+  * @param Name The desired FName to add too.
+  * @param InObjects The TArray of UObjects to be referenced by the FName.
+  */	
+void AddObjectsByName(FName Name, TArray<UObject*> InObjects);
+```  
+
+### Removing References
+
+#### Remove Object	
 
 ```cpp
 /**
@@ -96,7 +113,7 @@ void AddObjectByName(FName Name, UObject* InObject);
 void RemoveObject(ENDynamicRef DynamicRef, UObject* InObject);
 ```  
 	
-### Remove Object	(By Name)
+#### Remove Object	(By Name)
 
 ```cpp
 /**
@@ -107,8 +124,33 @@ void RemoveObject(ENDynamicRef DynamicRef, UObject* InObject);
   */
 void RemoveObjectByName(FName Name, UObject* InObject);
 ```  
-	
-### Get Actors
+
+#### Remove Objects
+
+```cpp
+/**
+  * Remove a reference by ENDynamicRef to a TArray of UObjects.
+  * @param DynamicRef The desired ENDynamicRef to remove from.
+  * @param InObjects TThe TArray of UObjects to be having their references removed by the provided ENDynamicRef.
+  */
+void RemoveObjects(ENDynamicRef DynamicRef, TArray<UObject*> InObjects);
+```  
+
+#### Remove Objects	(By Name)
+
+```cpp
+/**
+  * Remove a reference by FName to a TArray of UObjects.
+  * @remark Be careful with the manual remove method, it should be used for things that you have manually added.
+  * @param Name The desired FName to remove from.
+  * @param InObjects The TArray of UObjects to be having their references removed by the FName.	 
+  */
+void RemoveObjectsByName(FName Name, TArray<UObject*> InObjects);
+```  
+
+### Accessing References
+
+#### Get Actors
 
 ```cpp
 /**
@@ -120,7 +162,7 @@ void RemoveObjectByName(FName Name, UObject* InObject);
 TArray<AActor*> GetActors(const ENDynamicRef DynamicRef);
 ```  
 	
-### Get Actors (By Name)
+#### Get Actors (By Name)
 
 ```cpp
 /**
@@ -132,28 +174,7 @@ TArray<AActor*> GetActors(const ENDynamicRef DynamicRef);
 TArray<AActor*> GetActorsByName(FName Name);
 ```  
 
-### Get Count
-
-```cpp
-/**
-  * Retrieves the count of UObjects associated with a specified ENDynamicRef collection.
-  * @param DynamicRef The desired ENDynamicRef collection.
-  * @return The number of UObjects associated with the specified ENDynamicRef collection.
-  */
-int32 GetCount(const ENDynamicRef DynamicRef);
-```  
-### Get Count (By Name)
-
-```cpp
-/**
-  * Retrieves the count of UObjects associated with a specified FName collection.
-  * @param Name The desired FName collection.
-  * @return The number of UObjects associated with the specified FName collection.
-  */
-int32 GetCountByName(FName Name);
-```
-
-### Get Objects
+#### Get Objects
 
 ```cpp
 /**
@@ -164,7 +185,7 @@ int32 GetCountByName(FName Name);
 TArray<UObject*> GetObjects(const ENDynamicRef DynamicRef);
 ```
 
-### Get Objects (By Name)
+#### Get Objects (By Name)
 
 ```cpp
 /**
@@ -175,7 +196,7 @@ TArray<UObject*> GetObjects(const ENDynamicRef DynamicRef);
 TArray<UObject*> GetObjectsByName(FName Name);
 ```  
 
-### Get First Actor
+#### Get First Actor
 
 ```cpp
 /**
@@ -186,7 +207,7 @@ TArray<UObject*> GetObjectsByName(FName Name);
 AActor* GetFirstActor(const ENDynamicRef DynamicRef);
 ```  
 
-### Get First Actor (By Name)
+#### Get First Actor (By Name)
 
 ```cpp	
 /**
@@ -197,7 +218,7 @@ AActor* GetFirstActor(const ENDynamicRef DynamicRef);
 AActor* GetFirstActorByName(FName Name);
 ```  
 
-### Get First Object
+#### Get First Object
 
 ```cpp
 /**
@@ -208,7 +229,7 @@ AActor* GetFirstActorByName(FName Name);
 UObject* GetFirstObject(const ENDynamicRef DynamicRef);
 ```  
 
-### Get First Object (By Name)
+#### Get First Object (By Name)
 
 ```cpp	
 /**
@@ -219,7 +240,7 @@ UObject* GetFirstObject(const ENDynamicRef DynamicRef);
 UObject* GetFirstObjectByName(FName Name);
 ```  
 	
-### Get Last Actor
+#### Get Last Actor
 
 ```cpp	
 /**
@@ -230,7 +251,7 @@ UObject* GetFirstObjectByName(FName Name);
 AActor* GetLastActor(const ENDynamicRef DynamicRef);
 ```  
 
-### Get Last Actor (By Name)
+#### Get Last Actor (By Name)
 
 ```cpp		
 /**
@@ -241,7 +262,7 @@ AActor* GetLastActor(const ENDynamicRef DynamicRef);
 AActor* GetLastActorByName(FName Name);
 ```
 
-### Get Last Object
+#### Get Last Object
 
 ```cpp	
 /**
@@ -252,7 +273,7 @@ AActor* GetLastActorByName(FName Name);
 UObject* GetLastObject(const ENDynamicRef DynamicRef);
 ```
 
-### Get Last Object (By Name)
+#### Get Last Object (By Name)
 
 ```cpp			
 /**
@@ -261,4 +282,27 @@ UObject* GetLastObject(const ENDynamicRef DynamicRef);
 	* @return The last UObject in the collection. 
 	*/
 UObject* GetLastObjectByName(FName Name);
+```
+
+### Utilities
+
+#### Get Count
+
+```cpp
+/**
+  * Retrieves the count of UObjects associated with a specified ENDynamicRef collection.
+  * @param DynamicRef The desired ENDynamicRef collection.
+  * @return The number of UObjects associated with the specified ENDynamicRef collection.
+  */
+int32 GetCount(const ENDynamicRef DynamicRef);
+```  
+#### Get Count (By Name)
+
+```cpp
+/**
+  * Retrieves the count of UObjects associated with a specified FName collection.
+  * @param Name The desired FName collection.
+  * @return The number of UObjects associated with the specified FName collection.
+  */
+int32 GetCountByName(FName Name);
 ```
