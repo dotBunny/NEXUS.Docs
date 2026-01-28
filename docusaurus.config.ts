@@ -65,6 +65,10 @@ const config: Config = {
             './src/css/responsive.css'
           ]
         },
+        gtag: {
+          trackingID: 'G-988WNKTWNF',
+          anonymizeIP: true
+        }
       } satisfies Preset.Options,
     ],
   ],
