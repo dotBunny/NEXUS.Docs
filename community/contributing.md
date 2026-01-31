@@ -65,6 +65,7 @@ We primarily are using a tag based exclusion method when a rule needs to be viol
 
 - `.github/**`
 - `SourceAssets/**`
+- `**/NexusPicker/Private/N*Picker.cpp`
   
 #### Ignore Issues on Multiple Criteria
 
