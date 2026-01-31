@@ -127,7 +127,7 @@ div.image-split p img:last-child {
   margin-left: 1%;
 }
 
-@media screen and (max-width: 389px) {
+@media screen and (max-width: 490px) {
   div.image-split p img {
     width: 100%;
     margin-left: 0%;
