@@ -4,7 +4,7 @@ sidebar_class_name: type ue-blueprint-function-library
 description: Provides various functions for generating points inside or on the surface of the FBox using different random generation strategies.
 toc_min_heading_level: 2
 toc_max_heading_level: 5
-tags: [0.1.0]
+tags: [0.1.0, 0.2.7]
 ---
 
 import TypeDetails from '../../../../src/components/TypeDetails';
