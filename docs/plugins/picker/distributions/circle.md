@@ -4,7 +4,7 @@ sidebar_class_name: type ue-blueprint-function-library
 description: Provides various functions for generating points in the plane of a circle using different random generation strategies.
 toc_min_heading_level: 2
 toc_max_heading_level: 5
-tags: [0.1.0]
+tags: [0.1.0, 0.2.7]
 ---
 
 import TypeDetails from '../../../../src/components/TypeDetails';
@@ -19,23 +19,14 @@ The `UNCirclePickerLibrary` wraps the native `FNCirclePicker` functionality in a
 
 ## Methods
 
-### Next Point (IO)
+### Next Point
 
-![Circle: Next Point](circle/circle-next-point.webp) 
-
-Generates a deterministic point ***[i]nside or [o]n*** the perimeter of a circle.
-
-:::info
-
-Uses `FNRandom::Deterministic` to ensure reproducible results.
-
-:::
-
-### Next Point Projected (IO)
-
+<div class="image-split">
+![Circle: Next Point](circle/circle-next-point.webp)
 ![Circle: Next Point Projected](circle/circle-next-point-projected.webp)
+</div>
 
-Generates a deterministic point ***[i]nside or [o]n*** the perimeter of a circle, then projects it to the world. The point is projected in the given direction until it hits something in the world.
+Generates a deterministic point inside or on the perimeter of a circle.
 
 :::info
 
@@ -43,52 +34,54 @@ Uses `FNRandom::Deterministic` to ensure reproducible results.
 
 :::
 
-### Random Point (IO)
+### Random Point
 
+<div class="image-split">
 ![Circle: Random Point](circle/circle-random-point.webp)
-
-Generates a random point ***[i]nside or [o]n*** the perimeter of a circle. Uses the non-deterministic random generator for true randomness.
-
-### Random Point Projected (IO)
-
 ![Circle: Random Point Projected](circle/circle-random-point-projected.webp)
+</div>
 
-Generates a random point ***[i]nside or [o]n*** the perimeter of a circle, then projects it to the world. The point is projected in the given direction until it hits something in the world.
+Generates a random point inside or on the perimeter of a circle.
 
-### Random One-Shot Point (IO)
+:::info
 
+Uses `FNRandom::NonDeterministic` to produce pseudo-random results.
+
+:::
+
+### One-Shot Point
+
+<div class="image-split">
 ![Circle: Random One-Shot Point](circle/circle-random-one-shot-point.webp)
-
-Generates a random point ***[i]nside or [o]n*** the perimeter of a circle using a provided seed. Useful for one-time random point generation with reproducible results.
-
-### Random One-Shot Point Projected (IO)
-
 ![Circle: Random One-Shot Point Projected](circle/circle-random-one-shot-point-projected.webp)
+</div>
 
-Generates a random point ***[i]nside or [o]n*** the perimeter of a circle using a provided seed, then projects it to the world. The point is projected in the given direction until it hits something in the world.
+Generates a random point inside or on the perimeter of a circle using a provided seed. Useful for one-time random point generation with reproducible results.
 
-### Random Tracked Point (IO)
+### Tracked Point
 
+<div class="image-split">
 ![Circle: Random Tracked Point](circle/circle-random-tracked-point.webp)
-
-Generates a random point ***[i]nside or [o]n*** the perimeter of a circle while tracking the random seed state. Updates the seed value to enable sequential random point generation.
-
-### Random Tracked Point Projected (IO)
-
 ![Circle: Random Tracked Point Projected](circle/circle-random-tracked-point-projected.webp)
+</div>
 
-Generates a random point ***[i]nside or [o]n*** the perimeter of a circle while tracking the random seed state, then projects it to the world. Updates the seed value to enable sequential random point generation. The point is projected in the given direction until it hits something in the world.
+Generates a random point inside or on the perimeter of a circle while tracking the random seed state. Updates the seed value to enable sequential random point generation.
 
-## Parameters
+## FNCirclePickerParams
 
-|Variant|Parameter|Type|Description|Default|
-|:--|:--|:--|:--|:--|
-| _Base_ | Origin | `FVector&` | The center world point of the circle. ||
-| _Base_ | MinimumRadius | `float` | The minimum radius of the circle (inner bound). ||
-|  _Base_ | MaximumRadius | `float` |The maximum radius of the circle (outer bound). ||
-|  _Base_ | Rotation | `FRotator` | Optional rotation to apply to the circle plane | `FRotator::ZeroRotator`|
-| **Projected** | WorldContextObject | `UObject*` | Object that provides access to the world, usally auto-filled in Blueprint. | `WorldContext` |
-| **Projected** | Projection | `FVector` | Direction and distance for the line trace. | `FVector(0,0,-500.f)` |
-| **Projected** | CollisionChannel | `ECollisionChannel` | The collision channel to use for tracing. | `ECC_WorldStatic` |
-| **Tracked** | Seed | `int32&` | The seed to be used when generating, and altered for determinism. | |
-| **One-Shot** | Seed | `int32` | The throw-away seed used when generating. | |
+### Base
+|Parameter|Type|Description|Default|
+|:--|:--|:--|:--|
+| Count | `int` | The number of points to generate in a single pass. | `1` |
+| CachedWorld | `TObjectPtr<UWorld>` | The world for line tracing and drawing. | |
+| ProjectionMode | `ENPickerProjectionMode` | Should the point be projected somewhere? | `ENPickerProjectionMode::None` |
+| Projection | `FVector` | Direction and distance for the line trace. | `FVector(0,0,-500.f)` |
+| CollisionChannel | `TEnumAsByte<ECollisionChannel>` | The collision channel to use for tracing. | `ECC_WorldStatic` |
+
+### Circle
+|Parameter|Type|Description|Default|
+|:--|:--|:--|:--|
+| Origin | `FVector` | The center point when attempting to generate new points. | `FVector::ZeroVector` |
+| MinimumRadius | `float` | The minimum radius of the circle (inner bound). | `0.f` |
+| MaximumRadius | `float` | The maximum radius of the circle (outer bound). | `10.f` |
+| Rotation | `FRotator` | The rotation of the circle plane. | `FRotator::ZeroRotator` |

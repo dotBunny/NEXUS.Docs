@@ -4,7 +4,7 @@ sidebar_class_name: type ue-blueprint-function-library
 description: Provides various functions for generating points along a USplineComponent spline using different random generation strategies.
 toc_min_heading_level: 2
 toc_max_heading_level: 5
-tags: [0.1.0]
+tags: [0.1.0, 0.2.7]
 ---
 
 import TypeDetails from '../../../../src/components/TypeDetails';
@@ -19,9 +19,12 @@ The `UNSplinePickerLibrary` wraps the native `FNSplinePicker` functionality in a
 
 ## Methods
 
-### Next Point (On)
+### Next Point
 
-![Spline: Next Point](spline/spline-next-point.webp) 
+<div class="image-split">
+![Spline: Next Point](spline/spline-next-point.webp)
+![Spline: Next Point Projected](spline/spline-next-point-projected.webp)
+</div>
 
 Generates a deterministic point on a `USplineComponent`'s spline.
 
@@ -31,60 +34,52 @@ Uses `FNRandom::Deterministic` to ensure reproducible results.
 
 :::
 
-### Next Point Projected (On)
+### Random Point
 
-![Spline: Next Point Projected](spline/spline-next-point-projected.webp)
-
-Generates a deterministic point on a `USplineComponent`'s spline, then projects it to the world.
-
-:::info
-
-Uses `FNRandom::Deterministic` to ensure reproducible results.
-
-:::
-
-### Random Point (On)
-
+<div class="image-split">
 ![Spline: Random Point](spline/spline-random-point.webp)
+![Spline: Random Point Projected](spline/spline-random-point-projected.webp)
+</div>
 
 Generates a random point on a `USplineComponent`'s spline.
 
-### Random Point Projected (On)
+:::info
 
-![Spline: Random Point Projected](spline/spline-random-point-projected.webp)
+Uses `FNRandom::NonDeterministic` to produce pseudo-random results.
 
-Generates a random point on a `USplineComponent`'s spline, then projects it to the world.
+:::
 
-### Random One-Shot Point (On)
+### One-Shot Point
 
+<div class="image-split">
 ![Spline: Random One-Shot Point](spline/spline-random-one-shot-point.webp)
+![Spline: Random One-Shot Point Projected](spline/spline-random-one-shot-point-projected.webp)
+</div>
 
 Generates a random point on a `USplineComponent`'s spline using a provided seed.
+nerates a random point on a `USplineComponent`'s spline using a provided seed, then projects it to the world.
 
-### Random One-Shot Point Projected (On)
+### Tracked Point
 
-![Spline: Random One-Shot Point Projected](spline/spline-random-one-shot-point-projected.webp)
-
-Generates a random point on a `USplineComponent`'s spline using a provided seed, then projects it to the world.
-
-### Random Tracked Point (On)
-
+<div class="image-split">
 ![Spline: Random Tracked Point](spline/spline-random-tracked-point.webp)
+![Spline: Random Tracked Point Projected](spline/spline-random-tracked-point-projected.webp)
+</div>
 
 Generates a random point on a `USplineComponent`'s spline while tracking the random seed state.
 
-### Random Tracked Point Projected (On)
+## FNSplinePickerParams
 
-![Spline: Random Tracked Point Projected](spline/spline-random-tracked-point-projected.webp)
+### Base
+|Parameter|Type|Description|Default|
+|:--|:--|:--|:--|
+| Count | `int` | The number of points to generate in a single pass. | `1` |
+| CachedWorld | `TObjectPtr<UWorld>` | The world for line tracing and drawing. | |
+| ProjectionMode | `ENPickerProjectionMode` | Should the point be projected somewhere? | `ENPickerProjectionMode::None` |
+| Projection | `FVector` | Direction and distance for the line trace. | `FVector(0,0,-500.f)` |
+| CollisionChannel | `TEnumAsByte<ECollisionChannel>` | The collision channel to use for tracing. | `ECC_WorldStatic` |
 
-Generates a random point on a `USplineComponent`'s spline while tracking the random seed state, then projects it to the world.
-
-## Parameters
-
-|Variant|Parameter|Type|Description|Default|
-|:--|:--|:--|:--|:--|
-| _Base_ | SplineComponent | `USplineComponent*` |The spline component to generate points on. ||
-| **Projected** | Projection | `FVector` | Direction and distance for the line trace. | `FVector(0,0,-500.f)` |
-| **Projected** | CollisionChannel | `ECollisionChannel` | The collision channel to use for tracing. | `ECC_WorldStatic` |
-| **Tracked** | Seed | `int32&` | The seed to be used when generating, and altered for determinism. | |
-| **One-Shot** | Seed | `int32` | The throw-away seed used when generating. | |
+### Spline
+|Parameter|Type|Description|Default|
+|:--|:--|:--|:--|
+| SplineComponent | `TObjectPtr<USplineComponent>` | The spline component to generate points on. | `nullptr` |

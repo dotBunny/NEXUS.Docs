@@ -114,6 +114,27 @@ div.image-thumbnails p img {
 }
 
 
+
+div.image-split p {
+  display: block;
+}
+
+div.image-split p img {
+  width: 49%;
+}
+
+div.image-split p img:last-child {
+  margin-left: 1%;
+}
+
+@media screen and (max-width: 389px) {
+  div.image-split p img {
+    width: 100%;
+    margin-left: 0%;
+  }
+}
+
+
 .footer__copyright a:hover {
   text-decoration: none;
 }

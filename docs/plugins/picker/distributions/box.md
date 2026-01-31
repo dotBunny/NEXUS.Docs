@@ -19,29 +19,14 @@ The `UNBoxPickerLibrary` wraps the native `FNBoxPicker` functionality in a **Blu
 
 ## Methods
 
-:::tip
+### Next Point
 
-There are **Simple** variants of all of these methods which removes the inner exclusion when not needed as a minor optimization.
-
-:::
-
-### Next Point (IO)
-
+<div class="image-split">
 ![Box: Next Point](box/box-next-point.webp) 
-
-Gets the next deterministic point  ***[i]nside or [o]n*** the `FBox`.
-
-:::info
-
-Uses `FNRandom::Deterministic` to ensure reproducible results.
-
-:::
-
-### Next Point Projected (IO)
-
 ![Box: Next Point Projected](box/box-next-point-projected.webp)
+</div>
 
-Gets the next deterministic point ***[i]nside or [o]n*** the `FBox` and projects it in the given direction.
+Gets the next deterministic point inside or on an `FBox`.
 
 :::info
 
@@ -49,52 +34,53 @@ Uses `FNRandom::Deterministic` to ensure reproducible results.
 
 :::
 
-### Random Point (IO)
+### Random Point
 
+<div class="image-split">
 ![Box: Random Point](box/box-random-point.webp)
-
-Gets a random point ***[i]nside or [o]n*** the `FBox`.
-
-### Random Point Projected (IO)
-
 ![Box: Random Point Projected](box/box-random-point-projected.webp)
+</div>
 
-Gets a random point ***[i]nside or [o]n*** the `FBox` and projects it in the given direction.
+Gets a random point inside or on an `FBox`.
 
-### Random One-Shot Point (IO)
+:::info
 
+Uses `FNRandom::NonDeterministic` to produce pseudo-random results.
+
+:::
+
+### One-Shot Point
+
+<div class="image-split">
 ![Box: Random One-Shot Point](box/box-random-one-shot-point.webp)
-
-Gets a random point ***[i]nside or [o]n*** the `FBox` using a one-shot seed.
-
-### Random One-Shot Point Projected (IO)
-
 ![Box: Random One-Shot Point Projected](box/box-random-one-shot-point-projected.webp)
+</div>
 
-Gets a random point ***[i]nside or [o]n*** the `FBox` using a one-shot seed and projects it in the given direction.
+Gets a random point inside or on an  `FBox` using a one-shot seed.
 
-### Random Tracked Point (IO)
+### Tracked Point
 
+<div class="image-split">
 ![Box: Random Tracked Point](box/box-random-tracked-point.webp)
-
-Gets a random point ***[i]nside or [o]n*** the `FBox` using a tracked seed. The seed is incremented each time this function is called.
-
-### Random Tracked Point Projected (IO)
-
 ![Box: Random Tracked Point Projected](box/box-random-tracked-point-projected.webp)
+</div>
 
-Gets a random point ***[i]nside or [o]n*** the `FBox` using a tracked seed and projects it in the given direction. The seed is incremented each time this function is called.
+Gets a random point inside or on an `FBox` using a tracked seed. The seed altered for each `Count`.
 
-## Parameters
+## FNBoxPickerParams
 
-|Variant|Parameter|Type|Description|Default|
-|:--|:--|:--|:--|:--|
-| _Base_ | Origin | `FVector&` |The center world point of the `FBox`. ||
-| _Base_ | MinimumRadius | `FBox&` | The minimum dimensions to use when generating a point. ||
-| _Base_ | MaximumRadius | `FBox&` | The maximum dimensions to use when generating a point. ||
-| **Simple** | Dimensions | `FBox&` | The dimensions of the `FBox`. |
-| **Projected** | WorldContextObject | `UObject*` | Object that provides access to the world, usally auto-filled in Blueprint. | `WorldContext` |
-| **Projected** | Projection | `FVector` | Direction and distance for the line trace. | `FVector(0,0,-500.f)` |
-| **Projected** | CollisionChannel | `ECollisionChannel` | The collision channel to use for tracing. | `ECC_WorldStatic` |
-| **Tracked** | Seed | `int32&` | The seed to be used when generating, and altered for determinism. | |
-| **One-Shot** | Seed | `int32` | The throw-away seed used when generating. | |
+### Base
+|Parameter|Type|Description|Default|
+|:--|:--|:--|:--|
+| Count | `int` | The number of points to generate in a single pass. | `1` |
+| CachedWorld | `TObjectPtr<UWorld>` | The world for line tracing and drawing. | |
+| ProjectionMode | `ENPickerProjectionMode` | Should the point be projected somewhere? | `ENPickerProjectionMode::None` |
+| Projection | `FVector` | Direction and distance for the line trace. | `FVector(0,0,-500.f)` |
+| CollisionChannel | `TEnumAsByte<ECollisionChannel>` | The collision channel to use for tracing. | `ECC_WorldStatic` |
+
+### Box
+|Parameter|Type|Description|Default|
+|:--|:--|:--|:--|
+| Origin | `FVector` | The center point when attempting to generate new points. | `FVector::ZeroVector` |
+| MinimumDimensions | `FBox` | The minimum dimensions to use when generating a point. | `FBox(ForceInit)` |
+| MaximumDimensions | `FBox` | The maximum dimensions to use when generating a point. | `FBox(ForceInit)` |

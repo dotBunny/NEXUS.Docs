@@ -5,6 +5,9 @@ main:
   label: v0.3.0
   description: Changes related to the v0.3.0 release.
 
+0.2.7:
+  label: v0.2.7
+  description: Changes related to the v0.2.6 release.
 0.2.6:
   label: v0.2.6
   description: Changes related to the v0.2.6 release.
