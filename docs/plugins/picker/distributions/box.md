@@ -13,6 +13,8 @@ import TypeDetails from '../../../../src/components/TypeDetails';
 
 <TypeDetails icon="ue-blueprint-function-library" base="UBlueprintFunctionLibrary" type="UNBoxPickerLibrary" typeExtra="/ FNBoxPicker" headerFile="NexusActorPools/Public/NBoxPickerLibrary.h" />
 
+![Box: Next Density](box/box-next-density.webp)
+
 Provides various functions for generating points inside or on the surface of the **`FBox`** (axis-aligned) using different random generation strategies (deterministic, non-deterministic, seeded).
 
 The `UNBoxPickerLibrary` wraps the native `FNBoxPicker` functionality in a **Blueprint** friendly manner. Should you be wanting to utilize a picker in _native_ code it is best to directly reference `FNBoxPicker` directly to avoid the abstraction layer as it has a similar API.
@@ -22,8 +24,8 @@ The `UNBoxPickerLibrary` wraps the native `FNBoxPicker` functionality in a **Blu
 ### Next Point
 
 <div class="image-split">
-![Box: Next Point](box/box-next-point.webp) 
-![Box: Next Point Projected](box/box-next-point-projected.webp)
+![Box: Next](box/box-next.webp) 
+![Box: Next Projected](box/box-next-projected.webp)
 </div>
 
 Gets the next deterministic point inside or on an `FBox`.
@@ -37,8 +39,8 @@ Uses `FNRandom::Deterministic` to ensure reproducible results.
 ### Random Point
 
 <div class="image-split">
-![Box: Random Point](box/box-random-point.webp)
-![Box: Random Point Projected](box/box-random-point-projected.webp)
+![Box: Random](box/box-random.webp)
+![Box: Random Projected](box/box-random-projected.webp)
 </div>
 
 Gets a random point inside or on an `FBox`.
@@ -52,8 +54,8 @@ Uses `FNRandom::NonDeterministic` to produce pseudo-random results.
 ### One-Shot Point
 
 <div class="image-split">
-![Box: Random One-Shot Point](box/box-random-one-shot-point.webp)
-![Box: Random One-Shot Point Projected](box/box-random-one-shot-point-projected.webp)
+![Box: One-Shot](box/box-oneshot.webp)
+![Box: One-Shot Projected](box/box-oneshot-projected.webp)
 </div>
 
 Gets a random point inside or on an  `FBox` using a one-shot seed.
@@ -61,13 +63,19 @@ Gets a random point inside or on an  `FBox` using a one-shot seed.
 ### Tracked Point
 
 <div class="image-split">
-![Box: Random Tracked Point](box/box-random-tracked-point.webp)
-![Box: Random Tracked Point Projected](box/box-random-tracked-point-projected.webp)
+![Box: Tracked](box/box-tracked.webp)
+![Box: Tracked Projected](box/box-tracked-projected.webp)
 </div>
 
 Gets a random point inside or on an `FBox` using a tracked seed. The seed altered for each `Count`.
 
 ## FNBoxPickerParams
+
+:::warning
+
+It is important to be aware of the **performance penalty** when using `MinimumBox`. It is only included for special use cases where absolutely necessary. It can also create biased results when selecting points as it has to create a series of `FBox` first which can be used; their shapes and sizes are directly related to the inner dimensions.
+
+:::
 
 ### Base
 |Parameter|Type|Description|Default|
@@ -82,5 +90,5 @@ Gets a random point inside or on an `FBox` using a tracked seed. The seed altere
 |Parameter|Type|Description|Default|
 |:--|:--|:--|:--|
 | Origin | `FVector` | The center point when attempting to generate new points. | `FVector::ZeroVector` |
-| MinimumDimensions | `FBox` | The minimum dimensions to use when generating a point. | `FBox(ForceInit)` |
-| MaximumDimensions | `FBox` | The maximum dimensions to use when generating a point. | `FBox(ForceInit)` |
+| MinimumBox | `FBox` | The minimum dimensions to use when generating a point. | `FBox(ForceInit)` |
+| MaximumBox | `FBox` | The maximum dimensions to use when generating a point. | `FBox(ForceInit)` |

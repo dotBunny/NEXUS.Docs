@@ -13,6 +13,8 @@ import TypeDetails from '../../../../src/components/TypeDetails';
 
 <TypeDetails icon="ue-blueprint-function-library" base="UBlueprintFunctionLibrary" type="UNSpherePickerLibrary" typeExtra="/ FNSpherePicker" headerFile="NexusActorPools/Public/NSpherePickerLibrary.h" />
 
+![Sphere: Next Density](sphere/sphere-next-density.webp)
+
 Provides various functions for generating points ***[i]nside or [o]n*** the surface of a **sphere** using different random generation strategies (deterministic, non-deterministic, seeded).
 
 The `UNSpherePickerLibrary` wraps the native `FNSpherePicker` functionality in a **Blueprint** friendly manner. Should you be wanting to utilize a picker in _native_ code it is best to directly reference `FNSpherePicker` directly to avoid the abstraction layer as it has a similar API.
@@ -22,8 +24,8 @@ The `UNSpherePickerLibrary` wraps the native `FNSpherePicker` functionality in a
 ### Next Point
 
 <div class="image-split">
-![Sphere: Next Point](sphere/sphere-next-point.webp)
-![Sphere: Next Point Projected](sphere/sphere-next-point-projected.webp)
+![Sphere: Next](sphere/sphere-next.webp)
+![Sphere: Next Projected](sphere/sphere-next-projected.webp)
 </div>
 
 Generates a deterministic point inside or on the surface of a sphere.
@@ -37,8 +39,8 @@ Uses `FNRandom::Deterministic` to ensure reproducible results.
 ### Random Point
 
 <div class="image-split">
-![Sphere: Random Point](sphere/sphere-random-point.webp)
-![Sphere: Random Point Projected](sphere/sphere-random-point-projected.webp)
+![Sphere: Random](sphere/sphere-random.webp)
+![Sphere: Random Projected](sphere/sphere-random-projected.webp)
 </div>
 
 Generates a random point inside or on the surface of a sphere.
@@ -52,8 +54,8 @@ Uses `FNRandom::NonDeterministic` to produce pseudo-random results.
 ### One-Shot Point
 
 <div class="image-split">
-![Sphere: Random One-Shot Point](sphere/sphere-random-one-shot-point.webp)
-![Sphere: Random One-Shot Point Projected](sphere/sphere-random-one-shot-point-projected.webp)
+![Sphere: One-Shot](sphere/sphere-oneshot.webp)
+![Sphere: One-Shot Projected](sphere/sphere-oneshot-projected.webp)
 </div>
 
 Generates a random point inside or on the surface of a sphere using a provided seed.
@@ -61,8 +63,8 @@ Generates a random point inside or on the surface of a sphere using a provided s
 ### Tracked Point
 
 <div class="image-split">
-![Sphere: Random Tracked Point](sphere/sphere-random-tracked-point.webp)
-![Sphere: Random Tracked Point Projected](sphere/sphere-random-tracked-point-projected.webp)
+![Sphere: Tracked](sphere/sphere-tracked.webp)
+![Sphere: Tracked Projected](sphere/sphere-tracked-projected.webp)
 </div>
 
 Generates a random point inside or on the surface of a sphere while tracking the random seed state.

@@ -13,6 +13,8 @@ import TypeDetails from '../../../../src/components/TypeDetails';
 
 <TypeDetails icon="ue-blueprint-function-library" base="UBlueprintFunctionLibrary" type="UNRectanglePickerLibrary" typeExtra="/ FNRectanglePicker" headerFile="NexusActorPools/Public/NRectanglePickerLibrary.h" />
 
+![Rectangle: Next Density](rectangle/rectangle-next-density.webp)
+
 Provides various functions for generating points the plane of a **rectangle** using different random generation strategies (deterministic, non-deterministic, seeded).
 
 The `UNRectanglePickerLibrary` wraps the native `FNRectanglePicker` functionality in a **Blueprint** friendly manner. Should you be wanting to utilize a picker in _native_ code it is best to directly reference `FNRectanglePicker` directly to avoid the abstraction layer as it has a similar API.
@@ -22,8 +24,8 @@ The `UNRectanglePickerLibrary` wraps the native `FNRectanglePicker` functionalit
 ### Next Point
 
 <div class="image-split">
-![Rectangle: Next Point](rectangle/rectangle-next-point.webp) 
-![Rectangle: Next Point Projected](rectangle/rectangle-next-point-projected.webp)
+![Rectangle: Next](rectangle/rectangle-next.webp) 
+![Rectangle: Next Projected](rectangle/rectangle-next-projected.webp)
 </div>
 
 Generates a deterministic point inside or on the boundary of a rectangle.
@@ -37,8 +39,8 @@ Uses `FNRandom::Deterministic` to ensure reproducible results.
 ### Random Point
 
 <div class="image-split">
-![Rectangle: Random Point](rectangle/rectangle-random-point.webp)
-![Rectangle: Random Point Projected](rectangle/rectangle-random-point-projected.webp)
+![Rectangle: Random](rectangle/rectangle-random.webp)
+![Rectangle: Random Projected](rectangle/rectangle-random-projected.webp)
 </div>
 
 Generates a random point inside or on the boundary of a rectangle.
@@ -52,8 +54,8 @@ Uses `FNRandom::NonDeterministic` to produce pseudo-random results.
 ### One-Shot Point
 
 <div class="image-split">
-![Rectangle: Random One-Shot Point](rectangle/rectangle-random-one-shot-point.webp)
-![Rectangle: Random One-Shot Point Projected](rectangle/rectangle-random-one-shot-point-projected.webp)
+![Rectangle: One-Shot](rectangle/rectangle-oneshot.webp)
+![Rectangle: One-Shot Projected](rectangle/rectangle-oneshot-projected.webp)
 </div>
 
 Generates a random point inside or on the boundary of a rectangle using a provided seed.
@@ -61,13 +63,19 @@ Generates a random point inside or on the boundary of a rectangle using a provid
 ### Tracked Point
 
 <div class="image-split">
-![Rectangle: Random Tracked Point](rectangle/rectangle-random-tracked-point.webp)
-![Rectangle: Random Tracked Point Projected](rectangle/rectangle-random-tracked-point-projected.webp)
+![Rectangle: Tracked](rectangle/rectangle-tracked.webp)
+![Rectangle: Tracked Projected](rectangle/rectangle-tracked-projected.webp)
 </div>
 
 Generates a random point inside or on the boundary of a rectangle using a tracked seed.
 
 ## FNRectanglePickerParams
+
+:::warning
+
+It is important to be aware of the **performance penalty** when using `MinimumDimensions`. It is only included for special use cases where absolutely necessary. It can also create biased results when selecting points as it has to create a series of ranges first which can be used; their shapes and sizes are directly related to the inner dimensions.
+
+:::
 
 ### Base
 |Parameter|Type|Description|Default|
