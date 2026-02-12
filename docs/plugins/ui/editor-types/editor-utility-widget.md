@@ -19,9 +19,6 @@ An extension on the `UEditorUtilityWidget` providing additional functionality ar
 - **Unit Scale**: Local `UnitScale` property (Vector2D) for widget scaling, accessible from Blueprint.
 
 ## **Lifecycle Management**
-- **Pin/Unpin System**: Includes functionality to pin and unpin `UEditorUtilityWidgetBlueprint` templates
-    - `PinTemplate()`: Adds a template to the root set, preventing garbage collection.
-    - `UnpinTemplate()`: Removes the template from root set, allowing garbage collection.
 - **Delayed Construction**: Implements a delayed construction task system via `DelayedConstructTask()`.
 - **Native Lifecycle**: Overrides `NativeConstruct()` and `NativeDestruct()` for custom initialization and cleanup.
 
