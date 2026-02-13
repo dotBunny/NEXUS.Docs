@@ -29,5 +29,6 @@ The samples project contains some custom input to assist with taking screenshots
 | `Backspace` | Toggle the HUD's visibility. |
 | `\` | Return camera view to pawn. |
 | `F12` | Take hi-rez screenshot, saving to the default `<ProjectFolder>\Saved\Screenshots`. |
+| `F10` | Start automatic screenshot run. |
 | `=` | Increase screenshot resolution multiplier. |
 | `-` | Decrease screenshot resolution multiplier. |
