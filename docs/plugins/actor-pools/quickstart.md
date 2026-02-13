@@ -2,6 +2,7 @@
 sidebar_position: 1
 sidebar_label: Quickstart
 description: What you need to know to get up and running fast using NActorPools.
+tags: [0.2.7]
 ---
 
 import Tabs from '@theme/Tabs';
@@ -12,6 +13,21 @@ import TabItem from '@theme/TabItem';
 ## Lifecycle
 
 It is essential to consider the lifecycle of any `AActor` used in an object pooling scenario. Specifically, are there things that need to happen to the Actor's components or itself to remove it from gameplay properly, be it deactivating components, sleeping AI, or altering GAS-related logic; every game is slightly different, and you will need to address your game's specific needs. Utilizing the [INActorPoolItem](/docs/plugins/actor-pools/types/actor-pool-item/) interface, you can quickly carve out this pooling logic.
+
+## Developer Overlay
+
+By going to `Tools > NEXUS > Actor Pools`, you can create an [UNEditorUtilityWidget](/docs/plugins/ui/editor-types/editor-utility-widget/) wrapped version of `/NexusActorPools/WB_NActorPoolsDeveloperOverlay` which will show the real-time stats of all `FNActorPools`.
+
+<div class="image-split">
+![No Actor Pools](actor-pools-developer-overlay-none.webp)
+![Actor Pools](actor-pools-developer-overlay.webp)
+</div>
+
+:::info
+
+There is a `NActorPools` category added to the built-in `stat` system when `N.ActorPools.TrackStats` is toggled on. It is however not as robust in providing individual pool statistics as using the Developer Overlay method.
+
+:::
 
 ## Spawning An Actor
 

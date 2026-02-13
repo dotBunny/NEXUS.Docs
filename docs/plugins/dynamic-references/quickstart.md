@@ -2,12 +2,22 @@
 sidebar_position: 1
 sidebar_label: Quickstart
 description: What you need to know to get up and running fast using NDynamicRef.
+tags: [0.2.7]
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 # Quickstart
+
+## Developer Overlay
+
+By going to `Tools > NEXUS > Dynamic References`, you can create an [UNEditorUtilityWidget](/docs/plugins/ui/editor-types/editor-utility-widget/) wrapped version of `/NexusDynamicRefs/WB_NDynamicRefsDeveloperOverlay` which will show all known `NDynamicRef`.
+
+<div class="image-split">
+![No DynamicRefs](dynamicrefs-developer-overlay-none.webp)
+![DynamicRefs](dynamicrefs-developer-overlay.webp)
+</div>
 
 ## Add Component
 

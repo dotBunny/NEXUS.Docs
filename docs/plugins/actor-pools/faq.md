@@ -20,20 +20,6 @@ The basic premise of making pooling work in a networked environment is to ensure
 The default [FNActorPoolSettings](types/actor-pool-settings.md) includes the `ServerOnly` flag being set. This will ensure that all functionality will only execute on the server (world authority).
 :::
 
-## How can I see stats about the NActorPools in real time?
-
-Whist in the editor there is a EUW wrapped version of `/NexusActorPools/WB_NActorPoolsDeveloperOverlay` available by going to `Window > NEXUS > Actor Pools`. This `UWidgetBlueprint` is available for usage at runtime as well!
-
-![Actor Pools](actor-pools-developer-overlay.webp)
-
-:::info
-
-There is a `NActorPools` category added to the built-in `stat` system when `N.ActorPools.TrackStats` is toggled on. It is however not as robust in providing individual pool statistics as using the Developer Overlay method.
-
-:::
-
-
-
 ### What's up with the scale of my spawned AActors?
 
 When an actor is taken from its associated pool and made active, it's scale is reset to the predefined scale set in the [FNActorPools](types/actor-pool.md) settings (`FNActorPoolSettings::DefaultTransform`).

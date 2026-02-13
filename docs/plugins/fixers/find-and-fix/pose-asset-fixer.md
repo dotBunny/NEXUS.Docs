@@ -14,7 +14,7 @@ A particularly annoying error when cooking occurs when your `UPoseAsset` _throws
 LogAnimation: Error: [CookWorker #]: PoseAsset <YourPoseAssetPath> is out-of-date with its source animation <YourAnimationAssetPath> <HashA> vs <HashB>
 ```
 
-Found in the `Tools > Find & Fix > Outdated PoseAsset Source Animations` menu, this command will scan your project's content for UPoseAssets and perform the check done when cooking. If the hashes do not match, it will update from the source animation automatically for you.
+Found in the **Content Browser's** context menu `Find & Fix > Outdated PoseAsset Source Animations`, this command will scan your project's content for UPoseAssets and perform the check done when cooking. If the hashes do not match, it will update from the source animation automatically for you.
 
 :::warning
 
