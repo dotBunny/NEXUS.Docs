@@ -51,18 +51,6 @@ var Plugins: { [id: string]: IPlugin; } = {
     blueprintCategory: "NEXUS > DynamicRef"
   },
 
-  "NexusFixers": {
-    icon: "/assets/images/plugins/fixers-icon.webp",
-    moduleName: "NexusFixers",
-    shortName: "NFixers",
-    category: "Editor",
-    initialRelease: "0.1.0",
-    owner: "reapazor",
-    description: "A collection of tools for fixing content in the Unreal Editor.",
-    link: "/docs/plugins/fixers/",
-    blueprintCategory: ""
-  },
-
   "NexusBlockout": {
     icon: "/assets/images/plugins/blockout.webp",
     moduleName: "NexusBlockout",
