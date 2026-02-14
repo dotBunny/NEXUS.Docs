@@ -106,7 +106,7 @@ var Plugins: { [id: string]: IPlugin; } = {
     category: "Editor",
     initialRelease: "0.2.7",
     owner: "reapazor",
-    description: "An assortment of developer tools that didn't fit anywhere else.",
+    description: "An assortment of developer tools for the Unreal Editor.",
     link: "/docs/plugins/tools/",
     blueprintCategory: ""
   },
