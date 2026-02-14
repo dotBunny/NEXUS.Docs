@@ -111,6 +111,18 @@ var Plugins: { [id: string]: IPlugin; } = {
     blueprintCategory: "NEXUS > ProcGen"
   },
 
+  "NexusTools": {
+    icon: "/assets/images/plugins/tools-icon.webp",
+    moduleName: "NexusTools",
+    shortName: "NTools",
+    category: "Editor",
+    initialRelease: "0.2.7",
+    owner: "reapazor",
+    description: "An assortment of developer tools that didn't fit anywhere else.",
+    link: "/docs/plugins/tools/",
+    blueprintCategory: ""
+  },
+
   "NexusUserInterface": {
     icon: "/assets/images/plugins/ui-icon.webp",
     moduleName: "NexusUserInterface",
