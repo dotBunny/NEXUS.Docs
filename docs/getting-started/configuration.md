@@ -1,19 +1,21 @@
 ---
 sidebar_position: 2
-description: No one wants to be forced into having a bunch of overhead, so we utilize a plugin à la carte setup where you opt into just the functionality you want.
+description: No one wants to be forced into having a bunch of overhead, so we utilize a plugin à la carte setup where you opt into just the runtime functionality you want.
 ---
 
 # Configuration
 
 ## Plugins À La Carte
 
-By going to the `Edit -> Plugins` you can configure what parts of the **NEXUS** Framework are loaded.
+By going to the `Edit > Plugins` you can configure what parts of the **NEXUS** Framework are loaded.
 
 ![Plugins Window](configuration-plugins-window.webp)
 
 ### NEXUS
 
 A full list of the available plugins in the **NEXUS** Framework, with only [NEXUS: Core](/docs/plugins/core/) being enabled by default. This pattern enables users to selectively utilize only what they need for their project, minimizing any additional overhead that plugins may cause.
+
+A good starting point is to enable [NEXUS: Tooling](/docs/plugins/tooling/) and [NEXUS: UI](/docs/plugins/ui/), and from there anything that your game may want to take advantage of.
 
 :::tip
 
@@ -23,7 +25,13 @@ Don't forget to update any build targets with references to any plugins used.
 
 ### NEXUS Samples
 
-For many plugins, there is a counterpart plugin that houses sample content. They’re broken out into individuals to allow for fine-grain control of inclusion into your project. Additionally, there is a [TestProject](/docs/getting-started/test-project/) at the root of the repository, which serves as a showcase project for all the plugins and hosts all our functional tests
+For many of the **NEXUS** Framework plugins, there is a counterpart plugin that houses sample content. They’re broken out into individuals to allow for fine-grain control of inclusion into your project. Additionally, there is a [TestProject](/docs/getting-started/test-project/) at the root of the repository, which serves as a showcase project for all the plugins and hosts all our functional tests
+
+## Project Settings
+
+Some of the plugins have presistent configuration values used at runtime, these are found in the **NEXUS** section of the **Project Settings**.
+
+![Project Settigns Window](configuration-project-settings.webp)
 
 ## Editor Preferences
 

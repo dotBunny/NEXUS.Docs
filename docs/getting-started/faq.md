@@ -6,9 +6,9 @@ description: Some of the more common questions that come to mind are answered.
 
 # Frequently Asked Questions
 
-## What’s the deal with all the modules having the same Version/Number?
+## What’s the deal with all the plugins having the same Version/Number?
 
-The UPlugin files for all modules are automatically updated when the `N_VERSION_NUMBER`, `N_VERSION_MAJOR`, `N_VERSION_MINOR`, and `N_VERSION_PATCH` are updated inside of `NCoreMinimal.h`.
+The `UPlugin` definitions for all plugins are automatically updated when the `N_VERSION_NUMBER`, `N_VERSION_MAJOR`, `N_VERSION_MINOR`, and `N_VERSION_PATCH` are updated inside of `NCoreMinimal.h`.
 
 :::info[Mix & Match Versions]
 

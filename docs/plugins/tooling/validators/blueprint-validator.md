@@ -22,7 +22,7 @@ By default, the severity of this validation is set to `Error` due to its direct 
 project-wide in `Editor Preferences > NEXUX > Fixers > Blueprint: Empty Tick`
 
 
-![Empty Tick Severity](blueprint-empty-tick-severity.webp)
+![Empty Tick Severity](validator-settings.webp)
 
 ## IsMultiPinPureNode
 
@@ -38,7 +38,7 @@ This function of the `UNBlueprintValidator` looks for occurances where this occu
 
 ### Severity
 
-![Multi-Pin Pure Node Severity](blueprint-multi-pin-pure-node-severity.webp)
+![Multi-Pin Pure Node Severity](validator-settings.webp)
 
 By default, the severity of this validation is set to `Warning`, as it will not break your project, and resolving it requires some cognitive load.
 

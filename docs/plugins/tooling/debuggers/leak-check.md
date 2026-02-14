@@ -14,6 +14,6 @@ If a leak is detected, a `FNObjectSnapshotDiff` will be written out to the proje
 
 ## Settings 
 
-The configuration of the delay is a user-defined setting, available in a developer's Editor Preferences under  `NEXUS > Core (User) > Leak Check > Duration`.
+The configuration of the delay is a user-defined setting, available in a developer's Editor Preferences under  `NEXUS > Tooling (User) > Leak Check > Duration`.
 
-![Developer Subsystem: Settings](leak-check-settings.webp)
+![Tooling Settings: Leak Check](leak-check-settings.webp)

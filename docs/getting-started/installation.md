@@ -38,4 +38,4 @@ One of the design pillars for this framework is to ensure that it is functionall
 
 ## Upgrading
 
-While we do our best to minimize the impact of API changes, there are times when an API may change in definition between versions.  We will do our best to call out those changes in the [CHANGELOG](/community/changelog/), as well as provide a set of [Core Redirects](https://dev.epicgames.com/documentation/en-us/unreal-engine/core-redirects-in-unreal-engine) that can be implemented to resolve any content remapping.
+While we do our best to minimize the impact of API changes, there are times when an API may change in definition between versions.  We will do our best to call out those changes in the [CHANGELOG](/community/changelog/), as well as provide a set of [Core Redirects](https://dev.epicgames.com/documentation/en-us/unreal-engine/core-redirects-in-unreal-engine) that can be implemented to resolve any content remapping _if possible_.

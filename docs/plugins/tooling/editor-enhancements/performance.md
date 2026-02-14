@@ -23,6 +23,6 @@ A quick toggle to ensure that the Unreal Editor's Performance setting for showin
 
 ## Settings
 
-The configuration for these features is available in the Editor Preferences under  `NEXUS > Core (User) > Editor Performance`.
+The configuration for these features is available in the Editor Preferences under  `NEXUS > Tooling (User) > Editor Performance`.
 
 ![Editor Performance Settings](performance-settings.webp)

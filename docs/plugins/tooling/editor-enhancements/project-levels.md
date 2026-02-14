@@ -10,6 +10,6 @@ A collection of project-specific levels set project-wide for ease of access to a
 
 ## Settings
 
-The configuration is available in the Editor Preferences under  `NEXUS > Core > Project > Levels`.
+The configuration is available in the Editor Preferences under  `NEXUS > Tooling > Project > Levels`.
 
 ![Project Levels: Settings](project-levels-settings.webp)

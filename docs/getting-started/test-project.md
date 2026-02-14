@@ -1,6 +1,6 @@
 ---
 sidebar_position: 3
-description: The secret sauce of the framework is using a demonstration project as its functional testbed. There you have it, the big secret.
+description: The secret sauce of the framework is using a demonstration project as its functional testbed. There you have it — the big secret. Now you can stop searching and make your game!
 ---
 
 # Test Project

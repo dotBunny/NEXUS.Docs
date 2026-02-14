@@ -30,7 +30,7 @@ While there is no officially stated best-practice for when you explicitly need t
 
 The severity and behaviour of this validator can be configured, project-wide in `Editor Preferences > NEXUX > Fixers > Engine: Content Change`
 
-![Engine Content Preferences](engine-content-preferences.webp)
+![Engine Content Preferences](validator-settings.webp)
 
 ### Gotcha (Materials)
 

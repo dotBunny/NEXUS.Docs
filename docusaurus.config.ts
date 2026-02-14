@@ -132,11 +132,6 @@ const config: Config = {
           className: 'plugin-menu'
         },
         {
-          to: '/docs/plugins/fixers',
-          label: 'Fixers',
-          className: 'plugin-menu'
-        },
-        {
           to: '/docs/plugins/multiplayer',
           label: 'Multiplayer',
           className: 'plugin-menu'
@@ -144,6 +139,16 @@ const config: Config = {
         {
           to: '/docs/plugins/picker',
           label: 'Picker',
+          className: 'plugin-menu'
+        },
+        {
+          to: '/docs/plugins/procedural-generation',
+          label: 'Picker',
+          className: 'plugin-menu'
+        },
+        {
+          to: '/docs/plugins/tooling',
+          label: 'Tooling',
           className: 'plugin-menu'
         },
         {
