@@ -1,5 +1,5 @@
 ---
-sidebar_position: 1
+sidebar_position: 2
 sidebar_label: Quickstart
 description: What you need to know to get up and running fast using NDynamicRef.
 tags: [0.2.7]
