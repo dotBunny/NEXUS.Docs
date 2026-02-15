@@ -5,6 +5,8 @@ sidebar_position: 4
 
 import DocCardList from '@theme/DocCardList';
 import PluginDetails from '../../../src/components/PluginDetails';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 # Dynamic References
 
@@ -19,4 +21,21 @@ This plugin functions in a **service locator pattern** for `AActors` with some b
 
 Utilzing this pattern allows for developers to reference collections of typed objects safely without any direct knowledge of them at author-time.
 
-<DocCardList />
+
+## Add Component
+
+Add a [UNDynamicRefComponnet](types/dynamic-ref-component.md) to an `AActor` (*most likely your doing this on a `Blueprint`*), and assign it's References from the details inspector.
+
+![NDynamicRefComponent](types/dynamic-ref-component.webp)
+
+## Getting Actor References
+
+Accessing the [UNDynamicRefSubsystem](types/dynamic-ref-subsystem.md#getting-actors), referenced `AActors` can be queried.
+
+## Samples
+
+![NDynamicRef](dynamic-references-samples.webp)
+
+The `DEMO_NDynamicRefs` sample map is available once you have enabled the `NEXUS Samples: Dynamic References` plugin. This is found in the `NEXUS Samples` category in the `Edit > Plugins` window.
+
+The map has a singular example showcasing the [UNDynamicRefComponent](types/dynamic-ref-component.md) and its various uses. The level blueprint demonstrates how to access an `AActor` by it's `ENDynamicRef`.
