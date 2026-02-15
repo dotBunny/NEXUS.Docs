@@ -132,6 +132,11 @@ const config: Config = {
           className: 'plugin-menu'
         },
         {
+          to: '/docs/plugins/guardian',
+          label: 'Guardian',
+          className: 'plugin-menu'
+        },
+        {
           to: '/docs/plugins/multiplayer',
           label: 'Multiplayer',
           className: 'plugin-menu'

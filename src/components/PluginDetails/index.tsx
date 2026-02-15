@@ -39,6 +39,18 @@ var Plugins: { [id: string]: IPlugin; } = {
     blueprintCategory: "NEXUS > Actor Pools"
   },
 
+  "NexusBlockout": {
+    icon: "/assets/images/plugins/blockout.webp",
+    moduleName: "NexusBlockout",
+    shortName: "NBlockout",
+    category: "Content",
+    initialRelease: "0.2.0",
+    owner: "reapazor",
+    description: "A collection of useful content for blocking out a level or two early in development.",
+    link: "/docs/plugins/blockout/",
+    blueprintCategory: ""
+  },
+
   "NexusDynamicRefs": {
     icon: "/assets/images/plugins/dynamic-references-icon.webp",
     moduleName: "NexusDynamicRef",
@@ -51,16 +63,16 @@ var Plugins: { [id: string]: IPlugin; } = {
     blueprintCategory: "NEXUS > DynamicRef"
   },
 
-  "NexusBlockout": {
-    icon: "/assets/images/plugins/blockout.webp",
-    moduleName: "NexusBlockout",
-    shortName: "NBlockout",
-    category: "Content",
-    initialRelease: "0.2.0",
+  "NexusGuardian": {
+    icon: "/assets/images/plugins/guardian-icon.webp",
+    moduleName: "NexusGuardian",
+    shortName: "NGuardian",
+    category: "Systems",
+    initialRelease: "0.2.7",
     owner: "reapazor",
-    description: "A collection of useful content for blocking out a level or two early in development.",
-    link: "/docs/plugins/blockout/",
-    blueprintCategory: ""
+    description: "TBD",
+    link: "/docs/plugins/guardian",
+    blueprintCategory: "NEXUS > Guardian"
   },
 
   "NexusMultiplayer": {
