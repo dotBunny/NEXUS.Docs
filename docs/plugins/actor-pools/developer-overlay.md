@@ -16,3 +16,11 @@ By going to `Tools > NEXUS > Actor Pools`, you can create an [UNEditorUtilityWid
 ![No Actor Pools](actor-pools-developer-overlay-none.webp)
 ![Actor Pools](actor-pools-developer-overlay.webp)
 </div>
+
+
+
+:::tip
+
+This overlay (`WB_NActorPoolsDeveloperOverlay`) can be included in packaged builds and  will function just like an `UUserWidget`-based widget.
+
+:::

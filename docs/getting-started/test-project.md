@@ -28,7 +28,7 @@ The samples project contains some custom input to assist with taking screenshots
 | `{` | Select previous `NSamplesDisplayActor`'s camera. |
 | `Backspace` | Toggle the HUD's visibility. |
 | `\` | Return camera view to pawn. |
-| `F12` | Take hi-rez screenshot, saving to the default `<ProjectFolder>\Saved\Screenshots`. |
-| `F10` | Start automatic screenshot run. |
+| `F12` | Take high-resolution screenshot, saving to the default `<ProjectFolder>\Saved\Screenshots`. |
+| `F10` | Start automatic screenshot run; this is how screenshots are often generated for this documentation. |
 | `=` | Increase screenshot resolution multiplier. |
 | `-` | Decrease screenshot resolution multiplier. |
