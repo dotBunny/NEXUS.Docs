@@ -17,7 +17,15 @@ By going to `Tools > NEXUS > Actor Pools`, you can create an [UNEditorUtilityWid
 ![Actor Pools](actor-pools-developer-overlay.webp)
 </div>
 
+## Understanding The Bars
 
+The number at the left-most part of the progress bar represents the total number of `AActors` that are currently considered available (**in**) to **Spawn** from the [FNActorPool](types/actor-pool.md). For the pools above, this would be `47` for the `BP_NActorPoolsSamples_Cube` pool, and `49` for the `BP_NActorPoolsSamples_Sphere` pool.
+
+In the middle of the progress bar is the `AActor`/[FNActorPool](types/actor-pool.md) name, as well as the `UWorld` that the pool is located in.
+
+The final set of numbers represents the total number of `AActors` that are currently spawned (**out**) from the [FNActorPool](types/actor-pool.md), and the total number of `AActors` that the [FNActorPool](types/actor-pool.md) has under it's ownership. In the case of the pools above, this would be `25` spawned and `72` owned `AActors` for the `BP_NActorPoolsSamples_Cube` pool, and `26` spawned and `75` owned `AActors` for the `BP_NActorPoolsSamples_Sphere` pool.
+
+The actual progress bar itself represents the overall health of the [FNActorPool](types/actor-pool.md) in terms of how many `AActors` are available to be spawned in contrast to the overall owned `AActors`.
 
 :::tip
 
