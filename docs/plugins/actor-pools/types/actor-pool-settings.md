@@ -30,8 +30,9 @@ A Blueprint-compatible struct that defines configuration parameters for managing
 | `MaximumActorCount` | `int32` | The number of pooled `AActor`s that a pool can use/have. This is tied more to the `Strategy` being used for what happens when the pool has to create new `AActor`s when the pool has no `AActors` available to `Spawn()`/`Get()`. | `100` |
 | `CreateObjectsPerTick` | `int32` | Throttles the number of `AActors` that can be created per **Tick**. This can be useful to spread the cost of warming a pool up across multiple frames (-1 for unlimited). | `-1` |
 | `Strategy` | [ENActorPoolStrategy](#creation-strategies) | Determines the approach taken when the pool does not have any `AActor` remaining in the "In" pool, and needs to create one (or reuse). | `Create` |
-| `Flags` | [ENActorPoolFlags](#flags) | The behavioral flags to evaluate when doing operations with this pool. | `ReturnToStorageLocation, DeferConstruction, ShouldFinishSpawning`, `ServerOnly` |
-| `DefaultTransform` | `FTransform` | The default applied transform when creating an `AActor`, with the location component being used as the storage location when an `AActor` is returned to the pool, and the scale applied when spawned. | `Translation(0,0,0)` `Rotator(0,0,0)` `Scale(1,1,1)` |
+| `Flags` | [ENActorPoolFlags](#flags) | The behavioral flags to evaluate when doing operations with this pool. | `ReturnToStorage, DeferConstruction, ShouldFinishSpawning`, `ServerOnly` |
+| `StorageTransform` | `FTransform` | The default applied transform when creating an `AActor` | `Translation(0,0,0)` `Rotator(0,0,0)` `Scale(1,1,1)` |
+| `SpawnedTransform` | `FTransform` | The default applied transform when spawning an `AActor`. This can allow for always offsetting a spawned actor. | `Translation(0,0,0)` `Rotator(0,0,0)` `Scale(1,1,1)` |
 
 ## Creation Strategies
 
@@ -50,7 +51,7 @@ A Blueprint-compatible struct that defines configuration parameters for managing
 | Native | Display | Description |
 | :-- | :-- | :-- |
 | `SweepBeforeSettingLocation` | Sweep Before Setting Location | Should a sweep be done when setting the location of an `AActor` being spawned? | 
-| `ReturnToStorageLocation` | Return To Storage Location | Should the `AActor` being returned to the pool be moved to a storage location? |
+| `ReturnToStorage` | Return To Storage Location | Should the `AActor` being returned to the pool be moved to a storage transform? |
 | `DeferConstruction` | Defer Construction | Controls whether `AActor` construction is deferred when creating new `AActors`; allowing for additional calls to be made to the `INActorPoolItem::OnDeferredConstruction()` before calling the `AActors` `FinishSpawning()`. | 
 | `ShouldFinishSpawning` | Should Finish Spawning | Manages `FinishSpawning()` calls for non-[INActorPoolItem](actor-pool-item.md) `AActors`. | 
 | `ServerOnly` | Server Only | Safely ensure all actions only actually occur on world authority (server), transparently making the pool networked. |
