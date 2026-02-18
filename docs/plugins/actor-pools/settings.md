@@ -9,6 +9,8 @@ From the `Edit > Project Settings` window, find the **Actor Pools** section.
 
 ![NActorPools](actor-pools-settings.webp)
 
+## Configuration Options
+
 | Setting | Description | Default |
 | --- | :-- | :-- | 
 | `Default Settings` | Used when creating an [FNActorPool](types/actor-pool.md) without providing a [FNActorPoolSettings](types/actor-pool-settings.md); this often occurs when you request a specific `AActor` without having already created an [FNActorPool](types/actor-pool.md) for it and follows that prescribed behaviour.  | `FNActorPoolSettings` |
