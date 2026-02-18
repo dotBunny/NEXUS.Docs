@@ -1,9 +1,9 @@
 ---
 sidebar_position: 8
-description:  The sample content provided for NActorPools.
+description:  The project settings for NActorPools.
 ---
 
-# Settings
+# Project Settings
 
 From the `Edit > Project Settings` window, find the **Actor Pools** section.
 
