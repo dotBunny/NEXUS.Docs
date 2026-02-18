@@ -59,7 +59,7 @@ var Plugins: { [id: string]: IPlugin; } = {
     initialRelease: "0.1.0",
     owner: "reapazor",
     description: "Method for referring to UObjects prior to runtime, and by developer readable names.",
-    link: "/docs/plugins/dynamic-ref/",
+    link: "/docs/plugins/dynamic-references/",
     blueprintCategory: "NEXUS > DynamicRef"
   },
 
@@ -70,8 +70,8 @@ var Plugins: { [id: string]: IPlugin; } = {
     category: "Systems",
     initialRelease: "0.2.7",
     owner: "reapazor",
-    description: "TBD",
-    link: "/docs/plugins/guardian",
+    description: "A system which monitors metrics and takes action when thresholds are hit.",
+    link: "/docs/plugins/guardian/",
     blueprintCategory: "NEXUS > Guardian"
   },
 
