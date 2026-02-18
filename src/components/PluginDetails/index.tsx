@@ -113,8 +113,8 @@ var Plugins: { [id: string]: IPlugin; } = {
 
   "NexusTooling": {
     icon: "/assets/images/plugins/tooling-icon.webp",
-    moduleName: "NexusTools",
-    shortName: "NTools",
+    moduleName: "NexusTooling",
+    shortName: "NTooling",
     category: "Editor",
     initialRelease: "0.2.7",
     owner: "reapazor",
