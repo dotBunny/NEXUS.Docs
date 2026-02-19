@@ -19,7 +19,7 @@ The _hidden_ performance killer, the **empty tick**. This function of the `UNBlu
 ### Severity
 
 By default, the severity of this validation is set to `Error` due to its direct performance impact and relative ease of resolution. Should you wish to change the level (or disable) of this validation, it can be found in the 
-project-wide in `Editor Preferences > NEXUX > Fixers > Blueprint: Empty Tick`
+project-wide in `Editor Preferences > NEXUS > Tooling > Blueprint: Empty Tick`
 
 
 ![Empty Tick Severity](validator-settings.webp)
