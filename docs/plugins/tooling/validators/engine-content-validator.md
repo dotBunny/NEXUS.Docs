@@ -26,7 +26,7 @@ While there is no officially stated best-practice for when you explicitly need t
 
 :::
 
-### Config
+### Configuration Options
 
 The severity and behaviour of this validator can be configured, project-wide in `Editor Preferences > NEXUS > Tooling > Engine: Content Change`
 
