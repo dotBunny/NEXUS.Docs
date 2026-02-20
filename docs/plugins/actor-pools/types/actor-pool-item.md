@@ -37,3 +37,9 @@ An interface that defines the contract between a `AActor` and the [FNActorPool](
 
 This interface is essential for any actor that wants to work with the pooling system, providing the necessary hooks for proper initialization, activation, deactivation, and cleanup within the pool lifecycle.
 
+:::warning
+
+This is not meant to be implemented by `AActor`-based Blueprints, it has purposely been hidden from the dropdown menu. See the `Invoke UFunctions` flag on [UNActorPoolSettings](actor-pool-settings.md) for a way to have events-fired against a non-interfaced object.
+
+:::
+

@@ -25,6 +25,12 @@ In the middle of the progress bar is the `AActor`/[FNActorPool](types/actor-pool
 
 The final set of numbers represents the total number of `AActors` that are currently spawned (**out**) from the [FNActorPool](types/actor-pool.md), and the total number of `AActors` that the [FNActorPool](types/actor-pool.md) has under it's ownership. In the case of the pools above, this would be `21` spawned and `21` owned `AActors` for the `BP_NActorPoolsSamples_Cube` pool, and `33` spawned and `29` owned `AActors` for the `BP_NActorPoolsSamples_Sphere` pool.
 
+:::info
+
+An `*` beside the [FNActorPool](types/actor-pool.md) name indicates that the `AActor` does not implement the `INActorPoolItem` interface.
+
+:::
+
 The actual progress bar itself represents the overall health of the [FNActorPool](types/actor-pool.md) in terms of how many `AActors` are available to be spawned in contrast to the overall owned `AActors`.
 
 :::tip

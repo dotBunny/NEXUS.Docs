@@ -57,3 +57,4 @@ A Blueprint-compatible struct that defines configuration parameters for managing
 | `ServerOnly` | Server Only | Safely ensure all actions only actually occur on world authority (server), transparently making the pool networked. |
 | `BroadcastDestroy` | Broadcast Destroy | Broadcast destroy event on the Actor through the operational change state delegate. |
 | `SetNetDormancy` | Set Net Dormancy | Should an Actor's network dormancy be updated based on state? |
+| `InvokeUFunctions` | Invoke UFunctions | Should the UFunctions `OnCreatedByActorPool`, `OnSpawnedFromActorPool`, `OnReturnToActorPool`, and `OnDestroyedByActorPool` be invoked to simulate an interface callback to Actor-based blueprints? |
