@@ -212,7 +212,7 @@ static void DumpSnapshotDiffToLog(const FNObjectSnapshotDiff& Diff) { Diff.DumpT
 
 #### Draw Debug String<VersionBadge version="0.2.3" branch="main" type="header" />
 
-Renders a `FString` in the `UWorld` via a pseudo `DebugDrawLine` utiling the [FNPrimitiveFont](primitive-font.md).
+Renders a `FString` in the `UWorld` via a pseudo `DebugDrawLine` utiling the `FNPrimitiveFont`.
 
 ![Hello World](primitive-font-hello-world.webp)
 
