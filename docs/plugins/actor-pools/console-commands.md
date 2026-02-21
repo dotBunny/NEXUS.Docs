@@ -13,3 +13,4 @@ Some console commands for developers to use provided by `UNActorPoolSubsystem`.
 |Command|Description|Flag(s)|Shippable|
 |:--|:--|:--|:--|
 |`N.ActorPools.TrackStats`| Toggles tracking/visibility of the `NActorPools` stat group. | `ECVF_Default` | `yes` |
+|`N.ActorPools.DeveloperOverlay.UpdateRate`| How often should the `UNActorPoolsDeveloperOverlay` widget pool an [FNActorPool](types/actor-pool.md) for updates. | `float` | `0.5f` |

@@ -17,4 +17,3 @@ From the `Edit > Project Settings` window, find the **Actor Pools** section.
 | `Always Create` | An array of [UNActorPoolSet](types/actor-pool-set.md) that will always have their corresponding [FNActorPool](types/actor-pool.md) created when a world is loaded. | `TArray<UNActorPoolSet>` |
 | `Ignore World Prefixes` | Prefixes of worlds to be ignored when automatically populating pools, for example `DEV_`. | `TArray<FString>` |
 | `Returned Unknown Actor` | What should happen when an `AActor` is returned through the [UNActorPoolSubsystem](types/actor-pool-subsystem.md) which has no [FNActorPool](types/actor-pool.md) associated to it. | `ENActorPoolUnknownBehaviour::Destroy` |
-| `Update Rate` |  How often the `UNActorPoolsDeveloperOverlay` should pool `FNActorPool` for statistics. | `0.1f` |
