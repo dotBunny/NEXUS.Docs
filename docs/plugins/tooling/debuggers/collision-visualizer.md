@@ -1,6 +1,6 @@
 ---
 sidebar_label: Collision Visualizer
-description: TODO
+description: A tool used to quickly test world traces and their responses.
 tags: [0.2.7]
 ---
 

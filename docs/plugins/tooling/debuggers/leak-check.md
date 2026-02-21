@@ -6,6 +6,8 @@ description: A spot-check function which fires off a configurable, timed-delayed
 
 A spot-check function which fires off a configurable, timed-delayed task in the editor to look at any created `UObjects`.
 
+![Leak Check Command](leak-check-menu.webp)
+
 :::info
 
 If a leak is detected, a `FNObjectSnapshotDiff` will be written out to the projects log folder with the prefix `NEXUS_LeakCheck_*`.

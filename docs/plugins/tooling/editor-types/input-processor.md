@@ -26,8 +26,8 @@ This is only accessible in the *Unreal Editor*, and is **not** available in pack
 Currently the `FNEditorInputProcessor` must be accessed via native, through:
 
 ```cpp
-const FNCoreEditorModule& CoreEditorModule = FModuleManager::GetModuleChecked<FNCoreEditorModule>("NexusCoreEditor");
-FNEditorInputProcessor* InputProcessor = CoreEditorModule.GetInputProcessor();
+const FNToolingEditorModule& ToolingEditorModule = FModuleManager::GetModuleChecked<FNToolingEditorModule>("NexusToolingEditor");
+FNEditorInputProcessor* InputProcessor = ToolingEditorModule.GetInputProcessor();
 ```
 
 Once you have a reference to the instance, you can then use its methods to query the status of monitored inputs.

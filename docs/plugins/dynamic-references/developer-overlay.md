@@ -17,3 +17,7 @@ By going to `Tools > NEXUS > Dynamic References`, you can create an [UNEditorUti
 ![No DynamicRefs](dynamicrefs-developer-overlay-none.webp)
 ![DynamicRefs](dynamicrefs-developer-overlay.webp)
 </div>
+
+## Editor-Only Features
+
+By clicking on any of the listed `AActor` the editor will select that `AActor`.

@@ -11,11 +11,10 @@ Adds an `External Documentation` option to the context menu of _Call Function_ g
 Add a `DocsURL` value to a `UFUNCTION` and it will be detected and used with the context menu command.
 
 ```cpp
-UFUNCTION(BlueprintCallable, DisplayName = "Set Baseline", Category = "NEXUS|Developer",
-  meta=(DocsURL="https://nexus-framework.com/docs/plugins/core/types/developer-subsystem/#setting-a-baseline"))
+UFUNCTION(BlueprintCallable, DisplayName = "Set Baseline", Category = "NEXUS|Guardian",
+  meta=(DocsURL="https://nexus-framework.com/docs/plugins/guardian/types/guardian-subsystem/#setting-a-baseline"))
 void SetBaseline();
 ```
-
 
 :::tip
 
