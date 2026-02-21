@@ -43,6 +43,30 @@
   --ifm-navbar-background-color: #161618 !important;
 }
 
+.swatch {
+  padding: 5px;
+  font-weight: bold;
+}
+
+.swatch.blue {
+  background-color: blue !important;
+  color: white !important
+}
+
+.swatch.yellow {
+  background-color: yellow !important;
+  color: black !important
+}
+
+.swatch.green {
+  background-color: green !important;
+  color: white !important
+}
+
+.swatch.red {
+  background-color: red !important;
+}
+
 
 .muted {
   opacity: 0.5;
