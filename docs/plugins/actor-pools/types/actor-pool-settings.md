@@ -58,3 +58,15 @@ A Blueprint-compatible struct that defines configuration parameters for managing
 | `BroadcastDestroy` | Broadcast Destroy | Broadcast destroy event on the Actor through the operational change state delegate. |
 | `SetNetDormancy` | Set Net Dormancy | Should an Actor's network dormancy be updated based on state? |
 | `InvokeUFunctions` | Invoke UFunctions | Should the UFunctions `OnCreatedByActorPool`, `OnSpawnedFromActorPool`, `OnReturnToActorPool`, and `OnDestroyedByActorPool` be invoked to simulate an interface callback to Actor-based blueprints? |
+
+:::tip
+
+When editing a Blueprint the `Assets > Add NActorPool Methods` menu command will add all possible event functions that can be invoked via the `InvokeUFunctions` flag.
+
+:::
+
+:::warning
+
+If an `AActor` implements the [INActorPoolItem](actor-pool-item.md) interface the `InvokeUFunctions` flag will be ignored.
+
+:::
