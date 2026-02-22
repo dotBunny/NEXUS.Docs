@@ -1,0 +1,21 @@
+div.pluginImageMarkup {
+  position: relative;
+  display: inline-block;
+  background-color: aquamarine;
+}
+
+div.pluginImageMarkup img {
+  width: 100%;
+}
+
+div.pluginImageMarkup div.highlight {
+  position: absolute;
+  border: 2px solid rgba(255, 255, 0, 0.25);
+  background-color: rgba(255, 255, 0, 0.1);
+}
+
+div.pluginImageMarkup div.description {
+  position: absolute;
+  bottom: 0.25em;
+  right: 0.25em;
+}
