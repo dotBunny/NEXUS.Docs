@@ -2,6 +2,7 @@
 sidebar_position: 2
 sidebar_label: Multiplayer Test
 description: The Multiplayer Test quickly assumes a pivotal role in the development of a multiplayer game.
+tags: [0.3.0]
 ---
 
 # Multiplayer Test
@@ -34,8 +35,20 @@ While the default settings should get most developers started, every game has it
 | :-- | --- | :-- |
 | Count | The number of client instances to spin up. | `2` |
 | Window Size | The size of the windows to create for the clients. | `800x600` |
+| Disable Sound | Disables sounds on the spawned clients. | `false` |
 | Generate Network Profile | Should a profile be captured of network traffic for each client? | `false` |
 | Parameters | Additional launch parameters to pass to the client being launched." | `<none>` |
+
+#### Clients: Network Simulation
+
+| Setting | Description | Default |
+| :-- | --- | :-- |
+| Lag (Minimum) | The minimum amount of network lag (ms) be simulated ontop of the existing round trip time. | `20` |
+| Lag (Maximum) | The minimum amount of network lag (ms) be simulated ontop of the existing round trip time. | `60` |
+| Packet Loss | An amount of packet loss (%) to be simulated. | `0` |
+| Packet Jitter | An amount of packet jitter (ms) to be simulated. | `0` |
+| Packet Duplication | An amount of packet duplication (%) to be simulated. | `0` |
+| Receive Out Of Order | Forces network packets to be recieved out of order. | `false` |
 
 ### Server
 
