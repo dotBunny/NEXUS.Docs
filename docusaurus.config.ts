@@ -177,6 +177,10 @@ const config: Config = {
               label: 'Contributing',
               to: '/community/contributing/',
             },
+            {
+              label: 'Changelog',
+              to: '/community/changelog/',
+            }
           ],
         },
         {
