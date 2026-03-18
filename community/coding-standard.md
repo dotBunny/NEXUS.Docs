@@ -16,9 +16,11 @@ Included with the project is an [EditorConfig](https://github.com/dotBunny/NEXUS
 :::
 
 ## Comments 
+
 Unreal Engine implements a Javadoc-style parsing system, which supports some of the tags of the typical Doxygen spec.
+
 | Tag | Outcome | Description |
-| --- | --- | --- |
+| :-- | :-: | :-- |
 | `@param` | **Parsed** | |	
 | `@note` |	**Parsed** | Converted to "Notes:" inside of tooltips. |
 | `@brief` | Passthrough | |	
@@ -26,6 +28,12 @@ Unreal Engine implements a Javadoc-style parsing system, which supports some of 
 | `@see` | Passthrough | |	
 | `@warning` | _Ignored_ | |	
 | `@return` |	**Parsed** | |	
+
+:::info[Passthrough]
+
+Any `@tag` marked as `Passthrough` will show up in tooltips as-is.
+
+:::
 
 ## Choices
 
