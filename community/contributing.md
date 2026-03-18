@@ -23,6 +23,18 @@ Included with the project is an [EditorConfig](https://github.com/dotBunny/NEXUS
 
 :::
 
+### Comments 
+Unreal Engine implements a Javadoc-style parsing system, which supports some of the tags of the typical Doxygen spec.
+| Tag | Outcome | Description |
+| --- | --- | --- |
+| `@param` | **Parsed** | |	
+| `@note` |	**Parsed** | Converted to "Notes:" inside of tooltips. |
+| `@brief` | Passthrough | |	
+| `@remark` |	Passthrough | |	
+| `@see` | Passthrough | |	
+| `@warning` | _Ignored_ | |	
+| `@return` |	**Parsed** | |	
+
 ### Choices
 
 - Prefer to use `int32` over `int` to match typedef and remove any ambiguity between 32-bit and 64-bit values.

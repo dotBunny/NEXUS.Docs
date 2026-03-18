@@ -17,6 +17,19 @@ A small collection of functionality to wrap the usage of developer tools.
 
 ## UFunctions
 
+### Demo
+
+#### Is Demo Build
+
+```cpp
+/**
+  * Is this a demo build?
+  * @remark Requires a BuildTarget definition of IS_DEMO_BUILD=1
+  * @return true/false if IS_DEMO_BUILD is defined in this build.
+  */
+static bool IsDemoBuild() { return FNDeveloperUtils::IsDemoBuild(); }
+```
+
 ### Debug
 
 #### Get UObject Count
