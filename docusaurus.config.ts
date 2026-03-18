@@ -97,7 +97,7 @@ const config: Config = {
           label: 'Docs'
         },
         {
-          to: '/community/contributing/',
+          to: '/community/discord/',
           position: 'left',
           label: 'Community',
           activeBaseRegex: `/community/`
