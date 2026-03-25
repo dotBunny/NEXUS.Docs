@@ -148,11 +148,6 @@ const config: Config = {
           className: 'plugin-menu'
         },
         {
-          to: '/docs/plugins/procedural-generation',
-          label: 'Picker',
-          className: 'plugin-menu'
-        },
-        {
           to: '/docs/plugins/tooling',
           label: 'Tooling',
           className: 'plugin-menu'
