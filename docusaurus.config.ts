@@ -37,7 +37,10 @@ const config: Config = {
     defaultLocale: 'en',
     locales: ['en'],
   },
-
+  themes: ['@docusaurus/theme-mermaid'],
+  markdown: {
+    mermaid: true
+  },
   presets: [
     [
       'classic',
@@ -79,6 +82,13 @@ const config: Config = {
       sidebar: {
         hideable: true
       },
+    },
+    mermaid: {
+      theme: {
+        light: 'neutral',
+        dark: 'dark'
+      },
+      // options: { ... mermaid.js options }
     },
 
     // Replace with your project's social card
@@ -240,12 +250,7 @@ const config: Config = {
       indexName: 'nexus_framework_com_d8gp244dem_articles',
       contextualSearch: false,
       searchPagePath: 'search',
-    },
-
-    markdown: {
-      mermaid: true,
-    },
-
+    }
   } satisfies Preset.ThemeConfig,
   plugins: [
     [
