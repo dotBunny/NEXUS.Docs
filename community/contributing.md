@@ -15,13 +15,9 @@ While items on the Roadmap correspond to our own needs and ambitions, that doesn
 
 ## AI Policy
 
-**Touchy subject!** At times, we have used [JetBrains AI](https://www.jetbrains.com/ai/) to generate the initial code summaries/documentation. We then review and edit them accordingly; this has allowed us to accelerate the code documentation process. A common prompt we have used is:
+**Touchy subject!** Included in the `TestProject` is a `CLAUDE.md` definition to assist [Claude Code](https://claude.ai/) with understanding the **NEXUS Framework**. 
 
-```prompt title="AI Prompt"
-id like a blurb explaining what this class does and is used for
-```
-
-Where the class/file and classes/files that references the class are attached for context. This is the extent to which AI is involved in this project's codebase.
+In general the utilization of AI in engineering is an evolving process, and currently, for this framework it has been extremely helpful in providing research, bug finding, and test generation. 
 
 ## Automation
 
