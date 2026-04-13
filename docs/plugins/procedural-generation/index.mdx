@@ -15,14 +15,28 @@ import DevBanner from '../../../src/components/DevBanner';
 
 <PluginDetails moduleName="NexusProcGen" />
 
-# Paradigms
+A data-driven system for constructing dynamic, gameplay-focused spaces at runtime. Generation is expressed through a hierarchy of named paradigms that compose to describe a complete space.
 
-## Cells
+## Paradigms
 
-### Junctions
+### Cells
 
-## Organs
+Cells are the primary spatial units of a generated space — think rooms, corridors, or distinct gameplay areas. Each Cell defines its bounds and connects to adjacent Cells through **Junctions**.
 
-### OrganVolume
+#### Junctions
 
-## Bones
+Junctions are the transition points between Cells, such as doorways, passages, or portals. They control how Cells relate to one another in the generated layout.
+
+### Organs
+
+Organs populate a Cell's interior — interactive props, cover objects, spawn points, or any content placed within a defined space. They operate within **OrganVolumes** that constrain where and how content can be placed.
+
+#### OrganVolume
+
+An OrganVolume is a bounded region inside a Cell that governs the placement rules for one or more Organs, allowing fine-grained control over content density and positioning.
+
+### Bones
+
+Bones form the underlying structural skeleton of a Cell, providing the rigid anchor points and connective framework that other paradigms are built upon.
+
+<DocCardList />

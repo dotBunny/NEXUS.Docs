@@ -10,6 +10,12 @@ import PluginDetails from '../../../src/components/PluginDetails';
 
 <PluginDetails moduleName="NexusGuardian" />
 
-This plugin houses the [UNGuardianSubsystem](types/guardian-subsystem.md) that provides some useful functionality:
+This plugin houses the [UNGuardianSubsystem](types/guardian-subsystem.md) that provides automated `UObject` monitoring to help catch memory leaks during development:
 
-- **Object Snapshot**: Threshold-based snapshot of `UObjects`.
+- **Warning Threshold:** Emits a log warning when the number of `UObjects` created since baseline exceeds a configurable count.
+- **Snapshot Threshold:** Automatically captures a full `FNObjectSnapshot` when a higher count is reached, recording every live `UObject` to disk.
+- **Compare Threshold:** At a final threshold, takes a second snapshot and diffs it against the first, writing a detailed change report to the project log folder.
+
+Configure all thresholds and enable the subsystem from [Project Settings](project-settings.md).
+
+<DocCardList />
