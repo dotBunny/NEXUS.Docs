@@ -94,7 +94,7 @@ const config: Config = {
     // Replace with your project's social card
     image: 'assets/images/social/social-square.png',
     navbar: {
-      title: 'NEXUS Framework',
+      title: 'EXUS Framework',
       logo: {
         alt: 'NEXUS Framework Logo',
         src: 'assets/svg/nexus.svg'
