@@ -10,6 +10,11 @@ import PluginDetails from '../../../src/components/PluginDetails';
 
 <PluginDetails moduleName="NexusCore" />
 
-Functionality used by all NEXUS plugins in the framework.
+This plugin provides the foundational layer that every other NEXUS plugin depends on. It is always required.
+
+- **Developer Utilities:** Snapshot-based `UObject` tracking to detect leaks and unexpected allocations across development and shipping builds.
+- **Console Commands:** Built-in developer console commands for triggering snapshots, caching baselines, and comparing object state diffs at runtime.
+- **Debug Drawing:** World-space debug string rendering via `FNPrimitiveFont`, allowing in-world text output without relying on `HUD` or screen-space overlays.
+- **Editor Types:** Editor-only helpers such as deferred task execution and asset metadata utilities.
 
 <DocCardList />
