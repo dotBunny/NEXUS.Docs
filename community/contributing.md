@@ -15,9 +15,11 @@ While items on the Roadmap correspond to our own needs and ambitions, that doesn
 
 ## AI Policy
 
-**Touchy subject!** Included in the `TestProject` is a `CLAUDE.md` definition to assist [Claude Code](https://claude.ai/) with understanding the **NEXUS Framework**. 
+**Touchy subject!** Included in the `TestProject` is a `CLAUDE.md` definition to assist [Claude Code](https://claude.ai/) with understanding the **NEXUS Framework** as well as a series of skills (`build`, `coding-style`, `running-tests`, `writing-tests`).
 
-In general the utilization of AI in engineering is an evolving process, and currently, for this framework it has been extremely helpful in providing research, bug finding, and test generation. 
+In general the utilization of AI in engineering is an evolving process, and currently, for this framework it has been extremely helpful in providing research, bug finding assistance, and initial test generation.
+
+Any generated-code must be reviewed and understood by a developer before it is commited.
 
 ## Automation
 
