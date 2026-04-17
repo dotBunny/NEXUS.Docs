@@ -31,6 +31,26 @@ There is also a [manual test dispatcher](https://github.com/dotBunny/NEXUS/actio
 
 While thorough testing is a core pillar of the framework, it is also important that we listen to real-world feedback from users of the framework to provide further validation of NEXUS. That’s a call out to everyone using the plugin to bubble up things when they happen!
 
+## Code Coverage ##
+
+A quick little command to help out with determining code coverage.
+
+```shell
+OpenCppCoverage.exe ^
+--modules "**NEXUS**" --cover_children --optimized_build ^
+--excluded_modules "**NEXUSModulesRules**" --excluded_modules "**NexusSharedSamples**" --excluded_modules "**Editor.dll" ^
+--sources "Plugins\ActorPools\Source\NexusActorPools" ^
+--sources "Plugins\Core\Source\NexusCore" ^
+--sources "Plugins\DynamicRefs\Source\NexusDynamicRefs" ^
+--sources "Plugins\Guardian\Source\NexusGuardian" ^
+--sources "Plugins\Multiplayer\Source\NexusMultiplayer" ^
+--sources "Plugins\Picker\Source\NexusPicker" ^
+--sources "Plugins\UI\Source\NexusUI" ^
+--excluded_sources .gen. --excluded_sources **\Tests\** --export_type html:TestProject\Saved\CodeCoverage\Report --export_type cobertura:TestProject\Saved\CodeCoverage\Report\cobertura.xml ^
+-- D:\EGS\UE_5.7\Engine\Binaries\Win64\UnrealEditor.exe D:\Repositories\dotBunny\NEXUS\TestProject\NEXUS.uproject ^
+-unattended -nopause -testexit="Automation Test Queue Empty" -ReportExportPath="Staging\TestResults" -log ^
+-ExecCmds="Automation RunTest NEXUS.UnitTests+Tests.Nexus;Quit"
+```
 
 ## Assisting With Documentaion
 
