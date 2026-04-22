@@ -10,7 +10,7 @@ import TypeDetails from '../../../../src/components/TypeDetails';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Actor Pool Subsystem
+# DynamicRef Subsystem
 
 <TypeDetails icon="ue-world-subsystem" base="UTickableWorldSubsystem" type="UNDynamicRefSubsystem" typeExtra="" headerFile="NexusDynamicRefs/Public/NDynamicRefSubsystem.h" />
 

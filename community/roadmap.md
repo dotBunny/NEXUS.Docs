@@ -14,6 +14,7 @@ In the spirit of openness and accountability, we are utilizing a GitHub project 
 
 | Version                                                | High-Level Goal(s)                                                                                           | ETA          |
 | ------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------ |
-| [0.3.0](https://github.com/dotBunny/NEXUS/milestone/2) | **Procedural Generation**<br/>A mix of different systems and techniques to create level geometry at runtime. | April 2026 |
-| [0.4.0](https://github.com/dotBunny/NEXUS/milestone/3) | **Developer Console/Menu**<br />A visual developer console that allows for UI-based commands.                | June 2026     |
+| [0.3.0](https://github.com/dotBunny/NEXUS/milestone/2) | **Procedural Generation** Tech Demo<br/>Generation of game spaces through stitching of ANLevelInstances. | April 2026 |
+| [0.3.5](https://github.com/dotBunny/NEXUS/milestone/11) | **Procedural Generation** Early Access<br/>Better workflows and PCG integration. | May 2026 |
+| [0.4.0](https://github.com/dotBunny/NEXUS/milestone/3) | **Procedural Generation** Production Ready<br/>Tested in the wild. | June 2026 |
 | [0.5.0](https://github.com/dotBunny/NEXUS/milestone/5) | **Fab Release**<br />A gift to game developers.                                                              | July 2026    |
