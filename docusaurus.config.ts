@@ -253,6 +253,21 @@ const config: Config = {
     }
   } satisfies Preset.ThemeConfig,
   plugins: [
+    function silenceMermaidUmdWarning() {
+      return {
+        name: 'silence-mermaid-umd-warning',
+        configureWebpack() {
+          return {
+            ignoreWarnings: [
+              {
+                module: /vscode-languageserver-types[\\/]lib[\\/]umd[\\/]main\.js$/,
+                message: /Critical dependency: require function is used/,
+              },
+            ],
+          };
+        },
+      };
+    },
     [
       'content-docs',
       {
