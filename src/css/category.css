@@ -5,12 +5,15 @@ a.card p.text--truncate {
   white-space: normal;
 }
 
-a.card.type h2 {
-  overflow-x: hidden;
-  text-indent: -32px;
+a.card.type span.theme-doc-card-icon {
+  display: none;
 }
 
-a.card.type h2::before {
+a.card.type span.theme-doc-card-title {
+  width: 100%;
+}
+
+a.card.type span.theme-doc-card-title::before {
   content: "";
   background-color: var(--ifm-menu-color);
   width: 2rem;

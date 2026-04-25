@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git status)",
+      "Bash(npm run *)",
+      "Read",
+      "Edit",
+      "Write"
+    ],
+    "ask": [
+      "Bash(git push *)"
+    ],
+    "deny": [
+      "Bash(rm -rf *)",
+      "Read(*.uasset)",
+      "Read(*.umap)"
+    ],
+    "additionalDirectories": [
+      "../NEXUS/"
+    ]
+  }
+}
