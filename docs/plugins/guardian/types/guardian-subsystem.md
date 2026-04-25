@@ -10,11 +10,13 @@ import TypeDetails from '../../../../src/components/TypeDetails';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Developer Subsystem
+# Guardian Subsystem
 
 <TypeDetails icon="ue-world-subsystem" base="UTickableWorldSubsystem" type="UNGuardianSubsystem" typeExtra="" headerFile="NexusGuardian/Public/NGuardianSubsystem.h" />
 
-A developer-focused subsystem to help monitor specific metrics related to `UObject` usage.
+A developer-focused `UTickableWorldSubsystem` that monitors `UObject` count growth against a baseline and triggers a staged warning → snapshot → compare ladder once configured thresholds are crossed. The subsystem is only created in build configurations selected by [`Build Availability`](../project-settings.md), so it can ship in development builds and be entirely absent from `Shipping`.
+
+For a live readout of the same counters, use the [Developer Overlay](../developer-overlay.md).
 
 ## Snapshots
 
@@ -42,4 +44,31 @@ GetWorld()->GetTimerManager().SetTimer(SetBaselineTimerHandle, UNGuardianSubsyst
   </TabItem>
 </Tabs>
 
+The subsystem is `Conditional`-tickable and only consumes tick budget after the baseline has been captured.
 
+### The Threshold Ladder
+
+Once the baseline is set, every tick samples the total `UObject` count and compares it against three thresholds resolved from [Project Settings](../project-settings.md) (`baseline + setting`):
+
+| Threshold | Action when crossed | Latched flag |
+| :-- | :-- | :-- |
+| Warning | Emits a log warning. | `HasPassedWarningThreshold()` |
+| Snapshot | Captures an `FNObjectSnapshot` of every live `UObject`. Held in memory; written to `Saved/Logs/NEXUS_Snapshot_*` if `Save Capture` is enabled. | `HasPassedSnapshotThreshold()` |
+| Compare | Captures a second snapshot and diffs it against the first; writes `Saved/Logs/NEXUS_Compare_*` if `Save Capture` is enabled. | `HasPassedCompareThreshold()` |
+
+Each action fires exactly once — the latched flag is checked before the action runs, so the subsystem will not re-warn or re-snapshot until the world (and its subsystem) is recreated.
+
+## Reading State
+
+The following accessors are intended for HUD overlays, automated tests, or any tooling that wants to observe the subsystem without driving it:
+
+| Method | Returns |
+| :-- | :-- |
+| `GetLastObjectCount()` | The most recent `UObject` count sampled in tick. |
+| `GetBaseObjectCount()` | The count latched by `SetBaseline()`. Zero before baseline is set. |
+| `GetObjectCountWarningThreshold()` | The resolved warning threshold (baseline + setting). |
+| `GetObjectCountSnapshotThreshold()` | The resolved snapshot threshold. |
+| `GetObjectCountCompareThreshold()` | The resolved compare threshold. |
+| `HasPassedWarningThreshold()` | `true` once the warning fired. |
+| `HasPassedSnapshotThreshold()` | `true` once the snapshot was captured. |
+| `HasPassedCompareThreshold()` | `true` once the compare ran. |

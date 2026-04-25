@@ -10,7 +10,7 @@ import TypeDetails from '../../../../src/components/TypeDetails';
 
 # Dynamic Reference Component
 
-<TypeDetails icon="/assets/svg/dynamic-refs/dynamic-ref-component.svg" iconType="img" base="UActorComponent" type="UNDynamicRefComponent" typeExtra="" headerFile="NexusDynamicRefs/Public/NDynamicRefComponent.h" />
+<TypeDetails icon="/assets/svg/dynamic-references/dynamic-ref-component.svg" iconType="img" base="UActorComponent" type="UNDynamicRefComponent" typeExtra="" headerFile="NexusDynamicRefs/Public/NDynamicRefComponent.h" />
 
 A component which registers and unregisters the owning `AActor` with the [UNDynamicRefSubsystem](dynamic-ref-subsystem.md) for future lookup.
 

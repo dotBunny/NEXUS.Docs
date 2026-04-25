@@ -12,7 +12,7 @@ import TabItem from '@theme/TabItem';
 
 # DynamicRef Subsystem
 
-<TypeDetails icon="ue-world-subsystem" base="UTickableWorldSubsystem" type="UNDynamicRefSubsystem" typeExtra="" headerFile="NexusDynamicRefs/Public/NDynamicRefSubsystem.h" />
+<TypeDetails icon="ue-world-subsystem" base="UWorldSubsystem" type="UNDynamicRefSubsystem" typeExtra="" headerFile="NexusDynamicRefs/Public/NDynamicRefSubsystem.h" />
 
 A locator system that maintains a map that organizes UObject into predefined categories [ENDynamicRef](dynamic-ref.md) or named buckets (FName).
 
@@ -32,8 +32,8 @@ In the above blueprint example, the [UNDynamicRefComponnet](dynamic-ref-componen
   </TabItem>
   <TabItem value="native" label="C++" attributes={{className: 'tab-native' }}>
 ```cpp title="Getting Actors"
-for (TArray<AActor*>& ReferencedActors = UNDynamicRefubsystem::Get(GetWorld())->GetActors(ENDynamicRef::NDR_Item_L);
-  AActor*& Actor : ReferencedActors)
+TArray<AActor*> ReferencedActors = UNDynamicRefSubsystem::Get(GetWorld())->GetActors(ENDynamicRef::NDR_Item_L);
+for (AActor* Actor : ReferencedActors)
 {
   // Do something with Actor
 }

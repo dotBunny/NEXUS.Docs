@@ -55,6 +55,12 @@ While not the best, it is the easiest way to create a [FNActorPools](actor-pool.
 
 The most common of interactions with the [UNActorPoolSubsystem](actor-pool-subsystem.md) that you will have is asking it for an `AActor`. The API is as streamlined as possible.
 
+:::tip[Soft-Referenced Classes]
+
+If your Blueprint references the `AActor` class as a `TSoftClassPtr` rather than a hard reference, use [Spawn Actor Async](spawn-actor-async.md) (or [Get Actor Async](get-actor-async.md) if you don't need a transform) so the load and pool lookup happen off the calling frame.
+
+:::
+
 <Tabs>
   <TabItem value="blueprint" label="Blueprint" default attributes={{className: 'tab-blueprint' }}>
     <iframe src="https://blueprintue.com/render/tlzo2p-f/" allowfullscreen="yes" scrolling="no" class="blueprintue" style={{ height : '325px' }}></iframe>

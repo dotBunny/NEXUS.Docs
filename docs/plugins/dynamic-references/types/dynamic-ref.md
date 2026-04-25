@@ -10,7 +10,7 @@ import TypeDetails from '../../../../src/components/TypeDetails';
 
 # Dynamic Reference
 
-<TypeDetails icon="ue-enum" base="UEnum" type="EDynamicRef" typeExtra="" headerFile="NexusDynamicRefs/Public/NDynamicRef.h" />
+<TypeDetails icon="ue-enum" base="UEnum" type="ENDynamicRef" typeExtra="" headerFile="NexusDynamicRefs/Public/NDynamicRef.h" />
 
 An enumerated list of possible reference types.
 

@@ -13,9 +13,9 @@ import PluginDetails from '../../../src/components/PluginDetails';
 This plugin houses the [UNGuardianSubsystem](types/guardian-subsystem.md) that provides automated `UObject` monitoring to help catch memory leaks during development:
 
 - **Warning Threshold:** Emits a log warning when the number of `UObjects` created since baseline exceeds a configurable count.
-- **Snapshot Threshold:** Automatically captures a full `FNObjectSnapshot` when a higher count is reached, recording every live `UObject` to disk.
-- **Compare Threshold:** At a final threshold, takes a second snapshot and diffs it against the first, writing a detailed change report to the project log folder.
+- **Snapshot Threshold:** Captures a full `FNObjectSnapshot` of every live `UObject` at a higher count, holding it in memory (and writing it to the project log folder when [`Save Capture`](project-settings.md) is enabled).
+- **Compare Threshold:** At a final threshold, takes a second snapshot and diffs it against the first; the change report is written to the project log folder when [`Save Capture`](project-settings.md) is enabled.
 
-Configure all thresholds and enable the subsystem from [Project Settings](project-settings.md).
+Configure all thresholds, the build configurations the subsystem runs in, and disk-output behavior from [Project Settings](project-settings.md). For a live readout, use the [Developer Overlay](developer-overlay.md).
 
 <DocCardList />
