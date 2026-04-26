@@ -9,7 +9,10 @@
       "Edit",
       "Write",
       "Edit(/.claude/skills/doc-new-type/**)",
-      "Edit(/.claude/skills/doc-new-plugin/**)"
+      "Edit(/.claude/skills/doc-new-plugin/**)",
+      "Bash(python .claude/tmp/verify_links.py)",
+      "Bash(rm .claude/tmp/verify_links.py)",
+      "Bash(rmdir .claude/tmp)"
     ],
     "deny": [
       "Bash(rm -rf *)"
