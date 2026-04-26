@@ -10,7 +10,7 @@ import TypeDetails from '../../../../src/components/TypeDetails';
 
 # Game User Settings Library
 
-<TypeDetails icon="ue-blueprint-function-library" base="UBlueprintFunctionLibrary" type="UNGameUserSetttingsLibrary" typeExtra="" headerFile="NexusUI/Public/NGameUserSetttingsLibrary.h" />
+<TypeDetails icon="ue-blueprint-function-library" base="UBlueprintFunctionLibrary" type="UNGameUserSettingsLibrary" typeExtra="" headerFile="NexusUI/Public/NGameUserSettingsLibrary.h" />
 
  A small collection of functionality to help with presentation/selection of Game User Settings.
 

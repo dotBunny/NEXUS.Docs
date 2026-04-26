@@ -31,7 +31,7 @@ By default the component will automatically change its collision profile to `Ove
 
 ## UFunctions
 
-The methods exposted to Blueprint.
+The methods exposed to Blueprint.
 
 ### Get Kill Count
 

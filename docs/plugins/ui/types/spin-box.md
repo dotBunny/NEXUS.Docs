@@ -13,7 +13,7 @@ import TypeDetails from '../../../../src/components/TypeDetails';
 
 ![UNSpinBox](spin-box.webp)
 
-An extension on the UMG `USpinBox` which adds functionality to set its value without broadcasting / triggering events.
+An extension on the UMG `USpinBox` which adds functionality to set its value without broadcasting / triggering events. This is the workaround for the [usual UMG behaviour](../faq.md) where setting a value re-fires the bound change handler — useful when initializing the widget from a saved value without re-triggering the save path.
 
 ## UFunctions
 

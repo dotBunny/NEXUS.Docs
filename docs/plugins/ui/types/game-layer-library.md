@@ -8,7 +8,7 @@ tags: [0.2.6]
 
 import TypeDetails from '../../../../src/components/TypeDetails';
 
-# Game User Settings Library
+# Game Layer Library
 
 <TypeDetails icon="ue-blueprint-function-library" base="UBlueprintFunctionLibrary" type="UNGameLayerLibrary" typeExtra="" headerFile="NexusUI/Public/NGameLayerLibrary.h" />
 

@@ -13,7 +13,7 @@ import TypeDetails from '../../../../src/components/TypeDetails';
 
 ![UNSlider](slider.webp)
 
-An extension on the UMG `USlider` which adds functionality to set its value without broadcasting / triggering events.
+An extension on the UMG `USlider` which adds functionality to set its value without broadcasting / triggering events. This is the workaround for the [usual UMG behaviour](../faq.md) where setting a value re-fires the same handler the user is bound to — useful when you want to load a saved value without re-triggering the change logic that would normally re-save it.
 
 ## UFunctions
 

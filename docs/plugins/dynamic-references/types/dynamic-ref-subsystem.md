@@ -26,7 +26,7 @@ Accessing the referenced `AActor`s can be done with minimal overhead.
 
 :::note
 
-In the above blueprint example, the [UNDynamicRefComponnet](dynamic-ref-component.md) would need to have its `Link Phase` set to `ACLS_InitializeComponent` in order to ensure it is registered prior to a hypothetical `BeginPlay()` event.
+In the above blueprint example, the [UNDynamicRefComponent](dynamic-ref-component.md) would need to have its `Link Phase` set to `InitializeComponent` in order to ensure it is registered prior to a hypothetical `BeginPlay()` event.
 
 :::  
   </TabItem>
@@ -58,7 +58,7 @@ The [UNDynamicRefComponent](dynamic-ref-component.md) automatically manages the 
 /**
   * Add a reference by ENDynamicRef to a specified UObject.
   * @remark Be careful with the manual add method. If you add it, you must remove it!
-  * @param DynamicRef The desired ENDynamicRef to add too.
+  * @param DynamicRef The desired ENDynamicRef to add to.
   * @param InObject The UObject to be referenced by the provided ENDynamicRef.
   */
 void AddObject(ENDynamicRef DynamicRef, UObject* InObject);
@@ -70,7 +70,7 @@ void AddObject(ENDynamicRef DynamicRef, UObject* InObject);
 /**
   * Add a reference by FName to a specified UObject.
   * @remark Be careful with the manual add method. If you add it, you must remove it!
-  * @param Name The desired FName to add too.
+  * @param Name The desired FName to add to.
   * @param InObject The UObject to be referenced by the FName.
   */
 void AddObjectByName(FName Name, UObject* InObject);
@@ -82,7 +82,7 @@ void AddObjectByName(FName Name, UObject* InObject);
 /**
   * Add a reference by ENDynamicRef to a TArray of UObjects.
   * @remark Be careful with the manual add method. If you add it, you must remove it!
-  * @param DynamicRef The desired ENDynamicRef to add too.
+  * @param DynamicRef The desired ENDynamicRef to add to.
   * @param InObjects The TArray of UObjects to be referenced by the provided ENDynamicRef.
   */
 void AddObjects(ENDynamicRef DynamicRef, TArray<UObject*> InObjects);
@@ -94,7 +94,7 @@ void AddObjects(ENDynamicRef DynamicRef, TArray<UObject*> InObjects);
 /**
   * Add a reference by FName to a TArray of UObjects.
   * @remark Be careful with the manual add method. If you add it, you must remove it!
-  * @param Name The desired FName to add too.
+  * @param Name The desired FName to add to.
   * @param InObjects The TArray of UObjects to be referenced by the FName.
   */	
 void AddObjectsByName(FName Name, TArray<UObject*> InObjects);
@@ -131,7 +131,7 @@ void RemoveObjectByName(FName Name, UObject* InObject);
 /**
   * Remove a reference by ENDynamicRef to a TArray of UObjects.
   * @param DynamicRef The desired ENDynamicRef to remove from.
-  * @param InObjects TThe TArray of UObjects to be having their references removed by the provided ENDynamicRef.
+  * @param InObjects The TArray of UObjects to be having their references removed by the provided ENDynamicRef.
   */
 void RemoveObjects(ENDynamicRef DynamicRef, TArray<UObject*> InObjects);
 ```  
@@ -295,7 +295,8 @@ UObject* GetLastObjectByName(FName Name);
   * @return The number of UObjects associated with the specified ENDynamicRef collection.
   */
 int32 GetCount(const ENDynamicRef DynamicRef);
-```  
+```
+
 #### Get Count (By Name)
 
 ```cpp
@@ -306,3 +307,51 @@ int32 GetCount(const ENDynamicRef DynamicRef);
   */
 int32 GetCountByName(FName Name);
 ```
+
+#### Get Dynamic Refs
+
+```cpp
+/** @return All ENDynamicRef slots that currently have at least one registered object. */
+TArray<ENDynamicRef> GetDynamicRefs() const;
+```
+
+Returns only the populated slots, which is useful for tooling — for example, the [Developer Overlay](../developer-overlay.md) iterates this list to render one row per active slot.
+
+#### Get Names
+
+```cpp
+/** @return All FName buckets that currently have at least one registered object. */
+TArray<FName> GetNames() const;
+```
+
+Same shape as `GetDynamicRefs`, but for the free-form `FName` buckets backed by the named-collection map.
+
+## Native-Only Fast Paths
+
+Four `*Unsafe` accessors mirror the `GetFirst*` / `GetLast*` pairs above but skip the bounds and emptiness checks. They are not exposed to Blueprint and exist for tight inner loops where the caller can guarantee the slot/bucket is non-empty.
+
+| Method | Equivalent To |
+| :-- | :-- |
+| `GetFirstObjectUnsafe(ENDynamicRef)` | `GetFirstObject` without nullptr/empty checks. |
+| `GetFirstObjectByNameUnsafe(FName)` | `GetFirstObjectByName` without nullptr/empty checks. |
+| `GetLastObjectUnsafe(ENDynamicRef)` | `GetLastObject` without nullptr/empty checks. |
+| `GetLastObjectByNameUnsafe(FName)` | `GetLastObjectByName` without nullptr/empty checks. |
+
+:::warning
+
+The `*Unsafe` variants will dereference into an empty array if you call them on a slot/bucket with no registered objects — only use them from native code paths that already gated the lookup with `GetCount` or by subscribing to the registration delegates below.
+
+:::
+
+## Delegates
+
+The subsystem fires four native multicast delegates that broadcast every registration change. The shipped [Developer Overlay](../developer-overlay.md) listens on all four to keep its UI in sync without polling — mirror that pattern when you build custom diagnostic UIs.
+
+| Delegate | Signature | Fires When |
+| :-- | :-- | :-- |
+| `OnAdded` | `(ENDynamicRef, UObject*)` | An object is registered under a slot. |
+| `OnRemoved` | `(ENDynamicRef, UObject*)` | An object is unregistered from a slot. |
+| `OnAddedByName` | `(FName, UObject*)` | An object is registered under a named bucket. |
+| `OnRemovedByName` | `(FName, UObject*)` | An object is unregistered from a named bucket. |
+
+The delegates are native (not `BlueprintAssignable`) — bind from C++ via `OnAdded.AddUObject(...)` and remove with `RemoveAll(this)` in your teardown path.

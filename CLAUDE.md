@@ -47,4 +47,22 @@ Import them in `.mdx` files directly; Docusaurus handles MDX compilation.
 CI/CD via `.github/workflows/build-deploy.yml` on push to `main`: `npm ci` → `npm run build` → GitHub Pages. Runs on a self-hosted runner with Node 20.
 
 ## Plugin Source Code
-The actual plugin source code can be found locally in `../NEXUS/Plugins` or remotely from the git repository `https://github.com/dotBunny/NEXUS`.
+The actual plugin source code can be found locally in `../NEXUS/Plugins` or remotely from the git repository `https://github.com/dotBunny/NEXUS`. **This is the source of truth for type pages** — when documenting a `UCLASS` / `USTRUCT` / `UINTERFACE` / `UENUM`, read the actual header (`Source/<Module>/Public/*.h`) and matching `.uplugin`. Do not invent API shapes, method signatures, or version numbers.
+
+## Conventions
+
+- **Type pages are `.md`, not `.mdx`** — even though they import the `TypeDetails` component. Docusaurus handles MDX-in-Markdown for these. Plugin landing pages (`index.mdx`) and type-folder index pages (`types/index.mdx`, `editor-types/index.mdx`) are the exceptions.
+- **`src/components/PluginDetails/index.tsx`** holds the canonical `Plugins` map — every plugin documented in `docs/plugins/<slug>/` must have a matching entry keyed by its runtime module name (e.g. `"NexusActorPools"`). Adding or renaming a plugin requires editing this file.
+- **Static asset paths**:
+  - Plugin landing-card icons live at `static/assets/images/plugins/<slug>-icon.webp` and are referenced from the `Plugins` map's `icon` field.
+  - Plugin-branded type/overlay SVGs live at `static/assets/svg/<slug>/<file>.svg` and are referenced from `<TypeDetails icon="/assets/svg/<slug>/<file>.svg" iconType="img" />`.
+  - The shared type-icon vocabulary (`ue-object`, `ue-widget`, `ue-world-subsystem`, etc.) lives at `static/assets/svg/types/` — glob this folder before inventing a new icon key.
+- **Per-plugin Developer Overlay pages** live at the plugin root (e.g. `docs/plugins/actor-pools/developer-overlay.md`), not inside `types/`. They subclass `UNDeveloperOverlay` and follow a shared structure — see existing overlays under actor-pools, dynamic-references, and guardian.
+- **Verification loop**: `npm run start` for fast iteration; reserve `npm run build` for catching link/MDX errors before pushing. Avoid `npm run build` during scaffolding — it is slow and the dev server surfaces the same errors.
+
+## Documentation Skills
+
+Two skills automate doc scaffolding — invoke them by user prompt rather than writing pages from scratch:
+
+- `doc-new-plugin` — scaffolds the `docs/plugins/<slug>/` folder, `index.mdx`, `types/index.mdx`, optional `editor-types/index.mdx`, optional `developer-overlay.md`, and the `Plugins` map entry in `PluginDetails/index.tsx`.
+- `doc-new-type` — scaffolds a single type page from a header file, choosing the appropriate body shape (default / wrapper UObject / list-view entry / async action / subsystem) based on the engine base class.

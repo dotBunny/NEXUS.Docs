@@ -89,7 +89,7 @@ UNActorPoolSubsystem::Get(GetWorld())->ReturnActor(TargetActor);
 
 ## UFunctions
 
-The methods exposted to Blueprint.
+The methods exposed to Blueprint.
 
 ### Get Actor
 

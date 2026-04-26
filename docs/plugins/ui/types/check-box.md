@@ -13,11 +13,11 @@ import TypeDetails from '../../../../src/components/TypeDetails';
 
 ![UNCheckBox](check-box.webp)
 
-An extension on the UMG `UCheckBox` which adds functionality to set its value without broadcasting / triggering events, **or so we thought**.
+An extension on the UMG `UCheckBox` which adds functionality to set its value without broadcasting / triggering events, **or so we thought**. The `_NoBroadcast` setters are kept for API symmetry with the rest of the no-broadcast widgets ([Slider](slider.md), [SpinBox](spin-box.md), [ComboBox String](combobox-string.md)) — see the [FAQ](../faq.md) for the broader rationale.
 
 :::warning
 
-The `UCheckBox` does not trigger events when it is altered. It does not match the tradition UMG trope for some reason.
+The stock `UCheckBox` does **not** trigger events when its value is altered programmatically — it does not follow the usual UMG pattern of re-firing handlers on `SetIsChecked`. The wrapped methods below are functionally identical to the base class setters, but exist so you can write the same call shape across all NEXUS-extended widgets.
 
 :::
 

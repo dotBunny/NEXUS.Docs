@@ -19,12 +19,12 @@ This plugin functions in a **service locator pattern** for `AActors` with some b
 - **Scalability**: Can handle many `AActors` of the same type without performance issues.
 - **Blueprint Integration**: Fully accessible from Blueprint for designers. 
 
-Utilzing this pattern allows for developers to reference collections of typed objects safely without any direct knowledge of them at author-time.
+Utilizing this pattern allows for developers to reference collections of typed objects safely without any direct knowledge of them at author-time.
 
 
 ## Add Component
 
-Add a [UNDynamicRefComponnet](types/dynamic-ref-component.md) to an `AActor` (*most likely your doing this on a `Blueprint`*), and assign it's References from the details inspector.
+Add a [UNDynamicRefComponent](types/dynamic-ref-component.md) to an `AActor` (*most likely you're doing this on a `Blueprint`*), and assign its References from the details inspector.
 
 ![NDynamicRefComponent](types/dynamic-ref-component.webp)
 
@@ -38,4 +38,4 @@ Accessing the [UNDynamicRefSubsystem](types/dynamic-ref-subsystem.md#getting-act
 
 The `DEMO_NDynamicRefs` sample map is available once you have enabled the `NEXUS Samples: Dynamic References` plugin. This is found in the `NEXUS Samples` category in the `Edit > Plugins` window.
 
-The map has a singular example showcasing the [UNDynamicRefComponent](types/dynamic-ref-component.md) and its various uses. The level blueprint demonstrates how to access an `AActor` by it's `ENDynamicRef`.
+The map has a singular example showcasing the [UNDynamicRefComponent](types/dynamic-ref-component.md) and its various uses. The level blueprint demonstrates how to access an `AActor` by its `ENDynamicRef`.

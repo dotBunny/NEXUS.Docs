@@ -23,4 +23,5 @@ yarn-error.log*
 /community/changelog.md
 /community/changelog-dev.md
 
-
+# Claude
+/.claude/settings.local.json

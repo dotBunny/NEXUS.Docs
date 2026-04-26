@@ -10,36 +10,92 @@ import TypeDetails from '../../../../src/components/TypeDetails';
 
 # Actor Pool Item
 
-<TypeDetails icon="ue-interface" base="interface" type="INActorPoolItem" typeExtra="/ UNActorPoolItem" headerFile="NexusActorPools/Public/INActorPoolItem.h" />
+<TypeDetails icon="ue-interface" base="interface" type="INActorPoolItem" typeExtra=" / UNActorPoolItem" headerFile="NexusActorPools/Public/INActorPoolItem.h" />
 
-An interface that defines the contract between a `AActor` and the [FNActorPool](actor-pool.md). It serves as the communication bridge that allows any actor to participate in object pooling, providing standardized lifecycle hooks and management capabilities.
+An interface that defines the contract between an `AActor` and the [FNActorPool](actor-pool.md). It is the communication bridge that lets any `AActor` participate in object pooling, surfacing the lifecycle hooks the pool calls into and the operational-state machine that gates them. [ANPooledActor](pooled-actor.md) is the convenience base class that already implements this interface — reach for the interface directly only when your `AActor` cannot inherit from `ANPooledActor`.
 
 ## What It Is
-- **Interface Contract**: Defines the required methods and behaviors for actors that work with [FNActorPool](actor-pool.md).
-- **Lifecycle Manager**: Tracks and manages the operational state of pooled actors through defined stages.
-- **Pool Integration Layer**: Provides the necessary plumbing for actors to communicate with their owning pool.
 
-## What It Does
-- **State Tracking**: Maintains the actor's operational state through an `ENActorOperationalState` enum (Undefined, Created, Enabled, Disabled, Destroyed)
-- **Lifecycle Hooks**: Provides virtual methods that are called at key moments in the pooling lifecycle:
-  - `OnCreatedByActorPool()`: Called when first created by a pool.
-  - `OnSpawnedFromActorPool()`: Called when retrieved from pool and activated.
-  - `OnReturnToActorPool()`: Called when returned to pool and deactivated.
-  - `OnDeferredConstruction()`: Called during specialized construction processes.
-- **Pool Management**: Offers methods to interact with the pool system:
-  - `ReturnToActorPool()`: Allows actors to return themselves to their pool.
-  - `IsAttachedToActorPool()`: Checks if the actor belongs to a pool.
-  - `GetActorPoolSettings()`: Provides pool configuration settings.
-- **Lifecycle Management**: Provides methods to query and change state.
-  - `SetActorOperationalState()`: Set the state of the actor, triggering `OnActorOperationalStateChanged` delegate. 
-
-- **Automatic Initialization**: Handles the connection between actors and their owning pools.
-
-This interface is essential for any actor that wants to work with the pooling system, providing the necessary hooks for proper initialization, activation, deactivation, and cleanup within the pool lifecycle.
+- **Interface Contract**: Defines the methods [FNActorPool](actor-pool.md) calls into during create / spawn / return / destroy transitions.
+- **Lifecycle Manager**: Tracks the Actor's operational state (Undefined → Created → Enabled → Disabled → Destroyed) and broadcasts every transition.
+- **Pool Integration Layer**: Lets the Actor talk back to the pool that owns it — return itself, query its settings, check attachment.
 
 :::warning
 
-This is not meant to be implemented by `AActor`-based Blueprints, it has purposely been hidden from the dropdown menu. See the `Invoke UFunctions` flag on [UNActorPoolSettings](actor-pool-settings.md) for a way to have events-fired against a non-interfaced object.
+This interface is **not** meant to be implemented by `AActor`-based Blueprints — it has been deliberately hidden from the implementation dropdown. If you need pool callbacks on a Blueprint that cannot derive from [ANPooledActor](pooled-actor.md), use the `Invoke UFunctions` flag on [FNActorPoolSettings](actor-pool-settings.md) to have the pool call the well-known UFunction names on the Blueprint instead.
 
 :::
 
+## Operational State
+
+The interface owns an `ENActorOperationalState` enum that tracks where in the pool lifecycle the Actor currently sits. Every transition fires the `OnActorOperationalStateChanged` multicast delegate.
+
+| State | Meaning |
+| :-- | :-- |
+| `Undefined` | Default before the pool has touched the Actor. |
+| `Created` | The pool created the Actor but has not yet handed it out. |
+| `Enabled` | The Actor is active in the world, having been spawned from the pool. |
+| `Disabled` | The Actor has been returned to the pool and is sleeping. |
+| `Destroyed` | The pool destroyed the Actor (e.g. during `Clear(true)`). |
+
+## Lifecycle Callbacks
+
+Each callback is virtual; the default implementation flips the operational state and you override to add gameplay behaviour.
+
+| Method | Default Behaviour |
+| :-- | :-- |
+| `OnCreatedByActorPool()` | Sets state to `Created`. |
+| `OnSpawnedFromActorPool()` | Sets state to `Enabled` after the pool applies its spawn settings. |
+| `OnReturnToActorPool()` | Sets state to `Disabled` after the pool applies its return settings. |
+| `OnDestroyedByActorPool()` | Sets state to `Destroyed`. |
+| `OnDeferredConstruction()` | No-op default. Override to perform per-spawn construction work before `FinishSpawning` is invoked. |
+
+## Pool Attachment
+
+```cpp
+/**
+ * Bind this Actor to the given FNActorPool instance.
+ * @note Called internally by FNActorPool; there is rarely a reason to invoke this directly.
+ */
+void InitializeActorPoolItem(FNActorPool* OwnerPool);
+
+/** Is this Actor currently attached to a pool? */
+bool IsAttachedToActorPool() const;
+
+/**
+ * Return this Actor to its owning pool.
+ * @return true if the Actor was successfully returned, false if it was not attached to a pool.
+ */
+bool ReturnToActorPool();
+
+/**
+ * The settings used by the Actor's owning pool, falling back to the project's default settings
+ * (UNActorPoolsSettings::Get()->DefaultSettings) when the Actor is not yet attached.
+ */
+virtual const FNActorPoolSettings& GetActorPoolSettings();
+```
+
+## State API
+
+```cpp
+/**
+ * Set the operational state, broadcasting OnActorOperationalStateChanged when it actually changes.
+ * @note Most callers should never invoke this directly — the lifecycle callbacks already update the state.
+ * @return true if the state changed, false if NewState matched the existing state.
+ */
+bool SetActorOperationalState(ENActorOperationalState NewState);
+
+/** @return The current operational state. */
+ENActorOperationalState GetCurrentActorOperationalState() const;
+
+/** @return The operational state immediately prior to the most recent transition. */
+ENActorOperationalState GetPreviousActorOperationalState() const;
+
+/**
+ * Fired after every operational state transition.
+ * @note Multicast delegates are heavy; subscribe sparingly and unsubscribe in the matching teardown path.
+ */
+FOnActorOperationalStateChangedDelegate OnActorOperationalStateChanged;
+```
+
+The delegate signature is `void(ENActorOperationalState OldState, ENActorOperationalState NewState)` — both states are passed so listeners can branch on the specific transition (e.g. `Enabled → Disabled`).

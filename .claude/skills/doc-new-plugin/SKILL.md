@@ -94,6 +94,46 @@ Insert a new entry into the `Plugins` map. Place it alphabetically by key among 
 
 The icon file at `static/assets/images/plugins/<slug>-icon.webp` is **the user's responsibility** — flag in your final report that they need to add it (or copy a placeholder) before the page renders correctly.
 
+## Optional — Developer Overlay page
+
+If the plugin ships a developer overlay (a `UN<Plugin>DeveloperOverlay` class deriving from `UNDeveloperOverlay`, surfaced via `Tools > NEXUS > <PluginName>` in the editor), scaffold a page at the **plugin root** — NOT inside `types/`. Existing examples:
+- [docs/plugins/actor-pools/developer-overlay.md](docs/plugins/actor-pools/developer-overlay.md)
+- [docs/plugins/dynamic-references/developer-overlay.md](docs/plugins/dynamic-references/developer-overlay.md)
+- [docs/plugins/guardian/developer-overlay.md](docs/plugins/guardian/developer-overlay.md)
+
+### File: `docs/plugins/<slug>/developer-overlay.md`
+
+```markdown
+---
+sidebar_label: Developer Overlay
+sidebar_position: 3
+description: <one-sentence summary of what the overlay shows>
+---
+
+import TypeDetails from '../../../src/components/TypeDetails';
+
+# Developer Overlay
+
+<TypeDetails icon="/assets/svg/<slug>/<icon>.svg" iconType="img" base="UNDeveloperOverlay" type="UN<Plugin>DeveloperOverlay" typeExtra="" headerFile="Nexus<Plugin>/Public/N<Plugin>DeveloperOverlay.h" />
+
+By going to `Tools > NEXUS > <PluginName>`, you can create an [UNEditorUtilityWidget](/docs/plugins/ui/editor-types/editor-utility-widget/) wrapped version of `/Nexus<Plugin>/WB_N<Plugin>DeveloperOverlay` which will <TODO: short description of what it shows>.
+
+<div class="image-split">
+![No <Things>](<slug>-developer-overlay-none.webp)
+![<Things>](<slug>-developer-overlay.webp)
+</div>
+
+<TODO: Layout, color states, behavior sections — see the existing overlays for shape.>
+```
+
+### Conventions
+
+- `base="UNDeveloperOverlay"` — overlays subclass the NEXUS abstract, not a stock Unreal class.
+- `icon` is the **custom plugin SVG** (`iconType="img"` form), not a `ue-*` icon class. If the plugin doesn't have a branded SVG yet, use `icon="ue-widget"` (no `iconType`) as a fallback and flag in the report that the user should add a branded SVG to `static/assets/svg/<slug>/`.
+- The two screenshots (`<slug>-developer-overlay-none.webp` and `<slug>-developer-overlay.webp`) are the user's responsibility — flag them as TODOs.
+- Common follow-on sections seen across the existing three overlays: `## What It Shows` (table), `## Layout`, `## Color States` (table), `## Idle vs. Runtime`, `## Click Handling`, `## Tooltips`, `## Editor-Only Features`. Pick what applies; don't include empty sections.
+- Most overlays also document a list-view entry widget and a `UObject` wrapper as separate type pages under `types/` — those go through `doc-new-type` separately.
+
 ## What NOT to do
 
 - Don't add the plugin to any sidebar config — `docs/` sidebar is auto-generated.

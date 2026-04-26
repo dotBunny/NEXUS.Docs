@@ -18,7 +18,7 @@ A fundamental spawning component which will interact with the [UNActorPoolSubsys
 
 :::warning
 
-This is a rudimentary example of how to spawn things; it has some use cases in a shipping game, but should not be the primary spawing source.
+This is a rudimentary example of how to spawn things; it has some use cases in a shipping game, but should not be the primary spawning source.
 
 :::
 
@@ -50,7 +50,7 @@ This is a rudimentary example of how to spawn things; it has some use cases in a
 
 ## UFunctions
 
-The methods exposted to Blueprint.
+The methods exposed to Blueprint.
 
 ### Spawn
 

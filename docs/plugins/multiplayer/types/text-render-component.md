@@ -10,7 +10,7 @@ import TypeDetails from '../../../../src/components/TypeDetails';
 
 # Text Render Component
 
-<TypeDetails icon="ue-actor-component" base="UTextRenderComponent" type="UNTextRenderComponent" typeExtra="" headerFile="NexusMultiplayer/Public/UTextRenderComponent.h" />
+<TypeDetails icon="ue-actor-component" base="UTextRenderComponent" type="UNTextRenderComponent" typeExtra="" headerFile="NexusMultiplayer/Public/NTextRenderComponent.h" />
 
 A component that builds a network-synchronized `UTextRenderComponent` between clients.
 
@@ -53,3 +53,20 @@ Sets the text of the `NTextRenderComponent` from a `FText`, ensuring it is only 
   */	
 void SetFromText(const FText& NewValue);
 ```
+
+## Replication
+
+The component holds a single replicated `FString CachedValue` field that is the source of truth across the wire. The three setters above all funnel into `CachedValue` on the server; clients receive the change via the `OnRep_TextValue` callback, which applies the new text to the underlying `UTextRenderComponent` and broadcasts `OnTextChanged`.
+
+## Delegates
+
+### On Text Changed
+
+```cpp
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnTextChanged, FString, NewText);
+
+UPROPERTY(BlueprintAssignable)
+FOnTextChanged OnTextChanged;
+```
+
+A `BlueprintAssignable` multicast delegate that fires whenever the text changes — both on the server (immediately when one of the `SetFrom*` setters is called) and on every client (when `OnRep_TextValue` runs). The payload is the new `FString` value. Bind from Blueprint to react to text changes without having to poll the underlying component each frame.
