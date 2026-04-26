@@ -22,6 +22,8 @@ After some possible [initial configuration](#user-settings), clicking the button
 
 The project-level toggles live under `Edit > Editor Preferences > Multiplayer` and travel with the project (stored in `NexusEditor.ini`). These control whether the test surface is exposed at all and how authentication is configured for the spawned session — both apply to every developer working on the project.
 
+![Multiplayer Test Settings (Project)](multiplayer-test-settings-project.webp)
+
 | Setting | Description | Default |
 | :-- | --- | :-- |
 | Enabled | Toggles whether the **Multiplayer Test** entry is added to the editor's play menu and toolbar. Turning this off removes the test button without uninstalling the plugin. | `true` |
@@ -33,7 +35,7 @@ See [UNMultiplayerEditorSettings](editor-types/multiplayer-editor-settings.md) f
 
 While the default settings should get most developers started, every game has its unique take on multiplayer and online services. The per-user knobs live under `Edit > Editor Preferences > Multiplayer (User)` and are stored in your local `NexusUserSettings.ini`, so they don't pollute the project's shared configuration. These back [UNMultiplayerEditorUserSettings](editor-types/multiplayer-editor-user-settings.md).
 
-![Multiplayer Test Settings](multiplayer-test-settings.webp)
+![Multiplayer Test Settings (User)](multiplayer-test-settings-user.webp)
 
 ### Setup
 

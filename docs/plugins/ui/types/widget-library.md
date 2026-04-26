@@ -1,5 +1,5 @@
 ---
-sidebar_position: 5
+sidebar_position: 7
 sidebar_label: Widget Library
 sidebar_class_name: type ue-blueprint-function-library
 description: Blueprint-facing accessors for FNWidgetState that bridge the C++ struct helpers into pure Kismet nodes.

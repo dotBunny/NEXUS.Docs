@@ -7,13 +7,15 @@
       "Bash(node -e ' *)",
       "Read",
       "Edit",
-      "Write"
-    ],
-    "ask": [
-      "Bash(git push *)"
+      "Write",
+      "Edit(/.claude/skills/doc-new-type/**)",
+      "Edit(/.claude/skills/doc-new-plugin/**)"
     ],
     "deny": [
       "Bash(rm -rf *)"
+    ],
+    "ask": [
+      "Bash(git push *)"
     ],
     "additionalDirectories": [
       "../NEXUS/"

@@ -1,5 +1,5 @@
 ---
-sidebar_position: 3
+sidebar_position: 5
 sidebar_label: Game Layer Library
 sidebar_class_name: type ue-blueprint-function-library
 description: A small collection of functionality to help with the Game Layer UI system.

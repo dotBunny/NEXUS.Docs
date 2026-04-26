@@ -14,6 +14,7 @@ Ask the user only for what you cannot infer:
 1. **Header path** under `../NEXUS/Plugins/<Plugin>/Source/...` (or a symbol name to grep for).
 2. **Plugin slug** — derive from the header's plugin folder, then resolve via `src/components/PluginDetails/index.tsx` (`link` field). Slugs are NOT mechanical — `NexusProcGen` → `procedural-generation`, `NexusDynamicRefs` → `dynamic-references`, `NexusUserInterface` → `ui`. If unsure, ask.
 3. **Runtime vs editor** — if the module name ends in `Editor` or the header lives under an `Editor` module, target `editor-types/`; otherwise `types/`.
+4. **Subfolder** — `types/` and `editor-types/` mirror the source `Public/` layout. If the header lives in a `Public/<Subfolder>/` (e.g. `Public/Math/`, `Public/Components/`, `Public/Widgets/`, `Public/Developer/`, `Public/Collections/`, `Public/Types/`, `Public/ComponentVisProxies/`, `Public/DelayedEditorTasks/`), the page goes in the matching `types/<subfolder>/` or `editor-types/<subfolder>/` folder. Top-level headers (directly under `Public/`) go at the folder root. If the matching subfolder doesn't exist yet, create it (lower-case the source folder name) and scaffold its `index.mdx` — see [docs/plugins/core/types/math/index.mdx](docs/plugins/core/types/math/index.mdx) for the shape.
 
 Everything else comes from the header.
 
@@ -64,7 +65,11 @@ If the engine base doesn't match any existing icon, ask the user — don't inven
   - `BlueprintAsyncAction` → `Async`. `Component`, `Subsystem`, `Settings`, `Object` are descriptive and **kept**.
   - When unsure whether to collapse, ask the user — match an existing sibling page if one is present.
 - `sidebar_label` and H1: Title Case with spaces (`Actor Pool Item`, not `INActorPoolItem`).
-- `sidebar_position`: pick the next free integer in the target folder. Glob the folder's existing `.md` files, read their frontmatter, take max + 1. If the folder is empty (only `index.mdx`), start at `2` (the index is `1`).
+- **`sidebar_position`** — within any folder, subfolders sort first (alphabetical), then at-level `.md` files. Concretely:
+  - Subfolder `index.mdx` files use positions `1..N` (alpha among themselves).
+  - At-level `.md` files start at `N+1`. Glob the folder's existing `.md` files, take max + 1 as the new page's position.
+  - If the new page lives in a subfolder, `N` is the number of sibling subfolders inside that subfolder (usually 0), so the page typically uses `1`+ relative to that subfolder.
+  - If you create a NEW subfolder, you must bump every at-level page's position by one and assign the new subfolder index a position that keeps the alphabetical order. See [CLAUDE.md](CLAUDE.md) Sidebar ordering for the full rule.
 
 ## Frontmatter and header
 
@@ -88,7 +93,14 @@ import TypeDetails from '<relative path to src/components/TypeDetails>';
 <Lead paragraph: 1-2 sentences explaining the type's purpose. Cross-link related types in the same plugin using relative links like [Actor Pool](actor-pool.md).>
 ```
 
-The relative `import` path depends on depth — `types/foo.md` is 4 levels deep, so `../../../../src/components/TypeDetails`. Count from the new file's location, don't hardcode.
+- The tags `<version>` is an array of version tags which have had changes to the page and its content , for example on the documentation page for actor-pool-settings, because there were changes in version 0.1.0, and 0.2.6, they are included in the tag array as follows: [0.1.0,0.2.6]
+
+The relative `import` path depends on depth — count from the new file's location, don't hardcode:
+
+- `types/foo.md` (or `editor-types/foo.md`) → `../../../../src/components/TypeDetails` (4-deep)
+- `types/<subfolder>/foo.md` (or `editor-types/<subfolder>/foo.md`) → `../../../../../src/components/TypeDetails` (5-deep)
+
+The same depth rule applies to any other `src/components/` import (e.g. `VersionBadge`).
 
 If the type has a custom plugin SVG (rare; mainly developer overlays), use the `iconType="img"` form for the `TypeDetails`:
 
@@ -148,16 +160,54 @@ import TabItem from '@theme/TabItem';
 
 Don't fabricate `blueprintue.com` IDs — leave a `<TODO: blueprint render id>` marker for the user to fill in.
 
+## Creating a new subfolder
+
+If the source header lives in a `Public/<Subfolder>/` that doesn't yet have a docs counterpart, create the subfolder before writing the type page.
+
+1. **Folder name** — lowercase the source subfolder name. `Public/Math/` → `math/`. `Public/ComponentVisProxies/` → `component-vis-proxies/` (kebab-case multi-word names).
+2. **Create `index.mdx`** at `docs/plugins/<slug>/types/<subfolder>/index.mdx` (or `editor-types/<subfolder>/index.mdx`):
+
+   ```mdx
+   ---
+   description: <one-line summary of what this group contains>
+   sidebar_position: <position — see step 3>
+   ---
+
+   import DocCardList from '@theme/DocCardList';
+
+   # <Title Case Folder Name>
+
+   <One-paragraph lead>. Mirrors the layout of `<Module>/Public/<Subfolder>/`.
+
+   <DocCardList />
+   ```
+3. **Pick the new `sidebar_position`** so subfolders stay alphabetical at the top:
+   - List existing sibling subfolders (their `index.mdx` files) plus the new one, sort alphabetically.
+   - Renumber every sibling subfolder index `1..N` in that alpha order.
+   - Bump every at-level `.md` file in the parent folder so its `sidebar_position` becomes `N + (its previous offset above the old subfolder block)`.
+
+   In practice: if the parent had 3 subfolders (positions 1, 2, 3) and 5 at-level pages (positions 4-8), and you're inserting a new subfolder that alphabetizes between #1 and #2, the new layout is subfolders 1, 2, 3, 4 (alpha), then at-level pages 5-9.
+4. **Don't run `npm run build`** — `npm run start` will surface any sidebar issues.
+
+For the canonical shape, see [docs/plugins/core/types/math/index.mdx](docs/plugins/core/types/math/index.mdx) and [docs/plugins/ui/types/components/index.mdx](docs/plugins/ui/types/components/index.mdx).
+
 ## Cross-linking
 
-When the new type's header references other NEXUS types (other `N*` symbols), link them as `[Other Type](other-type.md)` if they live in the same plugin's `types/` folder. Don't fabricate cross-links to types you haven't verified exist — glob the sibling `.md` files first.
+When the new type's header references other NEXUS types (other `N*` symbols), link them via relative paths. Don't fabricate cross-links to types you haven't verified exist — glob the sibling `.md` files first.
+
+- **Sibling in the same folder**: `[Other Type](other-type.md)`
+- **Sibling at the parent (you're in a subfolder)**: `[Other Type](../other-type.md)`
+- **Sibling in a different subfolder of the same plugin**: `[Other Type](../<other-subfolder>/other-type.md)` (or from the root, `[Other Type](<subfolder>/other-type.md)`)
+- **Cross-plugin (root → root)**: `[Other Type](../../<other-plugin>/types/other-type.md)`
+- **Cross-plugin from a subfolder**: add an extra `../` — `[Other Type](../../../<other-plugin>/types/other-type.md)`
+- **Cross-plugin landing pages** (e.g. ProcGen, Blockout, Guardian): same depth rule — `../../<plugin>/index.mdx` from a root page, `../../../<plugin>/index.mdx` from a subfolder page.
 
 ## What NOT to do
 
 - Don't add the page to any sidebar config — the sidebar is auto-generated from the filesystem.
 - Don't write `.mdx` for a type page; existing convention is `.md` even when it imports `TypeDetails`.
 - Don't include code samples, tabs, or screenshots in the initial scaffold — keep the page minimal so the user can flesh it out.
-- Don't guess the `tags` version. If you can't determine it from `.uplugin` or the user, ask.
+- Don't guess the `tags` version to add. If you can't determine it from `.uplugin` or the user, ask.
 - Don't run `npm run build` after generating — fast feedback is `npm run start`, and the user will run it themselves.
 
 ## When done

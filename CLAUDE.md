@@ -51,7 +51,7 @@ The actual plugin source code can be found locally in `../NEXUS/Plugins` or remo
 
 ## Conventions
 
-- **Type pages are `.md`, not `.mdx`** — even though they import the `TypeDetails` component. Docusaurus handles MDX-in-Markdown for these. Plugin landing pages (`index.mdx`) and type-folder index pages (`types/index.mdx`, `editor-types/index.mdx`) are the exceptions.
+- **Type pages are `.md`, not `.mdx`** — even though they import the `TypeDetails` component. Docusaurus handles MDX-in-Markdown for these. Plugin landing pages (`index.mdx`) and folder index pages (`types/index.mdx`, `editor-types/index.mdx`, and any subfolder `index.mdx`) are the exceptions.
 - **`src/components/PluginDetails/index.tsx`** holds the canonical `Plugins` map — every plugin documented in `docs/plugins/<slug>/` must have a matching entry keyed by its runtime module name (e.g. `"NexusActorPools"`). Adding or renaming a plugin requires editing this file.
 - **Static asset paths**:
   - Plugin landing-card icons live at `static/assets/images/plugins/<slug>-icon.webp` and are referenced from the `Plugins` map's `icon` field.
@@ -59,6 +59,30 @@ The actual plugin source code can be found locally in `../NEXUS/Plugins` or remo
   - The shared type-icon vocabulary (`ue-object`, `ue-widget`, `ue-world-subsystem`, etc.) lives at `static/assets/svg/types/` — glob this folder before inventing a new icon key.
 - **Per-plugin Developer Overlay pages** live at the plugin root (e.g. `docs/plugins/actor-pools/developer-overlay.md`), not inside `types/`. They subclass `UNDeveloperOverlay` and follow a shared structure — see existing overlays under actor-pools, dynamic-references, and guardian.
 - **Verification loop**: `npm run start` for fast iteration; reserve `npm run build` for catching link/MDX errors before pushing. Avoid `npm run build` during scaffolding — it is slow and the dev server surfaces the same errors.
+
+### Type-folder layout
+
+`types/` and `editor-types/` mirror the source's `Public/` layout. When the source organizes headers into subfolders (`Public/Math/`, `Public/Components/`, `Public/Widgets/`, `Public/Developer/`, `Public/Collections/`, `Public/Types/`, `Public/ComponentVisProxies/`, `Public/DelayedEditorTasks/`, …), the docs mirror that structure under `types/<subfolder>/` or `editor-types/<subfolder>/`. Top-level headers (those directly under `Public/`) keep their pages at the root of `types/` or `editor-types/`.
+
+Each subfolder needs its own `index.mdx` describing the group — see [docs/plugins/core/types/math/index.mdx](docs/plugins/core/types/math/index.mdx) for the canonical shape. The `Plugins` map's `link` field still points at the plugin root; subfolders are never surfaced there.
+
+### Sidebar ordering
+
+The auto-generated sidebar sorts items by `sidebar_position` ascending. Within any folder containing both subfolders and at-level pages, **subfolders appear first, alphabetical among themselves, then at-level pages in their existing order**. Concretely:
+
+- Each subfolder's `index.mdx` uses `sidebar_position: 1..N` where `N` is the number of subfolders, ordered alphabetically by folder name.
+- At-level `.md` files use `sidebar_position` starting at `N+1`.
+- Adding a new subfolder requires bumping every at-level page's `sidebar_position` by one.
+- Files with no `sidebar_position` sort last by filename — leave them alone unless they need to be reordered.
+
+### Import-path depth in subfolders
+
+A type page's `TypeDetails` import is relative to `src/components/`, so the `../` count depends on depth:
+
+- `types/foo.md` → `../../../../src/components/TypeDetails` (4-deep)
+- `types/<subfolder>/foo.md` → `../../../../../src/components/TypeDetails` (5-deep)
+
+Same rule applies to `VersionBadge` and any other `src/components/` import. Cross-plugin links (`../../<other-plugin>/index.mdx`) likewise gain an extra `../` from a subfolder, becoming `../../../<other-plugin>/index.mdx`.
 
 ## Documentation Skills
 

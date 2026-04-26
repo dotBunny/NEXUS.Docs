@@ -1,5 +1,5 @@
 ---
-sidebar_position: 1
+sidebar_position: 3
 sidebar_label: Game Viewport Client
 sidebar_class_name: type ue-object
 description: A viewport with some base functionality added.

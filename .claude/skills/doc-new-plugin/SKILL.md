@@ -74,7 +74,30 @@ Some of the runtime types added by <ShortName>.
 
 Same as `types/index.mdx` but with `sidebar_position: 2` and `editor types added by <ShortName>` wording — match phrasing in [docs/plugins/core/editor-types/index.mdx](docs/plugins/core/editor-types/index.mdx).
 
-### 4. Edit `src/components/PluginDetails/index.tsx`
+### 4. (Optional) Subfolder `index.mdx` files
+
+If the plugin's `Public/` directory organizes headers into subfolders (e.g. `Public/Math/`, `Public/Components/`, `Public/Widgets/`, `Public/Developer/`, `Public/Collections/`, `Public/Types/`), the docs mirror that layout — `types/<subfolder>/` for each one, plus `editor-types/<subfolder>/` for any editor-side subfolders. Glob the source first to see what subfolders exist; create an `index.mdx` for each that has at least one header you'll be documenting.
+
+```mdx
+---
+description: <one-line summary of what this group contains>
+sidebar_position: <alpha order — see Sidebar ordering below>
+---
+
+import DocCardList from '@theme/DocCardList';
+
+# <Title Case Folder Name>
+
+<One-paragraph lead>. Mirrors the layout of `<Module>/Public/<Subfolder>/`.
+
+<DocCardList />
+```
+
+**Sidebar ordering inside `types/` and `editor-types/`**: subfolders sort first (alphabetical among themselves), then at-level pages. Concretely, if `types/` will have `N` subfolders, their `index.mdx` files take positions `1..N` (alpha), and any at-level `.md` files start at `N+1`. Adding a new subfolder later means bumping every at-level page's `sidebar_position` by one. See [CLAUDE.md](CLAUDE.md) Sidebar ordering for the full rule. For canonical subfolder shapes see [docs/plugins/core/types/math/index.mdx](docs/plugins/core/types/math/index.mdx) and [docs/plugins/ui/types/components/index.mdx](docs/plugins/ui/types/components/index.mdx).
+
+You can defer subfolder creation to `doc-new-type` — it knows how to scaffold a new subfolder on demand when the first type belonging in one is added.
+
+### 5. Edit `src/components/PluginDetails/index.tsx`
 
 Insert a new entry into the `Plugins` map. Place it alphabetically by key among the existing entries. Required fields, all from the inputs above:
 
