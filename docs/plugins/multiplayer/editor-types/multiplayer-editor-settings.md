@@ -26,7 +26,7 @@ The project-wide configuration for the [Multiplayer Test](../multiplayer-test.md
 ```cpp
 /**
  * Forwards the project-level multiplayer-test toggles onto the supplied play-session request.
- * @param Params The play-session request whose Online Subsystem behaviour should be set.
+ * @param Params The play-session request whose Online Subsystem behavior should be set.
  */
 void ApplySettings(FRequestPlaySessionParams& Params) const;
 ```

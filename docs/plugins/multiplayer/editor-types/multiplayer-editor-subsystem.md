@@ -71,7 +71,7 @@ void AddLocalProcess(const uint32 ProcessIdentifier);
 
 `AddLocalProcess` is wired up to the editor's local-process notification delegate when a session starts, so every freshly-spawned PIE client/server reports itself back into the subsystem's tracked-handles array. The corresponding delegate handle (`LocalProcessDelegateHandle`) is removed when the session stops.
 
-## Tick Behaviour
+## Tick Behavior
 
 ```cpp
 virtual bool IsTickable() const override

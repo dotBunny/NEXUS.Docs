@@ -18,7 +18,7 @@ Helpers that standardise how NEXUS tests set up and tear down worlds and measure
 
 ### Pre/Post Performance Test
 
-Prepares global state so a performance test can produce comparable, low-noise measurements. Initialises stack walking, forces a GC, and flushes the log/visual-log streams. The matching `Post` helper forces a GC so the next test starts clean.
+Prepares global state so a performance test can produce comparable, low-noise measurements. Initializes stack walking, forces a GC, and flushes the log/visual-log streams. The matching `Post` helper forces a GC so the next test starts clean.
 
 ```cpp
 FORCEINLINE static void PrePerformanceTest();
@@ -27,7 +27,7 @@ FORCEINLINE static void PostPerformanceTest();
 
 ### World Test
 
-Creates a throwaway `UWorld`, runs a test body against it, and tears everything down afterwards. The world is fully booted through `InitializeActorsForPlay`/`BeginPlay` so it can host actor behaviour, and is destroyed (along with its temporary `UGameInstance`) when the test body returns.
+Creates a throwaway `UWorld`, runs a test body against it, and tears everything down afterwards. The world is fully booted through `InitializeActorsForPlay`/`BeginPlay` so it can host actor behavior, and is destroyed (along with its temporary `UGameInstance`) when the test body returns.
 
 ```cpp
 /**

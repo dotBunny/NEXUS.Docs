@@ -13,7 +13,7 @@ import TypeDetails from '../../../../../src/components/TypeDetails';
 
 ![UNComboBoxString](combobox-string.webp)
 
-An extension on the UMG `UComboBoxString` which adds functionality to set its selected option or index without broadcasting / triggering events. This is the workaround for the [usual UMG behaviour](../../faq.md) where setting a value re-fires the bound selection handler — useful when initializing the widget from a saved value without re-triggering the save path.
+An extension on the UMG `UComboBoxString` which adds functionality to set its selected option or index without broadcasting / triggering events. This is the workaround for the [usual UMG behavior](../../faq.md) where setting a value re-fires the bound selection handler — useful when initializing the widget from a saved value without re-triggering the save path.
 
 ## UFunctions
 

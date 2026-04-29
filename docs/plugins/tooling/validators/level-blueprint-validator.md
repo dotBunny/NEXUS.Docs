@@ -15,7 +15,7 @@ By default, this validator is **disabled**.
 
 ### Configuration Options
 
-The severity and behaviour of this validator can be configured, project-wide in `Editor Preferences > NEXUS > Tooling > Level: Blueprint Logic`
+The severity and behavior of this validator can be configured, project-wide in `Editor Preferences > NEXUS > Tooling > Level: Blueprint Logic`
 
 ![Engine Content Preferences](validator-settings.webp)
 

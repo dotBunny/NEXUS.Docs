@@ -12,7 +12,7 @@ import TypeDetails from '../../../../../src/components/TypeDetails';
 
 <TypeDetails icon="ue-actor" base="AActor" type="ANDebugActor" typeExtra="" headerFile="NexusCore/Public/Developer/NDebugActor.h" />
 
-A disposable diagnostic actor used to visualize a world-space location or arbitrary geometry during development. Hidden from the editor's *Place Actors* panel, has no gameplay behaviour, and should not be shipped in release content.
+A disposable diagnostic actor used to visualize a world-space location or arbitrary geometry during development. Hidden from the editor's *Place Actors* panel, has no gameplay behavior, and should not be shipped in release content.
 
 ## Creation
 
@@ -49,7 +49,7 @@ void OverrideWithDynamicMesh(FDynamicMesh3 NewMesh, UMaterialInterface* Material
 
 ### Outliner Visibility
 
-Removes or restores this actor from the editor's World Outliner without affecting viewport visibility, selection, or any other behaviour. Compiled out of non-editor builds.
+Removes or restores this actor from the editor's World Outliner without affecting viewport visibility, selection, or any other behavior. Compiled out of non-editor builds.
 
 ```cpp
 void HideInSceneOutliner();

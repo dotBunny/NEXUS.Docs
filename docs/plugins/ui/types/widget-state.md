@@ -37,6 +37,6 @@ Blueprint access is provided through [UNWidgetLibrary](widget-library.md). Persi
 
 :::info
 
-`Add*` methods do **not** check for existing keys — calling `AddString` twice with the same key produces two entries, and subsequent `Get*` calls return the first one. Prefer `Set*` unless you specifically need the append-only behaviour (e.g. when bulk-loading from a known-clean source).
+`Add*` methods do **not** check for existing keys — calling `AddString` twice with the same key produces two entries, and subsequent `Get*` calls return the first one. Prefer `Set*` unless you specifically need the append-only behavior (e.g. when bulk-loading from a known-clean source).
 
 :::

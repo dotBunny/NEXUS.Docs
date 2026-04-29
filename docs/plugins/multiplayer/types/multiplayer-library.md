@@ -206,7 +206,7 @@ static APlayerState* GetPlayerStateFromPlayerIdentifier(UObject* WorldContextObj
 static bool IsMultiplayerTest();
 ```
 
-Detects sessions launched by the [Multiplayer Test](../multiplayer-test.md) toolbar button, which spawn each client with the `-NMultiplayerTest` command-line flag. Useful for gating dev-only behaviour (extra logging, test-only spawn locations, lower default difficulty) so it lights up automatically when iterating but stays out of standalone or shipping play.
+Detects sessions launched by the [Multiplayer Test](../multiplayer-test.md) toolbar button, which spawn each client with the `-NMultiplayerTest` command-line flag. Useful for gating dev-only behavior (extra logging, test-only spawn locations, lower default difficulty) so it lights up automatically when iterating but stays out of standalone or shipping play.
 
 #### Ping
 
