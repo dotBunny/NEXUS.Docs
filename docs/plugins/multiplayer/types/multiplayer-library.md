@@ -119,7 +119,7 @@ Will fail if not done by server/host.
 
 ### Branch-Style Variants
 
-Each of the boolean Admin functions ships with an `Exec` companion that uses `meta=(ExpandBoolAsExecs="ReturnValue")`. In Blueprint these appear as branch-shaped nodes with **True** / **False** execution pins instead of a `bool` return — drop one in to gate execution flow without having to wire a `Branch` node afterwards.
+Each of the boolean Admin functions ships with an `Exec` companion that uses `meta=(ExpandBoolAsExecs="ReturnValue")`. In Blueprint these appear as branch-shaped nodes with **True** / **False** execution pins instead of a `bool` return — drop one in to gate execution flow without having to wire a `Branch` node afterward.
 
 | Branching Node (Blueprint) | Wraps |
 | :-- | :-- |

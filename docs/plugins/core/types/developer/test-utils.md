@@ -27,11 +27,11 @@ FORCEINLINE static void PostPerformanceTest();
 
 ### World Test
 
-Creates a throwaway `UWorld`, runs a test body against it, and tears everything down afterwards. The world is fully booted through `InitializeActorsForPlay`/`BeginPlay` so it can host actor behavior, and is destroyed (along with its temporary `UGameInstance`) when the test body returns.
+Creates a throwaway `UWorld`, runs a test body against it, and tears everything down afterward. The world is fully booted through `InitializeActorsForPlay`/`BeginPlay` so it can host actor behavior, and is destroyed (along with its temporary `UGameInstance`) when the test body returns.
 
 ```cpp
 /**
- * Creates a throwaway UWorld, runs a test body against it, and tears everything down afterwards.
+ * Creates a throwaway UWorld, runs a test body against it, and tears everything down afterward.
  * @param WorldType The EWorldType to create (typically Game or PIE).
  * @param TestFunctionality Callable that receives the created world and performs the test.
  * @param bDisableGarbageCollection Suppress GC for the duration of the test body when true.
