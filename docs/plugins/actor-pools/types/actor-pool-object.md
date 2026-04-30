@@ -29,7 +29,7 @@ As described this is meant only for interaction with UI, and you should explicit
 ## What It Does
 
 - **Forwards Pool Operations**: `Spawn(Position, Rotation)`, `GetActor()`, and `Return(Actor)` defer directly to the underlying [FNActorPool](actor-pool.md). All return safe defaults (`nullptr`, `false`) if the wrapper has not been linked.
-- **Reports Pool State**: `GetInCount()` and `GetOutCount()` mirror the in/out collections, returning `-1` when unlinked so UI can distinguish "empty" from "no pool".
+- **Reports Pool State**: `GetAvailableCount()` and `GetSpawnedCount()` mirror the in/out collections, returning `-1` when unlinked so UI can distinguish "empty" from "no pool".
 - **Surfaces Pool Configuration**: `DoesSupportInterface()`, `HasInvokeUFunctionFlag()`, and `GetDescription()` expose the pool's flags and a human-readable description, used by the overlay's tooltips and color swatches.
 - **Resolves Display Metadata**: `GetClassName()` returns the cached, sanitized template name; `GetTemplate()` and `GetPoolWorld()` provide the underlying class and `UWorld` for richer lookups.
 

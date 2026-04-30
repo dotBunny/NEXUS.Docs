@@ -88,10 +88,10 @@ bool Return(AActor* Actor);
 
 ```cpp
 /** Number of Actors currently held by the pool (available for Get/Spawn). */
-int32 GetInCount() const;
+int32 GetAvailableCount() const;
 
 /** Number of Actors currently checked out and active in the world. */
-int32 GetOutCount() const;
+int32 GetSpawnedCount() const;
 
 /** True when the pool has no available Actors (does not count those checked out). */
 bool IsEmpty() const;
