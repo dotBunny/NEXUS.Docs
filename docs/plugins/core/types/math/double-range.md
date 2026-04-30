@@ -25,7 +25,7 @@ A double-precision inclusive range `[Minimum, Maximum]`. Defaults span the entir
 
 The struct mixes in the standard NEXUS range API via `N_IMPLEMENT_RANGE(double)`. See [Double Range Library](double-range-library.md) for the Blueprint-callable surface; the same methods are accessible directly on the struct in C++:
 
-| Method | Behaviour |
+| Method | Behavior |
 | :-- | :-- |
 | `NextValue()` | Deterministic sample from the full range. |
 | `NextValueInSubRange(Min, Max)` | Deterministic sample clamped to a sub-range. |

@@ -97,10 +97,10 @@ int32 GetSpawnedCount() const;
 bool IsEmpty() const;
 
 /** True when the underlying template implements [INActorPoolItem](actor-pool-item.md). */
-bool DoesSupportInterface() const;
+bool ImplementsPoolItemInterface() const;
 
 /** True when the pool's settings have the InvokeUFunctions flag set. */
-bool HasInvokeUFunctionFlag() const;
+bool ShouldInvokeUFunctions() const;
 
 /**
  * True when this pool is a client-side stub for a ServerOnly pool.

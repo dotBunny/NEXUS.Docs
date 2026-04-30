@@ -28,13 +28,13 @@ While there is no officially stated best-practice for when you explicitly need t
 
 ### Configuration Options
 
-The severity and behaviour of this validator can be configured, project-wide in `Editor Preferences > NEXUS > Tooling > Engine: Content Change`
+The severity and behavior of this validator can be configured, project-wide in `Editor Preferences > NEXUS > Tooling > Engine: Content Change`
 
 ![Engine Content Preferences](validator-settings.webp)
 
 ### Gotcha (Materials)
 
-One culprit that can cause changes to be reflected in the Engine Content comes from Materials and the default behaviour of applying flag changes based on their usage.
+One culprit that can cause changes to be reflected in the Engine Content comes from Materials and the default behavior of applying flag changes based on their usage.
 
 A contrived example of this would be if you used the `WorldGridMaterial` on a Niagara visual effect with mesh particles. This would automatically toggle on the `Used with Niagara Mesh Particles` flag on the material; a change would happen with very little awareness to the user outside of their initial assignment action.
 

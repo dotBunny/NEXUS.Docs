@@ -22,7 +22,7 @@ The component has settings for when the `AActor` is registered with the [UNDynam
 
 Utilizes a `ENActorComponentLifecycleStart` enumeration to determine when to register.
 
-| Setting  | Display | Behaviour |
+| Setting  | Display | Behavior |
 | :-- | :-- | --- |
 | `BeginPlay` | Begin Play | Triggers registration during the components `BeginPlay()` call. |
 | `InitializeComponent` | Initialize Component | Triggers registration during the components `InitializeComponent()` call. |
@@ -31,7 +31,7 @@ Utilizes a `ENActorComponentLifecycleStart` enumeration to determine when to reg
 
 Utilizes a `ENActorComponentLifecycleEnd` enumeration to determine when to unregister.
 
-| Setting  | Display | Behaviour |
+| Setting  | Display | Behavior |
 | :-- | :-- | --- |
 | `EndPlay` | End Play | Triggers unregistering during the components `EndPlay()` call. |
 | `UninitializeComponent` | Uninitialize Component | Triggers unregistering during the components `UninitializeComponent()` call. |

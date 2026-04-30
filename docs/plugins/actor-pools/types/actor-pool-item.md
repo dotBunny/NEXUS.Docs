@@ -40,9 +40,9 @@ The interface owns an `ENActorOperationalState` enum that tracks where in the po
 
 ## Lifecycle Callbacks
 
-Each callback is virtual; the default implementation flips the operational state and you override to add gameplay behaviour.
+Each callback is virtual; the default implementation flips the operational state and you override to add gameplay behavior.
 
-| Method | Default Behaviour |
+| Method | Default Behavior |
 | :-- | :-- |
 | `OnCreatedByActorPool()` | Sets state to `Created`. |
 | `OnSpawnedFromActorPool()` | Sets state to `Enabled` after the pool applies its spawn settings. |

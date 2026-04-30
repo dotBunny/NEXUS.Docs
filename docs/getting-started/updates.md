@@ -9,7 +9,7 @@ A simple system to notify you developers of when updates are available to the **
 
 ## Settings
 
-Customizing the behaviour and frequency of the update check can be done in the Editor Preferences under  `NEXUS > Core > Updates`.
+Customizing the behavior and frequency of the update check can be done in the Editor Preferences under  `NEXUS > Core > Updates`.
 
 ![Update Notifications](updates.webp)
 

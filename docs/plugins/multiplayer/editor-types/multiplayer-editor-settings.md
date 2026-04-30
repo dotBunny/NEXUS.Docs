@@ -26,12 +26,12 @@ The project-wide configuration for the [Multiplayer Test](../multiplayer-test.md
 ```cpp
 /**
  * Forwards the project-level multiplayer-test toggles onto the supplied play-session request.
- * @param Params The play-session request whose Online Subsystem behaviour should be set.
+ * @param Params The play-session request whose Online Subsystem behavior should be set.
  */
 void ApplySettings(FRequestPlaySessionParams& Params) const;
 ```
 
-The [UNMultiplayerEditorSubsystem](multiplayer-editor-subsystem.md) calls `ApplySettings` on the project settings before forwarding the same play-session request to [UNMultiplayerEditorUserSettings](multiplayer-editor-user-settings.md), so project-level values are layered first and user values override afterwards.
+The [UNMultiplayerEditorSubsystem](multiplayer-editor-subsystem.md) calls `ApplySettings` on the project settings before forwarding the same play-session request to [UNMultiplayerEditorUserSettings](multiplayer-editor-user-settings.md), so project-level values are layered first and user values override afterward.
 
 :::info
 

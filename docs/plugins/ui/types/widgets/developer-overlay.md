@@ -12,7 +12,7 @@ import TypeDetails from '../../../../../src/components/TypeDetails';
 
 <TypeDetails icon="ue-widget" base="UCommonUserWidget" type="UNDeveloperOverlay" typeExtra="" headerFile="NexusUI/Public/Widgets/NDeveloperOverlay.h" />
 
-The `Abstract`, `Blueprintable` base widget that every per-plugin developer overlay subclasses. It supplies a banner row (a `UCommonBorder` and `UCommonTextBlock` pair) plus a `ContainerBox` `UVerticalBox` that subclasses fill with diagnostic rows. The `bIsEditorUtilityWidget` flag toggles editor-only behaviour when the overlay is hosted inside a [UNEditorUtilityWidget](../../editor-types/editor-utility-widget.md).
+The `Abstract`, `Blueprintable` base widget that every per-plugin developer overlay subclasses. It supplies a banner row (a `UCommonBorder` and `UCommonTextBlock` pair) plus a `ContainerBox` `UVerticalBox` that subclasses fill with diagnostic rows. The `bIsEditorUtilityWidget` flag toggles editor-only behavior when the overlay is hosted inside a [UNEditorUtilityWidget](../../editor-types/editor-utility-widget.md).
 
 This is the type each plugin's `UN<Plugin>DeveloperOverlay` derives from — for example, [`UNActorPoolsDeveloperOverlay`](/docs/plugins/actor-pools/developer-overlay.md), [`UNDynamicRefsDeveloperOverlay`](/docs/plugins/dynamic-references/developer-overlay.md), and [`UNGuardianDeveloperOverlay`](/docs/plugins/guardian/developer-overlay.md). Build your own diagnostic surface by subclassing this widget and adding rows to `ContainerBox`.
 
@@ -59,7 +59,7 @@ UPROPERTY(EditDefaultsOnly)
 bool bIsEditorUtilityWidget;
 ```
 
-Set this to `true` on the Class Defaults of a Blueprint subclass intended to live inside a [UNEditorUtilityWidget](../../editor-types/editor-utility-widget.md). Subclasses inspect the flag to gate behaviour that only makes sense at runtime — for example, binding to a `UWorld` that does not exist outside PIE.
+Set this to `true` on the Class Defaults of a Blueprint subclass intended to live inside a [UNEditorUtilityWidget](../../editor-types/editor-utility-widget.md). Subclasses inspect the flag to gate behavior that only makes sense at runtime — for example, binding to a `UWorld` that does not exist outside PIE.
 
 :::tip
 

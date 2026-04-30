@@ -4,7 +4,7 @@ description: A mechanism for touchpad navigation of blueprint graphs with ease.
 
 # Graph Navigation
 
-A fascinating problem emerged when we started using laptops with the **Unreal Editor**, a distinct inability to move around graphs with the touchpad easily. This problem manifests itself in many different ways, and not all touchpads exhibit the behaviour. However, for those of you suffering from this shortcoming, there is a solution.
+A fascinating problem emerged when we started using laptops with the **Unreal Editor**, a distinct inability to move around graphs with the touchpad easily. This problem manifests itself in many different ways, and not all touchpads exhibit the behavior. However, for those of you suffering from this shortcoming, there is a solution.
 
 Once `Space To Pan` is enabled, holding down the `Spacebar` and pressing and moving your finger (`Left Mouse Button` + `Drag`) will pan the current top level graph.
 
