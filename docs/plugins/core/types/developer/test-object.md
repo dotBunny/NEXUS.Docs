@@ -1,5 +1,5 @@
 ---
-sidebar_position: 20
+sidebar_position: 25
 sidebar_label: Test Object
 sidebar_class_name: type native-class
 description: A minimal, non-UObject carrier used by unit tests that need a simple, stack-allocatable payload.

@@ -1,5 +1,5 @@
 ---
-sidebar_position: 22
+sidebar_position: 27
 sidebar_label: Test Scope Timer
 sidebar_class_name: type native-class
 description: A scoped test-aware timer that integrates with the Low-Level Test framework.

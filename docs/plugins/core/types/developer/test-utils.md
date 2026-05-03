@@ -1,5 +1,5 @@
 ---
-sidebar_position: 23
+sidebar_position: 28
 sidebar_label: Test Utils
 sidebar_class_name: type native-class
 description: Helpers that standardise how NEXUS tests set up and tear down worlds and measure performance.
