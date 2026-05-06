@@ -87,6 +87,18 @@ UNActorPoolSubsystem::Get(GetWorld())->ReturnActor(TargetActor);
   </TabItem>
 </Tabs>
 
+#### Unknown Actor Behavior
+
+When `ReturnActor` is called with an `AActor` that does not belong to any pool managed by this subsystem, the `ENActorPoolUnknownBehavior` policy decides what happens:
+
+| Value | Behavior |
+| :-- | :-- |
+| `Destroy` | Destroy the unknown `AActor`. *(default)* |
+| `CreateDefaultPool` | Create a default pool on-the-fly for the `AActor`'s class and return it there. |
+| `Ignore` | Do nothing; leave the `AActor` as-is. |
+
+The initial value is read from [Returned Unknown Actor](../project-settings.md) on `OnWorldBeginPlay`. To override the policy at runtime — for example, to flip to `Ignore` while a streaming-out region tears down — call `SetUnknownBehavior` from native code. See the [Native API](#native-api) section below.
+
 ## UFunctions
 
 The methods exposed to Blueprint.
@@ -172,3 +184,60 @@ bool HasActorPool(const TSubclassOf<AActor>& ActorClass) const { return ActorPoo
   */
 void ApplyActorPoolSet(UNActorPoolSet* ActorPoolSet);
 ```
+
+## Native API
+
+The methods below are available to C++ only — they are not exposed to Blueprint and are intended for native gameplay or systems code that needs direct access to the underlying [FNActorPool](actor-pool.md) instances or runtime policy controls.
+
+### Set Unknown Behavior
+
+```cpp
+/**
+ * Override the policy applied when ReturnActor is called with an Actor unknown to this subsystem.
+ * @note Initialized from UNActorPoolsSettings::UnknownBehavior on world begin play; use this to override at runtime.
+ * @param Behavior The new unknown-actor policy to apply.
+ */
+void SetUnknownBehavior(const ENActorPoolUnknownBehavior Behavior);
+```
+
+The starting value is sourced from [Returned Unknown Actor](../project-settings.md) when the world begins play. Call this to switch the policy mid-session — for example, to temporarily `Ignore` returns during a streaming teardown so transient `AActor`s aren't recycled into pools that are about to be destroyed.
+
+```cpp title="Override at Runtime"
+UNActorPoolSubsystem::Get(GetWorld())->SetUnknownBehavior(ENActorPoolUnknownBehavior::Ignore);
+```
+
+### Get Actor Pool
+
+```cpp
+/**
+ * Get the pointer to the actor pool itself for a given Actor class.
+ * @param ActorClass The class of the actor which you would like to access a pool for.
+ * @return The pointer to the pool, or nullptr if it was not found.
+ */
+FNActorPool* GetActorPool(const TSubclassOf<AActor> ActorClass) const;
+```
+
+Returns `nullptr` when no pool exists for the supplied class — always null-check the result before dereferencing. Pair with [Has Actor Pool](#has-actor-pool) when you only need a presence check.
+
+### Get All Pools
+
+```cpp
+/**
+ * Get an array of all the Actor Pools.
+ * @return An array of raw pointers to all the known FNActorPools
+ * @remark This is not meant to be used often and is more for debugging purposes.
+ */
+TArray<FNActorPool*> GetAllPools() const;
+```
+
+### On Actor Pool Added
+
+```cpp
+/**
+ * Event triggered when a new pool is added to the UNActorPoolSubsystem.
+ * @remark Meant for native code only to ensure efficiency.
+ */
+OnActorPoolAddedDelegate OnActorPoolAdded;
+```
+
+A native multicast delegate (`DECLARE_MULTICAST_DELEGATE_OneParam(..., FNActorPool*)`) that fires whenever a new pool is registered — including pools created lazily by [Get Actor](#get-actor), [Spawn Actor](#spawn-actor), the `CreateDefaultPool` unknown-actor path, or an applied [UNActorPoolSet](actor-pool-set.md). Bind from native via `OnActorPoolAdded.AddUObject(...)` and clean up with `RemoveAll(this)` in your teardown.
