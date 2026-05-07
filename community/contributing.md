@@ -11,52 +11,46 @@ Thank you for your interest in contributing to the **NEXUS** Framework! ♥️ W
 
 Bug reports, bug fixes, documentation additions, features, code, coffee, etc., benefit everyone.
 
-While items on the Roadmap correspond to our own needs and ambitions, that doesn’t mean that contributions should be limited to just those things. If you want to drop in a feature that you think would benefit others, *make a Pull Request!* (against `dev`).
+While items on the [Roadmap](roadmap.md) correspond to our own needs and ambitions, that doesn’t mean that contributions should be limited to just those things. If you want to drop in a feature that you think would benefit others, *make a Pull Request!* (against `main`). We track open work and "good first issue"-shaped tasks on the [GitHub Project board](https://github.com/orgs/dotBunny/projects/6/views/1) — it's a good place to look before starting something larger.
 
-## AI Policy
+:::tip[Not sure where to start?]
 
-Included in the `TestProject` is a `CLAUDE.md` definition to assist [Claude Code](https://claude.ai/) with understanding the **NEXUS Framework** as well as a series of skills (`build`, `coding-style`, `running-tests`, `writing-tests`).
+If you want to talk through an idea before opening an issue or PR, drop by [Discord](discord.md) — it's the fastest way to get a sanity check.
 
-In general the utilization of AI in engineering is an evolving process, and currently, for this framework it has been extremely helpful in providing research, bug finding assistance, and initial test generation.
+:::
 
-Any AI-assisted contribution whether code, tests, or documentation must be reviewed, understood, and tested by a developer before it is committed. Contributors are fully responsible for everything they submit, regardless of how it was produced.
+## Reporting Bugs
 
-## Automation
+Bugs are tracked as [GitHub Issues](https://github.com/dotBunny/NEXUS/issues) on the main framework repository. A good report includes:
 
-Every commit to the `main` branch (and PRs before being merged) undergoes an [initial smoke test](https://github.com/dotBunny/NEXUS/actions/workflows/push-unit-tests.yml), followed by more intensive tests (including daily [performance](https://github.com/dotBunny/NEXUS/actions/workflows/schedule-performance-tests.yml) and [functional](https://github.com/dotBunny/NEXUS/actions/workflows/dispatch-functional-tests.yml) tests, as well as [packaging](https://github.com/dotBunny/NEXUS/actions/workflows/dispatch-buildcookrun.yml)). This allows us to have some level of confidence in the framework and its capabilities.
+- The **NEXUS** Framework version (commit hash if you're on `main`).
+- The Unreal Engine version.
+- A minimal reproduction — steps, a code snippet, or a small project if the issue is non-obvious.
+- Relevant log output (`Saved/Logs/`) and, where applicable, a callstack.
 
-There is also a [manual test dispatcher](https://github.com/dotBunny/NEXUS/actions/workflows/manual-tests.yml) (for approved contributors), which allows us to run tests ad hoc as needed. We also have some built GitHub actions which parse both the results JSON and the Unreal Editor log to bubble up details for ease of access.
+If you're unsure whether something is a bug or expected behavior, ask in [Discord](discord.md) first.
 
-![Test Selection](contributing-manual-tests.png)
+## Pull Requests
 
-While thorough testing is a core pillar of the framework, it is also important that we listen to real-world feedback from users of the framework to provide further validation of NEXUS. That’s a call out to everyone using the plugin to bubble up things when they happen!
+Pull requests should target `main` from a fork or feature branch. Before opening one, please make sure your change:
 
-## Code Coverage ##
+- Follows the project's [Coding Standard](coding-standard.md).
+- Passes the smoke tests described in [Automation](automation.md) — these run automatically on every PR.
+- Includes or updates tests where it makes sense to. New plugins or subsystems should land with at least basic coverage.
+- Updates documentation in [NEXUS.Docs](https://github.com/dotBunny/NEXUS.Docs) when public API or behavior changes.
+- Complies with the [AI Policy](ai-policy.md) if any part of the change was AI-assisted.
 
-A quick little command to help out with determining code coverage.
+Keep PRs focused — one logical change per PR makes review (and reverts, if it comes to that) much easier.
 
-```shell
-OpenCppCoverage.exe ^
---modules "**NEXUS**" --cover_children --optimized_build ^
---excluded_modules "**NEXUSModulesRules**" --excluded_modules "**NexusSharedSamples**" --excluded_modules "**Editor.dll" ^
---sources "Plugins\ActorPools\Source\NexusActorPools" ^
---sources "Plugins\Core\Source\NexusCore" ^
---sources "Plugins\DynamicRefs\Source\NexusDynamicRefs" ^
---sources "Plugins\Guardian\Source\NexusGuardian" ^
---sources "Plugins\Multiplayer\Source\NexusMultiplayer" ^
---sources "Plugins\Picker\Source\NexusPicker" ^
---sources "Plugins\UI\Source\NexusUI" ^
---excluded_sources .gen. --excluded_sources **\Tests\** --export_type html:TestProject\Saved\CodeCoverage\Report --export_type cobertura:TestProject\Saved\CodeCoverage\Report\cobertura.xml ^
--- D:\EGS\UE_5.7\Engine\Binaries\Win64\UnrealEditor.exe D:\Repositories\dotBunny\NEXUS\TestProject\NEXUS.uproject ^
--unattended -nopause -testexit="Automation Test Queue Empty" -ReportExportPath="Staging\TestResults" -log ^
--ExecCmds="Automation RunTest NEXUS.UnitTests+Tests.Nexus;Quit"
-```
+## Licensing
 
-## Assisting With Documentaion
+The **NEXUS** Framework is released under the [Boost Software License 1.0](https://github.com/dotBunny/NEXUS/blob/main/LICENSE). By submitting a contribution, you agree that it will be distributed under the same license. Contributors retain copyright on their work — there is no CLA to sign.
+
+## Assisting With Documentation
 
 The documentation is meant to be a living document that allows for easy additions and corrections. The documentation is statically generated from a GitHub repository that can be easily edited. Each page of the documentation has a corresponding **Edit this page** link at the bottom. 
 
-*Let's not kid ourselves...* We are all a little lacking in documenting our work area, so this is our best bet at creating a spot to collate formalized documentation. Code documentation should still be present to mark up methods and other elements. 
+*Let's not kid ourselves...* We are all a little lacking in documenting our work area, so this is our best bet at creating a spot to collate formalized documentation. Code documentation should still be present to mark up methods and other elements.
 
 For more information about how to work with the documentation, please see its [repository](https://github.com/dotBunny/NEXUS.Docs).
 
