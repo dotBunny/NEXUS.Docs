@@ -16,8 +16,8 @@ An interface that defines the contract between an `AActor` and the [FNActorPool]
 
 ## What It Is
 
-- **Interface Contract**: Defines the methods [FNActorPool](actor-pool.md) calls into during create / spawn / return / destroy transitions.
-- **Lifecycle Manager**: Tracks the Actor's operational state (Undefined → Created → Enabled → Disabled → Destroyed) and broadcasts every transition.
+- **Interface Contract**: Defines the methods [FNActorPool](actor-pool.md) calls into during create / spawn / return / release transitions.
+- **Lifecycle Manager**: Tracks the Actor's operational state (Undefined → Created → Enabled → Disabled → Released) and broadcasts every transition.
 - **Pool Integration Layer**: Lets the Actor talk back to the pool that owns it — return itself, query its settings, check attachment.
 
 :::warning
@@ -36,7 +36,7 @@ The interface owns an `ENActorOperationalState` enum that tracks where in the po
 | `Created` | The pool created the Actor but has not yet handed it out. |
 | `Enabled` | The Actor is active in the world, having been spawned from the pool. |
 | `Disabled` | The Actor has been returned to the pool and is sleeping. |
-| `Destroyed` | The pool destroyed the Actor (e.g. during `Clear(true)`). |
+| `Released` | The pool stopped tracking the Actor. The Actor is also destroyed when the release came from `Clear(true)`. |
 
 ## Lifecycle Callbacks
 
@@ -47,7 +47,7 @@ Each callback is virtual; the default implementation flips the operational state
 | `OnCreatedByActorPool()` | Sets state to `Created`. |
 | `OnSpawnedFromActorPool()` | Sets state to `Enabled` after the pool applies its spawn settings. |
 | `OnReturnToActorPool()` | Sets state to `Disabled` after the pool applies its return settings. |
-| `OnDestroyedByActorPool()` | Sets state to `Destroyed`. |
+| `OnReleasedFromActorPool()` | Sets state to `Released`. |
 | `OnDeferredConstruction()` | No-op default. Override to perform per-spawn construction work before `FinishSpawning` is invoked. |
 
 ## Pool Attachment

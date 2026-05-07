@@ -55,9 +55,9 @@ A Blueprint-compatible struct that defines configuration parameters for managing
 | `DeferConstruction` | Defer Construction | Controls whether `AActor` construction is deferred when creating new `AActors`; allowing for additional calls to be made to the `INActorPoolItem::OnDeferredConstruction()` before calling the `AActors` `FinishSpawning()`. | 
 | `ShouldFinishSpawning` | Should Finish Spawning | Manages `FinishSpawning()` calls for non-[INActorPoolItem](actor-pool-item.md) `AActors`. | 
 | `ServerOnly` | Server Only | Safely ensure all actions only actually occur on world authority (server), transparently making the pool networked. |
-| `BroadcastDestroy` | Broadcast Destroy | Broadcast destroy event on the Actor through the operational change state delegate. |
+| `BroadcastRelease` | Broadcast Release | Broadcast the released-from-pool event on the Actor through the operational change state delegate. |
 | `SetNetDormancy` | Set Net Dormancy | Should an Actor's network dormancy be updated based on state? |
-| `InvokeUFunctions` | Invoke UFunctions | Should the UFunctions `OnCreatedByActorPool`, `OnSpawnedFromActorPool`, `OnReturnToActorPool`, and `OnDestroyedByActorPool` be invoked to simulate an interface callback to Actor-based blueprints? |
+| `InvokeUFunctions` | Invoke UFunctions | Should the UFunctions `OnCreatedByActorPool`, `OnSpawnedFromActorPool`, `OnReturnToActorPool`, and `OnReleasedFromActorPool` be invoked to simulate an interface callback to Actor-based blueprints? |
 
 :::tip
 

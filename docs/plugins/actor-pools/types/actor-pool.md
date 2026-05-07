@@ -55,7 +55,11 @@ FNActorPool(UWorld* TargetWorld, const TSubclassOf<AActor>& ActorClass);
 /** Construct an ActorPool for ActorClass with explicit settings overriding the defaults. */
 FNActorPool(UWorld* TargetWorld, const TSubclassOf<AActor>& ActorClass, const FNActorPoolSettings& InActorPoolSetting);
 
-/** Empty the pool of every Actor it owns (in or out); pass true to force-destroy without lifecycle callbacks. */
+/**
+ * Release every Actor the pool owns (in or out). When bForceDestroy is true the released Actors are also destroyed;
+ * otherwise they are left in the world and the pool simply stops tracking them.
+ * @note The OnReleasedFromActorPool callback fires when the BroadcastRelease flag is set, independent of bForceDestroy.
+ */
 void Clear(const bool bForceDestroy = false);
 
 /** Fill the pool up to MinimumActorCount, respecting the configured per-tick creation limit. */

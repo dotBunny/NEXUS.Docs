@@ -42,7 +42,7 @@ At the start of the bar entry for an [FNActorPool](types/actor-pool.md) is a col
 | :-- | :-- |
 | <code class="swatch blue">Blue</code> | No callbacks are made by the [FNActorPool](types/actor-pool.md). | 
 | <code class="swatch green">Green</code> | The [FNActorPool](types/actor-pool.md)'s template `AActor` class implements the [INActorPoolitem](types/actor-pool-item.md) interface, providing the fastest possible callbacks for the [FNActorPool](types/actor-pool.md). |
-| <code class="swatch yellow">Yellow</code> | The [FNActorPool](types/actor-pool.md) has been directed (via settings flags) to invoke any **UFUNCTION** methods (`OnCreatedByActorPool`, `OnSpawnedFromActorPool`, `OnReturnToActorPool`, and `OnDestroyedByActorPool`) found on the `AActor`. |
+| <code class="swatch yellow">Yellow</code> | The [FNActorPool](types/actor-pool.md) has been directed (via settings flags) to invoke any **UFUNCTION** methods (`OnCreatedByActorPool`, `OnSpawnedFromActorPool`, `OnReturnToActorPool`, and `OnReleasedFromActorPool`) found on the `AActor`. |
 
 ## Tooltips
 

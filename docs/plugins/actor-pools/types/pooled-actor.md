@@ -37,7 +37,7 @@ Each event corresponds to one of the [INActorPoolItem](actor-pool-item.md) callb
 | `OnCreatedByActorPoolEvent` | Pool first creates the Actor instance. | `OnCreatedByActorPool` |
 | `OnSpawnedFromActorPoolEvent` | Pool hands the Actor out via `Spawn`. | `OnSpawnedFromActorPool` |
 | `OnReturnToActorPoolEvent` | Actor returns to the pool (manually or via `FellOutOfWorld`). | `OnReturnToActorPool` |
-| `OnDestroyedByActorPoolEvent` | Pool destroys the Actor (e.g. during `Clear(true)`). | `OnDestroyedByActorPool` |
+| `OnReleasedFromActorPoolEvent` | Pool releases the Actor (e.g. during `Clear` — the Actor is also destroyed when `bForceDestroy` is `true`). | `OnReleasedFromActorPool` |
 
 All four are `UPROPERTY(BlueprintAssignable)` instances of `FOnActorPoolDelegate` (no parameters). Bind them in Blueprint or via `AddDynamic` from C++.
 
