@@ -1,5 +1,5 @@
 ---
-sidebar_position: 1
+sidebar_position: 13
 sidebar_label: Multiplayer Library
 sidebar_class_name: type ue-blueprint-function-library
 description: A handful of methods meant to support the building logic that works in multiplayer scenarios.
@@ -11,7 +11,7 @@ import VersionBadge from '../../../../src/components/VersionBadge';
 
 # Multiplayer Library
 
-<TypeDetails icon="ue-blueprint-function-library" base="UBlueprintFunctionLibrary" type="UNMultiplayerLibrary" typeExtra="/ FNMultiplayerUtils" headerFile="NexusMultiplayer/Public/NMultiplayerLibrary.h" />
+<TypeDetails icon="ue-blueprint-function-library" base="UBlueprintFunctionLibrary" type="UNMultiplayerLibrary" typeExtra="/ FNMultiplayerUtils" headerFile="NexusCore/Public/NMultiplayerLibrary.h" />
 
 The Blueprint-facing surface for building logic that has to behave correctly across authority and connectivity boundaries — server vs. client, local vs. remote, listen-server vs. dedicated, plus the lookup helpers needed to resolve a player by stable identifier across machines. Most calls are thin wrappers around `FNMultiplayerUtils`, the native sibling utility that backs the same operations without the `WorldContextObject` indirection.
 
@@ -19,7 +19,7 @@ Every method that touches the world takes a `UObject* WorldContextObject` so the
 
 :::tip[Native Code Paths]
 
-If you already have a `UWorld*` pointer, prefer calling [`FNMultiplayerUtils`](https://github.com/dotBunny/NEXUS/blob/main/Plugins/Multiplayer/Source/NexusMultiplayer/Public/NMultiplayerUtils.h) directly — every method here forwards to one of its `FORCEINLINE` statics. The native utility also exposes a `ServerTravel` wrapper that is not surfaced through Blueprint.
+If you already have a `UWorld*` pointer, prefer calling [`FNMultiplayerUtils`](https://github.com/dotBunny/NEXUS/blob/main/Plugins/Core/Source/NexusCore/Public/NMultiplayerUtils.h) directly — every method here forwards to one of its `FORCEINLINE` statics. The native utility also exposes a `ServerTravel` wrapper that is not surfaced through Blueprint.
 
 :::
 
@@ -195,18 +195,6 @@ static APlayerState* GetPlayerStateFromPlayerIdentifier(UObject* WorldContextObj
 ```
 
 ### Utility Functions
-
-#### Is Multiplayer Test
-
-```cpp
-/**
-  * Is the current session created from the MultiplayerTest editor command?
-  * @return true/false if it is.
-  */
-static bool IsMultiplayerTest();
-```
-
-Detects sessions launched by the [Multiplayer Test](../multiplayer-test.md) toolbar button, which spawn each client with the `-NMultiplayerTest` command-line flag. Useful for gating dev-only behavior (extra logging, test-only spawn locations, lower default difficulty) so it lights up automatically when iterating but stays out of standalone or shipping play.
 
 #### Ping
 

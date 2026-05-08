@@ -1,5 +1,5 @@
 ---
-sidebar_position: 14
+sidebar_position: 16
 sidebar_label: Settings Utils
 sidebar_class_name: type native-class
 description: Provides the canonical container/category names every NEXUS plugin registers its settings under.

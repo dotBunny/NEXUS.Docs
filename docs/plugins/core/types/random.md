@@ -1,5 +1,5 @@
 ---
-sidebar_position: 13
+sidebar_position: 15
 sidebar_label: Random
 sidebar_class_name: type native-class
 description: A collection of random number generators.
