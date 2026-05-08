@@ -84,7 +84,13 @@ AActor* Get();
 /** Spawn an Actor at Position/Rotation, firing the configured lifecycle callbacks. */
 AActor* Spawn(const FVector& Position, const FRotator& Rotation);
 
-/** Return Actor to the pool; accepts any Actor regardless of original ownership. */
+/**
+ * Return Actor to the pool. Accepts any Actor whose class matches the pool's template,
+ * regardless of whether the Actor was originally created by this pool. Null pointers are
+ * always rejected; mismatched-class Actors and Actors already in the pool are rejected and
+ * logged in non-Shipping builds. The class-match and double-add checks are stripped in
+ * Shipping for hot-path cost — callers must honour the same contract there.
+ */
 bool Return(AActor* Actor);
 ```
 
