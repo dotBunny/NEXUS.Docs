@@ -128,7 +128,6 @@ Each of the boolean Admin functions ships with an `Exec` companion that uses `me
 | `Has GameState Authority ?` | [Has GameState Authority](#has-gamestate-authority) |
 | `Has World Authority ?` | [Has World Authority](#has-world-authority) |
 | `Is Server ?` | [Is Server](#is-server) |
-| `Is Multiplayer Test ?` | [Is Multiplayer Test](#is-multiplayer-test) |
 
 These are Blueprint-only conveniences — from C++ call the boolean version directly.
 

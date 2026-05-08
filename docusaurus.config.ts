@@ -153,11 +153,6 @@ const config: Config = {
           className: 'plugin-menu'
         },
         {
-          to: '/docs/plugins/multiplayer',
-          label: 'Multiplayer',
-          className: 'plugin-menu'
-        },
-        {
           to: '/docs/plugins/picker',
           label: 'Picker',
           className: 'plugin-menu'
