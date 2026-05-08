@@ -107,13 +107,16 @@ The methods exposed to Blueprint.
 
 ```cpp
 /**
-  * Gets an actor from a given pool, creating a pool as necessary.
-  * @note This does not trigger any events on the given actor, it does not activate them in any way.
-  * @param ActorClass The class of the actor which you would like to get from the actor pool.
-  * @param ReturnedActor The returned actor.
-  */
-void GetActor(TSubclassOf<AActor> ActorClass, AActor*& ReturnedActor);
+ * Gets an actor from a given pool, creating a pool as necessary.
+ * @note This does not trigger any events on the given actor, it does not activate them in any way.
+ * @param ActorClass The class of the actor which you would like to get from the actor pool.
+ * @param ReturnedActor The returned actor, or nullptr if the pool could not provide one.
+ * @return true if an actor was successfully retrieved, false otherwise.
+ */
+bool GetActor(TSubclassOf<AActor> ActorClass, AActor*& ReturnedActor);
 ```
+
+Check the `bool` return before reading `ReturnedActor`; it will be `nullptr` if the pool could not provide one (for example when capacity is exhausted and the pool is configured to refuse growth). When you need a fully positioned and activated `AActor`, use [Spawn Actor](#spawn-actor) instead.
 
 :::warning
 
@@ -125,14 +128,18 @@ This does not trigger any events on the given actor, it does not activate them i
 
 ```cpp
 /**
-* Spawns an actor from a given pool, creating a pool as necessary.
-* @param ActorClass The class of the actor which you would like to get from the actor pool.
-* @param Position The world position to spawn the actor at.
-* @param Rotation The world rotation to apply to the spawned actor.
-* @param SpawnedActor The returned actor.
-*/
-void SpawnActor(TSubclassOf<AActor> ActorClass, FVector Position, FRotator Rotation, AActor*& SpawnedActor);
+ * Spawns an actor from a given pool, creating a pool as necessary, positioning it in the world and activating it.
+ * @note Unlike GetActor, this places the actor at the supplied transform and triggers OnSpawnedFromActorPool on the returned actor.
+ * @param ActorClass The class of the actor which you would like to spawn from the actor pool.
+ * @param Position The world position to spawn the actor at.
+ * @param Rotation The world rotation to apply to the spawned actor.
+ * @param SpawnedActor The spawned actor, or nullptr if the pool could not provide one.
+ * @return true if an actor was successfully spawned, false otherwise.
+ */
+bool SpawnActor(TSubclassOf<AActor> ActorClass, FVector Position, FRotator Rotation, AActor*& SpawnedActor);
 ```
+
+Unlike [Get Actor](#get-actor), `SpawnActor` places the `AActor` at the supplied `Position` / `Rotation` and triggers `OnSpawnedFromActorPool` on the returned `AActor` — use it whenever you want a fully activated `AActor` ready to play in the world. Check the `bool` return before reading `SpawnedActor`; it will be `nullptr` if the pool could not provide one (for example when capacity is exhausted and the pool is configured to refuse growth).
 
 :::tip
 
