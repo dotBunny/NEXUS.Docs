@@ -27,7 +27,8 @@ By default the component will automatically change its collision profile to `Ove
 | Setting | Type | Description | Default |
 | :-- | :-- | :-- | :-- |
 | Ignore Static Actors? | `bool` | Ignore static (Non-movable) actors that trigger an overlap event.  | `true` |
-| Ignore Non-INActorPoolItem Actors | `bool` | Ignore actors who do not implement the [INActorPoolItem](actor-pool-item.md) interface. | `false` |
+| Unknown Behavior | `ENKillZoneBehavior` | What should occur for an AActor that doesn't implement the `INActorPoolItem` interface and doesn't have an existing `FNActorPool`.  | `ApplyFellOutOfWorld` |
+
 
 ## UFunctions
 
