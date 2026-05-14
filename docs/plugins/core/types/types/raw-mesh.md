@@ -2,7 +2,7 @@
 sidebar_position: 45
 sidebar_label: Raw Mesh
 sidebar_class_name: type native-struct
-description: Lightweight CPU-side mesh representation used by ProcGen and blockout tools.
+description: Lightweight CPU-side mesh representation used by World Assembly and blockout tools.
 tags: [0.1.0, 0.3.0]
 ---
 
@@ -12,7 +12,7 @@ import TypeDetails from '../../../../../src/components/TypeDetails';
 
 <TypeDetails icon="native-struct" base="struct" type="FNRawMesh" typeExtra="" headerFile="NexusCore/Public/Types/NRawMesh.h" />
 
-Lightweight CPU-side mesh representation used by [ProcGen](../../../procedural-generation/index.mdx) and [Blockout](../../../blockout/index.mdx) tools. Stores a shared vertex buffer plus one or more ordered loops that reference into it. Supports convexity / non-tri validation, rigid-body rotation around a pivot, and conversion into Unreal Engine's `FDynamicMesh3` for richer geometry work.
+Lightweight CPU-side mesh representation used by [World Assembly](../../../world-assembly/index.mdx) and [Blockout](../../../blockout/index.mdx) tools. Stores a shared vertex buffer plus one or more ordered loops that reference into it. Supports convexity / non-tri validation, rigid-body rotation around a pivot, and conversion into Unreal Engine's `FDynamicMesh3` for richer geometry work.
 
 ## Properties
 

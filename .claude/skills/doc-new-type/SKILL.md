@@ -12,7 +12,7 @@ Generate a single type page that matches the project's existing convention. The 
 Ask the user only for what you cannot infer:
 
 1. **Header path** under `../NEXUS/Plugins/<Plugin>/Source/...` (or a symbol name to grep for).
-2. **Plugin slug** — derive from the header's plugin folder, then resolve via `src/components/PluginDetails/index.tsx` (`link` field). Slugs are NOT mechanical — `NexusProcGen` → `procedural-generation`, `NexusDynamicRefs` → `dynamic-references`, `NexusUserInterface` → `ui`. If unsure, ask.
+2. **Plugin slug** — derive from the header's plugin folder, then resolve via `src/components/PluginDetails/index.tsx` (`link` field). Slugs are NOT mechanical — `NexusWorldAssembly` → `world-assembly`, `NexusDynamicRefs` → `dynamic-references`, `NexusUserInterface` → `ui`. If unsure, ask.
 3. **Runtime vs editor** — if the module name ends in `Editor` or the header lives under an `Editor` module, target `editor-types/`; otherwise `types/`.
 4. **Subfolder** — `types/` and `editor-types/` mirror the source `Public/` layout. If the header lives in a `Public/<Subfolder>/` (e.g. `Public/Math/`, `Public/Components/`, `Public/Widgets/`, `Public/Developer/`, `Public/Collections/`, `Public/Types/`, `Public/ComponentVisProxies/`, `Public/DelayedEditorTasks/`), the page goes in the matching `types/<subfolder>/` or `editor-types/<subfolder>/` folder. Top-level headers (directly under `Public/`) go at the folder root. If the matching subfolder doesn't exist yet, create it (lower-case the source folder name) and scaffold its `index.mdx` — see [docs/plugins/core/types/math/index.mdx](docs/plugins/core/types/math/index.mdx) for the shape.
 
@@ -200,7 +200,7 @@ When the new type's header references other NEXUS types (other `N*` symbols), li
 - **Sibling in a different subfolder of the same plugin**: `[Other Type](../<other-subfolder>/other-type.md)` (or from the root, `[Other Type](<subfolder>/other-type.md)`)
 - **Cross-plugin (root → root)**: `[Other Type](../../<other-plugin>/types/other-type.md)`
 - **Cross-plugin from a subfolder**: add an extra `../` — `[Other Type](../../../<other-plugin>/types/other-type.md)`
-- **Cross-plugin landing pages** (e.g. ProcGen, Blockout, Guardian): same depth rule — `../../<plugin>/index.mdx` from a root page, `../../../<plugin>/index.mdx` from a subfolder page.
+- **Cross-plugin landing pages** (e.g. World Assembly, Blockout, Guardian): same depth rule — `../../<plugin>/index.mdx` from a root page, `../../../<plugin>/index.mdx` from a subfolder page.
 
 ## What NOT to do
 

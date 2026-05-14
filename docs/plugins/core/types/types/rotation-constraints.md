@@ -2,7 +2,7 @@
 sidebar_position: 49
 sidebar_label: Rotation Constraints
 sidebar_class_name: type native-struct
-description: Dual-interval rotation constraints used by ProcGen matching rules.
+description: Dual-interval rotation constraints used by World Assembly matching rules.
 tags: [0.2.0, 0.2.7]
 ---
 
@@ -12,7 +12,7 @@ import TypeDetails from '../../../../../src/components/TypeDetails';
 
 <TypeDetails icon="native-struct" base="struct" type="FNRotationConstraints" typeExtra="" headerFile="NexusCore/Public/Types/NRotationConstraints.h" />
 
-Dual-interval rotation constraints used by [ProcGen](../../../procedural-generation/index.mdx) matching rules. The "matching" interval constrains a candidate rotation's own pose, while the "difference" interval constrains the delta between two rotations. Either interval can be enabled independently.
+Dual-interval rotation constraints used by [World Assembly](../../../world-assembly/index.mdx) matching rules. The "matching" interval constrains a candidate rotation's own pose, while the "difference" interval constrains the delta between two rotations. Either interval can be enabled independently.
 
 ## Properties
 

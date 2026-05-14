@@ -10,10 +10,10 @@ Stand up the documentation skeleton for a brand-new NEXUS plugin so the user can
 ## Inputs you need
 
 1. **Plugin source folder** — `../NEXUS/Plugins/<PluginName>/` containing a `.uplugin` file. If the user gave you a name only, glob to find it.
-2. **Docs slug** — the URL path component (e.g. `actor-pools`, `procedural-generation`). Slugs are NOT mechanical:
+2. **Docs slug** — the URL path component (e.g. `actor-pools`, `world-assembly`). Slugs are NOT mechanical:
    - `NexusActorPools` → `actor-pools`
    - `NexusDynamicRefs` → `dynamic-references`
-   - `NexusProcGen` → `procedural-generation`
+   - `NexusWorldAssembly` → `world-assembly`
    - `NexusUserInterface` → `ui`
    - Most others lowercase + kebab-case the FriendlyName suffix.
    Ask the user to confirm the slug before creating files.

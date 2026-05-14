@@ -99,16 +99,16 @@ var Plugins: { [id: string]: IPlugin; } = {
     blueprintCategory: "NEXUS > Picker"
   },
 
-  "NexusProcGen": {
-    icon: "/assets/images/plugins/procedural-generation-icon.webp",
-    moduleName: "NexusProcGen",
-    shortName: "NProcGen",
+  "NexusWorldAssembly": {
+    icon: "/assets/images/plugins/world-assembly-icon.webp",
+    moduleName: "NexusWorldAssembly",
+    shortName: "NWorldAssembly",
     category: "Systems",
     initialRelease: "0.3.0",
     owner: "reapazor",
     description: "A procedural generation system focused on creating dynamic gameplay-focused spaces.",
-    link: "/docs/plugins/procedural-generation/",
-    blueprintCategory: "NEXUS > ProcGen"
+    link: "/docs/plugins/world-assembly/",
+    blueprintCategory: "NEXUS > World Assembly"
   },
 
   "NexusTooling": {
