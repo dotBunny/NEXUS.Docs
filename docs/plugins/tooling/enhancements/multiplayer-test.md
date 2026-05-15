@@ -21,7 +21,7 @@ After some possible [initial configuration](#user-settings), clicking the button
 
 The project-level toggles live under `Edit > Editor Preferences > NEXUS > Tooling > Multiplayer Test` and travel with the project (stored in `DefaultNexusEditor.ini`). These control whether the test surface is exposed at all and how authentication is configured for the spawned session — both apply to every developer working on the project.
 
-TOOKING PROJECT SETTINGS
+![Multiplayer Test Project Settings](multiplayer-test-project-settings.webp)
 
 | Setting | Description | Default |
 | :-- | --- | :-- |
@@ -33,7 +33,7 @@ TOOKING PROJECT SETTINGS
 
 While the default settings should get most developers started, every game has its unique take on multiplayer and online services. The per-user knobs live under `Edit > Editor Preferences > NEXUS > Tooling (User) > Multiplayer Test` and are stored in your local `NexusUserSettings.ini`, so they don't pollute the project's shared configuration.
 
-TOOKING USER SETTINGS
+![Multiplayer Test User Settings](multiplayer-test-user-settings.webp)
 
 ### Setup
 
