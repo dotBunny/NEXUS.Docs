@@ -1,5 +1,5 @@
 ---
-sidebar_position: 15
+sidebar_position: 16
 sidebar_label: Object Snapshot
 sidebar_class_name: type native-struct
 description: A captured, point-in-time record of the UObjects alive in the global object array.

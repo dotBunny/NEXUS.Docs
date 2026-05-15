@@ -53,7 +53,7 @@ var Plugins: { [id: string]: IPlugin; } = {
 
   "NexusDynamicRefs": {
     icon: "/assets/images/plugins/dynamic-references-icon.webp",
-    moduleName: "NexusDynamicRef",
+    moduleName: "NexusDynamicRefs",
     shortName: "NDynamicRef",
     category: "Systems",
     initialRelease: "0.1.0",
@@ -73,18 +73,6 @@ var Plugins: { [id: string]: IPlugin; } = {
     description: "A system which monitors metrics and takes action when thresholds are hit.",
     link: "/docs/plugins/guardian/",
     blueprintCategory: "NEXUS > Guardian"
-  },
-
-  "NexusMultiplayer": {
-    icon: "/assets/images/plugins/multiplayer-icon.webp",
-    moduleName: "NexusMultiplayer",
-    shortName: "NMultiplayer",
-    category: "Helpers",
-    initialRelease: "0.1.0",
-    owner: "reapazor",
-    description: "Functionality and tools that are useful when developing multiplayer games.",
-    link: "/docs/plugins/multiplayer/",
-    blueprintCategory: "NEXUS > Multiplayer"
   },
 
   "NexusPicker": {
@@ -123,9 +111,9 @@ var Plugins: { [id: string]: IPlugin; } = {
     blueprintCategory: ""
   },
 
-  "NexusUserInterface": {
+  "NexusUI": {
     icon: "/assets/images/plugins/ui-icon.webp",
-    moduleName: "NexusUserInterface",
+    moduleName: "NexusUI",
     shortName: "NUI",
     category: "Content",
     initialRelease: "0.1.0",

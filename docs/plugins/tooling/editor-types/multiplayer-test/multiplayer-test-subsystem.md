@@ -6,13 +6,13 @@ description: Editor subsystem that drives the Multiplayer Test workflow — spaw
 tags: [0.3.0]
 ---
 
-import TypeDetails from '../../../../src/components/TypeDetails';
+import TypeDetails from '../../../../../src/components/TypeDetails';
 
 # Multiplayer Test Subsystem
 
-<TypeDetails icon="ue-world-subsystem" base="UEditorSubsystem" type="UNMultiplayerTestSubsystem" typeExtra="" headerFile="NexusTooling/Public/MultiplayerTest/NMultiplayerTestSubsystem.h" />
+<TypeDetails icon="ue-world-subsystem" base="UEditorSubsystem" type="UNMultiplayerTestSubsystem" typeExtra="" headerFile="NexusToolingEditor/Public/MultiplayerTest/NMultiplayerTestSubsystem.h" />
 
-The `UEditorSubsystem` that drives the [Multiplayer Test](../enhancements/multiplayer-test.md) toolbar button. When you click the test button, this subsystem reads the configured project settings and per-user settings values, asks the editor to spawn the configured client/server processes, tracks the resulting `FProcHandle`s, and tears them all down when the test ends or the editor exits.
+The `UEditorSubsystem` that drives the [Multiplayer Test](../../enhancements/multiplayer-test.md) toolbar button. When you click the test button, this subsystem reads the configured project settings and per-user settings values, asks the editor to spawn the configured client/server processes, tracks the resulting `FProcHandle`s, and tears them all down when the test ends or the editor exits.
 
 The subsystem also implements `FTickableGameObject` so it can poll the spawned processes and shut them down cleanly when any of them dies — without that the editor would leak orphan game processes after a test session.
 
@@ -84,3 +84,7 @@ virtual bool IsTickable() const override
 The subsystem ticks only while a test is active and there is at least one tracked process to monitor. The shutdown short-circuit avoids any chance of touching `FProcHandle`s during the editor's teardown sequence — important because Unreal's process APIs can crash if invoked after their backing systems have been torn down.
 
 `GetTickableTickType` returns `ETickableTickType::Conditional` so the engine consults `IsTickable` before each frame; `IsTickableWhenPaused` and `IsTickableInEditor` both return `true` so the subsystem keeps polling even when PIE is paused.
+
+## See Also
+
+- [FNMultiplayerTestToolbarSection](multiplayer-test-toolbar-section.md) — registers the toolbar button that invokes `ToggleMultiplayerTest`.

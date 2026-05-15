@@ -1,5 +1,5 @@
 ---
-sidebar_position: 12
+sidebar_position: 13
 sidebar_label: Debug Actor
 sidebar_class_name: type ue-actor
 description: A disposable diagnostic actor used to visualize a world-space location or arbitrary geometry during development.

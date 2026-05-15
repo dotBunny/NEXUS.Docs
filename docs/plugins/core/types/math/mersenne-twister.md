@@ -98,7 +98,7 @@ uint64 UnsignedInteger64();
 ### Vector
 
 ```cpp
-/** Generate a pseudo random normalized FVector (0-1). */
+/** Generate a pseudo random normalized FVector (-1 to 1). */
 FVector VectorNormalized();
 
 /** Generates a pseudo random FVector using the provided ranges. */

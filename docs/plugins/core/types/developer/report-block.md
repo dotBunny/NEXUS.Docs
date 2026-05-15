@@ -1,5 +1,5 @@
 ---
-sidebar_position: 21
+sidebar_position: 22
 sidebar_label: Report Block
 sidebar_class_name: type native-struct
 description: Base type for all report blocks, carrying the heading, header, footer, level, and priority shared by every block.

@@ -1,5 +1,5 @@
 ---
-sidebar_position: 17
+sidebar_position: 18
 sidebar_label: Object Snapshot Entry
 sidebar_class_name: type native-struct
 description: A single row within an FNObjectSnapshot, summarising one UObject at the moment of capture.

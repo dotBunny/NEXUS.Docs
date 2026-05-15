@@ -1,5 +1,5 @@
 ---
-sidebar_position: 19
+sidebar_position: 20
 sidebar_label: Primitive Font
 sidebar_class_name: type native-class
 description: A simple glyph collection that can be rendered via PDI or LineBatchComponent.

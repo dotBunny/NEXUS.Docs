@@ -1,5 +1,5 @@
 ---
-sidebar_position: 26
+sidebar_position: 28
 sidebar_label: Test UObject
 sidebar_class_name: type ue-object
 description: A minimal, hidden UObject used by tests that need a real UObject to exercise GC or reflection paths.

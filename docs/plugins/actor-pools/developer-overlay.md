@@ -1,6 +1,6 @@
 ---
 sidebar_label: Developer Overlay
-sidebar_position: 3
+sidebar_position: 4
 description: An overlay showing all of the known Actor Pools and their status.
 ---
 

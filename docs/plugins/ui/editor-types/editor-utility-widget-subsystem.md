@@ -14,7 +14,7 @@ import TypeDetails from '../../../../src/components/TypeDetails';
 
 A `UEditorSubsystem` that stores per-widget state ([FNWidgetState](../types/widget-state.md) bags) and widget-to-tab mappings across editor sessions. The state itself is persisted via `UPROPERTY(config)` into the `NexusUserSettings` config, so a [UNEditorUtilityWidget](editor-utility-widget.md) can be torn down and re-spawned (or the editor restarted) with its prior state intact.
 
-The subsystem also tracks which editor tab last hosted each widget so utility widgets can be re-opened into the same tab layout next session — the mapping is stored in [FNWidgetTabIdentifiers](widget-tab-identifiers.md) and the state bags themselves in [FNWidgetStateSnapshot](widget-state-snapshot.md).
+The subsystem also tracks which editor tab last hosted each widget so utility widgets can be re-opened into the same tab layout next session — the mapping is held in parallel `WidgetIdentifiers` / `TabIdentifiers` config arrays on the subsystem itself, and the state bags in [FNWidgetStateSnapshot](widget-state-snapshot.md).
 
 ## What It Does
 

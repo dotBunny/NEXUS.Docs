@@ -1,5 +1,5 @@
 ---
-sidebar_position: 13
+sidebar_position: 14
 sidebar_label: Method Scope Object Diff
 sidebar_class_name: type native-class
 description: A scoped helper that captures a UObject snapshot at construction and logs the diff at destruction.

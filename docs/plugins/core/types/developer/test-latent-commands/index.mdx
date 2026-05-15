@@ -1,0 +1,12 @@
+---
+description: IAutomationLatentCommand subclasses used to step through NEXUS test fixtures one frame at a time.
+sidebar_position: 1
+---
+
+import DocCardList from '@theme/DocCardList';
+
+# Test Latent Commands
+
+`IAutomationLatentCommand` subclasses that NEXUS tests queue with `ADD_LATENT_AUTOMATION_COMMAND` to step through fixture setup, frame-by-frame waits, performance bracketing, and teardown without blocking the automation thread. Most callers reach these indirectly through [Test Utils](../test-utils.md), but the building blocks are exposed for tests that need a custom sequence. Mirrors the layout of `NexusCore/Public/Developer/TestLatentCommands/`.
+
+<DocCardList />

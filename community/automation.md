@@ -58,12 +58,13 @@ OpenCppCoverage.exe ^
 --modules "**NEXUS**" --cover_children --optimized_build ^
 --excluded_modules "**NEXUSModulesRules**" --excluded_modules "**NexusSharedSamples**" --excluded_modules "**Editor.dll" ^
 --sources "Plugins\ActorPools\Source\NexusActorPools" ^
+--sources "Plugins\Blockout\Source\NexusBlockout" ^
 --sources "Plugins\Core\Source\NexusCore" ^
 --sources "Plugins\DynamicRefs\Source\NexusDynamicRefs" ^
 --sources "Plugins\Guardian\Source\NexusGuardian" ^
---sources "Plugins\Multiplayer\Source\NexusMultiplayer" ^
 --sources "Plugins\Picker\Source\NexusPicker" ^
 --sources "Plugins\UI\Source\NexusUI" ^
+--sources "Plugins\WorldAssembly\Source\NexusWorldAssembly" ^
 --excluded_sources .gen. --excluded_sources **\Tests\** --export_type html:TestProject\Saved\CodeCoverage\Report --export_type cobertura:TestProject\Saved\CodeCoverage\Report\cobertura.xml ^
 -- D:\EGS\UE_5.7\Engine\Binaries\Win64\UnrealEditor.exe D:\Repositories\dotBunny\NEXUS\TestProject\NEXUS.uproject ^
 -unattended -nopause -testexit="Automation Test Queue Empty" -ReportExportPath="Staging\TestResults" -log ^

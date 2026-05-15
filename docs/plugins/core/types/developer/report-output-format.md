@@ -1,5 +1,5 @@
 ---
-sidebar_position: 23
+sidebar_position: 24
 sidebar_label: Report Output Format
 sidebar_class_name: type native-enum
 description: Output format selector used by FNReport's emit methods to choose between plain text and Markdown.
