@@ -19,6 +19,12 @@ This plugin provides a suite of tools for generating random and deterministic po
 
 Essentially solving the common game development problem of _"how do I randomly but intelligently place things in my world"_ with a comprehensive, performance-oriented solution.
 
+## Architecture
+
+Picker docs are grouped by **distribution** rather than the conventional `types/`-flat layout because each shape has its own `FN<Shape>Picker` / `UN<Shape>PickerLibrary` / `FN<Shape>PickerParams` triple, and the Blueprint `Help` button on every UFUNCTION points at `/distributions/<shape>/`. See [Distributions](distributions/) for per-shape pages; the base [PickerParams](types/picker-params.md) and [PickerUtils](types/picker-utils.md) live under [types](types/).
+
+<DocCardList />
+
 ## Samples
 
 ![NPicker](picker-samples.webp)
