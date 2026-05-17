@@ -12,7 +12,11 @@
       "Edit(/.claude/skills/doc-new-plugin/**)",
       "Bash(python .claude/tmp/verify_links.py)",
       "Bash(rm .claude/tmp/verify_links.py)",
-      "Bash(rmdir .claude/tmp)"
+      "Bash(rmdir .claude/tmp)",
+      "Bash(git -C \"d:/Repositories/dotBunny/NEXUS\" status)",
+      "Bash(git -C \"d:/Repositories/dotBunny/NEXUS\" log *)",
+      "Bash(git -C \"d:/Repositories/dotBunny/NEXUS\" diff *)",
+      "Bash(git -C \"d:/Repositories/dotBunny/NEXUS\" show *)"
     ],
     "deny": [
       "Bash(rm -rf *)"

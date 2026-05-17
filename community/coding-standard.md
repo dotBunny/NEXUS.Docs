@@ -136,11 +136,18 @@ We primarily are using a tag based exclusion method when a rule needs to be viol
 // #SONARQUBE-ENABLE
 ```
 
-### Source File Exclusions
+### Duplication Exclusions
+
+- `**/Macros/N*.h`
+- `**/Types/NCardinalDirection.h`
+- `**/NexusPicker/Private/N*Picker.cpp`
+- `**/NexusCore/Private/Developer/NPrimitiveFont.cpp`
+  
+### Source Folder Exclusions
 
 - `.github/**`
 - `SourceAssets/**`
-- `**/NexusPicker/Private/N*Picker.cpp`
+- `**/*Editor/Tests/*`
   
 ### Ignore Issues on Multiple Criteria
 
