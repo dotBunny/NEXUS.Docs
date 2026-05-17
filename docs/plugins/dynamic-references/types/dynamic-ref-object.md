@@ -17,7 +17,7 @@ A `UObject` wrapper around a single [ENDynamicRef](dynamic-ref.md) slot or `FNam
 ## What It Is
 
 - **Slot or Bucket**: Each instance targets exactly one [ENDynamicRef](dynamic-ref.md) value *or* one `FName`. The two factory overloads pick the mode at creation time; whichever is unset reads as `NDR_None` / `NAME_None`.
-- **Mirrored State**: Holds its own `TArray<TObjectPtr<UObject>>` that mirrors the registrations the [UNDynamicRefSubsystem](dynamic-ref-subsystem.md) currently has for that slot/bucket. The wrapper does not query the subsystem — it is fed via `AddObject` / `RemoveObject` by whatever owns it.
+- **Mirrored State**: Holds its own `TArray<TSoftObjectPtr<UObject>>` that mirrors the registrations the [UNDynamicRefSubsystem](dynamic-ref-subsystem.md) currently has for that slot/bucket. The wrapper does not query the subsystem — it is fed via `AddObject` / `RemoveObject` by whatever owns it.
 - **Change Notification**: Fires its `Changed` `FSimpleDelegate` after every add/remove so bound UI can refresh without polling.
 
 ## Creation
@@ -48,6 +48,6 @@ The wrapper is created `RF_Transient` and remembers its `Outer` (typically the o
 
 :::warning
 
-The wrapper holds raw pointers via `TObjectPtr` but is not a source of truth — it can drift from the [UNDynamicRefSubsystem](dynamic-ref-subsystem.md) if you forget to call `AddObject` / `RemoveObject` in response to the subsystem's `OnAdded` / `OnRemoved` delegates. The [Developer Overlay](../developer-overlay.md) handles this wiring; if you build a custom UI on top of these wrappers, mirror that pattern.
+The wrapper holds `TSoftObjectPtr` entries but is not a source of truth — it can drift from the [UNDynamicRefSubsystem](dynamic-ref-subsystem.md) if you forget to call `AddObject` / `RemoveObject` in response to the subsystem's `OnAdded` / `OnRemoved` delegates. The [Developer Overlay](../developer-overlay.md) handles this wiring; if you build a custom UI on top of these wrappers, mirror that pattern.
 
 :::

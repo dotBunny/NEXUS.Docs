@@ -14,28 +14,24 @@ import TypeDetails from '../../../../src/components/TypeDetails';
 
 A component which registers and unregisters the owning `AActor` with the [UNDynamicRefSubsystem](dynamic-ref-subsystem.md) for future lookup.
 
-## Registration
+## Lifecycle
 
-The component has settings for when the `AActor` is registered with the [UNDynamicRefSubsystem](dynamic-ref-subsystem.md) and for when it is unregistered. These correspond to different states of the lifecycle of the component, allowing for some other logic to occur before the `AActor` is referenceable, for example. 
+A single `Lifecycle` setting (of type `ENActorComponentLifecycle`) controls *both* the register and unregister calls — registration always happens during the matching start hook, and unregistration during the paired end hook. This guarantees the two are symmetric.
 
-### Link Phase
+| Setting | Display | Registers on | Unregisters on |
+| :-- | :-- | :-- | :-- |
+| `BeginPlay` | Begin Play | `BeginPlay()` | `EndPlay()` |
+| `InitializeComponent` | Initialize Component | `InitializeComponent()` | `UninitializeComponent()` |
 
-Utilizes a `ENActorComponentLifecycleStart` enumeration to determine when to register.
-
-| Setting  | Display | Behavior |
-| :-- | :-- | --- |
-| `BeginPlay` | Begin Play | Triggers registration during the components `BeginPlay()` call. |
-| `InitializeComponent` | Initialize Component | Triggers registration during the components `InitializeComponent()` call. |
-
-### Break Phase
-
-Utilizes a `ENActorComponentLifecycleEnd` enumeration to determine when to unregister.
-
-| Setting  | Display | Behavior |
-| :-- | :-- | --- |
-| `EndPlay` | End Play | Triggers unregistering during the components `EndPlay()` call. |
-| `UninitializeComponent` | Uninitialize Component | Triggers unregistering during the components `UninitializeComponent()` call. |
+Choose `InitializeComponent` when other components' `BeginPlay()` needs the registration to already be in place; otherwise `BeginPlay` is the safer default.
 
 ## References
 
-There is no hard limit on the number of reference types ([ENDynamicRef](dynamic-ref.md)) you can apply to a given component.
+A component can claim slots two ways, and both arrays can be populated on the same component:
+
+| Property | Type | Used For |
+| :-- | :-- | :-- |
+| `Fast References` | `TArray<ENDynamicRef>` | Fixed-slot lookups via the [ENDynamicRef](dynamic-ref.md) enum (fast array-backed). |
+| `Named References` | `TArray<FName>` | Free-form `FName` buckets for ad-hoc keys not covered by `ENDynamicRef`. |
+
+There is no hard limit on the number of entries in either array. `NDR_None` and `NAME_None` entries are skipped during registration.

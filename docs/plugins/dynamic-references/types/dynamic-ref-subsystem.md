@@ -26,7 +26,7 @@ Accessing the referenced `AActor`s can be done with minimal overhead.
 
 :::note
 
-In the above blueprint example, the [UNDynamicRefComponent](dynamic-ref-component.md) would need to have its `Link Phase` set to `InitializeComponent` in order to ensure it is registered prior to a hypothetical `BeginPlay()` event.
+In the above blueprint example, the [UNDynamicRefComponent](dynamic-ref-component.md) would need to have its `Lifecycle` set to `InitializeComponent` in order to ensure it is registered prior to a hypothetical `BeginPlay()` event.
 
 :::  
   </TabItem>
