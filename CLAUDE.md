@@ -67,15 +67,6 @@ The actual plugin source code can be found locally in `../NEXUS/Plugins` or remo
 
 Each subfolder needs its own `index.mdx` describing the group — see [docs/plugins/core/types/math/index.mdx](docs/plugins/core/types/math/index.mdx) for the canonical shape. The `Plugins` map's `link` field still points at the plugin root; subfolders are never surfaced there.
 
-### Sidebar ordering
-
-The auto-generated sidebar sorts items by `sidebar_position` ascending. Within any folder containing both subfolders and at-level pages, **subfolders appear first, alphabetical among themselves, then at-level pages in their existing order**. Concretely:
-
-- Each subfolder's `index.mdx` uses `sidebar_position: 1..N` where `N` is the number of subfolders, ordered alphabetically by folder name.
-- At-level `.md` files use `sidebar_position` starting at `N+1`.
-- Adding a new subfolder requires bumping every at-level page's `sidebar_position` by one.
-- Files with no `sidebar_position` sort last by filename — leave them alone unless they need to be reordered.
-
 ### Import-path depth in subfolders
 
 A type page's `TypeDetails` import is relative to `src/components/`, so the `../` count depends on depth:

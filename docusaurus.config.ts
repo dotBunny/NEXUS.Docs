@@ -167,6 +167,11 @@ const config: Config = {
           label: 'User Interface',
           className: 'plugin-menu'
         },
+        {
+          to: '/docs/plugins/world-assembly',
+          label: 'World Assembly 🚧',
+          className: 'plugin-menu'
+        },
       ],
     },
     footer: {
