@@ -6,6 +6,12 @@ title: Junction
 
 # Junction
 
+:::info[Wikipedia Definition]
+
+Cell junctions are a class of cellular structures consisting of multiprotein complexes that provide contact or adhesion between neighboring cells or between a cell and the extracellular matrix in animals.
+
+:::
+
 A Junction serves as a sized (XY) connection point between two [Cells](../cell/index.md). During the assembly process, Junctions are used to determine if a Cell can be attached based on its own collision data, `Socket Size` and additional constraints.
 
 In [Returnal](https://housemarque.com/games/returnal), when looking at the area map, you can clearly see where its junctions are, and if they have been filled or connected to other areas.
