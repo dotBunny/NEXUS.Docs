@@ -5,3 +5,5 @@ title: Tissue
 ---
 
 # Tissue
+
+![Tissue Data](tissue-data.webp)
