@@ -5,3 +5,5 @@ title: Cell
 ---
 
 # Cell
+
+![Editing Convex Hull](cell-edit-hull-vertex.webp)

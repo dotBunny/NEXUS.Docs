@@ -5,3 +5,5 @@ title: Organ
 ---
 
 # Organ
+
+![Unbounded Organ](organ-component-unbounded.webp)
