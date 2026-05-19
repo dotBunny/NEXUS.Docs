@@ -1,7 +1,6 @@
 ---
 description: A procedural generation system focused on creating dynamic gameplay-focused spaces.
-sidebar_position: 2
-sidebar_label: Process Flow 🚧
+sidebar_label: Process Flow
 title: Process Flow
 ---
 
