@@ -6,6 +6,12 @@ description: Some of the more common questions that come to mind are answered.
 
 # Frequently Asked Questions
 
+## Why another framework? Seriously!
+
+As development began on the original procedural generation side of things (now called World Assembly) it became abundantly clear that there would be a non-trivial amount of supporting pieces of tech necessary for it to achieve its development goals. The decision to make them bespoke into a series of plugins inside the framework came out of wanting to get small pieces of tech in the hands of other developers faster to battle-test that functionality whilst the larger overall goal was continued to be chipped away at.
+
+The framework does not try to replace provided Unreal Engine functionality when present, only augment and improve on. 
+
 ## What’s the deal with all the plugins having the same Version/Number?
 
 The `UPlugin` definitions for all plugins are automatically updated when the `N_VERSION_NUMBER`, `N_VERSION_MAJOR`, `N_VERSION_MINOR`, and `N_VERSION_PATCH` are updated inside of `NCoreMinimal.h`.
