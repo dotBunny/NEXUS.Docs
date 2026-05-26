@@ -2,7 +2,7 @@
 sidebar_label: Developer Overlay
 sidebar_position: 3
 description: An overlay listing every live ENDynamicRef slot and FName bucket in the active world(s).
-tags: [0.2.7]
+tags: [0.2.7, 0.3.0]
 ---
 
 import TypeDetails from '../../../src/components/TypeDetails';
@@ -28,6 +28,12 @@ The overlay is split into two stacked lists, each preceded by a header that auto
 | `Named References` | Every populated `FName` bucket, one row per bucket. |
 
 Each row is a [UNDynamicRefListViewEntry](types/dynamic-ref-list-view-entry.md) bound to a [UNDynamicRefObject](types/dynamic-ref-object.md) wrapper. Inside each row, a nested list contains one button per `UObject` currently registered to that slot/bucket. When no references are present in any world, the overlay displays a `No References Found` banner.
+
+:::info[Weak References]
+
+The overlay only holds `TWeakObjectPtr`s to the displayed `UObject`s — it never roots them, never extends their lifetime, and never crashes when an underlying object is garbage-collected between paints. Rows whose target has gone away are pruned on the next refresh tick.
+
+:::
 
 ## Multi-World Support
 

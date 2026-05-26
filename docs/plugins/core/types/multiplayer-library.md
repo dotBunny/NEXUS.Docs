@@ -3,7 +3,7 @@ sidebar_position: 13
 sidebar_label: Multiplayer Library
 sidebar_class_name: type ue-blueprint-function-library
 description: A handful of methods meant to support the building logic that works in multiplayer scenarios.
-tags: [0.1.0, 0.2.4]
+tags: [0.1.0, 0.2.4, 0.3.0]
 ---
 
 import TypeDetails from '../../../../src/components/TypeDetails';
@@ -20,6 +20,12 @@ Every method that touches the world takes a `UObject* WorldContextObject` so the
 :::tip[Native Code Paths]
 
 If you already have a `UWorld*` pointer, prefer calling [`FNMultiplayerUtils`](https://github.com/dotBunny/NEXUS/blob/main/Plugins/Core/Source/NexusCore/Public/NMultiplayerUtils.h) directly — every method here forwards to one of its `FORCEINLINE` statics. The native utility also exposes a `ServerTravel` wrapper that is not surfaced through Blueprint.
+
+:::
+
+:::info[Module Migration <VersionBadge version="0.3.0" type="header" />]
+
+`UNMultiplayerLibrary` was previously shipped in the standalone `NexusMultiplayer` module and now lives in `NexusCore`. Existing Blueprint references continue to resolve via a `ClassRedirect` in `DefaultEngine.ini` — no action is required when upgrading.
 
 :::
 

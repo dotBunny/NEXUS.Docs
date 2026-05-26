@@ -26,8 +26,16 @@ By default the component will automatically change its collision profile to `Ove
 
 | Setting | Type | Description | Default |
 | :-- | :-- | :-- | :-- |
-| Ignore Static Actors? | `bool` | Ignore static (Non-movable) actors that trigger an overlap event.  | `true` |
-| Unknown Behavior | `ENKillZoneBehavior` | What should occur for an AActor that doesn't implement the `INActorPoolItem` interface and doesn't have an existing `FNActorPool`.  | `ApplyFellOutOfWorld` |
+| Ignore Static Actors | `bool` | Ignore static (Non-movable) actors that trigger an overlap event. | `true` |
+| Non-INActorPoolItem Behavior | `ENKillZoneBehavior` | What should occur for an `AActor` that doesn't implement the `INActorPoolItem` interface and doesn't have an existing `FNActorPool`. | `ApplyFellOutOfWorld` |
+
+### Behaviors
+
+| Value | Behavior |
+| :-- | :-- |
+| `Ignore` | Leave the `AActor` alone — no return, no destroy, no damage. |
+| `ReturnToActorPool` | Force the `AActor` back to its [FNActorPool](actor-pool.md) (or destroy it if no pool exists). |
+| `ApplyFellOutOfWorld` | Apply the world fall damage type to the `AActor`, matching engine kill-volume behavior. *(default)* |
 
 
 ## UFunctions

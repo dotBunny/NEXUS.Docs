@@ -56,3 +56,5 @@ flowchart TD
   - <span style={{color:'#2f7a4f',fontWeight:600}}>Any Normal Thread</span>: world processing, organ graph building, spawn-context creation.
   - <span style={{color:'#7a4f9a',fontWeight:600}}>Any Background Thread</span>: per-pass collection (`FNProcessPassTask`).
 - **`SpawnCellProxiesTaskCompleted`** is a manually-fired `FGraphEvent` the spawn task triggers when its time-sliced work finishes; it is what actually gates `FNWorldAssemblyFinalizeTask`, not the dispatcher task itself.
+- **Cancellation**. Each in-flight operation list-view entry exposes a cancel button, and the [Subsystem](subsystem.md) also tears down any pending tasks during PIE exit or world teardown. The task graph holds back-pointers to both the active context and the virtual world so it can reset them mid-pass without leaking — cancelled tasks are dropped before their callbacks fire.
+- **Single-flight generation**. The editor-side UI debounces repeated **Generate** clicks so only one operation can be in flight at a time, preventing PIE-time UI hammering from stacking up overlapping graphs.

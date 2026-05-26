@@ -4,14 +4,14 @@ sidebar_class_name: type ue-blueprint-function-library
 description: Provides various functions for generating points inside or on the surface of a sphere using different random generation strategies.
 toc_min_heading_level: 2
 toc_max_heading_level: 5
-tags: [0.1.0, 0.2.7]
+tags: [0.1.0, 0.2.7, 0.3.0]
 ---
 
 import TypeDetails from '../../../../src/components/TypeDetails';
 
 # Sphere
 
-<TypeDetails icon="ue-blueprint-function-library" base="UBlueprintFunctionLibrary" type="UNSpherePickerLibrary" typeExtra="/ FNSpherePicker" headerFile="NexusActorPools/Public/NSpherePickerLibrary.h" />
+<TypeDetails icon="ue-blueprint-function-library" base="UBlueprintFunctionLibrary" type="UNSpherePickerLibrary" typeExtra="/ FNSpherePicker" headerFile="NexusPicker/Public/NSpherePickerLibrary.h" />
 
 ![Sphere: Next Density](sphere/sphere-next-density.webp)
 
@@ -68,6 +68,20 @@ Generates a random point inside or on the surface of a sphere using a provided s
 </div>
 
 Generates a random point inside or on the surface of a sphere while tracking the random seed state.
+
+### Twisted Point
+
+Generates points using a caller-owned [`FNMersenneTwister`](../../core/types/math/mersenne-twister.md) so the same picker can participate in a larger deterministic stream without rebuilding state between calls.
+
+```cpp
+static void Twisted(TArray<FVector>& OutLocations, FNMersenneTwister& Random, const FNSpherePickerParams& Params);
+```
+
+:::info[Boundary Fix]
+
+As of `0.3.0`, `FNSpherePicker` no longer emits points that fall ever-so-slightly outside the configured `MaximumRadius` — the previous floating-point drift on rejection-sampling has been tightened.
+
+:::
 
 ## FNSpherePickerParams
 

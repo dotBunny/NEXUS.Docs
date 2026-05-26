@@ -4,14 +4,14 @@ sidebar_class_name: type ue-blueprint-function-library
 description: Provides various functions for generating points inside or on the surface of an arc using different random generation strategies.
 toc_min_heading_level: 2
 toc_max_heading_level: 5
-tags: [0.1.0, 0.2.7]
+tags: [0.1.0, 0.2.7, 0.3.0]
 ---
 
 import TypeDetails from '../../../../src/components/TypeDetails';
 
 # Arc
 
-<TypeDetails icon="ue-blueprint-function-library" base="UBlueprintFunctionLibrary" type="UNArcPickerLibrary" typeExtra="/ FNArcPicker" headerFile="NexusActorPools/Public/NArcPickerLibrary.h" />
+<TypeDetails icon="ue-blueprint-function-library" base="UBlueprintFunctionLibrary" type="UNArcPickerLibrary" typeExtra="/ FNArcPicker" headerFile="NexusPicker/Public/NArcPickerLibrary.h" />
 
 ![Arc: Next Density](arc/arc-next-density.webp)
 
@@ -68,6 +68,14 @@ Gets a random point inside or on an arc using a one-shot seed.
 </div>
 
 Gets a random point inside or on an arc using a tracked seed. The seed altered for each `Count`.
+
+### Twisted Point
+
+Generates points using a caller-owned [`FNMersenneTwister`](../../core/types/math/mersenne-twister.md) so the same picker can participate in a larger deterministic stream without rebuilding state between calls.
+
+```cpp
+static void Twisted(TArray<FVector>& OutLocations, FNMersenneTwister& Random, const FNArcPickerParams& Params);
+```
 
 ## FNArcPickerParams
 

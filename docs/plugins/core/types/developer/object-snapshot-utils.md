@@ -3,7 +3,7 @@ sidebar_position: 19
 sidebar_label: Object Snapshot Utils
 sidebar_class_name: type native-class
 description: Entry points for capturing and comparing UObject snapshots.
-tags: [0.1.0]
+tags: [0.1.0, 0.3.0]
 ---
 
 import TypeDetails from '../../../../../src/components/TypeDetails';
@@ -55,8 +55,10 @@ Computes the diff between two snapshots.
  * @param bRemoveKnownLeaks Remove entries classified as known-leaks from the result if true.
  * @return A fully populated FNObjectSnapshotDiff describing the Added/Maintained/Removed sets.
  */
-static FNObjectSnapshotDiff Diff(FNObjectSnapshot OldSnapshot, FNObjectSnapshot NewSnapshot, bool bRemoveKnownLeaks = false);
+static FNObjectSnapshotDiff Diff(const FNObjectSnapshot& OldSnapshot, const FNObjectSnapshot& NewSnapshot, bool bRemoveKnownLeaks = false);
 ```
+
+Snapshots are now passed by `const` reference and walked with a consumed-set model — entries are matched and removed from working sets as the diff is built rather than being copied between intermediate arrays. The result is the same `FNObjectSnapshotDiff`, just produced with materially less allocation and copying on large snapshots.
 
 ### Remove Known Leaks
 

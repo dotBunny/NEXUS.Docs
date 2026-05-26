@@ -14,6 +14,7 @@ From the `Edit > Project Settings` window, find the **Guardian** section.
 | Setting | Description | Default |
 | :-- | --- | :-- |
 | `Build Availability` | Bitmask of `ENBuildConfigurationAvailability` flags (`Debug`, `Development`, `Shipping`, `Test`, `Editor`) controlling which build configurations the [UNGuardianSubsystem](types/guardian-subsystem.md) is created in. Set to `None` (`0`) to disable the subsystem entirely. | `Debug`, `Development`, `Test`, `Editor` (everything except `Shipping`) |
+| `Tick Rate` | How often the subsystem polls the live `UObject` count (seconds). Lower values catch threshold crossings sooner at the cost of more sampling work. Clamped `0.0` – `300.0`. | `1.0` |
 | `Save Capture` | When `true`, snapshot and compare results are written to the project's `Saved/Logs` folder with the prefix `NEXUS_Snapshot_*` and `NEXUS_Compare_*`. Disk output is not required for comparison — snapshots are also held in memory. | `false` |
 
 ## Baseline

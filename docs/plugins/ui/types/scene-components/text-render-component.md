@@ -16,6 +16,14 @@ A component that builds a network-synchronized `UTextRenderComponent` between cl
 
 ![Text Render Component](text-render-component.webp)
 
+:::info[Module Migration]
+
+`UNTextRenderComponent` was previously shipped in the standalone `NexusMultiplayer` module and now lives in `NexusUI`. Existing Blueprint references continue to resolve via a `ClassRedirect` in `DefaultEngine.ini` — no action is required when upgrading.
+
+The previous `Server_*` setter variants were removed in `0.3.0`; call the [`SetFrom*`](#set-from-name) setters directly — they handle the authority check and replication internally.
+
+:::
+
 ## UFunctions
 
 ### Set From Name

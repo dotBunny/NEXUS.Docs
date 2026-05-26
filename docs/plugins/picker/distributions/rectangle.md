@@ -4,14 +4,14 @@ sidebar_class_name: type ue-blueprint-function-library
 description: Provides various functions for generating points the plane of a rectangle using different random generation strategies.
 toc_min_heading_level: 2
 toc_max_heading_level: 5
-tags: [0.1.0, 0.2.7]
+tags: [0.1.0, 0.2.7, 0.3.0]
 ---
 
 import TypeDetails from '../../../../src/components/TypeDetails';
 
 # Rectangle
 
-<TypeDetails icon="ue-blueprint-function-library" base="UBlueprintFunctionLibrary" type="UNRectanglePickerLibrary" typeExtra="/ FNRectanglePicker" headerFile="NexusActorPools/Public/NRectanglePickerLibrary.h" />
+<TypeDetails icon="ue-blueprint-function-library" base="UBlueprintFunctionLibrary" type="UNRectanglePickerLibrary" typeExtra="/ FNRectanglePicker" headerFile="NexusPicker/Public/NRectanglePickerLibrary.h" />
 
 ![Rectangle: Next Density](rectangle/rectangle-next-density.webp)
 
@@ -68,6 +68,14 @@ Generates a random point inside or on the boundary of a rectangle using a provid
 </div>
 
 Generates a random point inside or on the boundary of a rectangle using a tracked seed.
+
+### Twisted Point
+
+Generates points using a caller-owned [`FNMersenneTwister`](../../core/types/math/mersenne-twister.md) so the same picker can participate in a larger deterministic stream without rebuilding state between calls.
+
+```cpp
+static void Twisted(TArray<FVector>& OutLocations, FNMersenneTwister& Random, const FNRectanglePickerParams& Params);
+```
 
 ## FNRectanglePickerParams
 

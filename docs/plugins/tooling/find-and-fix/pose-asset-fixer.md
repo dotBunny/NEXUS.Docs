@@ -1,7 +1,7 @@
 ---
 sidebar_position: 1
 description: An action to find and resolve UPoseAssets that are out-of-date with their source animation.
-tags: [0.1.0]
+tags: [0.1.0, 0.3.0]
 ---
 
 # Pose Asset Fixer
@@ -15,6 +15,8 @@ LogAnimation: Error: [CookWorker #]: PoseAsset <YourPoseAssetPath> is out-of-dat
 ```
 
 Found in the **Content Browser's** context menu `Find & Fix > Outdated PoseAsset Source Animations`, this command will scan your project's content for UPoseAssets and perform the check done when cooking. If the hashes do not match, it will update from the source animation automatically for you.
+
+The fixer will not run against `/All` — pick a specific subfolder before invoking it. Before any work begins, an interactive confirmation prompt reports the total number of `UPoseAssets` about to be processed so you can cancel large jobs; the prompt is skipped when running under `-run=<commandlet>`, so automation scripts proceed without intervention.
 
 :::warning
 

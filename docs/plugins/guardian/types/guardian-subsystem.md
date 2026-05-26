@@ -66,6 +66,8 @@ Once the baseline is set, every tick samples the total `UObject` count and compa
 
 Each action fires once per arming of the ladder — the latched flag is checked before the action runs, so the subsystem will not re-warn or re-snapshot while the count stays above the warning threshold. The ladder re-arms automatically when the live count drops back below the warning threshold (latched flags clear, the held snapshot is dropped), and can be re-armed manually by calling `SetBaseline()` again.
 
+The tick frequency itself is configurable via [`Tick Rate`](../project-settings.md#subsystem) (default `1.0s`); when a snapshot or compare action does fire, the disk write is dispatched to a background task so the game thread is never blocked waiting on file I/O.
+
 ## Reading State
 
 The following accessors are intended for HUD overlays, automated tests, or any tooling that wants to observe the subsystem without driving it:

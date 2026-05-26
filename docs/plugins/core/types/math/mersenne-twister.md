@@ -3,7 +3,7 @@ sidebar_position: 33
 sidebar_label: Mersenne Twister
 sidebar_class_name: type native-class
 description: Mersenne Twister based FRandomStream-like API with some extras.
-tags: [0.1.0]
+tags: [0.1.0, 0.3.0]
 ---
 
 import TypeDetails from '../../../../../src/components/TypeDetails';
@@ -98,13 +98,13 @@ uint64 UnsignedInteger64();
 ### Vector
 
 ```cpp
-/** Generate a pseudo random normalized FVector (-1 to 1). */
-FVector VectorNormalized();
-
-/** Generates a pseudo random FVector using the provided ranges. */
+/** Generates a pseudo random FVector using the provided per-component range. */
 FVector Vector(const float MinimumRange = MIN_flt, const float MaximumRange = MAX_flt);
 
-/** Generate a pseudo random normalized FVector. */
+/**
+ * Generate a pseudo random unit-length FVector by rejection-sampling inside the unit sphere,
+ * so each component lands in [-1, 1] with a statistically uniform distribution on the sphere.
+ */
 FORCEINLINE FVector VRand();
 ```
 

@@ -68,7 +68,11 @@ Calculates an axis-aligned bounding box that encompasses all relevant actors in 
  * @param ActorIgnoreTags Any actor carrying one of these tags is ignored.
  * @param bIncludeEditorOnly If true, editor-only actors contribute to the bounds.
  * @param bIncludeNonColliding If true, non-colliding actors also contribute to the bounds.
+ * @param bIncludeTransientActors If true, transient actors also contribute to the bounds.
  */
 static void DetermineLevelBounds(ULevel* InLevel, FBox& OutBounds, TArray<const AActor*>& OutIgnoredActors,
-  const TArray<FName>& ActorIgnoreTags, bool bIncludeEditorOnly = false, bool bIncludeNonColliding = false);
+  const TArray<FName>& ActorIgnoreTags, bool bIncludeEditorOnly = false, bool bIncludeNonColliding = false,
+  bool bIncludeTransientActors = false);
 ```
+
+Transient actors are excluded by default — flip `bIncludeTransientActors` to `true` only when you specifically need throwaway/runtime-only actors (e.g. debug markers) to influence the resulting bounds.

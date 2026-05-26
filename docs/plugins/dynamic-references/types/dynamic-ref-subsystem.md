@@ -355,3 +355,5 @@ The subsystem fires four native multicast delegates that broadcast every registr
 | `OnRemovedByName` | `(FName, UObject*)` | An object is unregistered from a named bucket. |
 
 The delegates are native (not `BlueprintAssignable`) — bind from C++ via `OnAdded.AddUObject(...)` and remove with `RemoveAll(this)` in your teardown path.
+
+`OnRemoved` / `OnRemovedByName` only fire when the call actually removes something — attempting to remove a `UObject` that was never registered to a slot/bucket is now a silent no-op rather than a spurious broadcast.

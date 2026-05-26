@@ -4,14 +4,14 @@ sidebar_class_name: type ue-blueprint-function-library
 description: Provides various functions for generating points along a USplineComponent spline using different random generation strategies.
 toc_min_heading_level: 2
 toc_max_heading_level: 5
-tags: [0.1.0, 0.2.7]
+tags: [0.1.0, 0.2.7, 0.3.0]
 ---
 
 import TypeDetails from '../../../../src/components/TypeDetails';
 
 # Spline
 
-<TypeDetails icon="ue-blueprint-function-library" base="UBlueprintFunctionLibrary" type="UNSplinePickerLibrary" typeExtra="/ FNSplinePicker" headerFile="NexusActorPools/Public/NSplinePickerLibrary.h" />
+<TypeDetails icon="ue-blueprint-function-library" base="UBlueprintFunctionLibrary" type="UNSplinePickerLibrary" typeExtra="/ FNSplinePicker" headerFile="NexusPicker/Public/NSplinePickerLibrary.h" />
 
 ![Spline: Next Density](spline/spline-next-density.webp)
 
@@ -69,6 +69,14 @@ nerates a random point on a `USplineComponent`'s spline using a provided seed, t
 </div>
 
 Generates a random point on a `USplineComponent`'s spline while tracking the random seed state.
+
+### Twisted Point
+
+Generates points using a caller-owned [`FNMersenneTwister`](../../core/types/math/mersenne-twister.md) so the same picker can participate in a larger deterministic stream without rebuilding state between calls.
+
+```cpp
+static void Twisted(TArray<FVector>& OutLocations, FNMersenneTwister& Random, const FNSplinePickerParams& Params);
+```
 
 ## FNSplinePickerParams
 

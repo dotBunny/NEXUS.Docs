@@ -1,5 +1,5 @@
 ---
-description: TBD
+description: Actor tags and gameplay tags used to drive World Assembly behavior.
 title: Tags
 ---
 
@@ -7,15 +7,21 @@ title: Tags
 
 ## Actor Tags
 
-| Tag | Description |
-| --- | --- |
-| `NCell_Ignore` | |
-| `NCell_BoundsIgnore` | |
-| `NCell_HullIgnore` | |
-| `NCell_VoxelIgnore` | |
-| `NWorldCollision_Ignore` | |
+Plain `FName` tags added to any `AActor` in a cell's source level. Each cell-generation pass reads a list of ignore tags from the matching settings struct and skips actors carrying any of them; the **World Collision Ignore** tag is consumed by the virtual-world capture phase before any cell pass runs.
+
+| Tag | Consumed By | Effect |
+| --- | --- | --- |
+| `NCell_Ignore` | [Bounds](concepts/cell/index.md), [Hull](concepts/cell/index.md), [Voxel](concepts/cell/index.md) generation settings | Excludes the actor from every cell-generation pass — bounds, hull, and voxel calculations all skip it. |
+| `NCell_BoundsIgnore` | Bounds generation settings | Excludes the actor from the cell's axis-aligned bounds calculation only. |
+| `NCell_HullIgnore` | Hull generation settings | Excludes the actor from the cell's convex-hull calculation only. |
+| `NCell_VoxelIgnore` | Voxel generation settings | Excludes the actor from the cell's voxel-occupancy calculation only. |
+| `NWorldCollision_Ignore` | `FNCreateVirtualWorldTask` | Excludes the actor from the virtual-world collision capture; the actor is not visible to any subsequent assembly pass at all. |
+
+The edit-mode toolbar in [Editor Mode](editor-mode.md) provides quick-toggle commands for the `NCell_Ignore` and `NWorldCollision_Ignore` tags on the current selection.
 
 ## Gameplay Tags
+
+Native gameplay tags declared in `NWorldAssemblyGameplayTags.h`. They are evaluated by the organ-assembly graph builder when ranking candidate tissue entries for each position in the graph.
 
 | Tag | Description |
 | --- | --- |

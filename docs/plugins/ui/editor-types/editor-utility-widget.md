@@ -3,7 +3,7 @@ sidebar_position: 2
 sidebar_label: Editor Utility Widget
 sidebar_class_name: type ue-widget
 description: An extension on UEditorUtilityWidget providing a custom tab icon, deferred post-construct work, and cross-session state persistence via UNEditorUtilityWidgetSubsystem.
-tags: [0.2.0]
+tags: [0.2.0, 0.3.0]
 ---
 
 import TypeDetails from '../../../../src/components/TypeDetails';

@@ -4,14 +4,14 @@ sidebar_class_name: type ue-blueprint-function-library
 description: Provides various functions for generating points in the plane of a circle using different random generation strategies.
 toc_min_heading_level: 2
 toc_max_heading_level: 5
-tags: [0.1.0, 0.2.7]
+tags: [0.1.0, 0.2.7, 0.3.0]
 ---
 
 import TypeDetails from '../../../../src/components/TypeDetails';
 
 # Circle
 
-<TypeDetails icon="ue-blueprint-function-library" base="UBlueprintFunctionLibrary" type="UNCirclePickerLibrary" typeExtra="/ FNCirclePicker" headerFile="NexusActorPools/Public/NCirclePickerLibrary.h" />
+<TypeDetails icon="ue-blueprint-function-library" base="UBlueprintFunctionLibrary" type="UNCirclePickerLibrary" typeExtra="/ FNCirclePicker" headerFile="NexusPicker/Public/NCirclePickerLibrary.h" />
 
 ![Circle: Next Density](circle/circle-next-density.webp)
 
@@ -68,6 +68,20 @@ Generates a random point inside or on the perimeter of a circle using a provided
 </div>
 
 Generates a random point inside or on the perimeter of a circle while tracking the random seed state. Updates the seed value to enable sequential random point generation.
+
+### Twisted Point
+
+Generates points using a caller-owned [`FNMersenneTwister`](../../core/types/math/mersenne-twister.md) so the same picker can participate in a larger deterministic stream without rebuilding state between calls.
+
+```cpp
+static void Twisted(TArray<FVector>& OutLocations, FNMersenneTwister& Random, const FNCirclePickerParams& Params);
+```
+
+:::info[Containment Fix]
+
+As of `0.3.0`, `FNCirclePicker::IsPointInsideOrOn` and `UNCirclePickerLibrary::IsPointInsideOrOn` correctly return `true` when the point is inside a circle with a non-identity `Rotation` — the previous implementation tested against the unrotated plane and could reject valid hits on tilted circles.
+
+:::
 
 ## FNCirclePickerParams
 

@@ -75,7 +75,7 @@ Draw a string via a `FPrimitiveDrawInterface`.
  * @param bDrawBelowPosition Should the top of the first line align with the position?
  * @param DepthPriorityGroup What depth should the string be drawn at?
  */
-static void DrawPDI(FPrimitiveDrawInterface* PDI, FString& String, const FVector& Position,
+static void DrawPDI(FPrimitiveDrawInterface* PDI, const FString& String, const FVector& Position,
   const FRotator& Rotation, FLinearColor ForegroundColor = FLinearColor::White, float Scale = 1,
   float LineHeight = 4.f, float Thickness = 8.f, const bool bInvertLineFeed = false,
   const bool bDrawBelowPosition = true, const ESceneDepthPriorityGroup DepthPriorityGroup = SDPG_World);
@@ -101,7 +101,7 @@ Draw a string via a `ULineBatchComponent`.
  * @param bDrawBelowPosition Should the top of the first line align with the position?
  * @param DepthPriorityGroup What depth should the string be drawn at?
  */
-static void DrawBatchString(ULineBatchComponent* LineBatch, FString& String, const FVector& Position,
+static void DrawBatchString(ULineBatchComponent* LineBatch, const FString& String, const FVector& Position,
   const FRotator& Rotation, FLinearColor ForegroundColor = FLinearColor::White, float Scale = 1,
   float LineHeight = 4.f, float Thickness = 8.f, float LifeTime = 0.f, const bool bInvertLineFeed = false,
   const bool bDrawBelowPosition = true, const ESceneDepthPriorityGroup DepthPriorityGroup = SDPG_World);
