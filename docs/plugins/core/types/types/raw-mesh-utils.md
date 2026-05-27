@@ -33,7 +33,7 @@ static void CombineMesh(const FTransform& BaseTransform, FNRawMesh& BaseMesh,
 
 ### Does Intersect
 
-Tests whether two raw meshes intersect when placed at the given origins and rotations. Uses a transformed-AABB early-out, then a triangle-vs-triangle sweep, then a containment fallback so a fully-enclosed mesh is still reported as intersecting. Convex inputs use a face-plane containment test; non-convex inputs fall back to an odd-parity ray cast (see [Is Relative Point Inside](#is-relative-point-inside)).
+Tests whether two raw meshes intersect when placed at the given origins and rotations. Uses a transformed-AABB early-out, then a triangle-vs-triangle sweep, then a containment fallback so a fully-enclosed mesh is still reported as intersecting. Convex inputs use a face-plane containment test; non-convex inputs fall back to an odd-parity ray cast (see [Is Relative Point Inside](#containment-tests)).
 
 Convex-vs-convex pairs with a populated [`FaceLoops`](raw-mesh.md#properties) description take a SAT-rejection fast path before the tri-tri sweep — cheap proof of non-overlap when any face plane separates the two meshes — falling through to the standard sweep when no face normal separates.
 
