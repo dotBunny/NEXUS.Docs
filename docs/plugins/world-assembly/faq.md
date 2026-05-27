@@ -1,7 +1,7 @@
-—
+---
 description: TBD
 sidebar_label: FAQ
-—
+---
 
 # FAQ
 
