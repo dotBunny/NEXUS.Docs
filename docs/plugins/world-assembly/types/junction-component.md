@@ -1,10 +1,15 @@
 ---
-description: TBD
-sidebar_label: Junction
-title: Junction
+description: A Junction serves as a sized (XY) connection point between two Cells.
+sidebar_class_name: type ue-scene-component
 ---
 
-# Junction
+import TypeDetails from '../../../../src/components/TypeDetails';
+
+# Junction Component
+
+
+<TypeDetails icon="/assets/svg/world-assembly/world-assembly-junction-component.svg" iconType="img" base="USceneComponent" type="UNCellJunctionComponent" typeExtra="" headerFile="NexusWorldAssembly/Public/Cell/NCellJunctionComponent.h" />
+
 
 :::info[Wikipedia Definition]
 
@@ -12,7 +17,7 @@ Cell junctions are a class of cellular structures consisting of multiprotein com
 
 :::
 
-A Junction serves as a sized (XY) connection point between two [Cells](../cell/index.md). During the assembly process, Junctions are used to determine if a Cell can be attached based on its own collision data, `Socket Size` and additional constraints.
+A Junction serves as a sized (XY) connection point between two [Cells](../concepts/cell/index.md). During the assembly process, Junctions are used to determine if a Cell can be attached based on its own collision data, `Socket Size` and additional constraints.
 
 In [Returnal](https://housemarque.com/games/returnal), when looking at the area map, you can clearly see where its junctions are, and if they have been filled or connected to other areas.
 
@@ -26,9 +31,11 @@ A Junction is represented in the world by adding a `UNCellJunctionComponent` to 
 
 A Junction will only persist on a Cell if the level contains a `UNCellRootComponent`. If you add one to a level without a root, the component will log an error and remove itself on the next tick. Each surviving Junction is automatically registered against the owning `ANCellActor` and assigned a stable `InstanceIdentifier`, which is what the side-car data used during generation keys off of.
 
-## Editing Junctions
+## Component Details
 
-### Settings
+
+
+![Bone Component Details](junction-component-details.webp)
 
 
 | Setting | Type | Description | Default |
@@ -39,23 +46,31 @@ A Junction will only persist on a Cell if the level contains a `UNCellRootCompon
 | Rotation Contraints | `FNRotationConstraints`| What rotations can be made by this junction to match another. | |
 | Weighting | `int32` | Relative weight against other junctions in the cell for selection. | `1` | 
 
-### Gizmo
+## Gizmo
 
 ![Junction Gizmo](junction-gizmo.webp)
 
 The in-editor drawing of the Junction is meant to convey specific information about the settings of the Junction.
 
-#### Sizing
+### Sizing
 
 The circular nubs are representative of the size and scale of the defined `Socket Size`.
 
-#### Directionality
+### Directionality
 
-The arrow in the middle indicates the forward direction of the Junction. This is important because you always want the direction facing into the room.
+The arrow in the middle indicates the forward direction of the **Junction**.
 
-#### Color
+:::important[Facing Direction]
+
+It is important that the direction of the **Junction** in a Cell always face inwards.
+
+:::
+
+### Color
 
 The gizmo color is derived from two pieces of state: whether any of the junction's corner points fall inside the Cell's convex hull, and the junction's `Requirements` value.
+
+![Junction Gizmo w/ Depth](junction-gizmo-distance.webp)
 
 | Color | Meaning |
 |---|---|
@@ -64,7 +79,7 @@ The gizmo color is derived from two pieces of state: whether any of the junction
 | Mid Green | `Allow Blocking` |
 | Dark Green | `Allow Empty` |
 
-The pink override exists because `NWorldAssembly`'s placement system permits penetrating matches (up to a configured distance). A pink junction signals that it sits inside the hull and will be subject to those penetration settings — not that it is misplaced.
+The pink override exists because `NWorldAssembly`'s placement system permits penetrating matches (up to a configured distance). A pink junction signals that it sits inside the hull and will be subject to those penetration settings — not that it is misplaced. It also will display the penetration depth for reference.
 
 :::warning 
 
@@ -72,7 +87,7 @@ This is going to change in the future when the filling/blocking of Junctions is
 
 :::
 
-#### Corner Points
+### Corner Points
 
 The corner-point lines indicate the junction's `Type` — `Two-Way`, `In-Only`, `Out-Only`, or `One-Way`.
 
