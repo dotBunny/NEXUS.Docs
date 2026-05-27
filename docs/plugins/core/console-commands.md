@@ -9,7 +9,7 @@ Some console commands for developers to use provided by NCore.
 
 ## Developer
 
-|Command|Description|Flag(s)|Shippable|
+| Command | Description | Flag(s) | Shippable |
 |:--|:--|:--|:--|
 |`N.Developer.Snapshot`|Take a snapshot of the currently known objects and save to the projects log folder.|`ECVF_Default`|`Yes`|
 |`N.Developer.CacheSnapshot`|Caches a snapshot to be compared against manually via `N.Developer.CompareSnapshot`|`ECVF_Default`|`Yes`|
