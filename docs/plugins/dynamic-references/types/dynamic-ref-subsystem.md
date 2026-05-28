@@ -3,10 +3,11 @@ sidebar_position: 3
 sidebar_label: DynamicRef Subsystem
 sidebar_class_name: type ue-world-subsystem
 description: A locator system that maintains a map that organizes actors into predefined categories.
-tags: [0.1.0]
+tags: [0.1.0, 0.3.0]
 ---
 
 import TypeDetails from '../../../../src/components/TypeDetails';
+import VersionBadge from '../../../../src/components/VersionBadge';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
@@ -14,7 +15,7 @@ import TabItem from '@theme/TabItem';
 
 <TypeDetails icon="ue-world-subsystem" base="UWorldSubsystem" type="UNDynamicRefSubsystem" typeExtra="" headerFile="NexusDynamicRefs/Public/NDynamicRefSubsystem.h" />
 
-A locator system that maintains a map that organizes UObject into predefined categories [ENDynamicRef](dynamic-ref.md) or named buckets (FName).
+A locator system that maintains a map that organizes `UObject` into predefined categories ([ENDynamicRef](dynamic-ref.md)), named buckets (`FName`), or `FGameplayTag` keys. Tag-keyed entries are stored in the same `FName`-bucket map under the tag's `TagName`, so every tag accessor is effectively a thin convenience wrapper over its `*ByName` equivalent.
 
 ## Getting Actors
 
@@ -284,6 +285,148 @@ UObject* GetLastObject(const ENDynamicRef DynamicRef);
 UObject* GetLastObjectByName(FName Name);
 ```
 
+### Tag References<VersionBadge version="0.3.0" branch="main" type="header" />
+
+`FGameplayTag` accessors operate on the same named map as the `*ByName` calls — the tag's `TagName` is the key. There are no tag-specific `Add*` / `Remove*` calls: register a tag via the [UNDynamicRefComponent](dynamic-ref-component.md)'s `TagReferences` (or by calling the matching `*ByName` overload with `Tag.GetTagName()`). Tags that fail `IsValid()` are treated as a no-op and return empty/null.
+
+#### Get Actors (By Tag)
+
+```cpp
+/**
+  * Gets an array of AActor dynamically associated with the provided FGameplayTag.
+  * @note This method will only return AActor objects, filtering out any non-AActor UObject.
+  * @param Tag The desired FGameplayTag to access.
+  * @return An array of AActor.
+  */
+TArray<AActor*> GetActorsByTag(FGameplayTag Tag);
+```
+
+#### Get Objects (By Tag)
+
+```cpp
+/**
+  * Gets an array of UObject dynamically associated with the provided FGameplayTag.
+  * @param Tag The desired FGameplayTag to access.
+  * @return An array of UObject.
+  */
+TArray<UObject*> GetObjectsByTag(FGameplayTag Tag);
+```
+
+#### Get First Actor (By Tag)
+
+```cpp
+/**
+  * Retrieves the first/oldest AActor associated with a specified FGameplayTag.
+  * @param Tag The FGameplayTag collection to iterate.
+  * @return A pointer to the first AActor found for the specified FGameplayTag, or nullptr if no actors are found.
+  */
+AActor* GetFirstActorByTag(FGameplayTag Tag);
+```
+
+#### Get First Object (By Tag)
+
+```cpp
+/**
+  * Gets the first/oldest UObject associated with the provided FGameplayTag.
+  * @param Tag The desired FGameplayTag to access.
+  * @return The first UObject in the collection.
+  */
+UObject* GetFirstObjectByTag(FGameplayTag Tag);
+```
+
+#### Get Last Actor (By Tag)
+
+```cpp
+/**
+  * Retrieves the last/newest AActor associated with a specified FGameplayTag.
+  * @param Tag The FGameplayTag collection to iterate.
+  * @return A pointer to the last AActor found for the specified FGameplayTag, or nullptr if no actors are found.
+  */
+AActor* GetLastActorByTag(FGameplayTag Tag);
+```
+
+#### Get Last Object (By Tag)
+
+```cpp
+/**
+  * Gets the last/newest UObject associated with the provided FGameplayTag.
+  * @param Tag The desired FGameplayTag to access.
+  * @return The last UObject in the collection.
+  */
+UObject* GetLastObjectByTag(FGameplayTag Tag);
+```
+
+### Tag Containers<VersionBadge version="0.3.0" branch="main" type="header" />
+
+Set-style accessors that operate on an `FGameplayTagContainer`. `*ByAnyTags` returns the union of every supplied tag's bucket (deduplicated); `*ByAllTags` returns the intersection (a `UObject` must appear under every requested tag). Invalid tags in the container are skipped for the *Any* variants; for the *All* variants, an invalid or absent tag short-circuits the result to empty.
+
+#### Get Objects (By Any Tags)
+
+```cpp
+/**
+  * Gets the union of UObjects registered under any of the supplied FGameplayTags. Results are deduplicated.
+  * @param Tags The FGameplayTagContainer whose tags' buckets should be unioned.
+  * @return An array of UObject. Empty if no provided tag has a registered bucket.
+  */
+TArray<UObject*> GetObjectsByAnyTags(const FGameplayTagContainer& Tags);
+```
+
+#### Get Actors (By Any Tags)
+
+```cpp
+/**
+  * Gets the union of AActors registered under any of the supplied FGameplayTags.
+  * Results are deduplicated and non-AActor UObjects are filtered out.
+  * @param Tags The FGameplayTagContainer whose tags' buckets should be unioned.
+  * @return An array of AActor.
+  */
+TArray<AActor*> GetActorsByAnyTags(const FGameplayTagContainer& Tags);
+```
+
+#### Get Count (By Any Tags)
+
+```cpp
+/**
+  * @param Tags The FGameplayTagContainer whose tags' buckets should be unioned.
+  * @return The number of unique UObjects registered under any of the supplied tags.
+  */
+int32 GetCountByAnyTags(const FGameplayTagContainer& Tags);
+```
+
+#### Get Objects (By All Tags)
+
+```cpp
+/**
+  * Gets the intersection of UObjects registered under every supplied FGameplayTag.
+  * A UObject must appear under every requested tag to be returned.
+  * @param Tags The FGameplayTagContainer whose tags' buckets should be intersected.
+  * @return An array of UObject. Empty if any provided tag has no registered bucket.
+  */
+TArray<UObject*> GetObjectsByAllTags(const FGameplayTagContainer& Tags);
+```
+
+#### Get Actors (By All Tags)
+
+```cpp
+/**
+  * Gets the intersection of AActors registered under every supplied FGameplayTag.
+  * Non-AActor UObjects are filtered out.
+  * @param Tags The FGameplayTagContainer whose tags' buckets should be intersected.
+  * @return An array of AActor.
+  */
+TArray<AActor*> GetActorsByAllTags(const FGameplayTagContainer& Tags);
+```
+
+#### Get Count (By All Tags)
+
+```cpp
+/**
+  * @param Tags The FGameplayTagContainer whose tags' buckets should be intersected.
+  * @return The number of UObjects registered under every supplied tag.
+  */
+int32 GetCountByAllTags(const FGameplayTagContainer& Tags);
+```
+
 ### Utilities
 
 #### Get Count
@@ -308,6 +451,17 @@ int32 GetCount(const ENDynamicRef DynamicRef);
 int32 GetCountByName(FName Name);
 ```
 
+#### Get Count (By Tag)<VersionBadge version="0.3.0" branch="main" type="header" />
+
+```cpp
+/**
+  * Retrieves the count of UObjects associated with a specified FGameplayTag collection.
+  * @param Tag The desired FGameplayTag collection.
+  * @return The number of UObjects associated with the specified FGameplayTag collection.
+  */
+int32 GetCountByTag(FGameplayTag Tag);
+```
+
 #### Get Dynamic Refs
 
 ```cpp
@@ -326,20 +480,52 @@ TArray<FName> GetNames() const;
 
 Same shape as `GetDynamicRefs`, but for the free-form `FName` buckets backed by the named-collection map.
 
+#### Get Tags<VersionBadge version="0.3.0" branch="main" type="header" />
+
+```cpp
+/**
+  * @return All FGameplayTags whose corresponding FName bucket currently has at least one registered object.
+  * @remark Bucket FNames that do not resolve to a known FGameplayTag (e.g. raw names added via the FName API) are skipped.
+  */
+TArray<FGameplayTag> GetTags() const;
+```
+
+`GetTags` is a filtered view of `GetNames` — only buckets whose key resolves to a registered `FGameplayTag` via `UGameplayTagsManager::RequestGameplayTag` are returned. Raw `FName` buckets that were never registered as tags are intentionally omitted.
+
 ## Native-Only Fast Paths
 
-Four `*Unsafe` accessors mirror the `GetFirst*` / `GetLast*` pairs above but skip the bounds and emptiness checks. They are not exposed to Blueprint and exist for tight inner loops where the caller can guarantee the slot/bucket is non-empty.
+Two families of native-only accessors skip the safety checks performed by their Blueprint-exposed counterparts. They exist for tight inner loops where the caller has already guaranteed the slot/bucket exists and is non-empty.
+
+### Unchecked First/Last
 
 | Method | Equivalent To |
 | :-- | :-- |
 | `GetFirstObjectUnsafe(ENDynamicRef)` | `GetFirstObject` without nullptr/empty checks. |
 | `GetFirstObjectByNameUnsafe(FName)` | `GetFirstObjectByName` without nullptr/empty checks. |
+| `GetFirstObjectByTagUnsafe(FGameplayTag)` <VersionBadge version="0.3.0" branch="main" type="header" /> | `GetFirstObjectByTag` without validity/empty checks. |
 | `GetLastObjectUnsafe(ENDynamicRef)` | `GetLastObject` without nullptr/empty checks. |
 | `GetLastObjectByNameUnsafe(FName)` | `GetLastObjectByName` without nullptr/empty checks. |
+| `GetLastObjectByTagUnsafe(FGameplayTag)` <VersionBadge version="0.3.0" branch="main" type="header" /> | `GetLastObjectByTag` without validity/empty checks. |
 
 :::warning
 
 The `*Unsafe` variants will dereference into an empty array if you call them on a slot/bucket with no registered objects — only use them from native code paths that already gated the lookup with `GetCount` or by subscribing to the registration delegates below.
+
+:::
+
+### Collection References
+
+Return a `const FNDynamicRefCollection&` directly, avoiding the per-call `TArray` copy that `GetObjects*` performs. Prefer these when you only need to read the backing storage.
+
+| Method | Returns |
+| :-- | :-- |
+| `GetObjectCollectionRefUnsafe(ENDynamicRef)` | The collection for the slot. No bounds check on `DynamicRef`. |
+| `GetObjectCollectionByNameRefUnsafe(FName)` | The collection for the bucket. `FindChecked` — asserts if `Name` is not present. |
+| `GetObjectCollectionByTagRefUnsafe(FGameplayTag)` <VersionBadge version="0.3.0" branch="main" type="header" /> | The collection for the tag's `TagName` bucket. `FindChecked` — asserts if the tag is not present. |
+
+:::warning
+
+The returned reference is only valid until the next mutation of the underlying map. Any `Add*` / `Remove*` call may rehash the named map or reallocate the slot's backing array and invalidate the reference. Do not cache it across frames, and do not access it from multiple threads.
 
 :::
 

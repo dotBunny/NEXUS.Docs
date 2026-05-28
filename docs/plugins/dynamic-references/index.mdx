@@ -23,13 +23,17 @@ Utilizing this pattern allows for developers to reference collections of typed o
 
 ## Add Component
 
-Add a [UNDynamicRefComponent](types/dynamic-ref-component.md) to an `AActor` (*most likely you're doing this on a `Blueprint`*), and assign its References from the details inspector.
+Add a [UNDynamicRefComponent](types/dynamic-ref-component.md) to an `AActor` (*most likely you're doing this on a `Blueprint`*), and assign its References from the details inspector. A single component can claim any combination of three keying modes:
+
+- **Fast References** — fixed [ENDynamicRef](types/dynamic-ref.md) slots, fast array-backed lookup.
+- **Named References** — free-form `FName` buckets for keys that aren't covered by the enum.
+- **Tag References** — `FGameplayTagContainer` entries, stored in the same named map under each tag's `TagName`.
 
 ![NDynamicRefComponent](types/dynamic-ref-component.webp)
 
 ## Getting Actor References
 
-Accessing the [UNDynamicRefSubsystem](types/dynamic-ref-subsystem.md#getting-actors), referenced `AActors` can be queried.
+Accessing the [UNDynamicRefSubsystem](types/dynamic-ref-subsystem.md#getting-actors), referenced `AActors` can be queried by slot, by `FName`, or by `FGameplayTag` (single or [container](types/dynamic-ref-subsystem.md#tag-containers)).
 
 ## Samples
 

@@ -25,7 +25,7 @@ The overlay is split into two stacked lists, each preceded by a header that auto
 | Section | Contents |
 | :-- | :-- |
 | `Dynamic References` | Every populated [ENDynamicRef](types/dynamic-ref.md) slot, one row per slot. |
-| `Named References` | Every populated `FName` bucket, one row per bucket. |
+| `Named References` | Every populated `FName` bucket, one row per bucket (this includes `FGameplayTag` entries as they are still `FName` under-the-hood.) |
 
 Each row is a [UNDynamicRefListViewEntry](types/dynamic-ref-list-view-entry.md) bound to a [UNDynamicRefObject](types/dynamic-ref-object.md) wrapper. Inside each row, a nested list contains one button per `UObject` currently registered to that slot/bucket. When no references are present in any world, the overlay displays a `No References Found` banner.
 

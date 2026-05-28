@@ -46,6 +46,6 @@ The terminating sentinel `NDR_Max = 240` is hidden from the editor and used inte
 
 :::tip
 
-Need more slots in a group, or a group that doesn't exist? Use the `*ByName` overloads on [UNDynamicRefSubsystem](dynamic-ref-subsystem.md). The named buckets are stored in a separate `TMap` so adding ad-hoc keys does not bloat the fast-array slot table.
+Need more slots in a group, or a group that doesn't exist? Use the `*ByName` overloads on [UNDynamicRefSubsystem](dynamic-ref-subsystem.md). The named buckets are stored in a separate `TMap` so adding ad-hoc keys does not bloat the fast-array slot table. Of course, you can also use the `FGameplayTag` approach as well!
 
 :::
