@@ -28,4 +28,4 @@ UFUNCTION(BlueprintNativeEvent, CallInEditor, Category="NEXUS|World Assembly")
 void OnInitializedFromProxy(ANCellLevelInstance* CellLevelInstance);
 ```
 
-As a `BlueprintNativeEvent`, `OnInitializedFromProxy` can be implemented in C++ (override `OnInitializedFromProxy_Implementation`) or in a Blueprint event graph. The `CallInEditor` specifier means it also fires during editor-time assembly, not just at runtime.
+As a `BlueprintNativeEvent`, `OnInitializedFromProxy` can be implemented in C++ (override `OnInitializedFromProxy_Implementation`) or in a Blueprint event graph.
