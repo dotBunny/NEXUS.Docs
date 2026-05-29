@@ -17,7 +17,7 @@ An ensemble of similar (or dissimilar in structure but same in origin) cells tha
 :::
 
 
-A tissue defines the [Cells](../concepts/cell/index.md) which can be used in that specific tissue. If multiple **Tissues** are assigned to an [Organ](../concepts/organ/index.md) a combinatory effect will apply where all **tissue** entries will be flattened down into a single list, similarly to how **sub-tissues** work.
+A tissue defines the [Cells](cell.md) which can be used in that specific tissue. If multiple **Tissues** are assigned to an [Organ](organ-volume.md) a combinatory effect will apply where all **tissue** entries will be flattened down into a single list, similarly to how **sub-tissues** work.
 
 ## Creating
 

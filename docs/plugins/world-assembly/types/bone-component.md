@@ -15,13 +15,13 @@ A bone is a rigid organ that constitutes part of the skeleton in most vertebrate
 
 :::
 
-A **Bone** functions as a connection point outside of a [Cell](../concepts/cell/index.md) that is used as a starting point during World Assembly. The overall goal is to connect all encompassed **bones** in an [Organ](../concepts/organ/index.md).
+A **Bone** functions as a connection point outside of a [Cell](cell.md) that is used as a starting point during World Assembly. The overall goal is to connect all encompassed **bones** in an [Organ](organ-volume.md).
 
 The connecting of [Junctions](junction-component.md) to **bones** utilizes the same ruleset for matching that [Junction](junction-component.md)-to-[Junction](junction-component.md) connections must meet.
 
 :::warning
 
-Currently, only the **Bone** built-in to the [Organ](../concepts/organ/index.md) is used as a starting point for World Assembly. **Multi-bone** support is targeted for the `0.4.0` release. Explicitly, [Cell](../concepts/cell/index.md) placement between bones is not functional, nor is bone-to-bone between [Organs](../concepts/organ/index.md).
+Currently, only the **Bone** built-in to the [Organ](organ-volume.md) is used as a starting point for World Assembly. **Multi-bone** support is targeted for the `0.4.0` release. Explicitly, [Cell](cell.md) placement between bones is not functional, nor is bone-to-bone between [Organs](organ-volume.md).
 
 :::
 

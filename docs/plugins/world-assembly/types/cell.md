@@ -16,7 +16,7 @@ This allows for an extremely efficient World Assembly operation, off of the Game
 
 Each cell is stored as a side-car asset (`<CellName>_NCell.uasset`) that lives next to the source level. The side-car holds the cached bounds, hull, voxel data, junction set, and a thumbnail snapshot of the level — none of which require the level itself to be loaded for the assembly task graph to schedule work against the cell.
 
-When a thumbnail is captured for the `ANCellActor` in the level editor (via the **Capture Thumbnail** button in [Editor Mode](../../editor-mode.md)), it propagates to the side-car automatically so the cell shows the same preview in the content browser as the source level.
+When a thumbnail is captured for the `ANCellActor` in the level editor (via the **Capture Thumbnail** button in [Editor Mode](../editor-mode.md)), it propagates to the side-car automatically so the cell shows the same preview in the content browser as the source level.
 
 The side-car asset's content-browser context menu includes a **Select Level** action button that jumps to the source level in the content browser — handy when triaging a generation result and you need to open the source map for the cell that produced a particular proxy.
 

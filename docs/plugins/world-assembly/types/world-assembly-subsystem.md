@@ -61,13 +61,3 @@ Two `BlueprintAssignable` dynamic multicast delegates broadcast the operation-tr
 | `OnOperationsCompleted` | The last tracked operation finishes (or is destroyed) — i.e. the tracked-operation set transitions from non-empty to empty. |
 
 Bind these to drive demo / sample logic that needs to react to "world is generated, you can start playing now" without polling.
-
-## Cancel & Teardown Safety
-
-In-flight assembly tasks are forcibly cancelled and their virtual-world contexts cleared during:
-
-- subsystem `Deinitialize` (world is being torn down),
-- a PIE session ending,
-- the level-editor cancellation button on a queued [list-view entry](process.md).
-
-The cancel path stores back-pointers to the task graph and virtual world during operation startup so it can reset both during teardown, and runs a post-world cleanup on the operation registry so the registry doesn't keep referencing content that has just been torn down. Once-pending tasks that never got to run are dropped without firing their callbacks.

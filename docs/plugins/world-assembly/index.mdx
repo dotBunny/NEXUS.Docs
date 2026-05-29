@@ -18,10 +18,10 @@ import DevBanner from '../../../src/components/DevBanner';
 
 The goal from the start with **World Assembly** was to create a tool that that just makes sense for designers and developers alike. This lead to the adoption of a _biological nomenclature_ for many of the parts as, for the most part, people are able to understand the idea or pick it up quite quickly.
 
-- You make [Cells](./concepts/cell/) (`ULevel`) — a defined gameplay space.
-- You add [Junctions](./types/junction-component.md) (`USceneComponent`) to the [Cells](./concepts/cell/) — a defined connection point between [Cells](./concepts/cell/).
-- You build [Tissue](./types/tissue.md) definitions (`UDataAsset`) — A collection of [Cells](./concepts/cell/) that can be connected, and the rules governing that.
-- You create the [Organ](./concepts/organ/)(s) (`AVolume`) — A defined area (or not) you want to assemble, assigning [Tissue](./types/tissue.md)(s) that will contribute.
+- You make [Cells](./types/cell.md) (`ULevel`) — a defined gameplay space.
+- You add [Junctions](./types/junction-component.md) (`USceneComponent`) to the [Cells](./types/cell.md) — a defined connection point between [Cells](./types/cell.md).
+- You build [Tissue](./types/tissue.md) definitions (`UDataAsset`) — A collection of [Cells](./types/cell.md) that can be connected, and the rules governing that.
+- You create the [Organ](./types/organ-volume.md)(s) (`AVolume`) — A defined area (or not) you want to assemble, assigning [Tissue](./types/tissue.md)(s) that will contribute.
 
 ## Quick Start
 
