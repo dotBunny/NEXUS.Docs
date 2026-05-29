@@ -28,9 +28,9 @@ By adding pre-defined `FName` tags to any `AActor` in a Cell's source level it w
 
 Plain `FName` tags added to any `AActor`, consumed by the virtual-world capture phase before any cell pass runs in an assembly operation.
 
-| Tag | Native | Consumed By | Effect |
-| --- | --- | --- | --- |
-| `NWorldCollision_Ignore` | `WorldCollisionIgnore` | `FNCreateVirtualWorldTask` | Excludes the actor from the virtual-world collision capture; the actor is not visible to any subsequent assembly pass at all. |
+| Tag | Native| Effect |
+| --- | --- | --- |
+| `NWorldCollision_Ignore` | `WorldCollisionIgnore` | Excludes the actor from the virtual-world collision capture; the actor is not visible to any subsequent assembly pass at all. |
 
 The edit-mode toolbar in [Editor Mode](editor-mode.md) provides quick-toggle commands for the `NCell_Ignore` and `NWorldCollision_Ignore` tags on the current selection.
 

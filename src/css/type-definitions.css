@@ -147,3 +147,10 @@ a.card.type.ue-world-subsystem span.theme-doc-card-title::before,
   -webkit-mask-image: url("/assets/svg/types/ue-world-subsystem.svg");
   mask-image: url("/assets/svg/types/ue-world-subsystem.svg");
 }
+
+a.card.type.ue-volume span.theme-doc-card-title::before,
+.typeDetailsIcon .type.ue-volume,
+.type.ue-volume a::before {
+  -webkit-mask-image: url("/assets/svg/types/ue-volume.svg");
+  mask-image: url("/assets/svg/types/ue-volume.svg");
+}

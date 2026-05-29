@@ -1,8 +1,19 @@
 ---
 description: A reusable level wrapper that lets World Assembly reason about placement without loading the source map.
-sidebar_label: Cell
-title: Cell
+sidebar_class_name: type ue-data-asset
 ---
+
+
+import TypeDetails from '../../../../src/components/TypeDetails';
+
+# Cell
+
+<TypeDetails icon="/assets/svg/world-assembly/world-assembly-cell-data.svg" iconType="img" base="UDataAsset" type="UNCell" typeExtra="" headerFile="NexusWorldAssembly/Public/Cell/NCell.h" />
+
+:::info[Wikipedia Definition]
+
+
+:::
 
 # Cell
 

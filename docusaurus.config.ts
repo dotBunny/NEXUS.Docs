@@ -197,14 +197,17 @@ const config: Config = {
           title: 'GitHub',
           items: [
             {
+              label: 'Milestones',
+              href: 'https://github.com/dotBunny/NEXUS/milestones?sort=due_date&direction=asc'
+            },
+            {
               label: 'Roadmap',
               href: 'https://github.com/orgs/dotBunny/projects/6/views/2',
             },
             {
               label: 'Issues',
               href: 'https://github.com/orgs/dotBunny/projects/6/views/3',
-            },
-
+            }
           ],
         },
         {
