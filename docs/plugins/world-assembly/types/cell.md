@@ -12,10 +12,9 @@ import TypeDetails from '../../../../src/components/TypeDetails';
 
 :::info[Wikipedia Definition]
 
+The basic structural and functional unit of all living organisms. It is the smallest unit of life classified as a living thing, acting as the fundamental building block of all tissues and organs
 
 :::
-
-# Cell
 
 ![Editing Convex Hull](cell-edit-hull-vertex.webp)
 
