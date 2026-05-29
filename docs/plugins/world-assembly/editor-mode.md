@@ -49,7 +49,7 @@ Only one generation pass runs at a time — repeatedly clicking **Generate** is 
 
 ## Selection-Aware Tagging
 
-Two toolbar buttons toggle tags on whatever actors are currently selected in the level outliner — these are quick-access wrappers around the [Actor Tags](tags.md#actor-tags) checked during generation.
+Two toolbar buttons toggle tags on whatever actors are currently selected in the level outliner — these are quick-access wrappers around the [Actor Tags](tagging.md#cell-markup-tags) checked during generation.
 
 | Button | Tag |
 | :-- | :-- |
