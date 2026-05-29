@@ -56,14 +56,3 @@ A `ANBoneActor` is available for situations where you want a bespoke **Bone**, a
 | `Manual` | Allows for manual placement of the Bone inside of it's volume. |
 | `Automatic` | Attempts to place the Bone at the extreme of the volume based on the project settings . |
 | `Disabled` | Disables the Bone from being used inside of any assembly operation. |
-
-## Project Settings
-
-![Project Settings](bone-component-project-settings.webp)
-
-In `Project Settings > World Assembly > Organ`, the settings for how automatic placement is done in a project gets defined.
-
-| Setting | Type | Description | Default |
-| :-- | :-- | :-- | :-- |
-| Automatic Bone Direction | `ENDirection` |  The direction to trace out from the center of the volume to the border. | `Backward` |
-| Automatic Bone Direction (Offset) | `FVector` |  An offset to apply to the given point determined by the trace above. | `(0,0,0)` |

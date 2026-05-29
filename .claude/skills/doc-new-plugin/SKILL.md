@@ -14,7 +14,7 @@ Stand up the documentation skeleton for a brand-new NEXUS plugin so the user can
    - `NexusActorPools` → `actor-pools`
    - `NexusDynamicRefs` → `dynamic-references`
    - `NexusWorldAssembly` → `world-assembly`
-   - `NexusUserInterface` → `ui`
+   - `NexusUI` → `ui`
    - Most others lowercase + kebab-case the FriendlyName suffix.
    Ask the user to confirm the slug before creating files.
 3. **`shortName`** for the `Plugins` map entry — the `N*` shorthand (e.g. `NActorPools`, `NGuardian`). Ask if not obvious.
@@ -123,6 +123,8 @@ If the plugin ships a developer overlay (a `UN<Plugin>DeveloperOverlay` class de
 - [docs/plugins/actor-pools/developer-overlay.md](docs/plugins/actor-pools/developer-overlay.md)
 - [docs/plugins/dynamic-references/developer-overlay.md](docs/plugins/dynamic-references/developer-overlay.md)
 - [docs/plugins/guardian/developer-overlay.md](docs/plugins/guardian/developer-overlay.md)
+
+The abstract base these subclass — `UNDeveloperOverlay` — is itself documented as a normal type page at [docs/plugins/ui/types/widgets/developer-overlay.md](docs/plugins/ui/types/widgets/developer-overlay.md) (it lives in the UI plugin and subclasses `UCommonUserWidget`). Don't confuse the two: per-plugin overlays go at the plugin root with `base="UNDeveloperOverlay"`; the base widget is a UI type page with `base="UCommonUserWidget"`.
 
 ### File: `docs/plugins/<slug>/developer-overlay.md`
 

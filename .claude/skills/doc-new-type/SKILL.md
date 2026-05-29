@@ -12,7 +12,7 @@ Generate a single type page that matches the project's existing convention. The 
 Ask the user only for what you cannot infer:
 
 1. **Header path** under `../NEXUS/Plugins/<Plugin>/Source/...` (or a symbol name to grep for).
-2. **Plugin slug** — derive from the header's plugin folder, then resolve via `src/components/PluginDetails/index.tsx` (`link` field). Slugs are NOT mechanical — `NexusWorldAssembly` → `world-assembly`, `NexusDynamicRefs` → `dynamic-references`, `NexusUserInterface` → `ui`. If unsure, ask.
+2. **Plugin slug** — derive from the header's plugin folder, then resolve via `src/components/PluginDetails/index.tsx` (`link` field). Slugs are NOT mechanical — `NexusWorldAssembly` → `world-assembly`, `NexusDynamicRefs` → `dynamic-references`, `NexusUI` → `ui`. If unsure, ask.
 3. **Runtime vs editor** — if the module name ends in `Editor` or the header lives under an `Editor` module, target `editor-types/`; otherwise `types/`.
 4. **Subfolder** — `types/` and `editor-types/` mirror the source `Public/` layout. If the header lives in a `Public/<Subfolder>/` (e.g. `Public/Math/`, `Public/Components/`, `Public/Widgets/`, `Public/Developer/`, `Public/Collections/`, `Public/Types/`, `Public/ComponentVisProxies/`, `Public/DelayedEditorTasks/`), the page goes in the matching `types/<subfolder>/` or `editor-types/<subfolder>/` folder. Top-level headers (directly under `Public/`) go at the folder root. If the matching subfolder doesn't exist yet, create it (lower-case the source folder name) and scaffold its `index.mdx` — see [docs/plugins/core/types/math/index.mdx](docs/plugins/core/types/math/index.mdx) for the shape.
 
@@ -31,22 +31,34 @@ Everything else comes from the header.
 
 `sidebar_class_name` is `type <icon-key>`. The `icon-key` should match a file in `static/assets/svg/types/` and is keyed off the **engine base class**, not the reflection macro. The set is constrained — glob `static/assets/svg/types/*.svg` to confirm a key exists before using it. Common mappings:
 
-| Base class | Icon key |
+The current set (glob `static/assets/svg/types/*.svg` to confirm — this list is a snapshot):
+
+| Base class / kind | Icon key |
 | :-- | :-- |
 | `UObject` (plain wrapper, async action, etc.) | `ue-object` |
 | `UTickableWorldSubsystem`, `UWorldSubsystem` | `ue-world-subsystem` |
-| `UUserWidget` | `ue-widget` |
+| `UWorld` / world-scoped type | `ue-world` |
+| `UUserWidget`, `UCommonUserWidget` | `ue-widget` |
+| Widget Blueprint asset | `ue-widget-blueprint` |
+| `UBlueprint` / Blueprint-derived class | `ue-blueprint` |
+| `UBlueprintFunctionLibrary` | `ue-blueprint-function-library` |
 | `AActor` | `ue-actor` |
 | `APawn` | `ue-pawn` |
+| `AVolume` | `ue-volume` |
 | `UActorComponent` | `ue-actor-component` |
 | `USceneComponent` | `ue-scene-component` |
 | `UDataAsset` | `ue-data-asset` |
-| `UBlueprintFunctionLibrary` | `ue-blueprint-function-library` |
+| `UDataTable` | `ue-data-table` |
 | `UDeveloperSettings` | `ue-settings` |
-| `IInterface` | `ue-interface` |
-| `UENUM` | `ue-enum` |
-| `USTRUCT` | `native-struct` |
+| `UINTERFACE` (reflected interface) | `ue-interface` |
+| `UENUM` (reflected enum) | `ue-enum` |
+| `USTRUCT` (reflected struct) | `native-struct` |
 | Plain C++ class (no UCLASS) | `native-class` / `native-cpp` |
+| Plain C++ interface (no UINTERFACE) | `native-interface` |
+| Plain C++ enum (no UENUM) | `native-enum` |
+| Generic/uncategorized native code | `native-code` |
+
+Reflected vs. plain matters for interfaces, enums, and structs — a `UINTERFACE`/`UENUM` uses the `ue-*` key, a plain C++ `enum`/`interface` uses the `native-*` key.
 
 The `<TypeDetails icon="...">` attribute supports two modes:
 
