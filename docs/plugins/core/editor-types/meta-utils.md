@@ -1,5 +1,4 @@
 ---
-sidebar_label: Meta Utils
 sidebar_class_name: type native-class
 description: A set of utility functions related to accessing meta-information from graphs, nodes, classes, etc. accessed natively.
 tags: [0.1.0]

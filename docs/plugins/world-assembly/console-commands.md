@@ -1,4 +1,5 @@
 ---
+sidebar_position: 3
 description: Some console commands for developers to use provided by UNWorldAssemblySubsystem.
 tags: [0.3.0]
 ---

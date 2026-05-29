@@ -1,6 +1,4 @@
 ---
-sidebar_position: 50
-sidebar_label: Severity
 sidebar_class_name: type ue-enum
 description: Shared severity ladder used across NEXUS for log, message, and developer-overlay classifications.
 tags: [0.3.0]

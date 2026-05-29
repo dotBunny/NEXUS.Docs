@@ -1,6 +1,4 @@
 ---
-sidebar_position: 34
-sidebar_label: Seed Generator
 sidebar_class_name: type native-class
 description: Helpers for producing and converting seeds used by FNMersenneTwister.
 tags: [0.1.0]

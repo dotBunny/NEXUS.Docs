@@ -41,13 +41,13 @@ Identifing a `FGameplayTag` as part of `Tag Groups > Unique` will create a behav
 
 > As an example, you may want to have only one **hero** peice appear in a given assembly operation. You could add your `Hero` tag to all the **hero** Cell entries in their `Assembly Tags` and would then also add it to the `Tag Groups > Unique`. 
 
-#### Required
+#### RequiredAny
 
-When a `FGameplayTag` is added to `Tag Groups > Required`, after the generation of the `Cell Graph` during an assembly operation, the graph will be validated to ensure that any `UNCell` were used that had this `FGameplayTag` associated to it via `Assembly Tags`. If it does not, the graph is regenerated.
+When a `FGameplayTag` is added to `Tag Groups > Required (Any)`, after the generation of the `Cell Graph` during an assembly operation, the graph will be validated to ensure that any `UNCell` were used that had this `FGameplayTag` associated to it via `Assembly Tags`. If it does not, the graph is regenerated.
 
-#### Unique & Required Special Behavior
+#### Unique & RequiredAny Special Behavior
 
-A common requirement when generating gameplay spaces is ensuring that there is some sort of Boss encounter. This is where combining `Unique` and `Required` have a compound effect with a little extra magic behind the scenes. In a contrived example, you would have two `UNCell` boss-room entries, both would be set to have a `MinimumCount` and `MaximumCount` of `1`, and would get tagged with some `FGameplayTag` that ends up in `Tag Groups > Unique` and `Tag Groups > Required`. When it's setup like this, the the `MinimumCount` is ignored, as well as the "every" part of `Required` when validating the graph.
+A common requirement when generating gameplay spaces is ensuring that there is some sort of Boss encounter. This is where combining `Unique` and `RequiredAny` have a compound effect with a little extra magic behind the scenes. In a contrived example, you would have two `UNCell` boss-room entries, both would be set to have a `MinimumCount` and `MaximumCount` of `1`, and would get tagged with some `FGameplayTag` that ends up in `Tag Groups > Unique` and `Tag Groups > Required (Any)`. When it's setup like this, the the `MinimumCount` is ignored, as well as the "every" part of `Required` when validating the graph.
 
 ### Cells
 

@@ -1,6 +1,4 @@
 ---
-sidebar_position: 15
-sidebar_label: Method Scope Timer
 sidebar_class_name: type native-class
 description: A scoped wall-clock timer that logs its elapsed duration when it falls out of scope.
 tags: [0.1.0]

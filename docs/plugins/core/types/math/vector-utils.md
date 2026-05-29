@@ -1,6 +1,4 @@
 ---
-sidebar_position: 36
-sidebar_label: Vector Utils
 sidebar_class_name: type native-class
 description: A collection of utility methods for working with FVectors.
 tags: [0.1.0]

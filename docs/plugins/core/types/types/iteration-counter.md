@@ -1,6 +1,4 @@
 ---
-sidebar_position: 51
-sidebar_label: Iteration Counter
 sidebar_class_name: type native-struct
 description: Bucketed integer counter that records a running tally per iteration.
 tags: [0.3.0]

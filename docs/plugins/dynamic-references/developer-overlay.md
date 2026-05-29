@@ -1,6 +1,6 @@
 ---
 sidebar_label: Developer Overlay
-sidebar_position: 3
+sidebar_position: 2
 description: An overlay listing every live ENDynamicRef slot and FName bucket in the active world(s).
 tags: [0.2.7, 0.3.0]
 ---

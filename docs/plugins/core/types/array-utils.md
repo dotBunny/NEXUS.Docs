@@ -1,6 +1,4 @@
 ---
-sidebar_position: 7
-sidebar_label: Array Utils
 sidebar_class_name: type native-class
 description: A collection of templated utility methods for working with TArrays.
 tags: [0.1.0]

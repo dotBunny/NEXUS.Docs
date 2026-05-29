@@ -1,5 +1,5 @@
 ---
-sidebar_position: 8
+sidebar_position: 3
 description: The project settings for the NGuardian subsystem.
 ---
 

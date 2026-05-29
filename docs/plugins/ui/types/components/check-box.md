@@ -1,5 +1,4 @@
 ---
-sidebar_label: CheckBox
 sidebar_class_name: type ue-widget
 description: An extension on the UMG UCheckBox which adds functionality to set its value without broadcasting / triggering events, or so we thought.
 tags: [0.1.0]

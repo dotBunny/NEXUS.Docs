@@ -1,6 +1,4 @@
 ---
-sidebar_position: 35
-sidebar_label: Triangle Utils
 sidebar_class_name: type native-class
 description: Geometric helpers for working with individual triangles in 3D space.
 tags: [0.1.0]

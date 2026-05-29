@@ -1,6 +1,4 @@
 ---
-sidebar_position: 13
-sidebar_label: Update Check Delayed Editor Task
 sidebar_class_name: type ue-object
 description: Delayed editor task that checks the configured channel for a newer NEXUS release.
 tags: [0.1.0]

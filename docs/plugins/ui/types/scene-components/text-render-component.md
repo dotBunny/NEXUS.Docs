@@ -1,6 +1,4 @@
 ---
-sidebar_position: 1
-sidebar_label: Text Render Component
 sidebar_class_name: type ue-actor-component
 description: A component that builds a network-synchronized UTextRenderComponent between clients.
 tags: [0.1.0, 0.3.0]

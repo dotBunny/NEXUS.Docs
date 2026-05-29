@@ -1,6 +1,4 @@
 ---
-sidebar_position: 50
-sidebar_label: Toggle
 sidebar_class_name: type native-class
 description: An enumeration representing a boolean value with a default option, plus a utility class for stringification.
 tags: [0.1.0]

@@ -1,6 +1,4 @@
 ---
-sidebar_position: 9
-sidebar_label: Style Library
 sidebar_class_name: type ue-blueprint-function-library
 description: Blueprint-visible style constants for NEXUS-branded warning/error/info UI treatments.
 tags: [0.2.7]

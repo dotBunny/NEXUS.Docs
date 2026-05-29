@@ -1,9 +1,16 @@
 ---
 description: The runtime World Assembly subsystem that drives in-game generation passes.
-title: Subsystem
+sidebar_class_name: type ue-world-subsystem
+tags: [0.3.0]
 ---
 
-# Subsystem
+import TypeDetails from '../../../../src/components/TypeDetails';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# World Assembly Subsystem
+
+<TypeDetails icon="ue-world-subsystem" base="UTickableWorldSubsystem" type="UNWorldAssemblySubsystem" typeExtra="" headerFile="NexusWorldAssembly/Public/NWorldAssemblySubsystem.h" />
 
 `UNWorldAssemblySubsystem` is the game-only `UTickableWorldSubsystem` that hosts every World Assembly operation kicked off during play. It owns the per-player `ANWorldAssemblyRelay` actors, keeps a strong reference to every in-flight `UNAssemblyOperation` so build tasks don't get collected mid-pass, and acts as the `INAssemblyOperationOwner` for operations created via `Generate()`.
 

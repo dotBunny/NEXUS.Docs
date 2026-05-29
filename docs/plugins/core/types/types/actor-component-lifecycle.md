@@ -1,6 +1,4 @@
 ---
-sidebar_position: 39
-sidebar_label: Actor Component Lifecycle
 sidebar_class_name: type ue-enum
 description: Identifies which UActorComponent lifecycle hook a feature should initialize or tear down on.
 tags: [0.1.0]

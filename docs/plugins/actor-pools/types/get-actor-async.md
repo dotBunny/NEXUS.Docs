@@ -1,6 +1,4 @@
 ---
-sidebar_position: 12
-sidebar_label: Get Actor Async
 sidebar_class_name: type ue-object
 description: An async Blueprint action that soft-loads an AActor class and then gets an instance from the Actor Pool subsystem.
 tags: [0.3.0]

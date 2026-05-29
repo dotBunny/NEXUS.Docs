@@ -1,6 +1,4 @@
 ---
-sidebar_position: 4
-sidebar_label: Actor Pools Editor Utility Widget
 sidebar_class_name: type ue-widget
 description: Editor utility widget that hosts the Actor Pools developer overlay and exposes editor-only actions like creating new pool-set assets.
 tags: [0.3.0]

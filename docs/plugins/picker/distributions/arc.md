@@ -1,5 +1,4 @@
 ---
-sidebar_label: Arc
 sidebar_class_name: type ue-blueprint-function-library
 description: Provides various functions for generating points inside or on the surface of an arc using different random generation strategies.
 toc_min_heading_level: 2

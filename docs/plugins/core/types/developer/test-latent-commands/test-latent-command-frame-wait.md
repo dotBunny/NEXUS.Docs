@@ -1,9 +1,7 @@
 ---
-sidebar_position: 8
-sidebar_label: Test Latent Command (Frame Wait)
 sidebar_class_name: type native-class
 description: Yields the automation queue for a fixed number of frames before the test resumes.
-tags: [0.1.0]
+tags: [0.3.0]
 ---
 
 import TypeDetails from '../../../../../../src/components/TypeDetails';

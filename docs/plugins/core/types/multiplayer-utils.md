@@ -1,6 +1,4 @@
 ---
-sidebar_position: 14
-sidebar_label: Multiplayer Utils
 sidebar_class_name: type native-class
 description: Native helpers for authority checks, player-identifier lookups, server travel, and ping — the C++-only counterpart to UNMultiplayerLibrary.
 tags: [0.1.0, 0.2.4, 0.3.0]

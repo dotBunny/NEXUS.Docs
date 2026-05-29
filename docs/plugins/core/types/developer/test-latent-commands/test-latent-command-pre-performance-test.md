@@ -1,9 +1,7 @@
 ---
-sidebar_position: 9
-sidebar_label: Test Latent Command (Pre Performance Test)
 sidebar_class_name: type native-class
 description: Prepares global state for low-noise performance measurement — stack walking, GC, log flush, streaming.
-tags: [0.1.0]
+tags: [0.3.0]
 ---
 
 import TypeDetails from '../../../../../../src/components/TypeDetails';

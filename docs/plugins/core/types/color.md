@@ -1,6 +1,4 @@
 ---
-sidebar_position: 9
-sidebar_label: Color
 sidebar_class_name: type native-class
 description: A collection of color values used throughout the NEXUS modules.
 tags: [0.1.0]

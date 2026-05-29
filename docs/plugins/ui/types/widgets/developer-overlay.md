@@ -1,6 +1,4 @@
 ---
-sidebar_position: 7
-sidebar_label: Developer Overlay
 sidebar_class_name: type ue-widget
 description: Abstract base widget for NEXUS developer/diagnostic overlays; provides a banner row and a container box for subclasses to populate.
 tags: [0.2.7]

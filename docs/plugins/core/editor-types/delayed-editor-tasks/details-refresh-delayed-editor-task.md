@@ -1,6 +1,4 @@
 ---
-sidebar_position: 12
-sidebar_label: Details Refresh Delayed Editor Task
 sidebar_class_name: type ue-object
 description: Delayed editor task that forces the Details panel to reload its property customizations.
 tags: [0.1.0]

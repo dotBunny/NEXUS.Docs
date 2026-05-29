@@ -1,6 +1,4 @@
 ---
-sidebar_position: 1
-sidebar_label: Asset Definition (Actor Pool Set)
 sidebar_class_name: type ue-data-asset
 description: Asset definition that registers UNActorPoolSet with the Content Browser — display name, color, category, and the static validator entry point.
 tags: [0.3.0]

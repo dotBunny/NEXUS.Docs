@@ -1,6 +1,4 @@
 ---
-sidebar_position: 27
-sidebar_label: Double Range Library
 sidebar_class_name: type ue-blueprint-function-library
 description: Blueprint-exposed wrappers around FNDoubleRange's sampling API.
 tags: [0.1.0]

@@ -1,6 +1,4 @@
 ---
-sidebar_position: 38
-sidebar_label: Voxel Coordinate
 sidebar_class_name: type native-struct
 description: Integer voxel coordinate triplet identifying a cell within a 3D voxel grid.
 tags: [0.2.0]

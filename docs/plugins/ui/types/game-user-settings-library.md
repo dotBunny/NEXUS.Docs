@@ -1,6 +1,4 @@
 ---
-sidebar_position: 5
-sidebar_label: Game User Settings Library
 sidebar_class_name: type ue-blueprint-function-library
 description: A small collection of functionality to help with presentation/selection of Game User Settings.
 tags: [0.2.0]

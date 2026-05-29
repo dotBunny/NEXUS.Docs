@@ -1,6 +1,4 @@
 ---
-sidebar_position: 4
-sidebar_label: Editor Utils
 sidebar_class_name: type native-class
 description: A utility methods collection for the Unreal Editor.
 tags: [0.1.0]

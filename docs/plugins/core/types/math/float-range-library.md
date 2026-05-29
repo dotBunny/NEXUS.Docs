@@ -1,6 +1,4 @@
 ---
-sidebar_position: 29
-sidebar_label: Float Range Library
 sidebar_class_name: type ue-blueprint-function-library
 description: Blueprint-exposed wrappers around FNFloatRange's sampling API.
 tags: [0.1.0]

@@ -1,6 +1,4 @@
 ---
-sidebar_position: 7
-sidebar_label: Editor Style
 sidebar_class_name: type native-class
 description: Slate style set for the NexusCoreEditor module.
 tags: [0.1.0]

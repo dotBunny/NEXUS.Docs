@@ -1,6 +1,4 @@
 ---
-sidebar_position: 9
-sidebar_label: Editor Defaults
 sidebar_class_name: type native-class
 description: A collection of default values to use within the Nexus Editor modules.
 tags: [0.1.0]

@@ -1,5 +1,4 @@
 ---
-sidebar_label: Slider
 sidebar_class_name: type ue-widget
 description: An extension on the UMG USlider which adds functionality to set its value without broadcasting / triggering events.
 tags: [0.1.0]

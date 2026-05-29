@@ -1,6 +1,4 @@
 ---
-sidebar_position: 6
-sidebar_label: Editor User Settings
 sidebar_class_name: type ue-settings
 description: Per-user NEXUS editor preferences persisted outside project config.
 tags: [0.1.0]

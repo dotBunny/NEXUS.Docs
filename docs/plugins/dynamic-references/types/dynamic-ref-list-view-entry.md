@@ -1,6 +1,4 @@
 ---
-sidebar_position: 5
-sidebar_label: DynamicRef ListView Entry
 sidebar_class_name: type ue-widget
 description: A UMG list view entry widget for a single dynamic-reference row, used by the developer overlay.
 tags: [0.2.7]

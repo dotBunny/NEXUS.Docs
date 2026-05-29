@@ -1,5 +1,4 @@
 ---
-sidebar_position: 3
 tags: [0.2.7]
 ---
 

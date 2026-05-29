@@ -1,9 +1,7 @@
 ---
-sidebar_position: 4
-sidebar_label: Test Latent Command (World Test)
 sidebar_class_name: type native-class
 description: Latent command whose callable receives the active FNTestEnvironment::World, optionally inside an FGCScopeGuard.
-tags: [0.1.0]
+tags: [0.3.0]
 ---
 
 import TypeDetails from '../../../../../../src/components/TypeDetails';

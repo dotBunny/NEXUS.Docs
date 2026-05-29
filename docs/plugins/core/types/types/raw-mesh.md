@@ -1,6 +1,4 @@
 ---
-sidebar_position: 45
-sidebar_label: Raw Mesh
 sidebar_class_name: type native-struct
 description: Lightweight CPU-side mesh representation used by World Assembly and blockout tools.
 tags: [0.1.0, 0.3.0]

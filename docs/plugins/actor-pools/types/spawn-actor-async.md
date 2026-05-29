@@ -1,6 +1,4 @@
 ---
-sidebar_position: 13
-sidebar_label: Spawn Actor Async
 sidebar_class_name: type ue-object
 description: An async Blueprint action that soft-loads an AActor class and then spawns an instance from the Actor Pool subsystem at a given transform.
 tags: [0.3.0]

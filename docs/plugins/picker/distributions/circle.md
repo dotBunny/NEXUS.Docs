@@ -1,5 +1,4 @@
 ---
-sidebar_label: Circle
 sidebar_class_name: type ue-blueprint-function-library
 description: Provides various functions for generating points in the plane of a circle using different random generation strategies.
 toc_min_heading_level: 2

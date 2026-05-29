@@ -1,6 +1,4 @@
 ---
-sidebar_position: 12
-sidebar_label: Level Utils
 sidebar_class_name: type native-class
 description: A collection of native utility methods for working with levels and level instances.
 tags: [0.1.0]

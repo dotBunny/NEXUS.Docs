@@ -1,6 +1,4 @@
 ---
-sidebar_position: 26
-sidebar_label: Double Range
 sidebar_class_name: type native-struct
 description: A double-precision inclusive range [Minimum, Maximum].
 tags: [0.1.0]

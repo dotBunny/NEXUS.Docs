@@ -1,5 +1,4 @@
 ---
-sidebar_label: Button ListView Entry
 sidebar_class_name: type ue-widget
 description: A reusable list-view entry widget that renders a UButton + UCommonTextBlock pair driven by a bound UNButtonListViewEntryObject.
 tags: [0.2.7]

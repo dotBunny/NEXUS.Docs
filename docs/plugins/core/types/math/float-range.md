@@ -1,6 +1,4 @@
 ---
-sidebar_position: 28
-sidebar_label: Float Range
 sidebar_class_name: type native-struct
 description: A single-precision inclusive range [Minimum, Maximum].
 tags: [0.1.0]

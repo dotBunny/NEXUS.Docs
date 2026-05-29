@@ -1,6 +1,4 @@
 ---
-sidebar_position: 4
-sidebar_label: Game Viewport Client
 sidebar_class_name: type ue-object
 description: A viewport with some base functionality added.
 tags: [0.2.0]

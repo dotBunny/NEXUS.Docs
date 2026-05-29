@@ -1,6 +1,4 @@
 ---
-sidebar_position: 25
-sidebar_label: Report Table Block
 sidebar_class_name: type native-struct
 description: Report block that holds tabular data, rendered as a column-aligned grid in plain text or a pipe-separated table in Markdown.
 tags: [0.3.0]

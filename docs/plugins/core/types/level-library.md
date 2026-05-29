@@ -1,6 +1,4 @@
 ---
-sidebar_position: 11
-sidebar_label: Level Library
 sidebar_class_name: type ue-blueprint-function-library
 description: A utility class providing Blueprint-callable level/map operations.
 tags: [0.1.0]

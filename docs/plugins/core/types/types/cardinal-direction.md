@@ -1,6 +1,4 @@
 ---
-sidebar_position: 41
-sidebar_label: Cardinal Direction
 sidebar_class_name: type native-class
 description: 16-wind compass direction enum and conversion helpers.
 tags: [0.1.0]

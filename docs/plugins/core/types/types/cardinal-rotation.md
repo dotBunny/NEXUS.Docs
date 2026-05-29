@@ -1,6 +1,4 @@
 ---
-sidebar_position: 42
-sidebar_label: Cardinal Rotation
 sidebar_class_name: type native-struct
 description: Rotation expressed as three ENCardinalDirection components (Roll, Pitch, Yaw).
 tags: [0.1.0]

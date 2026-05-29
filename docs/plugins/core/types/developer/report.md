@@ -1,6 +1,4 @@
 ---
-sidebar_position: 21
-sidebar_label: Report
 sidebar_class_name: type native-struct
 description: Composable, hierarchical report structure that can be emitted as plain text or Markdown.
 tags: [0.3.0]

@@ -1,6 +1,4 @@
 ---
-sidebar_position: 8
-sidebar_label: Collections Library
 sidebar_class_name: type ue-blueprint-function-library
 description: Blueprint exposure layer for NEXUS collection types.
 tags: [0.3.0]

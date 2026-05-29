@@ -1,6 +1,4 @@
 ---
-sidebar_position: 31
-sidebar_label: Integer Range Library
 sidebar_class_name: type ue-blueprint-function-library
 description: Blueprint-exposed wrappers around FNIntegerRange's sampling API.
 tags: [0.1.0]

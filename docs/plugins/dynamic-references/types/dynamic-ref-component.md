@@ -1,6 +1,4 @@
 ---
-sidebar_position: 1
-sidebar_label: DynamicRef Component
 sidebar_class_name: type ue-actor-component
 description: A component which registers and unregisters the owning AActor with the UNDynamicRefSubsystem for future query.
 tags: [0.1.0, 0.3.0]
@@ -8,7 +6,7 @@ tags: [0.1.0, 0.3.0]
 
 import TypeDetails from '../../../../src/components/TypeDetails';
 
-# Dynamic Reference Component
+# DynamicRef Component
 
 <TypeDetails icon="/assets/svg/dynamic-references/dynamic-ref-component.svg" iconType="img" base="UActorComponent" type="UNDynamicRefComponent" typeExtra="" headerFile="NexusDynamicRefs/Public/NDynamicRefComponent.h" />
 

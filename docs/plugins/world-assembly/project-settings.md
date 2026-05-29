@@ -1,7 +1,7 @@
 ---
 description: TBD
 title: Project Settings
-sidebar_position: 9
+sidebar_position: 4
 ---
 
 # Project Settings

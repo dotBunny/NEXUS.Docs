@@ -1,6 +1,4 @@
 ---
-sidebar_position: 46
-sidebar_label: Raw Mesh Loop
 sidebar_class_name: type native-struct
 description: One ordered index loop within an FNRawMesh (triangle, quad, or n-gon).
 tags: [0.2.0]

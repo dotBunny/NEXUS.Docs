@@ -1,9 +1,7 @@
 ---
-sidebar_position: 2
-sidebar_label: Test Latent Command
 sidebar_class_name: type native-class
 description: Runs a captured TFunction once on the automation thread, then completes.
-tags: [0.1.0]
+tags: [0.3.0]
 ---
 
 import TypeDetails from '../../../../../../src/components/TypeDetails';

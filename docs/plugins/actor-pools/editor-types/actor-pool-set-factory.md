@@ -1,6 +1,4 @@
 ---
-sidebar_position: 3
-sidebar_label: Actor Pool Set Factory
 sidebar_class_name: type ue-object
 description: UFactory that creates new UNActorPoolSet assets from the Content Browser's "Create Asset" menu.
 tags: [0.3.0]

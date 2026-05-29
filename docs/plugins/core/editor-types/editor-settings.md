@@ -1,6 +1,4 @@
 ---
-sidebar_position: 5
-sidebar_label: Editor Settings
 sidebar_class_name: type ue-settings
 description: Project-level NEXUS editor settings (updates channel, update-check cadence).
 tags: [0.1.0]

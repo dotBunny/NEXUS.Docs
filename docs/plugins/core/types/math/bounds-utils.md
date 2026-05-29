@@ -1,6 +1,4 @@
 ---
-sidebar_position: 24
-sidebar_label: Bounds Utils
 sidebar_class_name: type native-class
 description: Native utility methods for working with FBoxSphereBounds and AVolumes.
 tags: [0.1.0]

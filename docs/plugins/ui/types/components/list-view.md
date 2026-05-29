@@ -1,6 +1,4 @@
 ---
-sidebar_position: 8
-sidebar_label: ListView
 sidebar_class_name: type ue-widget
 description: A UCommonListView subclass that hands each generated entry widget back its owning list, with a weak reference-object slot for stashing context.
 tags: [0.2.7]

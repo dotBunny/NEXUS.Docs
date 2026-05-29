@@ -1,9 +1,7 @@
 ---
-sidebar_position: 10
-sidebar_label: Test Latent Command (Post Performance Test)
 sidebar_class_name: type native-class
 description: Forces garbage collection after a performance measurement so the next test starts clean.
-tags: [0.1.0]
+tags: [0.3.0]
 ---
 
 import TypeDetails from '../../../../../../src/components/TypeDetails';

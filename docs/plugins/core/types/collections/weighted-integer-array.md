@@ -1,6 +1,4 @@
 ---
-sidebar_position: 51
-sidebar_label: Weighted Integer Array
 sidebar_class_name: type native-struct
 description: An inline array of integers that are proportionally weighted via repeated entries.
 tags: [0.2.0]

@@ -1,6 +1,4 @@
 ---
-sidebar_position: 4
-sidebar_label: Actor Pool Item
 sidebar_class_name: type ue-interface
 description: An interface that defines the contract between an AActor and the FNActorPool.
 tags: [0.1.0]

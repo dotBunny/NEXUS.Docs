@@ -1,6 +1,4 @@
 ---
-sidebar_position: 2
-sidebar_label: DynamicRef
 sidebar_class_name: type ue-enum
 description: An enumerated list of fixed reference identifiers used as keys for dynamic references.
 tags: [0.1.0]
@@ -8,7 +6,7 @@ tags: [0.1.0]
 
 import TypeDetails from '../../../../src/components/TypeDetails';
 
-# Dynamic Reference
+# DynamicRef
 
 <TypeDetails icon="ue-enum" base="UEnum" type="ENDynamicRef" typeExtra="" headerFile="NexusDynamicRefs/Public/NDynamicRef.h" />
 

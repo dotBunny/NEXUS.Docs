@@ -1,6 +1,4 @@
 ---
-sidebar_position: 6
-sidebar_label: Actor Pool Object
 sidebar_class_name: type ue-object
 description: A UObject wrapper around a native FNActorPool, exposing pool operations to Blueprints and UMG bindings.
 tags: [0.2.0]

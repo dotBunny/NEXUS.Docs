@@ -1,6 +1,4 @@
 ---
-sidebar_position: 43
-sidebar_label: Direction
 sidebar_class_name: type native-class
 description: The six axis-aligned directions in Unreal's left-handed coordinate system, plus FVector lookup helpers.
 tags: [0.1.0]

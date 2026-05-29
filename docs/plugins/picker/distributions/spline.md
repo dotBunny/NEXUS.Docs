@@ -1,5 +1,4 @@
 ---
-sidebar_label: Spline
 sidebar_class_name: type ue-blueprint-function-library
 description: Provides various functions for generating points along a USplineComponent spline using different random generation strategies.
 toc_min_heading_level: 2

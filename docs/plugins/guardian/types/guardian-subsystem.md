@@ -1,6 +1,4 @@
 ---
-sidebar_position: 2
-sidebar_label: Guardian Subsystem
 sidebar_class_name: type ue-world-subsystem
 description: A developer-focused subsystem to help monitor specific metrics related to UObject usage.
 tags: [0.2.0, 0.3.0]

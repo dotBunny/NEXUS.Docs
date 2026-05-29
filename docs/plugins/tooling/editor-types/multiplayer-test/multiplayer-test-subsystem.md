@@ -1,6 +1,4 @@
 ---
-sidebar_position: 1
-sidebar_label: Multiplayer Test Subsystem
 sidebar_class_name: type ue-world-subsystem
 description: Editor subsystem that drives the Multiplayer Test workflow — spawns and tracks the client/server processes that make up a test session.
 tags: [0.3.0]

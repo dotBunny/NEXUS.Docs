@@ -1,6 +1,4 @@
 ---
-sidebar_position: 10
-sidebar_label: ListView Entry
 sidebar_class_name: type ue-interface
 description: An interface that extends UUserObjectListEntry so entries hosted in a UNListView are handed a typed pointer to their owning list at construction.
 tags: [0.2.7]

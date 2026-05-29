@@ -1,9 +1,7 @@
 ---
-sidebar_position: 7
-sidebar_label: Test Latent Command (Cleanup World)
 sidebar_class_name: type native-class
 description: Tears down the FNTestEnvironment world and game instance created by Create World.
-tags: [0.1.0]
+tags: [0.3.0]
 ---
 
 import TypeDetails from '../../../../../../src/components/TypeDetails';

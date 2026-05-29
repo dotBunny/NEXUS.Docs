@@ -1,6 +1,4 @@
 ---
-sidebar_position: 7
-sidebar_label: Actor Pool Spawner Component
 sidebar_class_name: type ue-actor-component
 description: A fundamental spawning component which will interact with the NActorPoolSubsystem to periodically spawn defined AActors in predefined distributions (shapes).
 tags: [0.1.0]

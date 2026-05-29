@@ -1,6 +1,4 @@
 ---
-sidebar_position: 3
-sidebar_label: Editor Library
 sidebar_class_name: type ue-blueprint-function-library
 description: Blueprint-exposed editor helpers backed by FNEditorUtils.
 tags: [0.1.0]

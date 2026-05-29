@@ -1,6 +1,4 @@
 ---
-sidebar_position: 8
-sidebar_label: Editor Commands
 sidebar_class_name: type native-class
 description: Editor command bindings used by the NexusCoreEditor to inject help, bug-report, and documentation menu items.
 tags: [0.1.0]

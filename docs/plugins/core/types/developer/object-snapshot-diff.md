@@ -1,6 +1,4 @@
 ---
-sidebar_position: 17
-sidebar_label: Object Snapshot Diff
 sidebar_class_name: type native-struct
 description: The result of diffing two FNObjectSnapshots.
 tags: [0.1.0]

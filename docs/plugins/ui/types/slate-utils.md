@@ -1,6 +1,4 @@
 ---
-sidebar_position: 11
-sidebar_label: Slate Utils
 sidebar_class_name: type native-class
 description: Static helpers for walking the Slate widget tree — find widgets by type and locate the SDockTab that hosts a given widget.
 tags: [0.1.0]

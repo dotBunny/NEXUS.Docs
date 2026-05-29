@@ -1,5 +1,4 @@
 ---
-sidebar_label: Delayed Editor Task
 sidebar_class_name: type ue-object
 description: An abstract class designed to encompass work to be completed at some level of delay from the time of its creation.
 tags: [0.1.0]

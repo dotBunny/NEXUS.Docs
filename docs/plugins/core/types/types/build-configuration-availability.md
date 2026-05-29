@@ -1,6 +1,4 @@
 ---
-sidebar_position: 40
-sidebar_label: Build Configuration Availability
 sidebar_class_name: type native-class
 description: Bit flags identifying the Unreal build configurations a feature should be available in.
 tags: [0.1.0]

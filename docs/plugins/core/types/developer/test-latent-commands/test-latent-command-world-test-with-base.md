@@ -1,9 +1,7 @@
 ---
-sidebar_position: 5
-sidebar_label: Test Latent Command (World Test With Base)
 sidebar_class_name: type native-class
 description: Latent command whose callable receives both the active world and the owning FAutomationTestBase.
-tags: [0.1.0]
+tags: [0.3.0]
 ---
 
 import TypeDetails from '../../../../../../src/components/TypeDetails';

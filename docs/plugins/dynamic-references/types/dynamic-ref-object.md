@@ -1,6 +1,4 @@
 ---
-sidebar_position: 4
-sidebar_label: DynamicRef Object
 sidebar_class_name: type ue-object
 description: A Blueprint-friendly UObject wrapper around a single ENDynamicRef slot or FName bucket, used by the developer overlay.
 tags: [0.2.7]

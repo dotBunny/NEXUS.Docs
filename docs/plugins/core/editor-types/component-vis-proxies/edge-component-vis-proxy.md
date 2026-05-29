@@ -1,6 +1,4 @@
 ---
-sidebar_position: 10
-sidebar_label: Edge Component Vis Proxy
 sidebar_class_name: type native-struct
 description: Hit-proxy that represents an edge — a pair of indexed endpoints — rendered by a component visualizer.
 tags: [0.1.0]

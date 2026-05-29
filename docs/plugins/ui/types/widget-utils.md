@@ -1,6 +1,4 @@
 ---
-sidebar_position: 12
-sidebar_label: Widget Utils
 sidebar_class_name: type native-class
 description: Thin adapter helpers that bridge between UMG wrapper types and raw Slate equivalents.
 tags: [0.1.0]

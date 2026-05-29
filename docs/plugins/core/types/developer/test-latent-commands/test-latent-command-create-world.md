@@ -1,9 +1,7 @@
 ---
-sidebar_position: 6
-sidebar_label: Test Latent Command (Create World)
 sidebar_class_name: type native-class
 description: Creates a fresh UWorld, registers a transient UGameInstance, and starts play on the shared FNTestEnvironment.
-tags: [0.1.0]
+tags: [0.3.0]
 ---
 
 import TypeDetails from '../../../../../../src/components/TypeDetails';

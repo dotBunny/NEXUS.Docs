@@ -1,6 +1,4 @@
 ---
-sidebar_position: 11
-sidebar_label: Actor Pool ListView Entry
 sidebar_class_name: type ue-widget
 description: A UMG list view entry widget for displaying a single Actor Pool row, used by the developer overlay.
 tags: [0.2.0]

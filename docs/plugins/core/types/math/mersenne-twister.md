@@ -1,6 +1,4 @@
 ---
-sidebar_position: 33
-sidebar_label: Mersenne Twister
 sidebar_class_name: type native-class
 description: Mersenne Twister based FRandomStream-like API with some extras.
 tags: [0.1.0, 0.3.0]

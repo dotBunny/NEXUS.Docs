@@ -1,6 +1,4 @@
 ---
-sidebar_position: 48
-sidebar_label: Raw Mesh Utils
 sidebar_class_name: type native-class
 description: Intersection, containment, and convex-hull helpers for FNRawMesh geometry.
 tags: [0.2.0, 0.3.0]

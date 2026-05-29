@@ -1,5 +1,4 @@
 ---
-sidebar_position: 9
 description: Some console commands for developers to use provided by NCore.
 ---
 

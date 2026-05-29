@@ -1,6 +1,4 @@
 ---
-sidebar_position: 5
-sidebar_label: Actor Pools Editor Validator
 sidebar_class_name: type ue-object
 description: Editor data validator that runs UAssetDefinition_NActorPoolSet::ValidateAsset against pool-set assets on save and during commandlet validation.
 tags: [0.3.0]

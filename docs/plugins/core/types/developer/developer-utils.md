@@ -1,6 +1,4 @@
 ---
-sidebar_position: 3
-sidebar_label: Developer Utils
 sidebar_class_name: type native-class
 description: Cheap, read-only native helpers for build identification, root-set diagnostics, and editor compilation barriers.
 tags: [0.2.0]

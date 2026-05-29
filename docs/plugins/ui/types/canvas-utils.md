@@ -1,6 +1,4 @@
 ---
-sidebar_position: 10
-sidebar_label: Canvas Utils
 sidebar_class_name: type native-class
 description: Native helpers for drawing NEXUS canvas items to an FCanvas.
 tags: [0.3.0]

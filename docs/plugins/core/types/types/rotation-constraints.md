@@ -1,6 +1,4 @@
 ---
-sidebar_position: 49
-sidebar_label: Rotation Constraints
 sidebar_class_name: type native-struct
 description: Dual-interval rotation constraints used by World Assembly matching rules.
 tags: [0.2.0, 0.2.7]

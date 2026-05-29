@@ -1,5 +1,4 @@
 ---
-sidebar_position: 1
 tags: [0.1.0]
 description: An opinionated set of validation for UBlueprints.
 ---

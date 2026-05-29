@@ -1,6 +1,4 @@
 ---
-sidebar_position: 7
-sidebar_label: Widget State
 sidebar_class_name: type native-struct
 description: A lightweight string/bool/float key-value bag used to snapshot and restore UMG widget state across navigation, layer changes, or save/load.
 tags: [0.2.7]

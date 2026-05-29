@@ -1,6 +1,4 @@
 ---
-sidebar_position: 23
-sidebar_label: Report Content Block
 sidebar_class_name: type native-struct
 description: Report block that holds a sequence of free-form text lines.
 tags: [0.3.0]

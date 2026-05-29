@@ -1,6 +1,4 @@
 ---
-sidebar_position: 11
-sidebar_label: Index Component Vis Proxy
 sidebar_class_name: type native-struct
 description: Hit-proxy that identifies an individual indexed element rendered by a component visualizer.
 tags: [0.1.0]

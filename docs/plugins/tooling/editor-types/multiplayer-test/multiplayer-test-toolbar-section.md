@@ -1,6 +1,4 @@
 ---
-sidebar_position: 2
-sidebar_label: Multiplayer Test Toolbar Section
 sidebar_class_name: type native-class
 description: Static class that installs the Multiplayer Test toggle button into the Level Editor toolbar via UToolMenus.
 tags: [0.3.0]

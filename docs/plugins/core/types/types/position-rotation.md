@@ -1,6 +1,4 @@
 ---
-sidebar_position: 44
-sidebar_label: Position Rotation
 sidebar_class_name: type native-struct
 description: Lightweight pairing of an FVector position and an FRotator rotation.
 tags: [0.1.0]

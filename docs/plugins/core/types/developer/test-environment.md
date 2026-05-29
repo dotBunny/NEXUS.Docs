@@ -1,6 +1,4 @@
 ---
-sidebar_position: 26
-sidebar_label: Test Environment
 sidebar_class_name: type native-struct
 description: Shared world / game-instance fixture passed between NEXUS test latent commands.
 tags: [0.1.0]

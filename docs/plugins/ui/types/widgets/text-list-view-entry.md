@@ -1,5 +1,4 @@
 ---
-sidebar_label: Text ListView Entry
 sidebar_class_name: type ue-widget
 description: A reusable list-view entry widget that renders a UBorder + UCommonTextBlock pair driven by a bound UNTextListViewEntryObject.
 tags: [0.2.7]

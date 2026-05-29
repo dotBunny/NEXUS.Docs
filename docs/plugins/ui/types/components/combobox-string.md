@@ -1,5 +1,4 @@
 ---
-sidebar_label: ComboBox String
 sidebar_class_name: type ue-widget
 description: An extension on the UMG UComboBoxString which adds functionality to set its selected option or index without broadcasting / triggering events.
 tags: [0.1.0]

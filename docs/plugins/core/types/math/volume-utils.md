@@ -1,6 +1,4 @@
 ---
-sidebar_position: 37
-sidebar_label: Volume Utils
 sidebar_class_name: type native-class
 description: Helpers for working with AVolume and its underlying UModel geometry.
 tags: [0.2.0]

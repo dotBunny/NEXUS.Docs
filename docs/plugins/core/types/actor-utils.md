@@ -1,6 +1,4 @@
 ---
-sidebar_position: 6
-sidebar_label: Actor Utils
 sidebar_class_name: type native-class
 description: A collection of utility methods for working with actors, accessible from C++ only.
 tags: [0.1.0]

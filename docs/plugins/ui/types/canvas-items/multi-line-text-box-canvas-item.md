@@ -1,6 +1,4 @@
 ---
-sidebar_position: 1
-sidebar_label: Multi-Line Text Box Canvas Item
 sidebar_class_name: type native-struct
 description: A canvas-renderable multi-line text box with severity-driven border styling.
 tags: [0.3.0]

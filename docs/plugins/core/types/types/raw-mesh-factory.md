@@ -1,6 +1,4 @@
 ---
-sidebar_position: 47
-sidebar_label: Raw Mesh Factory
 sidebar_class_name: type native-class
 description: Builds FNRawMesh instances from Unreal's collision and rendering primitives.
 tags: [0.3.0]

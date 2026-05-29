@@ -1,6 +1,4 @@
 ---
-sidebar_position: 2
-sidebar_label: Developer Library
 sidebar_class_name: type ue-blueprint-function-library
 description: A small collection of functionality to wrap the usage of developer tools.
 tags: [0.2.0, 0.2.3]

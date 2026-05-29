@@ -1,6 +1,4 @@
 ---
-sidebar_position: 30
-sidebar_label: Integer Range
 sidebar_class_name: type native-struct
 description: A 32-bit integer inclusive range [Minimum, Maximum].
 tags: [0.1.0]

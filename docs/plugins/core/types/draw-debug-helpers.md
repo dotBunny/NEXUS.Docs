@@ -1,6 +1,4 @@
 ---
-sidebar_position: 10
-sidebar_label: Draw Debug Helpers
 sidebar_class_name: type native-class
 description: A set of functionality made to extend DrawDebug commands.
 tags: [0.1.0]

@@ -1,5 +1,4 @@
 ---
-sidebar_position: 1
 description: An action to find and resolve UPoseAssets that are out-of-date with their source animation.
 tags: [0.1.0, 0.3.0]
 ---

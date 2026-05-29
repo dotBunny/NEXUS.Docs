@@ -1,6 +1,4 @@
 ---
-sidebar_position: 32
-sidebar_label: Hash Utils
 sidebar_class_name: type native-class
 description: A collection of non-cryptographic hashing utilities.
 tags: [0.1.0]

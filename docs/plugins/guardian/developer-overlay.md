@@ -1,6 +1,6 @@
 ---
 sidebar_label: Developer Overlay
-sidebar_position: 3
+sidebar_position: 2
 description: An overlay showing the Guardian subsystem's baseline, current UObject count, and next threshold.
 ---
 

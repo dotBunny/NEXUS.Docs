@@ -1,6 +1,4 @@
 ---
-sidebar_position: 5
-sidebar_label: Actor Library
 sidebar_class_name: type ue-blueprint-function-library
 description: A utility class providing core functions and operations for Actors.
 tags: [0.1.0]

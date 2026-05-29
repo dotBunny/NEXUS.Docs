@@ -1,6 +1,5 @@
 ---
 description: An automatic world or localspace grid with tint and line colors.
-sidebar_position: 2
 tags: [0.2.0]
 ---
 

@@ -1,5 +1,4 @@
 ---
-sidebar_label: Property Sections
 sidebar_class_name: type native-class
 description: Editor helper that registers a shared NEXUS property section across the standard Unreal property views.
 tags: [0.3.0]

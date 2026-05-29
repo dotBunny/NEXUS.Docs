@@ -1,6 +1,4 @@
 ---
-sidebar_position: 1
-sidebar_label: Actor Pool Spawner Component Visualizer
 sidebar_class_name: type native-class
 description: Editor component visualizer that draws the distribution shape of a UNActorPoolSpawnerComponent in level viewports.
 tags: [0.3.0]

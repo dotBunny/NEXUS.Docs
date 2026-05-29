@@ -1,6 +1,4 @@
 ---
-sidebar_position: 25
-sidebar_label: Box Utils
 sidebar_class_name: type native-class
 description: A collection of utility methods for working with FBoxes.
 tags: [0.1.0]
