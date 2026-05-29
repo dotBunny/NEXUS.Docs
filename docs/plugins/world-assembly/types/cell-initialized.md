@@ -9,7 +9,7 @@ import TypeDetails from '../../../../src/components/TypeDetails';
 
 <TypeDetails icon="ue-interface" base="interface" type="INCellInitialized" typeExtra=" / UNCellInitialized" headerFile="NexusWorldAssembly/Public/Cell/INCellInitialized.h" />
 
-Implemented by actors placed inside a [Cell](cell.md) level that need to react once their owning cell has been initialized from a proxy. Such actors are discovered at runtime and registered as initialize-callback actors; when the `ANCellActor` finishes applying data from its proxy, it invokes `OnInitializedFromProxy` on each of them, handing over the spawned `ANCellLevelInstance`. This is the entry point for gameplay actors to read post-assembly context — for example the accumulated [Tissue](tissue.md) Output Tags — from the cell.
+Implemented by actors placed inside a [Cell](cell.md) level that need to react once their owning cell has been initialized from a proxy. Such actors are discovered during author-time saving and are registered as initialize-callback actors with the `ANCellActor`. When the `ANCellActor` finishes applying data from its proxy, it invokes `OnInitializedFromProxy` on each of them, handing over the spawned `ANCellLevelInstance`. This is the entry point for gameplay actors to read post-assembly context — for example the accumulated [Tissue](tissue.md) Output Tags — from the cell.
 
 ## What It Is
 
