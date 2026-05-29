@@ -1,5 +1,6 @@
 ---
 description: Tags play an interesting role within World Assembly, providing a cheap and effective way to markup content, drive behavior, and convey information to third-party consumers.
+sidebar_position: 3
 ---
 
 # Tagging

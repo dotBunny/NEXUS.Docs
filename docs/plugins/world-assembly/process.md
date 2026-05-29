@@ -2,6 +2,7 @@
 description: A procedural generation system focused on creating dynamic gameplay-focused spaces.
 sidebar_label: Process Flow
 title: Process Flow
+sidebar_position: 4
 ---
 
 ## Task Graph
