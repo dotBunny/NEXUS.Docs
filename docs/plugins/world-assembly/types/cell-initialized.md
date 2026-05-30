@@ -28,10 +28,8 @@ UFUNCTION(BlueprintNativeEvent, CallInEditor, Category="NEXUS|World Assembly")
 void OnInitializedFromProxy(ANCellLevelInstance* CellLevelInstance);
 ```
 
-As a `BlueprintNativeEvent`, `OnInitializedFromProxy` can be implemented in C++ (override `OnInitializedFromProxy_Implementation`) or in a Blueprint event graph.
-
 :::warning
 
-The callback occurs before the Cell's Actors have been positioned to their final world position. Anything involving accessing the placed World Position or World Rotation of an Actor should be done during or after `BeginPlay`.
+The callback occurs **before** the [Cell's](cell.md)'s Actors have been **positioned**. Anything involving accessing the placed **World Position** or **World Rotation** of an `AActor` should be done during or after `BeginPlay`.
 
 :::
