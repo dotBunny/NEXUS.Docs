@@ -4,7 +4,10 @@ sidebar_position: 2
 tags: [0.3.0]
 ---
 
+import DocCardList from '@theme/DocCardList';
+
 # Editor Mode
+
 
 World Assembly ships an editor mode (`FNWorldAssemblyEdMode`) that takes over the active level editor when a cell actor or organ component is in focus. It surfaces a context-sensitive viewport toolbar and switches the transform-widget mode based on what is currently selected so a designer can move between hull editing, bounds tweaking, and proxy generation without leaving the level.
 
@@ -50,7 +53,7 @@ Only one generation pass runs at a time — repeatedly clicking **Generate** is 
 
 ## Selection-Aware Tagging
 
-Two toolbar buttons toggle tags on whatever actors are currently selected in the level outliner — these are quick-access wrappers around the [Actor Tags](tagging.md#cell-markup-tags) checked during generation.
+Two toolbar buttons toggle tags on whatever actors are currently selected in the level outliner — these are quick-access wrappers around the [Actor Tags](../tagging.md#cell-markup-tags) checked during generation.
 
 | Button | Tag |
 | :-- | :-- |
@@ -66,3 +69,7 @@ The button's icon reflects the current state: **Ignored** (every selected actor 
 | Setting | Description | Default |
 | :-- | :-- | :-- |
 | **Display Viewport Messages** | Show alerts and informational messages directly in the viewport while editing cells. | `true` |
+
+
+
+<DocCardList />

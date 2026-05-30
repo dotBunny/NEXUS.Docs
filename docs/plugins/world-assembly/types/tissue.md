@@ -35,17 +35,17 @@ Or as an added bonus it can be created through its own direct asset factory from
 
 These are collections of tags that correspond to specific described behavior when used. They pull their possible tags from `NEXUS.WorldAssembly.*`. User-created tags should be added under that namespace if you wish for them to show up in the details inspector.
 
-#### Unique
+#### `Unique`
 
 Identifying an `FGameplayTag` as part of `Tag Groups > Unique` will create a behavioral contract during the assembly operation of a `UNOrganComponent` that ensures that once a Cell is placed that has that `FGameplayTag` as part of its `Assembly Tags`, no other Cell with that `FGameplayTag` can be used.
 
 > As an example, you may want to have only one **hero** piece appear in a given assembly operation. You could add your `Hero` tag to all the **hero** Cell entries in their `Assembly Tags` and would then also add it to the `Tag Groups > Unique`. 
 
-#### RequiredAny
+#### `RequiredAny`
 
 When an `FGameplayTag` is added to `Tag Groups > Required (Any)`, after the generation of the `Cell Graph` during an assembly operation, the graph will be validated to ensure that at least one `UNCell` was used that had this `FGameplayTag` associated to it via `Assembly Tags`. If none were, the graph is regenerated.
 
-#### Unique & RequiredAny Special Behavior
+#### `Unique` & `RequiredAny` Special Behavior
 
 A common requirement when generating gameplay spaces is ensuring that there is some sort of Boss encounter. This is where combining `Unique` and `RequiredAny` has a compound effect with a little extra magic behind the scenes. In a contrived example, you would have two `UNCell` boss-room entries, both would be set to have a `MinimumCount` and `MaximumCount` of `1`, and would get tagged with some `FGameplayTag` that ends up in `Tag Groups > Unique` and `Tag Groups > Required (Any)`. When it's set up like this, the `MinimumCount` is ignored, as well as the "every" part of `Required` when validating the graph.
 

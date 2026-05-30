@@ -33,7 +33,7 @@ Plain `FName` tags added to any `AActor`, consumed by the virtual-world capture 
 | --- | --- | --- |
 | `NWorldCollision_Ignore` | `WorldCollisionIgnore` | Excludes the actor from the virtual-world collision capture; the actor is not visible to any subsequent assembly pass at all. |
 
-The edit-mode toolbar in [Editor Mode](editor-mode.md) provides quick-toggle commands for the `NCell_Ignore` and `NWorldCollision_Ignore` tags on the current selection.
+The edit-mode toolbar in [Editor Mode](editor-mode/index.mdx) provides quick-toggle commands for the `NCell_Ignore` and `NWorldCollision_Ignore` tags on the current selection.
 
 ## Assembly Gameplay Tags
 
