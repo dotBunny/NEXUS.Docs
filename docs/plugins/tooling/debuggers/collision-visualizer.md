@@ -19,10 +19,10 @@ After watching George Prosser's UnrealFest 2023 talk [Collision Data in UE5](htt
 
 ![Collision Viz Window](collision-visualizer-window.webp)
 
-The configuration is persistant and copy-pastable for sharing (right-click on Settings).
+The configuration is persistent and copy-pastable for sharing (right-click on Settings).
 
 :::tip
 
-You can move both points and rotate the start point in the inspector or in the viewport, they will be syncronized.
+You can move both points and rotate the start point in the inspector or in the viewport; they will be synchronized.
 
 :::

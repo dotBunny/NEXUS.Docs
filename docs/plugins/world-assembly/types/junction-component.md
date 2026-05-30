@@ -43,7 +43,7 @@ A Junction will only persist on a Cell if the level contains a `UNCellRootCompon
 | Type | `ENCellJunctionType` | **NOT IMPLEMENTED** | `Two-Way` |
 | Requirements | `ENCellJunctionRequirements` | **NOT IMPLEMENTED** | `AllowBlocking` | 
 | Socket Size | `FIntVector2` | Size of the junction socket in grid units (width, height) | `(2,4)` | 
-| Rotation Contraints | `FNRotationConstraints`| What rotations can be made by this junction to match another. | |
+| Rotation Constraints | `FNRotationConstraints`| What rotations can be made by this junction to match another. | |
 | Weighting | `int32` | Relative weight against other junctions in the cell for selection. | `1` | 
 
 ## Gizmo
@@ -62,7 +62,7 @@ The arrow in the middle indicates the forward direction of the **Junction**.
 
 :::important[Facing Direction]
 
-It is important that the direction of the **Junction** in a Cell always face inwards.
+It is important that the direction of the **Junction** in a Cell always faces inwards.
 
 :::
 
@@ -83,7 +83,7 @@ The pink override exists because `NWorldAssembly`'s placement system permits pen
 
 :::warning 
 
-This is going to change in the future when the filling/blocking of Junctions is 
+This is going to change in the future when the filling/blocking of Junctions is implemented.
 
 :::
 

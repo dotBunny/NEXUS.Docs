@@ -40,9 +40,9 @@ A Blueprint-compatible struct that defines configuration parameters for managing
 | `CreateLimited` | Create Till Cap | Create `AActor` until `MaximumActorCount` is reached and stop returning a `nullptr` in such cases. |
 | `CreateRecycleFirst` | Create Till Cap, Recycle First | Create `AActor` until `MaximumActorCount` is reached, any requests beyond provide the oldest already spawned `AActor` in a FIFO behavior. | 
 | `CreateRecycleLast` | Create Till Cap, Recycle Last | Create `AActor` until `MaximumActorCount` is reached, any requests beyond provide the newest spawned `AActor` in a LIFO behavior. | 
-| `Fixed` | Fixed Availabilty | Deploys `AActor` as needed from fixed pools, exceeding availability results in a `nullptr` being returned.| 
-| `FixedRecycleFirst` | Fixed Availabilty, Recycle First | Deploys `AActor` as needed from fixed pools, exceeding availability will return the oldest already spawned `AActor` in a FIFO behavior. |
-| `FixedRecycleLast` | Fixed Availabilty, Recycle Last | Deploys `AActor` as needed from fixed pools, exceeding availability will return the newest already spawned `AActor` in a LIFO behavior. |
+| `Fixed` | Fixed Availability | Deploys `AActor` as needed from fixed pools, exceeding availability results in a `nullptr` being returned.| 
+| `FixedRecycleFirst` | Fixed Availability, Recycle First | Deploys `AActor` as needed from fixed pools, exceeding availability will return the oldest already spawned `AActor` in a FIFO behavior. |
+| `FixedRecycleLast` | Fixed Availability, Recycle Last | Deploys `AActor` as needed from fixed pools, exceeding availability will return the newest already spawned `AActor` in a LIFO behavior. |
 
 ## Flags
 

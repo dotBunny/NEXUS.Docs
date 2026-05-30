@@ -1,5 +1,5 @@
 ---
-description: TBD
+description: A spatial volume that defines where World Assembly of Cells (via Tissues) should be generated.
 sidebar_class_name: type ue-volume
 
 ---
@@ -17,6 +17,6 @@ A bone is a rigid organ that constitutes part of the skeleton in most vertebrate
 :::
 
 An Organ represents a spatial unit where World Assembly of Cells (via Tissues) should be generated. 
-Organs can have sub-organs, and generation will account and determine the most parallizable order possible.
+Organs can have sub-organs, and generation will account for and determine the most parallelizable order possible.
 
 ![Unbounded Organ](organ-component-unbounded.webp)

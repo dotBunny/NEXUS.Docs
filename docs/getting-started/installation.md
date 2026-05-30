@@ -32,7 +32,7 @@ The framework has been tested to work when placed inside of a Project's `Plugins
 
 :::tip[Rocket Build Support]
 
-One of the design pillars for this framework is to ensure that it is functionally equivalent for **both** the rocket (downloaded from Epic Games Launcher) and source builds of the Unreal Engine/Editor. Adding some complexity to the development of the framework, in exchange for opening its use up to a significantly larger number of developers.
+One of the design pillars for this framework is to ensure that it is functionally equivalent for **both** the rocket (downloaded from Epic Games Launcher) and source builds of the Unreal Engine/Editor. This adds some complexity to the development of the framework, in exchange for opening its use up to a significantly larger number of developers.
 
 :::
 

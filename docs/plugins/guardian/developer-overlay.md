@@ -10,9 +10,9 @@ import TypeDetails from '../../../src/components/TypeDetails';
 
 <TypeDetails icon="ue-widget" base="UNDeveloperOverlay" type="UNGuardianDeveloperOverlay" typeExtra="" headerFile="NexusGuardian/Public/NGuardianDeveloperOverlay.h" />
 
-A live readout of the [UNGuardianSubsystem](types/guardian-subsystem.md) suitable for embedding in a debug HUD or running as an [UNEditorUtilityWidget](/docs/plugins/ui/editor-types/editor-utility-widget/). It surfaces three numbers — current `UObject` count, the baseline captured by `SetBaseline()`, and the value of the next threshold the count is approaching.
+A live readout of the [UNGuardianSubsystem](types/guardian-subsystem.md) suitable for embedding in a debug HUD or running as a [UNEditorUtilityWidget](/docs/plugins/ui/editor-types/editor-utility-widget/). It surfaces three numbers — current `UObject` count, the baseline captured by `SetBaseline()`, and the value of the next threshold the count is approaching.
 
-The class is `Abstract`; the plugin ships a Blueprint subclass at `/NexusGuardian/WB_NGuardianDeveloperOverlay` that you can wrap as an `UNEditorUtilityWidget` from `Tools > NEXUS > Guardian`, or instantiate at runtime in any UMG hierarchy.
+The class is `Abstract`; the plugin ships a Blueprint subclass at `/NexusGuardian/WB_NGuardianDeveloperOverlay` that you can wrap as a `UNEditorUtilityWidget` from `Tools > NEXUS > Guardian`, or instantiate at runtime in any UMG hierarchy.
 
 ## What It Shows
 

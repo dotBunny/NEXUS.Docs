@@ -1,6 +1,6 @@
 ---
 sidebar_position: 9
-description:  The project settings for NActorPools.
+description: The project settings for NActorPools.
 ---
 
 # Project Settings

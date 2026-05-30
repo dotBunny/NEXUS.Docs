@@ -27,7 +27,7 @@ project-wide in `Editor Preferences > NEXUS > Tooling > Blueprint: Empty Tick`
 
 One of the older traps of development is accessing properties, and the hidden cost of accessing the output value. Often, developers will not evaluate the underlying backing of the property and reason whether that property should be cached locally in that frame instead of accessing it repeatedly. This problem gets exacerbated by the multi-pin pure node accessing that can happen with a `UBlueprint`.
 
-This function of the `UNBlueprintValidator` looks for occurances where this occurs.
+This function of the `UNBlueprintValidator` looks for occurrences where this occurs.
 
 :::tip
 

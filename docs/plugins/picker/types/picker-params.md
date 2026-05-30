@@ -36,7 +36,7 @@ enum class ENPickerProjectionMode : uint8
 };
 ```
 
-| Value | Behaviour |
+| Value | Behavior |
 | :-- | :-- |
 | `None` | The generated point is returned as-is. |
 | `Trace` | A line trace is cast from the point in direction `Projection` using `CollisionChannel`; if it hits, the hit location replaces the point. |

@@ -1,7 +1,7 @@
 ---
 title: Project Settings
 sidebar_position: 5
-description:  The project settings for NWorldAssembly.
+description: The project settings for NWorldAssembly.
 ---
 
 # Project Settings

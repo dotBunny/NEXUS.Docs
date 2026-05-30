@@ -10,7 +10,7 @@ A spot-check function which fires off a configurable, timed-delayed task in the 
 
 :::info
 
-If a leak is detected, a `FNObjectSnapshotDiff` will be written out to the projects log folder with the prefix `NEXUS_LeakCheck_*`.
+If a leak is detected, an `FNObjectSnapshotDiff` will be written out to the project's log folder with the prefix `NEXUS_LeakCheck_*`.
 
 :::
 

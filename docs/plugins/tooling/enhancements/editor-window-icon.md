@@ -31,6 +31,6 @@ A restart of the editor is required for any of these changes to take effect.
 
 :::tip
 
-You can see that the [Test Project](../../../getting-started/test-project.md) exercises this functionality, referencing both `NEXUS.svg` and `NEXUS.ico` in it's preferences.
+You can see that the [Test Project](../../../getting-started/test-project.md) exercises this functionality, referencing both `NEXUS.svg` and `NEXUS.ico` in its preferences.
 
 :::

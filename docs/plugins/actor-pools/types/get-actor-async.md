@@ -32,4 +32,4 @@ The pin always fires exactly once, even if the underlying load fails or no `AAct
 
 - Honors all the [pool flags](actor-pool-settings.md#flags) of the resolved pool — including `ServerOnly`, which will return `null` on clients.
 - "Get" semantics match `UNActorPoolSubsystem::GetActor` — the returned `AActor` is **not** activated and no events are triggered on it. Activate it yourself or use [Spawn Actor Async](spawn-actor-async.md) instead.
-- Internally holds a `TSoftClassPtr<AActor>` and a `FStreamableHandle`; the streaming handle stays alive until the action completes.
+- Internally holds a `TSoftClassPtr<AActor>` and an `FStreamableHandle`; the streaming handle stays alive until the action completes.

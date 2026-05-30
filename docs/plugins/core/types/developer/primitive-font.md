@@ -56,7 +56,7 @@ FORCEINLINE static TArray<FNPrimitiveFontPoint>& GetGlyph(const char InChar);
 
 ### Draw PDI
 
-Draw a string via a `FPrimitiveDrawInterface`.
+Draw a string via an `FPrimitiveDrawInterface`.
 
 ```cpp
 /**

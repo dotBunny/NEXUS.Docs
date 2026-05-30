@@ -56,7 +56,7 @@ If you are just looking to capture the current state of things to a file check o
 - Number of references
 - Is it flagged for Garbage Collection?
 - Is it part of a root set?
-- It's name and full name where possible.
+- Its name and full name where possible.
 - A `TWeakObjectPtr` to the object.
   
 :::warning
@@ -79,7 +79,7 @@ Compares two already created `FNObjectSnapshots` to formulate a difference repor
 
 :::warning
 
-This process can cause a bit of a performance hit as it will itterate over potentially a large array of `FNObjectSnapshotEntry`.
+This process can cause a bit of a performance hit as it will iterate over potentially a large array of `FNObjectSnapshotEntry`.
 
 :::
 
@@ -124,7 +124,7 @@ The *Reference Count* does not always seem to be accurate as polled from the `UO
 
 #### Get UObject Snapshot Summary
 
-Get an output-friendly `FString` that summarizes the contents of a `FNObjectSnapshot`.
+Get an output-friendly `FString` that summarizes the contents of an `FNObjectSnapshot`.
 
 ```txt title="Example Content"
 Captured %i Objects (%i Untracked)
@@ -156,7 +156,7 @@ Captured %i Objects (%i Untracked)
 
 #### Get UObject Snapshot Diff Summary
 
-Get an output-friendly `FString` that summarizes the number of changes found in a `FNObjectSnapshotDiff`.
+Get an output-friendly `FString` that summarizes the number of changes found in an `FNObjectSnapshotDiff`.
 
 ```txt title="Example Content"
 Total %i (%i Changes | %i Previously Untracked | %i Currently Untracked) - Added %i / Maintained %i / Removed %i
@@ -197,7 +197,7 @@ static FString GetObjectSnapshotDiffDetailedSummary(const FNObjectSnapshotDiff& 
 
 #### Output Snapshot To Log
 
-Simple way to output the contents of a `FNOjectSnapshotDiff` to `LogNexus`.
+Simple way to output the contents of an `FNObjectSnapshotDiff` to `LogNexus`.
 
 ```txt title="Example Log Output"
 [FNObjectSnapshotDiff::DumpToLog] Captured %i Objects (%i Changes)
@@ -223,7 +223,7 @@ static void DumpSnapshotDiffToLog(const FNObjectSnapshotDiff& Diff) { Diff.DumpT
 
 #### Draw Debug String<VersionBadge version="0.2.3" branch="main" type="header" />
 
-Renders a `FString` in the `UWorld` via a pseudo `DebugDrawLine` utiling the `FNPrimitiveFont`.
+Renders an `FString` in the `UWorld` via a pseudo `DebugDrawLine` utilizing the `FNPrimitiveFont`.
 
 ![Hello World](primitive-font-hello-world.webp)
 

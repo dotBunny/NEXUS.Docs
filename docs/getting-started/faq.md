@@ -22,11 +22,11 @@ Testing is done against the current state of the repository, not bespoke version
 
 :::
 
-## What does `(User)` indicate when found at the end of preference category?
+## What does `(User)` indicate when found at the end of a preference category?
 
-This indicates that these options are saved locally to the developers machine and are not pushed upon other team members. While default values are setup and spread in the project, the local developer overrides them however they please.
+This indicates that these options are saved locally to the developer's machine and are not pushed upon other team members. While default values are set up and spread in the project, the local developer overrides them however they please.
 
-## What is the deal with the Blueprint functions that DisplayName starts with `?`
+## What is the deal with the Blueprint functions whose DisplayName starts with `?`
 
 These are Blueprint functions that return a `bool` value, but instead of treating it as a traditional return value, the Blueprint node is modified to have two output pins (`true`/`false`). These are often direct clones of an existing function, but with their return context altered.
 

@@ -67,12 +67,12 @@ Tagged items cannot be used at the end of an Organ Assembly node branch.
 
 ### Pre-Made Groups
 
-These tags are here as example content, or first-usage type tags. They are automatically addede to their respected `Tag Groups`, so you don't have to worry about adding them Just to get you started,
+These tags are here as example content, or first-usage type tags. They are automatically added to their respective `Tag Groups`, so you don't have to worry about adding them — they are just here to get you started.
 
-#### `NEXUS.WorldAssembly.BuildIn.Unique`
+#### `NEXUS.WorldAssembly.BuiltIn.Unique`
 
-Only one of tagged items could be placed in an Organ Assembly. This is just a built-in default unique group, you can make your own to create discrete groups to assign to the `Tag Groups > Unique` option.
+Only one of the tagged items can be placed in an Organ Assembly. This is just a built-in default unique group, you can make your own to create discrete groups to assign to the `Tag Groups > Unique` option.
 
 #### `NEXUS.WorldAssembly.BuiltIn.RequiredAny`
 
-Predefined group that ensure that anything in it must be present in the generated graph, when combined with `Unique`, ensures only one is present, ignoring `MinimalCount`. You can make your own to create discrete groups similar to assign to the `Tag Groups > Required (Any)` option.
+Predefined group that ensures anything in it must be present in the generated graph; when combined with `Unique`, ensures only one is present, ignoring `MinimalCount`. You can make your own to create discrete groups to assign to the `Tag Groups > Required (Any)` option.

@@ -7,7 +7,7 @@ description: The secret sauce of the framework is using a demonstration project 
 
 Included with the framework is a project that serves two purposes.
 
-Primarily to demonstrate some of the functionality provided by the framework and its plugins in an easy-to-consume manner. Content is on display in a dedicated `DEMO_` prefixed levels for each respective plugin, with example Blueprint-based content to view as well.
+Primarily to demonstrate some of the functionality provided by the framework and its plugins in an easy-to-consume manner. Content is on display in dedicated `DEMO_` prefixed levels for each respective plugin, with example Blueprint-based content to view as well.
 
 The secondary part is where the `DEMO_` prefixed levels are used as sub-levels to the `TEST_` prefixed levels that then run functional tests on the content displays.
 

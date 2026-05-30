@@ -1,5 +1,5 @@
 ---
-description: TBD
+description: Common questions about World Assembly — its goals, the biological naming, and why it isn't built on PCG.
 sidebar_label: FAQ
 sidebar_position: 6
 ---
@@ -8,7 +8,7 @@ sidebar_position: 6
 
 ## What is the goal here?
 
-The long-term plan is to develop generation that can create stitched together gameplay spaces similar in complexity to the interconnected world of Dark Souls. This means being able to connect defined areas of generation reliably, as well as the idea of if you can see it in the distance, you should be able to get to it. 
+The long-term plan is to develop generation that can create stitched-together gameplay spaces similar in complexity to the interconnected world of Dark Souls. This means being able to connect defined areas of generation reliably, as well as the idea of if you can see it in the distance, you should be able to get to it. 
 
 Another way of thinking of this is that this should be able to generate the Forest, the Castle, and the rooms in the Castle in a dependent manner with fixed junctions.
 

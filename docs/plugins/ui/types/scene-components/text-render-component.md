@@ -26,7 +26,7 @@ The previous `Server_*` setter variants were removed in `0.3.0`; call the [`SetF
 
 ### Set From Name
 
-Sets the text of the `NTextRenderComponent` from a `FName`, ensuring it is only done with **authority**, and then replicated.
+Sets the text of the `NTextRenderComponent` from an `FName`, ensuring it is only done with **authority**, and then replicated.
 
 ```cpp
 /**
@@ -38,7 +38,7 @@ void SetFromName(const FName& NewValue);
 
 ### Set From String
 
-Sets the text of the `NTextRenderComponent` from a `FString`, ensuring it is only done with **authority**, and then replicated.
+Sets the text of the `NTextRenderComponent` from an `FString`, ensuring it is only done with **authority**, and then replicated.
 
 ```cpp
 /**
@@ -50,7 +50,7 @@ void SetFromString(const FString& NewValue);
 
 ### Set From Text
 
-Sets the text of the `NTextRenderComponent` from a `FText`, ensuring it is only done with **authority**, and then replicated.
+Sets the text of the `NTextRenderComponent` from an `FText`, ensuring it is only done with **authority**, and then replicated.
 
 ```cpp
 /**

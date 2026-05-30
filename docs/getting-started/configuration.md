@@ -25,13 +25,13 @@ Don't forget to update any build targets with references to any plugins used.
 
 ### NEXUS Samples
 
-For many of the **NEXUS** Framework plugins, there is a counterpart plugin that houses sample content. They’re broken out into individuals to allow for fine-grain control of inclusion into your project. Additionally, there is a [TestProject](/docs/getting-started/test-project/) at the root of the repository, which serves as a showcase project for all the plugins and hosts all our functional tests
+For many of the **NEXUS** Framework plugins, there is a counterpart plugin that houses sample content. They’re broken out into individuals to allow for fine-grain control of inclusion into your project. Additionally, there is a [TestProject](/docs/getting-started/test-project/) at the root of the repository, which serves as a showcase project for all the plugins and hosts all our functional tests.
 
 ## Project Settings
 
-Some of the plugins have presistent configuration values used at runtime, these are found in the **NEXUS** section of the **Project Settings**.
+Some of the plugins have persistent configuration values used at runtime; these are found in the **NEXUS** section of the **Project Settings**.
 
-![Project Settigns Window](configuration-project-settings.webp)
+![Project Settings Window](configuration-project-settings.webp)
 
 ## Editor Preferences
 
@@ -41,6 +41,6 @@ Depending on the plugin, corresponding entries will appear in the **NEXUS** sect
 
 :::info
 
-Any section ending with `(User)` denotes that all settings in that category are saved on the local users machine, and are not shared amongst other developers.
+Any section ending with `(User)` denotes that all settings in that category are saved on the local user's machine, and are not shared amongst other developers.
 
 :::

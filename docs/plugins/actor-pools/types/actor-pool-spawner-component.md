@@ -29,7 +29,7 @@ This is a rudimentary example of how to spawn things; it has some use cases in a
 | Spawn Rate | `float` | The rate at which things should be spawned. | `0.5f` |
 | Offset | `FVector` | Offset from the component location to treat as the origin when calculating a position to spawn an `AActor`. | `(0,0,0)` |
 | Distribution | `ENActorPoolSpawnerDistribution`  | The specific distribution-shape to use when selecting a point/location to spawn an `AActor` at. | `Point` |
-| Distrubtion Range | `FVector` | The axis-based ranges to use when outlining the shapes size, and or any sort of exclusionary range. | `(1.f,20.f,20.f)`|
+| Distribution Range | `FVector` | The axis-based ranges to use when outlining the shape's size, and/or any sort of exclusionary range. | `(1.f,20.f,20.f)`|
 | Spline Level Reference | `FComponentReference` | When `Spline` is selected as `Distribution`, this option will be visible to select a SplineComponent in the current level. | `nullptr` |
 | Count | `int32` | The number of items to spawn at any given spawn event. | `1` |
 | Randomize Seed | `bool` | Should a random seed be selected on `BeginPlay()` for this component?| `false` |
@@ -64,7 +64,7 @@ void Spawn(bool bIgnoreSpawningFlag = false);
 
 ```cpp
 /**
-  * Disables the component's internal flag to stop any spawning from occuring.
+  * Disables the component's internal flag to stop any spawning from occurring.
   */
 void DisableSpawning()
 ```

@@ -190,7 +190,7 @@ You must use both macros, `N_IMPLEMENT_META_TYPE_HEADER` and `N_IMPLEMENT_META_T
 
 ### N_IMPLEMENT_META_TYPE_HEADER
 
-Passing in the method prefix to this macro will produce a series of simple static functions to call related to the provided prefix (the key will be setup on the implementation side).
+Passing in the method prefix to this macro will produce a series of simple static functions to call related to the provided prefix (the key will be set up on the implementation side).
 
 ```cpp title="Macro Usage"
 N_IMPLEMENT_META_TYPE_HEADER(ExternalDocumentation)

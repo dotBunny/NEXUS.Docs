@@ -12,7 +12,7 @@ import TypeDetails from '../../../../src/components/TypeDetails';
 
 <TypeDetails icon="native-class" base="class" type="FNPickerUtils" typeExtra="" headerFile="NexusPicker/Public/NPickerUtils.h" />
 
-Shared configuration defaults used by every picker when resolving a generated point onto geometry or navmesh via [ENPickerProjectionMode](picker-params.md#projection-mode). The header also defines the macro family the picker implementations expand into so projection behaviour stays consistent across shapes — those macros are intentionally undocumented (header-only convenience, not part of the public type surface).
+Shared configuration defaults used by every picker when resolving a generated point onto geometry or navmesh via [ENPickerProjectionMode](picker-params.md#projection-mode). The header also defines the macro family the picker implementations expand into so projection behavior stays consistent across shapes — those macros are intentionally undocumented (header-only convenience, not part of the public type surface).
 
 ## Static Fields
 

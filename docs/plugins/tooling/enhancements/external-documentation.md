@@ -18,7 +18,7 @@ void SetBaseline();
 
 :::tip
 
-If you would like to open multiple external links seperate them with a comma.
+If you would like to open multiple external links, separate them with a comma.
 
 ```cpp
 meta=(DocsURL="https://address.one,https://address.two"))

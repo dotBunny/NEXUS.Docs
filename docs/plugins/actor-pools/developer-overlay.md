@@ -10,7 +10,7 @@ import TypeDetails from '../../../src/components/TypeDetails';
 
 <TypeDetails icon="/assets/svg/actor-pools/actor-pool.svg" iconType="img" base="UNDeveloperOverlay" type="UNActorPoolsDeveloperOverlay" typeExtra="" headerFile="NexusActorPools/Public/NActorPoolsDeveloperOverlay.h" />
 
-By going to `Tools > NEXUS > Actor Pools`, you can create an [UNEditorUtilityWidget](/docs/plugins/ui/editor-types/editor-utility-widget/) wrapped version of `/NexusActorPools/WB_NActorPoolsDeveloperOverlay` which will show the real-time stats of all `FNActorPools`.
+By going to `Tools > NEXUS > Actor Pools`, you can create a [UNEditorUtilityWidget](/docs/plugins/ui/editor-types/editor-utility-widget/) wrapped version of `/NexusActorPools/WB_NActorPoolsDeveloperOverlay` which will show the real-time stats of all `FNActorPools`.
 
 The overlay is built on two reusable types — [UNActorPoolObject](types/actor-pool-object.md) (a `UObject` wrapper that exposes a [FNActorPool](types/actor-pool.md) to UMG) and [UNActorPoolListViewEntry](types/actor-pool-list-view-entry.md) (the row widget). Subclass the latter to restyle the overlay without rewriting any of its logic.
 
@@ -21,7 +21,7 @@ The overlay is built on two reusable types — [UNActorPoolObject](types/actor-p
 
 :::tip
 
-This overlay (`WB_NActorPoolsDeveloperOverlay`) can be included in packaged builds and  will function just like an `UUserWidget`-based widget.
+This overlay (`WB_NActorPoolsDeveloperOverlay`) can be included in packaged builds and will function just like a `UUserWidget`-based widget.
 
 :::
 
@@ -32,7 +32,7 @@ The number at the left-most part of the progress bar represents the total number
 
 In the middle of the progress bar is the `AActor`/[FNActorPool](types/actor-pool.md) name.
 
-The final set of numbers represents the total number of `AActors` that are currently spawned (**out**) from the [FNActorPool](types/actor-pool.md), and the total number of `AActors` that the [FNActorPool](types/actor-pool.md) has under it's ownership. In the case of the pools above, this would be `21` spawned and `32` owned `AActors` for the `BP_NActorPoolsSamples_Cube` pool, and `20` spawned and `29` owned `AActors` for the `BP_NActorPoolsSamples_Sphere` pool.
+The final set of numbers represents the total number of `AActors` that are currently spawned (**out**) from the [FNActorPool](types/actor-pool.md), and the total number of `AActors` that the [FNActorPool](types/actor-pool.md) has under its ownership. In the case of the pools above, this would be `21` spawned and `32` owned `AActors` for the `BP_NActorPoolsSamples_Cube` pool, and `20` spawned and `29` owned `AActors` for the `BP_NActorPoolsSamples_Sphere` pool.
 
 ## Callback Color Coding
 
@@ -41,7 +41,7 @@ At the start of the bar entry for an [FNActorPool](types/actor-pool.md) is a col
 | Color | Description |
 | :-- | :-- |
 | <code class="swatch blue">Blue</code> | No callbacks are made by the [FNActorPool](types/actor-pool.md). | 
-| <code class="swatch green">Green</code> | The [FNActorPool](types/actor-pool.md)'s template `AActor` class implements the [INActorPoolitem](types/actor-pool-item.md) interface, providing the fastest possible callbacks for the [FNActorPool](types/actor-pool.md). |
+| <code class="swatch green">Green</code> | The [FNActorPool](types/actor-pool.md)'s template `AActor` class implements the [INActorPoolItem](types/actor-pool-item.md) interface, providing the fastest possible callbacks for the [FNActorPool](types/actor-pool.md). |
 | <code class="swatch yellow">Yellow</code> | The [FNActorPool](types/actor-pool.md) has been directed (via settings flags) to invoke any **UFUNCTION** methods (`OnCreatedByActorPool`, `OnSpawnedFromActorPool`, `OnReturnToActorPool`, and `OnReleasedFromActorPool`) found on the `AActor`. |
 
 ## Tooltips
@@ -61,7 +61,7 @@ A more complex tooltip indicating what `UWorld` a [FNActorPool](types/actor-pool
 
 | Item | Description |
 | :-- | :-- |
-| Spawn Prefix | The prefix of `AActors` spawned from this [FNActorPool](types/actor-pool.md). This is useful to visually verify ownership of `AActors` to a specific [FNActorPool](types/actor-pool.md). This is not available available in **release** builds. |
+| Spawn Prefix | The prefix of `AActors` spawned from this [FNActorPool](types/actor-pool.md). This is useful to visually verify ownership of `AActors` to a specific [FNActorPool](types/actor-pool.md). This is not available in **release** builds. |
 | Template Name | The name of the template (thing that will be spawned) associated with the [FNActorPool](types/actor-pool.md). This effectively should always be the center-text of the progress bar, without the `_C` suffix. |
 | Template Ptr | The raw pointer to the template, this is useful for debugging issues where duplicate pools have been made for `AActors`; this can originate from custom-loading solutions. |
 | Strategy | The `AActor` creation [strategy](types/actor-pool-settings.md#creation-strategies) that the [FNActorPool](types/actor-pool.md) is using. |

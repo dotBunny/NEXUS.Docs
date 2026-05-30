@@ -46,13 +46,13 @@ A `ANBoneActor` is available for situations where you want a bespoke **Bone**, a
 | Socket Size | `FIntVector2` |  Size of the socket in grid units (width, height), used for matching against [Junctions](junction-component.md). | `(2,4)` |
 | Type | `ENCellJunctionType` | **NOT IMPLEMENTED** | `Two-Way` |
 | Requirements | `ENCellJunctionRequirements` | **NOT IMPLEMENTED** | `AllowEmpty` |
-| Mode | `ENBoneMode`| The **Bone** placement behaviour at author-time. | `Automatic` |
+| Mode | `ENBoneMode`| The **Bone** placement behavior at author-time. | `Automatic` |
 | Identifier | `FGuid` | A pseudo-unique identifier for the **Bone** component. | `N/A` |
 
 ## ENBoneMode
 
 | Mode | Description |
 | :-- | :-- |
-| `Manual` | Allows for manual placement of the Bone inside of it's volume. |
+| `Manual` | Allows for manual placement of the Bone inside of its volume. |
 | `Automatic` | Attempts to place the Bone at the extreme of the volume based on the project settings . |
 | `Disabled` | Disables the Bone from being used inside of any assembly operation. |

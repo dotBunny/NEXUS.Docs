@@ -33,7 +33,7 @@ void FMyClass::DoExpensiveWork()
 
 ```cpp
 /**
- * Captures a baseline UObject snapshot labelled with InName.
+ * Captures a baseline UObject snapshot labeled with InName.
  * @param InName Human-readable label included in the destructor log line.
  */
 explicit FNMethodScopeObjectDiff(const FString& InName);

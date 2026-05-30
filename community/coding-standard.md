@@ -104,7 +104,7 @@ When a public `UCLASS`, `USTRUCT`, `UINTERFACE`, or `UENUM` is documented on thi
 
 ## ReSharper Warnings
 
-We disable warnings which are considered expected behaviour.
+We disable warnings which are considered expected behavior.
 
 ### Potential GC Of Private Raw Pointers
 
@@ -153,4 +153,4 @@ We primarily are using a tag based exclusion method when a rule needs to be viol
 
 | Rule Key Pattern | File Path Pattern | Choice |
 | :-- | :-- | :-- |
-| [`cpp:S3471`](https://sonarcloud.io/organizations/dotbunny/rules?open=cpp%3AS3471&rule_key=cpp%3AS3471), [`cpp:S3576`](https://sonarcloud.io/organizations/dotbunny/rules?open=cpp%3AS3576&rule_key=cpp%3AS3576) |  `**` | This is a developer choice; where the `override` and `virtual` specifiers are used easily identify methods being replaced from the `Super`. This **also** matches the practice done in the Unreal Engine codebase. |
+| [`cpp:S3471`](https://sonarcloud.io/organizations/dotbunny/rules?open=cpp%3AS3471&rule_key=cpp%3AS3471), [`cpp:S3576`](https://sonarcloud.io/organizations/dotbunny/rules?open=cpp%3AS3576&rule_key=cpp%3AS3576) |  `**` | This is a developer choice; where the `override` and `virtual` specifiers are used to easily identify methods being replaced from the `Super`. This **also** matches the practice done in the Unreal Engine codebase. |
