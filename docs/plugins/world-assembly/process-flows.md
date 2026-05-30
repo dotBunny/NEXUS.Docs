@@ -4,10 +4,15 @@ sidebar_position: 4
 tags: [0.3.0]
 ---
 
-# Process Flow
+# Process Flows
+
+While not necessary to understand in-depth, these flowcharts express some of the inner workings of the systems used inside of World Assembly in a digestable way. 
+
 ## Task Graph
 
-`FNAssemblyTaskGraph` builds — but does not dispatch — the following dependency chain. `UnlockTasks()` then releases every node in construction order.
+When a `FNAssemblyTaskGraph` is created, it builds out the full graph of tasks but does not dispatch them until instructed.
+
+### Order Of Operations
 
 ```mermaid
 flowchart TD
@@ -57,5 +62,3 @@ flowchart TD
   - <span style={{color:'#2f7a4f',fontWeight:600}}>Any Thread</span>: world-capture processing (`FNProcessVirtualWorldTask`).
   - <span style={{color:'#7a4f9a',fontWeight:600}}>Any Background Thread</span>: organ graph building (`FNOrganGraphBuilderTask`) and per-pass collection (`FNProcessPassTask`).
 - **`SpawnCellProxiesTaskCompleted`** is a manually-fired `FGraphEvent` the spawn task triggers when its time-sliced work finishes; it is what actually gates `FNAssemblyFinalizeTask`, not the dispatcher task itself.
-- **Cancellation**. Each in-flight operation list-view entry exposes a cancel button, and the [Subsystem](types/world-assembly-subsystem.md) also tears down any pending tasks during PIE exit or world teardown. The task graph holds back-pointers to both the active context and the virtual world so it can reset them mid-pass without leaking — cancelled tasks are dropped before their callbacks fire.
-- **Single-flight generation**. The editor-side UI debounces repeated **Generate** clicks so only one operation can be in flight at a time, preventing PIE-time UI hammering from stacking up overlapping graphs.

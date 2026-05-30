@@ -17,7 +17,7 @@ From the `Edit > Project Settings` window, find the **World Assembly** section.
 | Setting | Description | Default |
 | --- | :-- | :-- |
 | `Voxel Size` | What is the size to use when generating voxel data around the space of a NCell. This sizing will also be used to calculate some additional meta data as a unit size. It doesn't need to be too tight; just remember the smaller the size, the greater the performance hit. | `(100, 100, 100)` |
-| `Socket Size` | What is the unit base size for things like the NJunctions and NBones. | `(50, 50)` |
+| `Socket Size` | What is the unit base size for things like the junctions and bones. | `(50, 50)` |
 | `Socket Depth` | The depth per side of a junction that is used for collision detection in some (PCG) scenarios. | `100.f` |
 | `Player Size` | What is the size of the player's collider? | `(72.f, 184.f, 72.f)` |
 
@@ -25,8 +25,8 @@ From the `Edit > Project Settings` window, find the **World Assembly** section.
 
 | Setting | Description | Default |
 | --- | :-- | :-- |
-| `Mode` | How should ANCellLevelInstances be replicated to clients, either based on relevancy (proximity) or treated as always relevant. | `ReplicatedLevelInstances` |
-| `Initial Range` | The range to query for nearby ANCellLevelInstances by ANWorldAssemblyRelay, used to determine if the client is considered loaded. Distance is calculated to the world position point of the ANCellLevelInstance. | `20000.f` |
+| `Mode` | How should `ANCellLevelInstance`s be replicated to clients, either based on relevancy (proximity) or treated as always relevant. | `ReplicatedLevelInstances` |
+| `Initial Range` | The range to query for nearby `ANCellLevelInstance`s by `ANWorldAssemblyRelay`, used to determine if the client is considered loaded. Distance is calculated to the world position point of the `ANCellLevelInstance`. | `20000.f` |
 
 ### Organ
 
@@ -49,5 +49,5 @@ From the `Edit > Project Settings` window, find the **World Assembly** section.
 
 | Setting | Description | Default |
 | --- | :-- | :-- |
-| `Proxy Material` | The material to use with the DynamicMeshes as part of ANCellProxy. | `M_NCellProxy` |
+| `Proxy Material` | The material to use with the DynamicMeshes as part of `ANCellProxy`. | `M_NCellProxy` |
 
