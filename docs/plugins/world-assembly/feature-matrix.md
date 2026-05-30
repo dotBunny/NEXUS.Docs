@@ -19,9 +19,12 @@ tags: [0.3.0]
 | Count-Based Rules | `MaximumCount` limiter inside of an [ANOrganVolume](types/organ-volume.md). |
 | Graph-Based Rules | `MinimumNodeDepth` allowing for ensuring a Cell is not placed too soon on a graph, with `MinimumNodeDistance` limiting proximity to itself. |
 | Weighting | Both `UNCell` and `UNCellJunctionComponent` support weighting their selection for usage. |
+| Initialization Callback | `INCellInitialized`-implementing `AActors` in a [Cell](types/cell.md) receive a callback when they are plced in the the world, but before `BeginPlay`. |
 
 ## Planned
 
 | Feature | Description | Release |
 | --- | --- | --- |
+| Empty Junction Filling | Implement system to fill unused junctions with static or pcg content | [0.3.5 #164](https://github.com/dotBunny/NEXUS/issues/164) |
+| CreateAfter | A tag-based matching system allowing for [Cell](types/cell.md) placement to occur after another [Cell](types/cell.md). This will allow for lock-key gameplay determined during build (still possible to do post-generation). | [0.3.5 #219](https://github.com/dotBunny/NEXUS/issues/219)|
 | Loops | Creating circular paths through interconnected [Cell](types/cell.md)s. The concept will create geometry between junctions and bones with some predetermined limits, utilizing the defined corners of the junctions/bones and PCG-based spline geometry. | [0.4.0 #254](https://github.com/dotBunny/NEXUS/issues/254) |
