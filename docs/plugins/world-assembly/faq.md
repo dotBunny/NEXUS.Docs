@@ -6,12 +6,6 @@ tags: [0.3.0]
 
 # FAQ
 
-## What is the goal here?
-
-The long-term plan is to develop generation that can create stitched-together gameplay spaces similar in complexity to the interconnected world of Dark Souls. This means being able to connect defined areas of generation reliably, as well as the idea of if you can see it in the distance, you should be able to get to it. 
-
-Another way of thinking of this is that this should be able to generate the Forest, the Castle, and the rooms in the Castle in a dependent manner with fixed junctions.
-
 ## Why the Anatomy naming?
 
 The age old developer problem of naming; it went through many iterations as complexity increased and it just became easier to explain to people using basic anatomy concepts. The faster someone was able to understand the concepts, the faster they were able to start making content. 

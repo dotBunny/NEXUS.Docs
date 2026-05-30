@@ -10,4 +10,5 @@ Some console commands for developers to use provided by `UNWorldAssemblySubsyste
 
 | Command | Description | Flag(s) | Shippable|
 |:--|:--|:--|:--|
-|`N.WorldAssembly.Regenerate`| Tears down the existing worlds `ANCellProxy`, attempts to clear all registered AActor with the [UNWorldAssemblySubsystem](types/world-assembly-subsystem.md) for cleanup, and starts a new `UNAssemblyOperation` for all of the [Organ](types/organ-volume.md) in the world. | `ECVF_Default` | `Yes` |
+|`N.WorldAssembly.Clear`| Tears down the existing worlds `ANCellProxy`, attempts to clear all registered `AActor` with the [UNWorldAssemblySubsystem](types/world-assembly-subsystem.md) for cleanup. | `ECVF_Default` | `Yes` |
+|`N.WorldAssembly.Regenerate`| First, does the same as `N.WorldAssembly.Clear`, and then starts a new `UNAssemblyOperation` for all of the [Organ](types/organ-volume.md) in the world. | `ECVF_Default` | `Yes` |
