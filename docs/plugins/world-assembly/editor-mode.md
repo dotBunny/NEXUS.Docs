@@ -1,7 +1,7 @@
 ---
 description: The editor sub-mode used to author and inspect cells and organs without leaving the level viewport.
-title: Editor Mode
 sidebar_position: 2
+tags: [0.3.0]
 ---
 
 # Editor Mode

@@ -1,10 +1,10 @@
 ---
 description: A procedural generation system focused on creating dynamic gameplay-focused spaces.
-sidebar_label: Process Flow
-title: Process Flow
 sidebar_position: 4
+tags: [0.3.0]
 ---
 
+# Process Flow
 ## Task Graph
 
 `FNAssemblyTaskGraph` builds — but does not dispatch — the following dependency chain. `UnlockTasks()` then releases every node in construction order.
