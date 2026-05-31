@@ -22,27 +22,42 @@ Once an `ANCellActor` is present in the level, the toolbar will expand out with 
 
 ![Cell Editing Toolbar](mode-toolbar-cell.webp)
 
-
 ## Cell Menu
 
 ![Cell Menu](cell-edit-cell-menu.webp)
 
-| Category | Command | Description |
-| --- | --- | --- | 
-| *Asset* | Capture Thumbnail | |
-| *Calculate* | Calculate All | |
-| *Calculate* | Calculate Bounds | |
-| *Calculate* | Calculate Hull | |
-| *Calculate* | Calculate Voxel Data | |
-| *Quick Settings* | Calculate Bounds On Save | |
-| *Quick Settings* | Allow Non-Convex Hull | |
-| *Quick Settings* | Calculate Hull On Save | |
-| *Quick Settings* | Calculate Voxel Data On Save | |
-| *Quick Settings* | Use Voxel Data w/ Cell | |
-| *Cleanup* | Reset Cell | |
-| *Cleanup* | Save Cell | |
-| *Cleanup* | Remove Actor | |
+### Asset
 
+| Command | Description |
+| --- | --- |
+| Capture Thumbnail | Captures the current viewport (minus gizmos) as the thumbnail for the current level, also applies a version to the associated `UNCell` without gizmos. |
+
+### Calculate
+
+| Command | Description |
+| --- | --- |
+| Calculate All | Calculates all calculatable data for the `ANCellActor`'s `UNCellRootComponent`. |
+| Calculate Bounds | Calculate the **bounds** for the `ANCellActor`'s `UNCellRootComponent` which gets propagated to the associated `UNCell`; overwriting any previous edits. |
+| Calculate Hull | Calculate a **convex hull** for the `ANCellActor`'s `UNCellRootComponent` which gets propagated to the associated `UNCell`; overwriting any previous edits. |
+| Calculate Voxel Data | Calculate the **voxel data** for the `ANCellActor`'s `UNCellRootComponent` which gets propagated to the associated `UNCell`; overwriting any previous edits. |
+
+### Quick Settings
+
+| Command | Description |
+| --- | --- |
+| Calculate Bounds On Save | Toggles `FNCellBoundsGenerationSettings::bCalculateOnSave` on the `ANCellActor`'s `UNCellRootComponent::Details`. |
+| Allow Non-Convex Hull | While editing the convex hull, this option prevents moving edges and vertices into non-convex positions. By enabling this option, non-convex meshes are allowed to be created. This adds a performance cost when evaluating penetration against this mesh as it becomes a complex calculation. By default this remains `false`, use sparingly. |
+| Calculate Hull On Save | Toggles `FNCellHullGenerationSettings::bCalculateOnSave` on the `ANCellActor`'s `UNCellRootComponent::Details`. |
+| Calculate Voxel Data On Save | Toggles `FNCellVoxelGenerationSettings::bCalculateOnSave` on the `ANCellActor`'s `UNCellRootComponent::Details`. |
+| Use Voxel Data w/ Cell | Enables using voxel data with a [Cell](../types/cell.md), `false` by default. |
+
+### Cleanup
+
+| Command | Description |
+| --- | --- |
+| Reset Cell | Resets the `ANCellActor` in the level, recreating all data back to a default state. |
+| Save Cell | Writes out any changed data to the associated `UNCell`. |
+| Remove Actor | Removes the `ANCellActor` from the level, and delete the associated sidecar asset (`UNCell`). |
 
 ## Junction Menu
 
