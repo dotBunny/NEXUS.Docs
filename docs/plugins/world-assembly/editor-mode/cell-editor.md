@@ -4,8 +4,13 @@ tags: [0.3.0]
 
 # Cell Editor
 
+The editor of all things [Cell](../types/cell.md)-related when it comes to a level.
+
 ![Mode](cell-edit-mode.webp)
 
+- The red wireframe cube is the cell bounds.
+- The blue wireframe is the collision/convex mesh.
+- The lego-like rectangles represent the junctions of the cell, where it can connect to other [Cell](../types/cell.md)(s) and [Bone](../types/bone-component.md)(s).
 
 ## No ANCellActor Present
 
