@@ -21,9 +21,9 @@ Organs can have sub-organs, and generation will account for and determine the mo
 
 
 <div class="image-tri">
-![Phased Organs](organ-phases.webp)
-![Brush Organ](organ-brush.webp)
-![Unbounded Organ](organ-unbounded.webp)
+![Phased Organs](organ-phases.webp "Organ Phases")
+![Brush Organ](organ-brush.webp "Organ Brushes")
+![Unbounded Organ](organ-unbounded.webp "Unbounded Organ")
 
 </div>
 
