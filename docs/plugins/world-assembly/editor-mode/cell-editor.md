@@ -1,5 +1,6 @@
 ---
 tags: [0.3.0]
+Toolbar options visible when a ANCellActor is present in a UWorld.
 ---
 
 # Cell Editor
