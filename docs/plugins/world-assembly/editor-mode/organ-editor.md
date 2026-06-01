@@ -58,6 +58,6 @@ Unloads all of the created `ANCellLevelInstances`, leaving their base `AActor` i
 ## Hotkeys
 
 |Chord|Description|
-|——-|——-|
+| --- | --- |
 | `CTRL+SHIFT+HOME` | Generate All Proxies |
 | `CTRL+SHIFT+END` | Create & Load All Level Instances |
