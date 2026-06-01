@@ -29,13 +29,13 @@ A list of known [Organ](../types/organ-volume.md) in the world are listed to all
 
 #### Selected Actions
 
-Once an [Organ](../types/organ-volume.md) is selected, specific functionality is made available just targeting the selected [Organ](..types/organ-volume.md). 
+Once an [Organ](../types/organ-volume.md) is selected, specific functionality is made available just targeting the selected [Organ](../types/organ-volume.md). 
 
 #### World Actions
 
 ##### Generate All Proxies
 
-Runs an editor-time assembly operation for all [Organ](/types/organ-volume.md) in the `UWorld`. Placing transient `ANCellProxy` into the `UWorld` representing the generated cell graph. 
+Runs an editor-time assembly operation for all [Organ](../types/organ-volume.md) in the `UWorld`. Placing transient `ANCellProxy` into the `UWorld` representing the generated cell graph. 
  
 ![Generate Proxies](organ-generate-proxies.webp)
 
