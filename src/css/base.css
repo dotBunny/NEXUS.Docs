@@ -159,6 +159,21 @@ div.image-split p img:last-child {
 }
 
 
+div.image-tri p {
+  display: block;
+}
+
+div.image-tri p img {
+  width: 32%;
+}
+
+@media screen and (max-width: 490px) {
+  div.image-split p img {
+    width: 100%;
+    margin-left: 0%;
+  }
+}
+
 .footer__copyright a:hover {
   text-decoration: none;
 }
