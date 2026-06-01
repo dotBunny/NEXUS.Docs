@@ -36,7 +36,7 @@ Once an `ANCellActor` is present in the level, the toolbar will expand out with 
 
 ### Cell Menu
 
-Using the Cell menu, you can operate on the levels `ANCellActor` which inturn, propagates it's data to the `UNCell` associated to the level. It is this connection that allows for an Assembly Operation to have an understanding of a level, without having to have it loaded.
+Using the Cell menu, you can operate on the levels `ANCellActor` which in turn, propagates its data to the `UNCell` associated to the level. It is this connection that allows for an Assembly Operation to have an understanding of a level, without having to have it loaded.
 
 ![Cell Menu](cell-edit-cell-menu.webp)
 
