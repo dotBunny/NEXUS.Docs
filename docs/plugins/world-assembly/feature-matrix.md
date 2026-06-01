@@ -19,7 +19,7 @@ tags: [0.3.0]
 | Count-Based Rules | `MaximumCount` limiter inside of an [ANOrganVolume](types/organ-volume.md). |
 | Graph-Based Rules | `MinimumNodeDepth` allowing for ensuring a Cell is not placed too soon on a graph, with `MinimumNodeDistance` limiting proximity to itself. |
 | Weighting | Both `UNCell` and `UNCellJunctionComponent` support weighting their selection for usage. |
-| Initialization Callback | `INCellInitialized`-implementing `AActors` in a [Cell](types/cell.md) receive a callback when they are plced in the the world, but before `BeginPlay`. |
+| Initialization Callback | `INCellInitialized`-implementing `AActors` in a [Cell](types/cell.md) receive a callback when they are placed in the the world (with context about the assembly), but before `BeginPlay`. |
 
 ## Planned
 
