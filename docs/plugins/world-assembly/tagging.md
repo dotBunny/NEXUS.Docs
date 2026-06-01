@@ -41,30 +41,35 @@ Native gameplay tags are declared in `NWorldAssemblyGameplayTags.h`. They are ev
 
 ### Behavior Modifiers
 
-#### `NEXUS.WorldAssembly.BuiltIn.Starter`
+#### `NEXUS.WorldAssembly.Behavior.Starter`
 
 Tagged items can be used at the start of an Organ Assembly as the first placed node in the AssemblyGraph, attached to the Bone. If no Tissue entries are tagged with this (or StarterOnly), any can be used instead in their place.
 
-#### `NEXUS.WorldAssembly.BuiltIn.StarterOnly`
+#### `NEXUS.WorldAssembly.Behavior.StarterOnly`
 
 Tagged items can ONLY be used at the start of an Organ Assembly as the first placed node in the AssemblyGraph, attached to the Bone. If no Tissue entries are tagged with this (or Starter), any can be used instead in their place.
 
-#### `NEXUS.WorldAssembly.BuiltIn.NotStarter`
+#### `NEXUS.WorldAssembly.Behavior.NotStarter`
 
 Tagged items cannot be used at the start of an Organ Assembly node branch.
 
-#### `NEXUS.WorldAssembly.BuiltIn.Finisher`
+#### `NEXUS.WorldAssembly.Behavior.Finisher`
 
 Tagged items can be used at the end of an Organ Assembly node branch. If no Tissue entries are tagged with this (or FinisherOnly), any can be used instead in their place.
 
-#### `NEXUS.WorldAssembly.BuiltIn.FinisherOnly`
+#### `NEXUS.WorldAssembly.Behavior.FinisherOnly`
 
 Tagged items can ONLY be used at the end of an Organ Assembly node branch. If no Tissue entries are tagged with this (or Finisher), any can be used instead in their place.
 
-
-#### `NEXUS.WorldAssembly.BuiltIn.NotFinisher`
+#### `NEXUS.WorldAssembly.Behavior.NotFinisher`
 
 Tagged items cannot be used at the end of an Organ Assembly node branch.
+
+
+#### `NEXUS.WorldAssembly.Flag.AlwaysRelevant`
+
+Tagged items are considered `Always Relevant` for networking purposes. Think of this as something you want to always have syncronized, regardless of how far away a client may be.
+
 
 ### Pre-Made Groups
 

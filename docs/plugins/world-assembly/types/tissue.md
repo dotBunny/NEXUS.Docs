@@ -61,7 +61,6 @@ A common requirement when generating gameplay spaces is ensuring that there is s
 | Assembly Tags | Tags used to define behavior during the assembly process, pulled from `NEXUS.WorldAssembly.*`. _See [Tagging](../tagging.md#assembly-gameplay-tags)_ | `(Empty)` |
 | Added Context Tags | Tags which get accumulated based on `UNCell` usage, and are provided for context post-assembly. Initial `Context Tags` are established by the `FNAssemblyOperationSettings` used. Default settings are also available in the `Project Settings`. Accessible by `INCellInitialized` interface via the `ANCellLevelInstance`. | `(Empty)` |
 | Required Context Tags | Tags that must exist in the accumulated `Context Tags` of the assembly operation for this cell to be placable.| `(Empty)` |
-| Always Relevant | Whether the `ANCellLevelInstance` should be spawned always relevant for networking purposes | `false` | 
 | Minimum Count | ***NOT IMPLEMENTED*** Only used to determine specific-unique case exclusion (_not tag related_). | `-1` |
 | Maximum Count | The maximum number of times this cell can be used in the generated `FNAssemblyGraph`. (_-1 no constraint_) | `-1` | 
 | Minimum Node Distance | The minimum number of cell links away this cell must be to be used again. | `1` | 
