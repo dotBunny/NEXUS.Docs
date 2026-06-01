@@ -1,7 +1,7 @@
 ---
 description: A utility class providing functionality to support World Assembly operations.
 sidebar_class_name: type ue-blueprint-function-library
-tags: [0.3.0]
+tags: [0.3.0, 0.3.1]
 ---
 
 import TypeDetails from '../../../../src/components/TypeDetails';
@@ -28,17 +28,17 @@ static FString GetNewFriendlySeed();
 
 Internally this delegates to `FNSeedGenerator::RandomFriendlySeed()`, so the result is a readable token rather than an opaque number — handy for surfacing in UI or logs where a player or designer might want to share or re-enter the seed.
 
-### Get Output Tags (ANCellLevelInstance)
+### Get Context Tags (ANCellLevelInstance)
 
-Returns the output `FGameplayTagContainer` carried by the supplied `ANCellLevelInstance` — the tags that cell contributes to the surrounding generation context.
+Returns the context `FGameplayTagContainer` carried by the supplied `ANCellLevelInstance`.
 
 ```cpp
 /**
- * @param LevelInstance The cell level instance to read output tags from.
- * @return A reference to the level instance's output gameplay tags.
+ * @param LevelInstance The cell level instance to read context tags from.
+ * @return A reference to the level instance's context gameplay tags.
  */
-UFUNCTION(BlueprintCallable, Category = "NEXUS|WorldAssembly", DisplayName="Get Output Tags (ANCellLevelInstance)")
-static FGameplayTagContainer& GetOutputTagsFromCellLevelInstance(ANCellLevelInstance* LevelInstance);
+UFUNCTION(BlueprintCallable, Category = "NEXUS|WorldAssembly", DisplayName="Get Context Tags (ANCellLevelInstance)")
+static FGameplayTagContainer& GetContextTagsFromCellLevelInstance(ANCellLevelInstance* LevelInstance);
 ```
 
 The container is returned by reference, so reads reflect the live state of the level instance.

@@ -1,7 +1,7 @@
 ---
 description: Tags play an interesting role within World Assembly, providing a cheap and effective way to markup content, drive behavior, and convey information to third-party consumers.
 sidebar_position: 3
-tags: [0.3.0]
+tags: [0.3.0, 0.3.1]
 ---
 
 # Tagging
@@ -77,3 +77,7 @@ Only one of the tagged items can be placed in an Organ Assembly. This is just a 
 #### `NEXUS.WorldAssembly.BuiltIn.RequiredAny`
 
 Predefined group that ensures anything in it must be present in the generated graph; when combined with `Unique`, ensures only one is present, ignoring `MinimalCount`. You can make your own to create discrete groups to assign to the `Tag Groups > Required (Any)` option.
+
+#### `NEXUS.WorldAssembly.BuiltIn.BadNeighbors`
+
+Predefined group that makes it so any member cell entry of that group cannot be placed beside each other, making them bad neighbors. You can make your own to create discrete groups to assign to the `Tag Groups > Bad Neighbors` option.

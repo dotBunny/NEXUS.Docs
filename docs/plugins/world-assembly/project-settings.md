@@ -1,7 +1,7 @@
 ---
 sidebar_position: 6
 description: The project settings for NWorldAssembly.
-tags: [0.3.0]
+tags: [0.3.0, 0.3.1]
 ---
 
 # Project Settings
@@ -43,6 +43,8 @@ From the `Edit > Project Settings` window, find the **World Assembly** section.
 | `Retry Count` | The maximum amount of full attempts at assembling a space before it is considered a complete failure. | `10000` |
 | `Junction Matching > Maximum Cell Hull Penetration` | The maximum depth of penetration a cell's convex hull can penetrate another to make a junction connection. | `10.f` |
 | `Junction Matching > Maximum World Penetration` | The maximum depth of penetration a cell's convex hull can penetrate world geometry to make a junction connection. | `2.f` |
+| `Tagging > Context Tags` | Default `Context Tags` provided to every Assembly Operation. | `(empty)` |
+| `Spawning > Cell Time Slice` | Frame-time goal limit when to split spawning cells to the next frame task (in milliseconds). | `2.f` |
 
 
 ### Debug

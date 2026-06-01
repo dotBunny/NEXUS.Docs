@@ -1,7 +1,7 @@
 ---
 description: A spatial volume that defines where World Assembly of Cells (via Tissues) should be generated.
 sidebar_class_name: type ue-volume
-
+tags: [0.3.0, 0.3.1]
 ---
 
 import TypeDetails from '../../../../src/components/TypeDetails';

@@ -1,6 +1,7 @@
 ---
 description: A reusable level wrapper that lets World Assembly reason about placement without loading the source map.
 sidebar_class_name: type ue-data-asset
+tags: [0.3.0, 0.3.1]
 ---
 
 

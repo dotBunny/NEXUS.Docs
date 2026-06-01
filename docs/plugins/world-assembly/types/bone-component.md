@@ -1,6 +1,7 @@
 ---
 description: A Bone functions as a connection point outside of a Cell that is used as a starting point during World Assembly.
 sidebar_class_name: type ue-scene-component
+tags: [0.3.0, 0.3.1]
 ---
 
 import TypeDetails from '../../../../src/components/TypeDetails';

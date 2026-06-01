@@ -1,6 +1,7 @@
 ---
 description: A Junction serves as a sized (XY) connection point between two Cells.
 sidebar_class_name: type ue-scene-component
+tags: [0.3.0, 0.3.1]
 ---
 
 import TypeDetails from '../../../../src/components/TypeDetails';

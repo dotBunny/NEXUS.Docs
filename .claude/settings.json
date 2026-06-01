@@ -16,7 +16,9 @@
       "Bash(git -C \"d:/Repositories/dotBunny/NEXUS\" status)",
       "Bash(git -C \"d:/Repositories/dotBunny/NEXUS\" log *)",
       "Bash(git -C \"d:/Repositories/dotBunny/NEXUS\" diff *)",
-      "Bash(git -C \"d:/Repositories/dotBunny/NEXUS\" show *)"
+      "Bash(git -C \"d:/Repositories/dotBunny/NEXUS\" show *)",
+      "Bash(git -C \"d:/Repositories/dotBunny/NEXUS.Docs\" log --oneline -5 -- *)",
+      "Bash(git log *)"
     ],
     "deny": [
       "Bash(rm -rf *)"
