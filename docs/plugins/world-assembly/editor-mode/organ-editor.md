@@ -4,22 +4,34 @@ tags: [0.3.0]
 
 # Organ Editor
 
+## Phase Detection
+![Phase Labels](organ-phase-labels.webp)
 
-### Organ Selected
+## Toolbar
 
 ![Organ Editing Toolbar](mode-toolbar-organ.webp)
 
-| Group | Commands |
-| :-- | :-- |
-| **Proxies** | Generate proxies for the selected organ, or for every organ in the level (Generate All / Clear / Clear All). |
-| **Levels** | Load or unload the streaming proxy levels for the selected organ, or for every organ in the level. |
-
-Only one generation pass runs at a time — repeatedly clicking **Generate** is debounced into a single in-flight operation so the editor cannot pile up overlapping passes.
+### Organ Menu
 
 ![Organ Menu](organ-menu.webp)
 
-![Phase Labels](organ-phase-labels.webp)
+#### Select Organ
 
+#### Selected Actions
+
+#### World Actions
+
+##### Generate All Proxies
+
+`CTRL+SHIFT+HOME`
 ![Generate Proxies](organ-generate-proxies.webp)
 
+
+##### Clear All Proxies
+
+##### Create & Load All Level Instances
+
+`CTRL+SHIFT+END`
 ![Load Instances](organ-load-instances.webp)
+
+##### Unload All Level Instances
