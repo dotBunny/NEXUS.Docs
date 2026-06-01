@@ -33,10 +33,7 @@ A Junction will only persist on a Cell if the level contains a `UNCellRootCompon
 
 ## Component Details
 
-
-
 ![Bone Component Details](junction-component-details.webp)
-
 
 | Setting | Type | Description | Default |
 |---|---|---|---|
