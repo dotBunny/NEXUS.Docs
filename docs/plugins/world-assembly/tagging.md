@@ -75,14 +75,14 @@ Tagged items are considered `Always Relevant` for networking purposes. Think of 
 
 These tags are here as example content, or first-usage type tags. They are automatically added to their respective `Tag Groups`, so you don't have to worry about adding them — they are just here to get you started.
 
-#### `NEXUS.WorldAssembly.BuiltIn.Unique`
+#### `NEXUS.WorldAssembly.Behavior.Unique`
 
 Only one of the tagged items can be placed in an Organ Assembly. This is just a built-in default unique group, you can make your own to create discrete groups to assign to the `Tag Groups > Unique` option.
 
-#### `NEXUS.WorldAssembly.BuiltIn.RequiredAny`
+#### `NEXUS.WorldAssembly.Behavior.RequiredAny`
 
 Predefined group that ensures anything in it must be present in the generated graph; when combined with `Unique`, ensures only one is present, ignoring `MinimalCount`. You can make your own to create discrete groups to assign to the `Tag Groups > Required (Any)` option.
 
-#### `NEXUS.WorldAssembly.BuiltIn.BadNeighbors`
+#### `NEXUS.WorldAssembly.Behavior.BadNeighbors`
 
 Predefined group that makes it so any member cell entry of that group cannot be placed beside each other, making them bad neighbors. You can make your own to create discrete groups to assign to the `Tag Groups > Bad Neighbors` option.
