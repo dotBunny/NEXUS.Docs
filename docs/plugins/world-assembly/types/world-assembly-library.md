@@ -1,7 +1,7 @@
 ---
 description: A utility class providing functionality to support World Assembly operations.
 sidebar_class_name: type ue-blueprint-function-library
-tags: [0.3.0, 0.3.1]
+tags: [0.3.0, 0.3.1, 0.3.5]
 ---
 
 import TypeDetails from '../../../../src/components/TypeDetails';
@@ -34,11 +34,54 @@ Returns the context `FGameplayTagContainer` carried by the supplied `ANCellLevel
 
 ```cpp
 /**
- * @param LevelInstance The cell level instance to read context tags from.
- * @return A reference to the level instance's context gameplay tags.
+ * @param LevelInstance The cell level instance to query.
+ * @return The context tags associated with the world assembly.
  */
 UFUNCTION(BlueprintCallable, Category = "NEXUS|WorldAssembly", DisplayName="Get Context Tags (ANCellLevelInstance)")
 static FGameplayTagContainer& GetContextTagsFromCellLevelInstance(ANCellLevelInstance* LevelInstance);
 ```
 
 The container is returned by reference, so reads reflect the live state of the level instance.
+
+### Get Assembly Tags (ANCellLevelInstance)
+
+Returns the assembly `FGameplayTagContainer` that describes the cell itself, as opposed to the surrounding context tags above.
+
+```cpp
+/**
+ * @param LevelInstance The cell level instance to query.
+ * @return The assembly tags describing the cell itself.
+ */
+UFUNCTION(BlueprintCallable, Category = "NEXUS|WorldAssembly", DisplayName="Get Assembly Tags (ANCellLevelInstance)")
+static FGameplayTagContainer& GetAssemblyTagsFromCellLevelInstance(ANCellLevelInstance* LevelInstance);
+```
+
+Like the context tags, the container is returned by reference and reflects the live state of the level instance.
+
+### Get Hex Seed (ANCellLevelInstance)
+
+Returns the cell's seed formatted as a human-readable hexadecimal string, handy for surfacing in UI or logs alongside the friendly seed produced by [Get New Friendly Seed](#get-new-friendly-seed).
+
+```cpp
+/**
+ * @param LevelInstance The cell level instance to query.
+ * @return The cell's seed formatted as a human-readable hexadecimal string.
+ */
+UFUNCTION(BlueprintCallable, Category = "NEXUS|WorldAssembly", DisplayName="Get Hex Seed (ANCellLevelInstance)")
+static FString GetHexSeedFromCellLevelInstance(ANCellLevelInstance* LevelInstance);
+```
+
+Internally this delegates to `FNSeedGenerator::HexFromSeed()` using the value returned by the level instance's `GetSeed()`.
+
+### Get Node Identifier (ANCellLevelInstance)
+
+Returns the identifier of the graph node this cell was assembled from, letting gameplay code trace a placed cell back to its position in the assembly graph.
+
+```cpp
+/**
+ * @param LevelInstance The cell level instance to query.
+ * @return The identifier of the graph node this cell was assembled from.
+ */
+UFUNCTION(BlueprintCallable, Category = "NEXUS|WorldAssembly", DisplayName="Get Node Identifier (ANCellLevelInstance)")
+static int32 GetNodeIdentifierFromCellLevelInstance(ANCellLevelInstance* LevelInstance);
+```
