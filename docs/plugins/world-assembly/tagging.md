@@ -86,3 +86,7 @@ Predefined group that ensures anything in it must be present in the generated gr
 #### `NEXUS.WorldAssembly.Behavior.BadNeighbors`
 
 Predefined group that makes it so any member cell entry of that group cannot be placed beside each other, making them bad neighbors. You can make your own to create discrete groups to assign to the `Tag Groups > Bad Neighbors` option.
+
+### Pre-Made Counters
+
+There are a few built-in counter tags `NEXUS.WorldAssembly.Counter.Alpha`, `NEXUS.WorldAssembly.Counter.Beta` and `NEXUS.WorldAssembly.Counter.Charlie` that are used for demonstration purposes, but might also be useful.

@@ -27,12 +27,13 @@ tags: [0.3.0]
 | --- | --- | --- |
 | Context Tag Required | A tag-based matching system allowing for [Cell](types/cell.md) placement to occur after another [Cell](types/cell.md). Cell's can add to `Context Tags`, which can then be used as requirements. This will allow for lock-key gameplay determined during build (still possible to do post-generation). | [0.3.1 #219](https://github.com/dotBunny/NEXUS/issues/219)|
 | `BadNeighbors` | A tag-based matching system creating rules where two [Cell](types/cell.md)s cannot connect to each other. | [0.3.1 #212](https://github.com/dotBunny/NEXUS/issues/212) |
+| Tag Counter | System to associate `int32` values to tags, initially to pass in a level to a tag, which will be queriable via `INCellInitialized`, as well as filterable (greater than, less than, equal) for for selection for placement of [Cells](types/cell.md). Operations applied to the counters based on cell placement. | [0.3.1 #241](https://github.com/dotBunny/NEXUS/issues/241) |
 
 ## Planned
 
 | Feature | Description | Release |
 | --- | --- | --- |
-| Tag KVP | System to associate float values to tags, initially to pass in a level to a tag, which will be queriable via `INCellInitialized`, as well as filterable (greater than, less than, equal) for for selection for placement of [Cells](types/cell.md).  | [0.3.1 #241](https://github.com/dotBunny/NEXUS/issues/241) |
+
 | Empty Junction Filling | Implement system to fill unused junctions with static or PCG content | [0.3.2 #164](https://github.com/dotBunny/NEXUS/issues/164) |
 | Proximal Junction Matching | Automatically match Junctions that end up overlapping during regular placement | [0.3.5 #162](https://github.com/dotBunny/NEXUS/issues/162) |
 | Loops | Creating circular paths through interconnected [Cell](types/cell.md)s. The concept will create geometry between junctions and bones with some predetermined limits, utilizing the defined corners of the junctions/bones and PCG-based spline geometry. | [0.4.0 #254](https://github.com/dotBunny/NEXUS/issues/254) |

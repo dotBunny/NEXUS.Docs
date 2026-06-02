@@ -44,12 +44,11 @@ From the `Edit > Project Settings` window, find the **World Assembly** section.
 | `Junction Matching > Maximum Cell Hull Penetration` | The maximum depth of penetration a cell's convex hull can penetrate another to make a junction connection. | `10.f` |
 | `Junction Matching > Maximum World Penetration` | The maximum depth of penetration a cell's convex hull can penetrate world geometry to make a junction connection. | `2.f` |
 | `Tagging > Context Tags` | Default `Context Tags` provided to every Assembly Operation. | `(empty)` |
+| `Tagging > Starting Counters` | Default `Tag Counters` provided to every Assembly Operation. | `(empty)` |
 | `Spawning > Cell Time Slice` | Frame-time goal limit when to split spawning cells to the next frame task (in milliseconds). | `2.f` |
-
 
 ### Debug
 
 | Setting | Description | Default |
 | --- | :-- | :-- |
 | `Proxy Material` | The material to use with the DynamicMeshes as part of `ANCellProxy`. | `M_NCellProxy` |
-
