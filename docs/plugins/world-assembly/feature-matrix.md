@@ -27,7 +27,7 @@ tags: [0.3.0]
 | --- | --- | --- |
 | Context Tag Required | A tag-based matching system allowing for [Cell](types/cell.md) placement to occur after another [Cell](types/cell.md). Cell's can add to `Context Tags`, which can then be used as requirements. This will allow for lock-key gameplay determined during build (still possible to do post-generation). | [0.3.1 #219](https://github.com/dotBunny/NEXUS/issues/219)|
 | `BadNeighbors` | A tag-based matching system creating rules where two [Cell](types/cell.md)s cannot connect to each other. | [0.3.1 #212](https://github.com/dotBunny/NEXUS/issues/212) |
-| Tag Counter | System to associate `int32` values to tags, initially to pass in a level to a tag, which will be queriable via `INCellInitialized`, as well as filterable (greater than, less than, equal) for for selection for placement of [Cells](types/cell.md). Operations applied to the counters based on cell placement. | [0.3.1 #241](https://github.com/dotBunny/NEXUS/issues/241) |
+| Tag Counter | System to associate `int32` values to tags, initially to pass in a level to a tag, which will be queriable via `INCellInitialized`, as well as filterable (greater than, less than, equal) for for selection for placement of [Cells](types/cell.md). Operations applied to the counters based on cell placement. The value never drops below `0`. | [0.3.1 #241](https://github.com/dotBunny/NEXUS/issues/241) |
 
 ## Planned
 

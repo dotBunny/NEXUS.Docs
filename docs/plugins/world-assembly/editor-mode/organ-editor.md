@@ -15,7 +15,7 @@ The ordering is determined by first deterministically sorting the [Organs](../ty
 
 ## Toolbar
 
-The toolbar is kept to a minimum when outside of cell-editing, showing an Organ dropdown menu as well as a button to spawn a transient-visualizer of what the current `UWorld`s collision will be. You have to move the visualizer to see it as it will spawn in place.
+The toolbar is kept to a minimum when outside of cell-editing, showing an Organ dropdown menu as well as a button to spawn a transient-visualizer of what the current `UWorld`s collision will be. You have to move the visualizer to see it as it will spawn in place and tracks changes and updates accordingly.
 
 ![Organ Editing Toolbar](mode-toolbar-organ.webp)
 

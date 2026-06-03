@@ -62,7 +62,7 @@ A common requirement when generating gameplay spaces is ensuring that there is s
 | Added Context Tags | Tags which get accumulated based on `UNCell` usage, and are provided for context post-assembly. Initial `Context Tags` are established by the `FNAssemblyOperationSettings` used. Default settings are also available in the `Project Settings`. Accessible by `INCellInitialized` interface via the `ANCellLevelInstance`. | `(Empty)` |
 | Required Context Tags | Tags that must exist in the accumulated `Context Tags` of the assembly operation for this cell to be placable.| `(Empty)` |
 | Tag Counter Constriants | Requirements for this cell to be made available for selection. If a `FGameplayTag` is not part of the `TagCounter` a constraint will fail. | `(Empty)` |
-| Tag Counter Operations | If a cell is placed the operations will be applied against the `Tag Counters` of the assembly operation. This is only replicated outside of the organ at the end of the pass. | `(Empty)` |
+| Tag Counter Operations | If a cell is placed the operations will be applied against the `Tag Counters` of the assembly operation. This is only replicated outside of the organ at the end of the pass. If ther resulting numerical value is less then zero, it will be clamped to `0`. | `(Empty)` |
 | Minimum Count | ***NOT IMPLEMENTED*** Only used to determine specific-unique case exclusion (_not tag related_). | `-1` |
 | Maximum Count | The maximum number of times this cell can be used in the generated `FNAssemblyGraph`. (_-1 no constraint_) | `-1` | 
 | Minimum Node Distance | The minimum number of cell links away this cell must be to be used again. | `1` | 
