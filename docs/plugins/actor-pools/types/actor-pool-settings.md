@@ -1,7 +1,7 @@
 ---
 sidebar_class_name: type native-struct
 description: A Blueprint-compatible struct that defines configuration parameters for managing object pooling inside of a FNActorPool.
-tags: [0.1.0, 0.2.6]
+tags: [0.1.0, 0.2.6, 0.3.1]
 ---
 
 import TypeDetails from '../../../../src/components/TypeDetails';
@@ -29,6 +29,7 @@ A Blueprint-compatible struct that defines configuration parameters for managing
 | `CreateObjectsPerTick` | `int32` | Throttles the number of `AActors` that can be created per **Tick**. This can be useful to spread the cost of warming a pool up across multiple frames (-1 for unlimited). | `-1` |
 | `Strategy` | [ENActorPoolStrategy](#creation-strategies) | Determines the approach taken when the pool does not have any `AActor` remaining in the "In" pool, and needs to create one (or reuse). | `Create` |
 | `Flags` | [ENActorPoolFlags](#flags) | The behavioral flags to evaluate when doing operations with this pool. | `ReturnToStorage`, `DeferConstruction`, `ShouldFinishSpawning`, `ServerOnly`, `SetNetDormancy` |
+| `SupportFlags` | [ENActorPoolSupportFlags](#support-flags) | Flags outlining which optional features this pool supports. | _none_ |
 | `StorageTransform` | `FTransform` | The default applied transform when creating an `AActor` | `Translation(0,0,0)` `Rotator(0,0,0)` `Scale(1,1,1)` |
 | `SpawnedTransform` | `FTransform` | The default applied transform when spawning an `AActor`. This can allow for always offsetting a spawned actor. | `Translation(0,0,0)` `Rotator(0,0,0)` `Scale(1,1,1)` |
 
@@ -68,3 +69,11 @@ When editing a Blueprint the `Assets > Add NActorPool Methods` menu command will
 If an `AActor` implements the [INActorPoolItem](actor-pool-item.md) interface the `InvokeUFunctions` flag will be ignored.
 
 :::
+
+## Support Flags
+
+`SupportFlags` is a separate bitmask (`ENActorPoolSupportFlags`) that advertises which optional features a pool supports. It defaults to _none_, so opt-in features must be enabled explicitly.
+
+| Native | Display | Description |
+| :-- | :-- | :-- |
+| `ReturnAll` | Return All | Does this pool support the [`ReturnAll()`](actor-pool.md) method? When unset, calls to `ReturnAll()` log a warning and no-op. |

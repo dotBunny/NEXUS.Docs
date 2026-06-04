@@ -1,7 +1,7 @@
 ---
 sidebar_class_name: type native-class
 description: A runtime object pool that efficiently manages a collection of spawned AActors.
-tags: [0.1.0]
+tags: [0.1.0, 0.3.1]
 ---
 
 import TypeDetails from '../../../../src/components/TypeDetails';
@@ -23,7 +23,7 @@ Refer to [UNActorPoolSubsystem](actor-pool-subsystem.md) for both _blueprint_ an
 - **Object Pooling**: Maintains two collections of actors - those available for use ("in" the pool) and those currently active ("out" of the pool).
 - **Efficient Actor Management**: Pre-spawns a configurable number of actors and keeps them ready for immediate use.
 - **Seamless Spawning**: Provides `Get()` (reference) and `Spawn()` (activate) methods that retrieve actors from the pool instantly, avoiding the overhead of traditional actor spawning.
-- **Automatic Return**: Allows actors to be returned to the pool via the `Return()` method for reuse.
+- **Automatic Return**: Allows actors to be returned to the pool via the `Return()` method for reuse, or all spawned actors at once via `ReturnAll()`.
 - **Configurable Settings**: Supports customizable pool settings via [FNActorPoolSettings](actor-pool-settings.md) including minimum pool sizes and spawning strategies.
 - **Smart Initialization**: Can pre-fill or "warm" the pool with a specified number of actors.
 
@@ -69,8 +69,12 @@ void Prewarm(int32 Count);
 /** Replace the active settings with InNewSettings; takes effect on subsequent operations. */
 void UpdateSettings(const FNActorPoolSettings& InNewSettings);
 
-/** Internal tick used by the subsystem to drive deferred creation and per-tick maintenance. */
-void Tick();
+/**
+ * Internal tick used by the subsystem to time-slice warm-up creation across frames.
+ * @return true if the pool still needs ticking; false once it has reached its minimum
+ *         (or is a stub) and can be unregistered.
+ */
+bool Tick();
 ```
 
 ### Get / Spawn / Return
@@ -90,6 +94,15 @@ AActor* Spawn(const FVector& Position, const FRotator& Rotation);
  * Shipping for hot-path cost — callers must honour the same contract there.
  */
 bool Return(AActor* Actor);
+
+/**
+ * Return every currently spawned ('out') Actor back to the pool.
+ * @param bSkipCheck When false (default), the pool must have the ReturnAll SupportFlag set
+ *        (see [FNActorPoolSettings](actor-pool-settings.md#support-flags)) or the call is logged
+ *        and ignored; pass true to bypass that gate and force the return.
+ * @note Iterates in reverse so each Return() can safely remove from the out-actors array as it goes.
+ */
+void ReturnAll(bool bSkipCheck = false);
 ```
 
 ### Queries

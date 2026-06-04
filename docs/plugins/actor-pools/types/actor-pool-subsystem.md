@@ -1,7 +1,7 @@
 ---
 sidebar_class_name: type ue-world-subsystem
 description: A centralized management system that provides UWorld-specific access to AActor pooling functionality, acting as the primary interface for creating, managing, and accessing multiple FNActorPools.
-tags: [0.1.0]
+tags: [0.1.0, 0.3.1]
 ---
 
 import TypeDetails from '../../../../src/components/TypeDetails';
@@ -156,6 +156,19 @@ If you are working in native, use the native templated version of this function 
   */
 bool ReturnActor(AActor* Actor);
 ```
+
+### Return All Actors
+
+```cpp
+/**
+ * Return every spawned Actor back to its owning pool, across all registered pools.
+ * @note Only pools whose settings have the ENActorPoolSupportFlags::ReturnAll support flag set
+ *       are affected; pools without it are left untouched.
+ */
+void ReturnAllActors();
+```
+
+Bulk-returns every spawned (`out`) `AActor` across all pools the subsystem manages. Only pools that opt in via the [`ReturnAll` SupportFlag](actor-pool-settings.md#support-flags) are processed — pools without it are skipped, so this is safe to call broadly (for example on a level reset) without disturbing pools that manage their own lifecycle.
 
 ### Create Actor Pool
 
