@@ -1,7 +1,7 @@
 ---
 description: A breakdown of World Assembly features, their availability, and the release each is targeted for.
 sidebar_position: 7
-tags: [0.3.0]
+tags: [0.3.0, 0.3.1]
 ---
 
 # Feature Matrix
@@ -15,19 +15,14 @@ tags: [0.3.0]
 | Rotational Matching | Constraint-based matching of junctions allows for non-uniform build out. |
 | Runtime Regeneration | Support for being able to tear down and regenerate at runtime. |
 | Network Support | Replicated `ANCellLevelInstance` support, with client status (`ANWorldAssemblyRelay`) support. |
-| Tag-Based Rules | Supports `Unique` and `RequireAny` groupping tags (as well as user-defined groups), and behavioral tags `Starter`, `StarterOnly`, `NotStarter`, `Finisher`, `FinisherOnly`, `NotFinisher`. |
+| Tag-Based Rules | Supports `Unique`, `RequireAny`, and `BadNeighbors` grouping tags (as well as user-defined groups), and behavioral tags `Starter`, `StarterOnly`, `NotStarter`, `Finisher`, `FinisherOnly`, `NotFinisher`. |
+| Context Tag Rules | [Cell](types/cell.md) placement can require or contribute `Context Tags`, enabling lock-key style gating determined during generation. A placed cell's `Added Context Tags` accumulate and are queryable via `INCellInitialized`. |
+| Tag Counters | Associates `int32` values with tags, seeded per-operation (or from project settings), filterable for cell selection (`Tag Counter Constraints`) and mutated on placement (`Tag Counter Operations`). The value never drops below `0`. |
 | Count-Based Rules | `MinimumCount` and `MaximumCount` limiters governing how many times a Cell is used in the generated graph. |
-| Graph-Based Rules | `MinimumNodeDepth` / `MaximumNodeDepth` bounding the graph depth at which a Cell may be placed (so it is not used too soon or too late), with `MinimumNodeDistance` limiting proximity to itself. |
+| Graph-Based Rules | `MinimumNodeDepth` allowing for ensuring a Cell is not placed too soon on a graph, with `MinimumNodeDistance` limiting proximity to itself. |
+| Directional Constraint | A [Cell](types/cell.md) can be restricted to a compass heading relative to the organ's start point, enforced within the project/operation `Direction Tolerance`. |
 | Weighting | Both `UNCell` and `UNCellJunctionComponent` support weighting their selection for usage. |
 | Initialization Callback | `INCellInitialized`-implementing `AActors` in a [Cell](types/cell.md) receive a callback when they are placed in the the world (with context about the assembly), but before `BeginPlay`. |
-
-## In Main
-
-| Feature | Description | Release |
-| --- | --- | --- |
-| Context Tag Required | A tag-based matching system allowing for [Cell](types/cell.md) placement to occur after another [Cell](types/cell.md). Cell's can add to `Context Tags`, which can then be used as requirements. This will allow for lock-key gameplay determined during build (still possible to do post-generation). | [0.3.1 #219](https://github.com/dotBunny/NEXUS/issues/219)|
-| `BadNeighbors` | A tag-based matching system creating rules where two [Cell](types/cell.md)s cannot connect to each other. | [0.3.1 #212](https://github.com/dotBunny/NEXUS/issues/212) |
-| Tag Counter | System to associate `int32` values to tags, initially to pass in a level to a tag, which will be queriable via `INCellInitialized`, as well as filterable (greater than, less than, equal) for for selection for placement of [Cells](types/cell.md). Operations applied to the counters based on cell placement. The value never drops below `0`. | [0.3.1 #241](https://github.com/dotBunny/NEXUS/issues/241) |
 
 ## Planned
 
