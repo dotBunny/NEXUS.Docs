@@ -61,11 +61,14 @@ A common requirement when generating gameplay spaces is ensuring that there is s
 | Assembly Tags | Tags used to define behavior during the assembly process, pulled from `NEXUS.WorldAssembly.*`. _See [Tagging](../tagging.md#assembly-gameplay-tags)_ | `(Empty)` |
 | Added Context Tags | Tags which get accumulated based on `UNCell` usage, and are provided for context post-assembly. Initial `Context Tags` are established by the `FNAssemblyOperationSettings` used. Default settings are also available in the `Project Settings`. Accessible by `INCellInitialized` interface via the `ANCellLevelInstance`. | `(Empty)` |
 | Required Context Tags | Tags that must exist in the accumulated `Context Tags` of the assembly operation for this cell to be placable.| `(Empty)` |
-| Tag Counter Constriants | Requirements for this cell to be made available for selection. If a `FGameplayTag` is not part of the `TagCounter` a constraint will fail. | `(Empty)` |
+| Tag Counter Constraints | Requirements for this cell to be made available for selection. If a `FGameplayTag` is not part of the `TagCounter` a constraint will fail. | `(Empty)` |
 | Tag Counter Operations | If a cell is placed the operations will be applied against the `Tag Counters` of the assembly operation. This is only replicated outside of the organ at the end of the pass. If ther resulting numerical value is less then zero, it will be clamped to `0`. | `(Empty)` |
 | Minimum Count | ***NOT IMPLEMENTED*** Only used to determine specific-unique case exclusion (_not tag related_). | `-1` |
 | Maximum Count | The maximum number of times this cell can be used in the generated `FNAssemblyGraph`. (_-1 no constraint_) | `-1` | 
 | Minimum Node Distance | The minimum number of cell links away this cell must be to be used again. | `1` | 
-| Minimum Node Depth | The minimum number of nodes away from the start when this can be used. | `0`  |
+| Minimum Node Depth | The minimum number of cell hops away from the start cell before this cell may be used. The start cell is hop `0`, its direct neighbors hop `1`, etc. (_0 no constraint_) | `0`  |
+| Maximum Node Depth | The maximum number of cell hops away from the start cell at which this cell may still be used. (_-1 no constraint_) | `-1`  |
+| Has Direction Constraint | When enabled, this cell may only be placed toward `Direction Constraint` relative to the organ's start point. | `false` |
+| Direction Constraint | The compass heading (from the start point out to the candidate's placement) this cell is restricted to while `Has Direction Constraint` is set. Enforced within the project/operation `Direction Tolerance`. _See [Project Settings](../project-settings.md)_ | `North` |
 | Weighting | Relative weight for random selection during generation. | `1`| 
 | Cell | A soft-object reference to the `UNCell` asset that will be consumed. | `n/a` | 

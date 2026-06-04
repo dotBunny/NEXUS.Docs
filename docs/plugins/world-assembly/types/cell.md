@@ -61,12 +61,16 @@ The `UNCellRootComponent` represents the data which is going to get mirrored int
 
 ### Rotation Constraints
 
+The cell exposes a dual-interval `FNRotationConstraints` set. The _matching_ interval constrains a candidate rotation's own pose; the _difference_ interval constrains the delta between two rotations. Either interval can be enabled independently.
+
 | Setting | Type | Description | Default |
 |---|---|---|---|
-| Enforce Matching? | `bool` | | `true` |
-| Minimum Matching Rotation | `FRotator` |  | `(0,0,-180.f)` | 
-| Maximum Matching Rotation | `FRotator` |  | `(0,0,180.f)` |
-| Enforce Difference? | `bool` | | `false` |
+| Enforce Matching? | `bool` | Enables the matching-interval test on the candidate rotation itself. | `true` |
+| Minimum Matching Rotation | `FRotator` | Lower bound (inclusive) of the matching interval. | `(0,0,-180.f)` | 
+| Maximum Matching Rotation | `FRotator` | Upper bound (inclusive) of the matching interval. | `(0,0,180.f)` |
+| Enforce Difference? | `bool` | Enables the difference-interval test on the delta between two rotations. | `false` |
+| Minimum Difference Rotation | `FRotator` | Lower bound (inclusive) of the difference interval. | `(0,0,-180.f)` |
+| Maximum Difference Rotation | `FRotator` | Upper bound (inclusive) of the difference interval. | `(0,0,180.f)` |
 
 
 ### Hull Settings
