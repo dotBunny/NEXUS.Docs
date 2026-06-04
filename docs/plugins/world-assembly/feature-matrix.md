@@ -16,8 +16,8 @@ tags: [0.3.0]
 | Runtime Regeneration | Support for being able to tear down and regenerate at runtime. |
 | Network Support | Replicated `ANCellLevelInstance` support, with client status (`ANWorldAssemblyRelay`) support. |
 | Tag-Based Rules | Supports `Unique` and `RequireAny` groupping tags (as well as user-defined groups), and behavioral tags `Starter`, `StarterOnly`, `NotStarter`, `Finisher`, `FinisherOnly`, `NotFinisher`. |
-| Count-Based Rules | `MaximumCount` limiter inside of an [ANOrganVolume](types/organ-volume.md). |
-| Graph-Based Rules | `MinimumNodeDepth` allowing for ensuring a Cell is not placed too soon on a graph, with `MinimumNodeDistance` limiting proximity to itself. |
+| Count-Based Rules | `MinimumCount` and `MaximumCount` limiters governing how many times a Cell is used in the generated graph. |
+| Graph-Based Rules | `MinimumNodeDepth` / `MaximumNodeDepth` bounding the graph depth at which a Cell may be placed (so it is not used too soon or too late), with `MinimumNodeDistance` limiting proximity to itself. |
 | Weighting | Both `UNCell` and `UNCellJunctionComponent` support weighting their selection for usage. |
 | Initialization Callback | `INCellInitialized`-implementing `AActors` in a [Cell](types/cell.md) receive a callback when they are placed in the the world (with context about the assembly), but before `BeginPlay`. |
 
