@@ -28,7 +28,6 @@ tags: [0.3.0, 0.3.1]
 
 | Feature | Description | Release |
 | --- | --- | --- |
-
 | Empty Junction Filling | Implement system to fill unused junctions with static or PCG content | [0.3.2 #164](https://github.com/dotBunny/NEXUS/issues/164) |
 | Proximal Junction Matching | Automatically match Junctions that end up overlapping during regular placement | [0.3.5 #162](https://github.com/dotBunny/NEXUS/issues/162) |
 | Loops | Creating circular paths through interconnected [Cell](types/cell.md)s. The concept will create geometry between junctions and bones with some predetermined limits, utilizing the defined corners of the junctions/bones and PCG-based spline geometry. | [0.4.0 #254](https://github.com/dotBunny/NEXUS/issues/254) |
