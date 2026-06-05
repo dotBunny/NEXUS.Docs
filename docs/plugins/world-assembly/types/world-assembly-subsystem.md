@@ -103,3 +103,12 @@ Three `BlueprintAssignable` dynamic multicast delegates broadcast the generation
 | `OnCleared` | A `Clear()` pass finishes, once tracked operations have been cancelled and all cell proxies in the world have been destroyed. |
 
 Bind these to drive demo / sample logic that needs to react to "world is generated, you can start playing now" without polling.
+
+## Useful Examples
+
+### Hookup Actor Pool Subsystem
+```cpp
+UNWorldAssemblySubsystem* WorldAssemblySubsystem = UNWorldAssemblySubsystem::Get(InWorld);
+UNActorPoolSubsystem* ActorPoolSubsystem = UNActorPoolSubsystem::Get(InWorld);
+WorldAssemblySubsystem->OnCleared.AddDynamic(ActorPoolSubsystem, &UNActorPoolSubsystem::ReturnAllActors);
+```
