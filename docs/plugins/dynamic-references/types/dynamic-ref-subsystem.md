@@ -433,7 +433,7 @@ int32 GetCountByAllTags(const FGameplayTagContainer& Tags);
 /**
   * Retrieves the count of UObjects associated with a specified ENDynamicRef collection.
   * @param DynamicRef The desired ENDynamicRef collection.
-  * @return The number of UObjects associated with the specified ENDynamicRef collection.
+  * @return The number of UObjects associated with the specified ENDynamicRef collection. Returns 0 for NDR_None.
   */
 int32 GetCount(const ENDynamicRef DynamicRef);
 ```

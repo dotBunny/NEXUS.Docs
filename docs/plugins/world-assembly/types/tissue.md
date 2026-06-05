@@ -67,6 +67,6 @@ A common requirement when generating gameplay spaces is ensuring that there is s
 | Maximum Count | The maximum number of times this cell can be used in the generated `FNAssemblyGraph`. (_`0` unlimited usage — to stop a cell from being generated, remove it from the tissue rather than setting a count_) | `0` | 
 | Minimum Node Distance | The minimum number of cell links away this cell must be to be used again. | `1` | 
 | Minimum Node Depth | The minimum number of cell hops away from the start cell before this cell may be used. The start cell is hop `0`, its direct neighbors hop `1`, etc. (_0 no constraint_) | `0`  |
-| Has Direction Constraint | When enabled, this cell may only be placed toward `Direction Constraint` relative to the organ's start point. | `false` |
+| Has Direction Constraint | When enabled, this cell may only be placed toward `Direction Constraint` relative to the operation's direction target. | `false` |
 | Weighting | Relative weight for random selection during generation. | `1`| 
 | Cell | A soft-object reference to the `UNCell` asset that will be consumed. | `n/a` | 

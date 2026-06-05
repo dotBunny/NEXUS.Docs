@@ -11,7 +11,7 @@ import TabItem from '@theme/TabItem';
 
 # Editor Input Processor
 
-<TypeDetails icon="native-interface" base="IInputProcessor" type="FNEditorInputProcessor" typeExtra="" headerFile="NexusCoreEditor/Public/NEditorInputProcessor.h" />
+<TypeDetails icon="native-interface" base="IInputProcessor" type="FNEditorInputProcessor" typeExtra="" headerFile="NexusToolingEditor/Public/NEditorInputProcessor.h" />
 
 An editor-focused `IInputProcessor` tracking the state of standard modifier keys and other defined keys.
 

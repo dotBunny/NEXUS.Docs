@@ -57,7 +57,7 @@ static FString& GetSelectionStringFromCurrentWindowMode();
   * Get the current window modes selection FText.
   * @return The cached FText representing the current EWindowMode::Type.
   */
-static FText& GetSelectionTextFromCurrentWindowMode();
+static FText GetSelectionTextFromCurrentWindowMode();
 ```  
 
 #### Get Selection From WindowMode (String)
@@ -79,7 +79,7 @@ static FString& GetSelectionStringFromWindowMode(EWindowMode::Type Mode);
   * @param Mode the EWindowMode::Type to find the associated FText for.
   * @return The cached FText representing the target EWindowMode::Type. 
   */
-static FText& GetSelectionTextFromWindowMode(EWindowMode::Type Mode);
+static FText GetSelectionTextFromWindowMode(EWindowMode::Type Mode);
 ```  
 
 #### Get WindowMode Selections (String)

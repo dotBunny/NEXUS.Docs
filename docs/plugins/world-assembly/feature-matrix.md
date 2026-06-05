@@ -20,7 +20,7 @@ tags: [0.3.0, 0.3.1]
 | Tag Counters | Associates `int32` values with tags, seeded per-operation (or from project settings), filterable for cell selection (`Tag Counter Constraints`) and mutated on placement (`Tag Counter Operations`). The value never drops below `0`. |
 | Count-Based Rules | `MinimumCount` and `MaximumCount` limiters governing how many times a Cell is used in the generated graph. |
 | Graph-Based Rules | `MinimumNodeDepth` allowing for ensuring a Cell is not placed too soon on a graph, with `MinimumNodeDistance` limiting proximity to itself. |
-| Directional Constraint | A [Cell](types/cell.md) can be restricted to a compass heading relative to the organ's start point, enforced within the project/operation `Direction Tolerance`. |
+| Directional Constraint | A [Cell](types/cell.md) can be restricted to a compass heading relative to the operation's direction target, enforced within the project/operation `Direction Tolerance`. |
 | Weighting | Both `UNCell` and `UNCellJunctionComponent` support weighting their selection for usage. |
 | Initialization Callback | `INCellInitialized`-implementing `AActors` in a [Cell](types/cell.md) receive a callback when they are placed in the the world (with context about the assembly), but before `BeginPlay`. |
 
