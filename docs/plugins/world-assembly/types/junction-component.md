@@ -66,7 +66,7 @@ It is important that the direction of the **Junction** in a Cell always faces in
 
 ### Color
 
-The gizmo color is derived from the penetration depth into the [UNCell](cell.md)'s hull. So long as it remains green the junction is matchable and will not be excluded due to the depth setting (see `Maximum Cell Hull Penetration Tolerance` in the [Project Settings](../project-settings.md)). 
+When in `World Assembly Mode`, the gizmo color is derived from the penetration depth into the [UNCell](cell.md)'s hull. So long as it remains green the junction is matchable and will not be excluded due to the depth setting (see `Maximum Cell Hull Penetration Tolerance` in the [Project Settings](../project-settings.md)). 
 
 <div class="image-split">
 ![Junction Gizmo w/ Depth](junction-gizmo-distance.webp)
