@@ -66,22 +66,16 @@ It is important that the direction of the **Junction** in a Cell always faces in
 
 ### Color
 
-The gizmo color is derived from two pieces of state: whether any of the junction's corner points fall inside the Cell's convex hull, and the junction's `Requirements` value.
+The gizmo color is derived from the penetration depth into the [UNCell](cell.md)'s hull. So long as it remains green the junction is matchable and will not be excluded due to the depth setting (see `Maximum Cell Hull Penetration Tolerance` in the [Project Settings](../project-settings.md)). 
 
+<div class="image-split">
 ![Junction Gizmo w/ Depth](junction-gizmo-distance.webp)
+![Junction Gizmo w/ Depth](junction-gizmo-distance-bad.webp)
+</div>
 
-| Color | Meaning |
-|---|---|
-| Pink | One or more corner points lie inside the Cell's convex hull. Overrides the `Requirements` colors. |
-| Light Green | `Required` |
-| Mid Green | `Allow Blocking` |
-| Dark Green | `Allow Empty` |
+:::danger
 
-The pink override exists because `NWorldAssembly`'s placement system permits penetrating matches (up to a configured distance). A pink junction signals that it sits inside the hull and will be subject to those penetration settings — not that it is misplaced. It also will display the penetration depth for reference.
-
-:::warning 
-
-This is going to change in the future when the filling/blocking of Junctions is implemented.
+If it is **RED**, it's dead.
 
 :::
 
