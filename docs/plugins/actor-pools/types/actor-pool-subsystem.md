@@ -203,6 +203,19 @@ bool HasActorPool(const TSubclassOf<AActor>& ActorClass) const { return ActorPoo
 void ApplyActorPoolSet(UNActorPoolSet* ActorPoolSet);
 ```
 
+### Get ActorPool Stats
+
+```cpp
+/**
+ * Get the current usage statistics for a given Actor class's pool.
+ * @param ActorClass The class of the actor which you would like the pool statistics for.
+ * @return An FIntVector2 where X is the spawned (in-use) count and Y is the available count; a zeroed vector is returned if no pool exists.
+ */
+FIntVector2 GetActorPoolStats(const TSubclassOf<AActor> ActorClass) const;
+```
+
+A lightweight, Blueprint-friendly snapshot of a single pool's occupancy. The returned `FIntVector2` packs the two counts the [FNActorPool](actor-pool.md#queries) tracks internally — `X` is the spawned (in-use, "out") count and `Y` is the available ("in") count. A zeroed vector (`0, 0`) is returned when no pool exists for the supplied `ActorClass`, so it is safe to call without first checking [Has Actor Pool](#has-actor-pool); just be aware that a zeroed result is indistinguishable from an empty, idle pool. This is intended for HUDs, debug overlays, and tuning — for direct access to the pool itself use the native [Get Actor Pool](#get-actor-pool).
+
 ## Native API
 
 The methods below are available to C++ only — they are not exposed to Blueprint and are intended for native gameplay or systems code that needs direct access to the underlying [FNActorPool](actor-pool.md) instances or runtime policy controls.
