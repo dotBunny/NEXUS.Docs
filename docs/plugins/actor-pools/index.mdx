@@ -25,6 +25,12 @@ It is important to note that there are bespoke pooling systems included with dif
 
 It is essential to consider the lifecycle of any `AActor` used in an object pooling scenario. Specifically, are there things that need to happen to the Actor's components or itself to remove it from gameplay properly, be it deactivating components, sleeping AI, or altering GAS-related logic; every game is slightly different, and you will need to address your game's specific needs. Utilizing the [INActorPoolItem](/docs/plugins/actor-pools/types/actor-pool-item/) interface, you can quickly carve out this pooling logic.
 
+:::info[No Interface Needed for Simple Actors]
+
+Pooling works out of the box for any `AActor` whose **root is a `UPrimitiveComponent`** — the pool hides/shows it, toggles collision and tick, and resets velocity and physics simulation on spawn/return without any code on the Actor. The [INActorPoolItem](/docs/plugins/actor-pools/types/actor-pool-item/) interface (and [ANPooledActor](/docs/plugins/actor-pools/types/pooled-actor/) base class) are **native-only** and only needed when an Actor requires extra lifecycle logic the pool can't infer.
+
+:::
+
 :::info
 
 There is a `NActorPools` category added to the built-in `stat` system when `N.ActorPools.TrackStats` is toggled on. It is however not as robust in providing individual pool statistics as using the [Developer Overlay](developer-overlay/) method.
