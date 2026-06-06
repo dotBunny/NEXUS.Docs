@@ -39,10 +39,9 @@ From the `Edit > Project Settings` window, find the **World Assembly** section.
 
 | Setting | Description | Default |
 | --- | :-- | :-- |
-| `Bad Start Limit` | The maximum amount of bad starts that can occur before an assembly is considered a failure. | `1000` |
 | `Retry Count` | The maximum amount of full attempts at assembling a space before it is considered a complete failure. | `10000` |
-| `Junction Matching > Maximum Cell Hull Penetration Tolerance` | The maximum depth of penetration a cell's convex hull can penetrate another to make a junction connection. | `10.f` |
-| `Junction Matching > Maximum World Penetration Tolerance` | The maximum depth of penetration a cell's convex hull can penetrate world geometry to make a junction connection. | `2.f` |
+| `Junction Matching > Cell Hull Penetration Tolerance` | The maximum depth of penetration a cell's convex hull can penetrate another to make a junction connection. | `10.f` |
+| `Junction Matching > World Penetration Tolerance` | The maximum depth of penetration a cell's convex hull can penetrate world geometry to make a junction connection. | `2.f` |
 | `Tagging > Context Tags` | Default `Context Tags` provided to every Assembly Operation. | `(empty)` |
 | `Tagging > Starting Counters` | Default `Tag Counters` provided to every Assembly Operation. | `(empty)` |
 | `Direction Tolerance` | How close the placement bearing must be to a cell's `Direction Constraint` heading (within this many degrees +/-) for the cell to remain a valid candidate. | `15.f` |
