@@ -37,5 +37,5 @@ The pin always fires exactly once. Check `SpawnedActor` for `null` before using 
 - Honors all the [pool flags](actor-pool-settings.md#flags) of the resolved pool. In particular:
   - `ServerOnly` pools will return `null` on clients.
   - `SweepBeforeSettingLocation` is applied to the spawn transform.
-  - `ShouldFinishSpawning` controls whether `FinishSpawning()` is invoked for non-[INActorPoolItem](actor-pool-item.md) classes.
+  - `DeferConstruction` defers `AActor` construction so per-spawn work can run before `FinishSpawning()` is invoked (which now always completes the deferred spawn).
 - The `Strategy` configured on the pool determines what happens if the pool is exhausted — see [Creation Strategies](actor-pool-settings.md#creation-strategies). A strategy of `CreateLimited` or `Fixed` (without recycle) will return `null` rather than allocate a new `AActor`.

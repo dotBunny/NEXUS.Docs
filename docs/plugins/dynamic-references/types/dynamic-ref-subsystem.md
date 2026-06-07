@@ -1,7 +1,7 @@
 ---
 sidebar_class_name: type ue-world-subsystem
 description: A locator system that maintains a map that organizes actors into predefined categories.
-tags: [0.1.0, 0.3.0]
+tags: [0.1.0, 0.3.0, 0.3.1]
 ---
 
 import TypeDetails from '../../../../src/components/TypeDetails';
@@ -14,6 +14,19 @@ import TabItem from '@theme/TabItem';
 <TypeDetails icon="ue-world-subsystem" base="UWorldSubsystem" type="UNDynamicRefSubsystem" typeExtra="" headerFile="NexusDynamicRefs/Public/NDynamicRefSubsystem.h" />
 
 A locator system that maintains a map that organizes `UObject` into predefined categories ([ENDynamicRef](dynamic-ref.md)), named buckets (`FName`), or `FGameplayTag` keys. Tag-keyed entries are stored in the same `FName`-bucket map under the tag's `TagName`, so every tag accessor is effectively a thin convenience wrapper over its `*ByName` equivalent.
+
+:::info[Weak References <VersionBadge version="0.3.1" type="header" />]
+
+Registrations are stored as `TWeakObjectPtr` — **the subsystem never keeps a registered object alive**. When a tracked `UObject` is destroyed or garbage-collected without an explicit `Remove*`, its entry simply goes stale; it is not a dangling pointer. Every Blueprint-facing accessor accounts for this:
+
+- `GetObjects*` / `GetActors*` filter stale entries out of the returned array.
+- `GetFirstObject*` / `GetLastObject*` skip stale entries to return the first/last **live** object.
+- `GetCount*` prunes stale entries and returns the **live** count (it calls `Compact()` internally).
+- `GetNames` / `GetTags` omit buckets whose objects have all gone stale.
+
+You still want a matching `Remove*` for anything you `Add*` manually — leaning on weak expiry leaves empty buckets lingering until the next accessor compacts them. The weak storage is a safety net against missed removals and unexpected destruction, not a substitute for balanced add/remove.
+
+:::
 
 ## Getting Actors
 
@@ -509,11 +522,13 @@ Two families of native-only accessors skip the safety checks performed by their 
 
 The `*Unsafe` variants will dereference into an empty array if you call them on a slot/bucket with no registered objects — only use them from native code paths that already gated the lookup with `GetCount` or by subscribing to the registration delegates below.
 
+Because references are weak (see the **Weak References** note at the top of this page), the `*Unsafe` accessors also skip the stale-entry check their safe counterparts perform: if the slot's first/last entry has been destroyed without removal, the `Unsafe` call returns `nullptr` even though the slot is non-empty. Prefer the safe `GetFirstObject*` / `GetLastObject*` whenever stale entries are possible.
+
 :::
 
 ### Collection References
 
-Return a `const FNDynamicRefCollection&` directly, avoiding the per-call `TArray` copy that `GetObjects*` performs. Prefer these when you only need to read the backing storage.
+Return a `const FNDynamicRefCollection&` directly, avoiding the per-call `TArray` copy that `GetObjects*` performs. Prefer these when you only need to read the backing storage. The collection stores `TWeakObjectPtr` entries and is **not** compacted by these accessors, so iterate with `.Get()` null-checks (or call its `HasObjects()` / `GetObjectsCopy()` / `GetFirstValid()` / `GetLastValid()` helpers) to skip any stale entries.
 
 | Method | Returns |
 | :-- | :-- |
@@ -540,4 +555,4 @@ The subsystem fires four native multicast delegates that broadcast every registr
 
 The delegates are native (not `BlueprintAssignable`) — bind from C++ via `OnAdded.AddUObject(...)` and remove with `RemoveAll(this)` in your teardown path.
 
-`OnRemoved` / `OnRemovedByName` only fire when the call actually removes something — attempting to remove a `UObject` that was never registered to a slot/bucket is now a silent no-op rather than a spurious broadcast.
+The add/remove broadcasts are symmetric: `OnAdded` / `OnAddedByName` only fire when an object is **newly** registered — a duplicate `Add*` of an already-present `UObject` is a silent no-op — and `OnRemoved` / `OnRemovedByName` only fire when the call actually removes something. Attempting to remove a `UObject` that was never registered to a slot/bucket is a silent no-op rather than a spurious broadcast, so external listeners always see a balanced add/remove pair.

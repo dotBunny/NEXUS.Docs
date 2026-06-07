@@ -152,10 +152,12 @@ If you are working in native, use the native templated version of this function 
   * Attempts to return an Actor to its owning pool.
   * @note If the returned actor does not belong in a pool the UNActorPoolsSettings::UnknownBehavior is applied.
   * @param Actor The target actor to return to a pool.
-  * @return true/false if the Actor was returned to a pool.
+  * @return true if the Actor was handled (returned to a pool, or destroyed under the Destroy unknown behavior); false otherwise.
   */
 bool ReturnActor(AActor* Actor);
 ```
+
+A `true` return means the subsystem took ownership of the outcome — the `AActor` was either returned to its owning pool, or it was an unknown `AActor` resolved under the `Destroy` / `CreateDefaultPool` [unknown-actor policy](#unknown-actor-behavior). `false` means the `AActor` was left untouched, which happens under the `Ignore` policy or when the input is invalid.
 
 ### Return All Actors
 

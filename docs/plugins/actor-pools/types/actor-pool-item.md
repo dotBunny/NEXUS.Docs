@@ -50,7 +50,7 @@ Implement `INActorPoolItem` only when you need the lifecycle hooks or operationa
 
 :::warning[Blueprint Fallback]
 
-Because the interface cannot be implemented in Blueprint, a Blueprint that needs pool callbacks but cannot derive from [ANPooledActor](pooled-actor.md) should instead enable the `Invoke UFunctions` flag on [FNActorPoolSettings](actor-pool-settings.md#support-flags). The pool will then call the well-known UFunction names (`OnCreatedByActorPool`, `OnSpawnedFromActorPool`, `OnReturnToActorPool`, `OnReleasedFromActorPool`) on the Blueprint instead. This is a slower path and is ignored entirely when the Actor implements the interface natively.
+Because the interface cannot be implemented in Blueprint, a Blueprint that needs pool callbacks but cannot derive from [ANPooledActor](pooled-actor.md) should instead enable the `Invoke UFunctions` flag on [FNActorPoolSettings](actor-pool-settings.md#support-flags). The pool will then call the well-known UFunction names (`OnDeferredConstruction`, `OnCreatedByActorPool`, `OnSpawnedFromActorPool`, `OnReturnToActorPool`, `OnReleasedFromActorPool`) on the Blueprint instead. This is a slower path and is ignored entirely when the Actor implements the interface natively.
 
 :::
 

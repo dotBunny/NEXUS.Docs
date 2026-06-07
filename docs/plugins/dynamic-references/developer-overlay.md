@@ -2,7 +2,7 @@
 sidebar_label: Developer Overlay
 sidebar_position: 2
 description: An overlay listing every live ENDynamicRef slot and FName bucket in the active world(s).
-tags: [0.2.7, 0.3.0]
+tags: [0.2.7, 0.3.0, 0.3.1]
 ---
 
 import TypeDetails from '../../../src/components/TypeDetails';
@@ -31,7 +31,7 @@ Each row is a [UNDynamicRefListViewEntry](types/dynamic-ref-list-view-entry.md) 
 
 :::info[Weak References]
 
-The overlay only holds `TWeakObjectPtr`s to the displayed `UObject`s — it never roots them, never extends their lifetime, and never crashes when an underlying object is garbage-collected between paints. Rows whose target has gone away are pruned on the next refresh tick.
+The overlay only holds `TWeakObjectPtr`s to the displayed `UObject`s — it never roots them, never extends their lifetime, and never crashes when an underlying object is garbage-collected between paints. Because a weak reference expires silently with no delegate to listen for, the overlay polls for staleness every tick (`NativeTick` → `ReconcileStaleEntries`) and drops any wrapper row whose tracked objects have all gone away.
 
 :::
 
