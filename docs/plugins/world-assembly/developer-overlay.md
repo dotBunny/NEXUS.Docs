@@ -1,6 +1,6 @@
 ---
 sidebar_position: 5
-description: An overlay showing all of the known Actor Pools and their status.
+description: An overlay showing in-flight World Assembly operations and their status.
 tags: [0.3.0]
 ---
 

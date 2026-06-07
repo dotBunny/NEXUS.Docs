@@ -38,3 +38,5 @@ virtual void Render(FNReport& Report, TArray<FString>& Output,
 - [Report](report.md) — Owning container; constructs and stores content blocks.
 - [Report Block](report-block.md) — Base type; heading, header, footer, level, priority.
 - [Report Table Block](report-table-block.md) — Tabular variant.
+- [Report List Block](report-list-block.md) — Bulleted list variant.
+- [Report Collapsable Block](report-collapsable-block.md) — Grouping that vanishes when empty.

@@ -10,9 +10,9 @@ import TypeDetails from '../../../../../src/components/TypeDetails';
 
 <TypeDetails icon="native-struct" base="struct" type="FNReportBlock" typeExtra="" headerFile="NexusCore/Public/Developer/NReportBlock.h" />
 
-Base type for all [`Report`](report.md) blocks. Carries the rendering metadata (heading, header, footer, indentation level, sort priority) shared by every block, and tracks the block's ticket within its owning report. Concrete blocks — [`Report Content Block`](report-content-block.md) and [`Report Table Block`](report-table-block.md) — extend this type and override `Render` to emit their specific body.
+Base type for all [`Report`](report.md) blocks. Carries the rendering metadata (heading, header, footer, indentation level, sort priority) shared by every block, and tracks the block's ticket within its owning report. Concrete blocks — [`Report Content Block`](report-content-block.md), [`Report Table Block`](report-table-block.md), [`Report List Block`](report-list-block.md), and [`Report Collapsable Block`](report-collapsable-block.md) — extend this type and override `Render` to emit their specific body.
 
-Blocks are not constructed directly; they are allocated through [`FNReport::CreateContentBlock`](report.md#create-content-block) or [`FNReport::CreateTableBlock`](report.md#create-table-block), which assign the ticket and parent linkage.
+Blocks are not constructed directly; they are allocated through the matching `FNReport::Create…Block` factory (for example [`CreateContentBlock`](report.md#create-content-block) or [`CreateTableBlock`](report.md#create-table-block)), which assigns the ticket and parent linkage.
 
 ## Methods
 
@@ -83,3 +83,5 @@ virtual void Render(FNReport& Report, TArray<FString>& Output,
 - [Report](report.md) — Owning container that issues block tickets and walks the tree.
 - [Report Content Block](report-content-block.md) — Free-form line block.
 - [Report Table Block](report-table-block.md) — Tabular data block.
+- [Report List Block](report-list-block.md) — Bulleted list block.
+- [Report Collapsable Block](report-collapsable-block.md) — Grouping that vanishes when empty.
