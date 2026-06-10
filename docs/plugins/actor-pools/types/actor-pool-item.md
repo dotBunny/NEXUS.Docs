@@ -1,7 +1,7 @@
 ---
 sidebar_class_name: type ue-interface
 description: An interface that defines the contract between an AActor and the FNActorPool.
-tags: [0.1.0]
+tags: [0.1.0, 0.3.2]
 ---
 
 import TypeDetails from '../../../../src/components/TypeDetails';
@@ -10,7 +10,7 @@ import TypeDetails from '../../../../src/components/TypeDetails';
 
 <TypeDetails icon="ue-interface" base="interface" type="INActorPoolItem" typeExtra=" / UNActorPoolItem" headerFile="NexusActorPools/Public/INActorPoolItem.h" />
 
-An interface that defines the contract between an `AActor` and the [FNActorPool](actor-pool.md). It is the communication bridge that lets any `AActor` participate in object pooling, surfacing the lifecycle hooks the pool calls into and the operational-state machine that gates them. [ANPooledActor](pooled-actor.md) is the convenience base class that already implements this interface — reach for the interface directly only when your `AActor` cannot inherit from `ANPooledActor`.
+An interface that defines the contract between an `AActor` and the [FNActorPool](actor-pool.md). It is the communication bridge that lets any `AActor` participate in object pooling, surfacing the lifecycle hooks the pool calls into and the operational-state machine that gates them. [ANPooledActorBase](pooled-actor-base.md) is the convenience base class that already implements this interface — reach for the interface directly only when your `AActor` cannot inherit from `ANPooledActor`.
 
 ## What It Is
 
@@ -22,7 +22,7 @@ An interface that defines the contract between an `AActor` and the [FNActorPool]
 
 `INActorPoolItem` is a **native-only** interface. The `UINTERFACE` is declared with `meta=(CannotImplementInterfaceInBlueprint)`, so it is deliberately hidden from the Blueprint *Implemented Interfaces* dropdown — it can only be added to an `AActor` in C++.
 
-- **The easy path** is to derive from [ANPooledActor](pooled-actor.md), which already implements the interface, overrides each lifecycle callback to broadcast a `BlueprintAssignable` event, and returns itself to the pool when it falls out of the world. Reach for the bare interface only when your `AActor` already has a base class it cannot give up.
+- **The easy path** is to derive from [ANPooledActorBase](pooled-actor-base.md), which already implements the interface, overrides each lifecycle callback to broadcast a `BlueprintAssignable` event, and returns itself to the pool when it falls out of the world. Reach for the bare interface only when your `AActor` already has a base class it cannot give up.
 - **To implement it directly**, inherit from both `AActor` (or a subclass) and `INActorPoolItem`, then override the virtual lifecycle callbacks you care about. Call the `INActorPoolItem::` base implementation first so the operational-state machine stays in sync:
 
 ```cpp
@@ -42,7 +42,7 @@ public:
 
 :::tip[No Implementation Required for Simple Actors]
 
-You do **not** have to implement this interface (or derive from [ANPooledActor](pooled-actor.md)) to pool an `AActor`. On every spawn and return the pool already hides/shows the Actor, toggles its collision and tick, and — when the Actor's **root component is a `UPrimitiveComponent`** — resets its velocity and toggles physics simulation to match the template. For a straightforward Actor whose root is a primitive component (a static mesh, a projectile, and the like) this built-in handling is enough on its own.
+You do **not** have to implement this interface (or derive from [ANPooledActorBase](pooled-actor-base.md)) to pool an `AActor`. On every spawn and return the pool already hides/shows the Actor, toggles its collision and tick, and — when the Actor's **root component is a `UPrimitiveComponent`** — resets its velocity and toggles physics simulation to match the template. For a straightforward Actor whose root is a primitive component (a static mesh, a projectile, and the like) this built-in handling is enough on its own.
 
 Implement `INActorPoolItem` only when you need the lifecycle hooks or operational-state tracking to do extra work the pool can't infer — sleeping AI, deactivating extra components, resetting GAS state, etc.
 
@@ -50,7 +50,7 @@ Implement `INActorPoolItem` only when you need the lifecycle hooks or operationa
 
 :::warning[Blueprint Fallback]
 
-Because the interface cannot be implemented in Blueprint, a Blueprint that needs pool callbacks but cannot derive from [ANPooledActor](pooled-actor.md) should instead enable the `Invoke UFunctions` flag on [FNActorPoolSettings](actor-pool-settings.md#support-flags). The pool will then call the well-known UFunction names (`OnDeferredConstruction`, `OnCreatedByActorPool`, `OnSpawnedFromActorPool`, `OnReturnToActorPool`, `OnReleasedFromActorPool`) on the Blueprint instead. This is a slower path and is ignored entirely when the Actor implements the interface natively.
+Because the interface cannot be implemented in Blueprint, a Blueprint that needs pool callbacks but cannot derive from [ANPooledActorBase](pooled-actor-base.md) should instead enable the `Invoke UFunctions` flag on [FNActorPoolSettings](actor-pool-settings.md#support-flags). The pool will then call the well-known UFunction names (`OnDeferredConstruction`, `OnCreatedByActorPool`, `OnSpawnedFromActorPool`, `OnReturnToActorPool`, `OnReleasedFromActorPool`) on the Blueprint instead. This is a slower path and is ignored entirely when the Actor implements the interface natively.
 
 :::
 

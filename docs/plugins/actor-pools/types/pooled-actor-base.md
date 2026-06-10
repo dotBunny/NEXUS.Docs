@@ -1,14 +1,14 @@
 ---
 sidebar_class_name: type ue-actor
 description: A specialized AActor base-class designed to work seamlessly with a FNActorPool.
-tags: [0.1.0]
+tags: [0.1.0, 0.3.2]
 ---
 
 import TypeDetails from '../../../../src/components/TypeDetails';
 
-# Pooled Actor
+# Pooled Actor Base
 
-<TypeDetails icon="/assets/svg/actor-pools/pooled-actor.svg" iconType="img" base="AActor" type="ANPooledActor" typeExtra="" headerFile="NexusActorPools/Public/NPooledActor.h" />
+<TypeDetails icon="/assets/svg/actor-pools/pooled-actor.svg" iconType="img" base="AActor" type="ANPooledActorBase" typeExtra="" headerFile="NexusActorPools/Public/NPooledActorBase.h" />
 
 A specialized `AActor` base class that already implements [INActorPoolItem](actor-pool-item.md) and exposes each pool lifecycle hook as a `BlueprintAssignable` event. Use it as the parent of any `AActor` Blueprint that should participate in pooling without writing native code — the only thing left to wire up is your gameplay logic on the four lifecycle events.
 

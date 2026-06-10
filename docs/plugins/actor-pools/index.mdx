@@ -27,7 +27,7 @@ It is essential to consider the lifecycle of any `AActor` used in an object po
 
 :::info[No Interface Needed for Simple Actors]
 
-Pooling works out of the box for any `AActor` whose **root is a `UPrimitiveComponent`** — the pool hides/shows it, toggles collision and tick, and resets velocity and physics simulation on spawn/return without any code on the Actor. The [INActorPoolItem](/docs/plugins/actor-pools/types/actor-pool-item/) interface (and [ANPooledActor](/docs/plugins/actor-pools/types/pooled-actor/) base class) are **native-only** and only needed when an Actor requires extra lifecycle logic the pool can't infer.
+Pooling works out of the box for any `AActor` whose **root is a `UPrimitiveComponent`** — the pool hides/shows it, toggles collision and tick, and resets velocity and physics simulation on spawn/return without any code on the Actor. The [INActorPoolItem](/docs/plugins/actor-pools/types/actor-pool-item/) interface (and [ANPooledActorBase](/docs/plugins/actor-pools/types/pooled-actor-base/) class) are **native-only** and only needed when an Actor requires extra lifecycle logic the pool can't infer.
 
 :::
 
