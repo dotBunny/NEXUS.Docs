@@ -17,7 +17,7 @@ tags: [0.3.0, 0.3.1]
 | Network Support | Replicated `ANCellLevelInstance` support, with client status (`ANWorldAssemblyRelay`) support. |
 | Tag-Based Rules | Supports `Unique`, `RequireAny`, and `BadNeighbors` grouping tags (as well as user-defined groups), and behavioral tags `Starter`, `StarterOnly`, `NotStarter`, `Finisher`, `FinisherOnly`, `NotFinisher`. |
 | Context Tag Rules | [Cell](types/cell.md) placement can require or contribute `Context Tags`, enabling lock-key style gating determined during generation. A placed cell's `Added Context Tags` accumulate and are queryable via `INCellInitialized`. |
-| Tag Counters | Associates `int32` values with tags, seeded per-operation (or from project settings), filterable for cell selection (`Tag Counter Constraints`) and mutated on placement (`Tag Counter Operations`). The value never drops below `0`. |
+| Tag Counters | Associates `int32` values with tags, seeded per-operation (or from project settings), filterable for cell selection (`Tag Counter Constraints`) and mutated on placement (`Tag Counter Operations`). Counts are signed and may go negative. |
 | Count-Based Rules | `MinimumCount` and `MaximumCount` limiters governing how many times a Cell is used in the generated graph. |
 | Graph-Based Rules | `MinimumNodeDepth` allowing for ensuring a Cell is not placed too soon on a graph, with `MinimumNodeDistance` limiting proximity to itself. |
 | Directional Constraint | A [Cell](types/cell.md) can be restricted to a compass heading relative to the operation's direction target, enforced within the project/operation `Direction Tolerance`. |
