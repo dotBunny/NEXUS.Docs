@@ -35,11 +35,18 @@ This function of the `UNBlueprintValidator` looks for occurrences where this occ
 
 The quick solution is to convert any blueprint pure nodes where this occurs into an execution-based node which can be  reliably cached. At the bottom of the context-menu for pure nodes there is an option **Show Exec pins**. This will then allow you to place the node in your blueprint graph and ensure it’s sequential place. 
 
-A general rule of thumb is that pure nodes are green. That means things like the **Break**-helper nodes also exhibit this problem and can be resolved the same way.
-
 <ContributorLink id="reapazor" /> wrote a [blog](https://reapazor.com/2025/06/25/multipin-pure-nodes-validator-woes/) post explaining why this is an important validator to pay attention too, and how to easily solve the raised concerns.
 
 :::
+
+### Example Trigger
+
+A general rule of thumb is that pure nodes are green. That means things like the **Break**-helper nodes also exhibit this problem and can be resolved the same way.
+
+![Break Pin](blueprint-multi-pin-pure-node-break.webp)
+
+![Break Exec Pin](blueprint-multi-pin-pure-node-break-exec.webp)
+
 
 ### Severity
 
