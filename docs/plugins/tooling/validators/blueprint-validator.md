@@ -41,7 +41,7 @@ The quick solution is to convert any blueprint pure nodes where this occurs into
 
 ### Example Trigger
 
-A general rule of thumb is that pure nodes are green. That means things like the **Break**-helper nodes also exhibit this problem and can be resolved the same way.
+A general rule of thumb is that pure nodes are green. That means things like the **Break** utility nodes also exhibit this problem and can be resolved the same way.
 
 ![Break Pin](blueprint-multi-pin-pure-node-break.webp)
 
