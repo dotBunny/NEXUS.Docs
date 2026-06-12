@@ -27,13 +27,11 @@ The `UNOrientedBoxPickerLibrary` wraps the native `FNOrientedBoxPicker` function
 ![OrientedBox: Next Projected](oriented-box/oriented-box-next-projected.webp)
 </div>
 
-Gets the next deterministic point inside or on an `FOrientedBox`.
+Gets the next point inside or on an `FOrientedBox` from a caller-owned [`FNMersenneTwister`](../../core/types/math/mersenne-twister.md), so the same picker can participate in a larger deterministic stream without rebuilding state between calls.
 
-:::info
-
-Uses `FNRandom::Deterministic` to ensure reproducible results.
-
-:::
+```cpp
+static void Next(TArray<FVector>& OutLocations, FNMersenneTwister& Random, const FNOrientedBoxPickerParams& Params);
+```
 
 ### Random Point
 
@@ -67,14 +65,6 @@ Gets a random point inside or on an  `FOrientedBox` using a one-shot seed.
 </div>
 
 Gets a random point inside or on an `FOrientedBox` using a tracked seed. The seed altered for each `Count`.
-
-### Twisted Point
-
-Generates points using a caller-owned [`FNMersenneTwister`](../../core/types/math/mersenne-twister.md) so the same picker can participate in a larger deterministic stream without rebuilding state between calls.
-
-```cpp
-static void Twisted(TArray<FVector>& OutLocations, FNMersenneTwister& Random, const FNOrientedBoxPickerParams& Params);
-```
 
 ## FNOrientedBoxPickerParams
 

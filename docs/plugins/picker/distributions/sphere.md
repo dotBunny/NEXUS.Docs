@@ -27,13 +27,11 @@ The `UNSpherePickerLibrary` wraps the native `FNSpherePicker` functionality in a
 ![Sphere: Next Projected](sphere/sphere-next-projected.webp)
 </div>
 
-Generates a deterministic point inside or on the surface of a sphere.
+Generates the next point inside or on the surface of a sphere from a caller-owned [`FNMersenneTwister`](../../core/types/math/mersenne-twister.md), so the same picker can participate in a larger deterministic stream without rebuilding state between calls.
 
-:::info
-
-Uses `FNRandom::Deterministic` to ensure reproducible results.
-
-:::
+```cpp
+static void Next(TArray<FVector>& OutLocations, FNMersenneTwister& Random, const FNSpherePickerParams& Params);
+```
 
 ### Random Point
 
@@ -67,14 +65,6 @@ Generates a random point inside or on the surface of a sphere using a provided s
 </div>
 
 Generates a random point inside or on the surface of a sphere while tracking the random seed state.
-
-### Twisted Point
-
-Generates points using a caller-owned [`FNMersenneTwister`](../../core/types/math/mersenne-twister.md) so the same picker can participate in a larger deterministic stream without rebuilding state between calls.
-
-```cpp
-static void Twisted(TArray<FVector>& OutLocations, FNMersenneTwister& Random, const FNSpherePickerParams& Params);
-```
 
 :::info[Boundary Fix]
 

@@ -27,13 +27,11 @@ The `UNCirclePickerLibrary` wraps the native `FNCirclePicker` functionality in a
 ![Circle: Next Projected](circle/circle-next-projected.webp)
 </div>
 
-Generates a deterministic point inside or on the perimeter of a circle.
+Generates the next point inside or on the perimeter of a circle from a caller-owned [`FNMersenneTwister`](../../core/types/math/mersenne-twister.md), so the same picker can participate in a larger deterministic stream without rebuilding state between calls.
 
-:::info
-
-Uses `FNRandom::Deterministic` to ensure reproducible results.
-
-:::
+```cpp
+static void Next(TArray<FVector>& OutLocations, FNMersenneTwister& Random, const FNCirclePickerParams& Params);
+```
 
 ### Random Point
 
@@ -67,14 +65,6 @@ Generates a random point inside or on the perimeter of a circle using a provided
 </div>
 
 Generates a random point inside or on the perimeter of a circle while tracking the random seed state. Updates the seed value to enable sequential random point generation.
-
-### Twisted Point
-
-Generates points using a caller-owned [`FNMersenneTwister`](../../core/types/math/mersenne-twister.md) so the same picker can participate in a larger deterministic stream without rebuilding state between calls.
-
-```cpp
-static void Twisted(TArray<FVector>& OutLocations, FNMersenneTwister& Random, const FNCirclePickerParams& Params);
-```
 
 :::info[Containment Fix]
 

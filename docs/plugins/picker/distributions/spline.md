@@ -27,13 +27,11 @@ The `UNSplinePickerLibrary` wraps the native `FNSplinePicker` functionality in a
 ![Spline: Next Projected](spline/spline-next-projected.webp)
 </div>
 
-Generates a deterministic point on a `USplineComponent`'s spline.
+Generates the next point on a `USplineComponent`'s spline from a caller-owned [`FNMersenneTwister`](../../core/types/math/mersenne-twister.md), so the same picker can participate in a larger deterministic stream without rebuilding state between calls.
 
-:::info
-
-Uses `FNRandom::Deterministic` to ensure reproducible results.
-
-:::
+```cpp
+static void Next(TArray<FVector>& OutLocations, FNMersenneTwister& Random, const FNSplinePickerParams& Params);
+```
 
 ### Random Point
 
@@ -58,7 +56,6 @@ Uses `FNRandom::NonDeterministic` to produce pseudo-random results.
 </div>
 
 Generates a random point on a `USplineComponent`'s spline using a provided seed.
-nerates a random point on a `USplineComponent`'s spline using a provided seed, then projects it to the world.
 
 ### Tracked Point
 
@@ -68,14 +65,6 @@ nerates a random point on a `USplineComponent`'s spline using a provided seed, t
 </div>
 
 Generates a random point on a `USplineComponent`'s spline while tracking the random seed state.
-
-### Twisted Point
-
-Generates points using a caller-owned [`FNMersenneTwister`](../../core/types/math/mersenne-twister.md) so the same picker can participate in a larger deterministic stream without rebuilding state between calls.
-
-```cpp
-static void Twisted(TArray<FVector>& OutLocations, FNMersenneTwister& Random, const FNSplinePickerParams& Params);
-```
 
 ## FNSplinePickerParams
 

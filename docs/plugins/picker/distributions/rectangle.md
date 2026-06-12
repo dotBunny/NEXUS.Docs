@@ -27,13 +27,11 @@ The `UNRectanglePickerLibrary` wraps the native `FNRectanglePicker` functionalit
 ![Rectangle: Next Projected](rectangle/rectangle-next-projected.webp)
 </div>
 
-Generates a deterministic point inside or on the boundary of a rectangle.
+Generates the next point inside or on the boundary of a rectangle from a caller-owned [`FNMersenneTwister`](../../core/types/math/mersenne-twister.md), so the same picker can participate in a larger deterministic stream without rebuilding state between calls.
 
-:::info
-
-Uses `FNRandom::Deterministic` to ensure reproducible results.
-
-:::
+```cpp
+static void Next(TArray<FVector>& OutLocations, FNMersenneTwister& Random, const FNRectanglePickerParams& Params);
+```
 
 ### Random Point
 
@@ -67,14 +65,6 @@ Generates a random point inside or on the boundary of a rectangle using a provid
 </div>
 
 Generates a random point inside or on the boundary of a rectangle using a tracked seed.
-
-### Twisted Point
-
-Generates points using a caller-owned [`FNMersenneTwister`](../../core/types/math/mersenne-twister.md) so the same picker can participate in a larger deterministic stream without rebuilding state between calls.
-
-```cpp
-static void Twisted(TArray<FVector>& OutLocations, FNMersenneTwister& Random, const FNRectanglePickerParams& Params);
-```
 
 ## FNRectanglePickerParams
 
