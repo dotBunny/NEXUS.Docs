@@ -45,7 +45,11 @@ A general rule of thumb is that pure nodes are green. That means things like the
 
 ![Break Pin](blueprint-multi-pin-pure-node-break.webp)
 
+In the above example, each of the branch evaluations will recalculate the full `Condition` chain. Meaning all the way back to the **Get Actor Forward Vector** will be reevaluated, almost doubling the computational costs (there are slight difference due the additional nodes in one of the branch conditions).
+
 ![Break Exec Pin](blueprint-multi-pin-pure-node-break-exec.webp)
+
+In this corrected example, the outputs of the **Break** node are cached and can be accessed downstream without recomputation.
 
 
 ### Severity
