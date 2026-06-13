@@ -1,7 +1,7 @@
 ---
 description: A utility class providing functionality to support World Assembly operations.
 sidebar_class_name: type ue-blueprint-function-library
-tags: [0.3.0, 0.3.1, 0.3.5]
+tags: [0.3.0, 0.3.1, 0.3.2, 0.3.5]
 ---
 
 import TypeDetails from '../../../../src/components/TypeDetails';
@@ -85,3 +85,48 @@ Returns the identifier of the graph node this cell was assembled from, letting g
 UFUNCTION(BlueprintCallable, Category = "NEXUS|WorldAssembly", DisplayName="Get Node Identifier (ANCellLevelInstance)")
 static int32 GetNodeIdentifierFromCellLevelInstance(ANCellLevelInstance* LevelInstance);
 ```
+
+### Is HotPath
+
+Returns whether the supplied cell lies on the assembly's hot path — that is, on *either* the shortest or sequential variant routed through the `NEXUS.WorldAssembly.Flag.Hotpath`-flagged cells. See [Tagging](../tagging.md#nexusworldassemblyflaghotpath) for how the hot path is resolved.
+
+```cpp
+/**
+ * @param LevelInstance The cell level instance to query.
+ * @return true if this cell lies on the assembly's hot path.
+ */
+UFUNCTION(BlueprintCallable, Category = "NEXUS|WorldAssembly", DisplayName = "Is HotPath")
+static bool IsHotPath(ANCellLevelInstance* LevelInstance);
+```
+
+A companion `Is HotPath ?` node (`IsHotPathExec`) carries `meta = (ExpandBoolAsExecs="ReturnValue")`, so in Blueprint the result drives **True**/**False** execution pins directly instead of returning a bool to branch on.
+
+### Is HotPath (Shortest)
+
+Returns whether the cell lies specifically on the **shortest** hot-path variant — the spokes formed by the shortest path from the start cell to each goal.
+
+```cpp
+/**
+ * @param LevelInstance The cell level instance to query.
+ * @return true if this cell lies on the shortest-path hot path (spokes from the start cell).
+ */
+UFUNCTION(BlueprintCallable, Category = "NEXUS|WorldAssembly", DisplayName = "Is HotPath (Shortest)")
+static bool IsHotPathShortest(ANCellLevelInstance* LevelInstance);
+```
+
+As above, an `Is HotPath (Shortest) ?` exec-pin variant (`IsHotPathShortestExec`) is provided for branching directly in Blueprint.
+
+### Is HotPath (Sequential)
+
+Returns whether the cell lies specifically on the **sequential** hot-path variant — the nearest-first visiting chain that threads the goals in turn.
+
+```cpp
+/**
+ * @param LevelInstance The cell level instance to query.
+ * @return true if this cell lies on the sequential hot path (nearest-first visiting chain).
+ */
+UFUNCTION(BlueprintCallable, Category = "NEXUS|WorldAssembly", DisplayName = "Is HotPath (Sequential)")
+static bool IsHotPathSequential(ANCellLevelInstance* LevelInstance);
+```
+
+Likewise, an `Is HotPath (Sequential) ?` exec-pin variant (`IsHotPathSequentialExec`) is provided for branching directly in Blueprint.

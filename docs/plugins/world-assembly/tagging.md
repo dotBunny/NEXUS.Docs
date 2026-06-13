@@ -1,7 +1,7 @@
 ---
 description: Tags play an interesting role within World Assembly, providing a cheap and effective way to markup content, drive behavior, and convey information to third-party consumers.
 sidebar_position: 3
-tags: [0.3.0, 0.3.1]
+tags: [0.3.0, 0.3.1, 0.3.2]
 ---
 
 # Tagging
@@ -65,10 +65,28 @@ Tagged items can ONLY be used at the end of an Organ Assembly node branch. If no
 
 Tagged items cannot be used at the end of an Organ Assembly node branch.
 
+### Flags
 
 #### `NEXUS.WorldAssembly.Flag.AlwaysRelevant`
 
 Tagged items are considered `Always Relevant` for networking purposes. Think of this as something you want to always have syncronized, regardless of how far away a client may be.
+
+#### `NEXUS.WorldAssembly.Flag.Hotpath`
+
+Tagged items are treated as **goals** inside the cell graph. Starting from the start cell — the root, or the first cell linked to the root Bone — the assembly graph builder threads a path through every `Hotpath`-flagged cell and then branches out to any additional Bones, so the flagged cells are guaranteed to sit on a continuous connected route through the generated space.
+
+Two variants are resolved for every cell, both using an unweighted (hop-count) breadth-first search over the graph's connectivity:
+
+- **Shortest** — the union of the independent shortest path from the start cell to each goal (spokes radiating from the start).
+- **Sequential** — a greedy nearest-first chain that threads `start → nearest goal → next-nearest → …`, visiting the goals in turn.
+
+A cell is considered "on the hot path" if it lies on *either* variant, and any junction connecting two hot-path cells is flagged the same way. Anything implementing [Cell Initialized](types/cell-initialized.md) can read this membership off its `ANCellLevelInstance` once the cell is initialized, and the [World Assembly Library](types/world-assembly-library.md) exposes matching `Is HotPath` queries for both Blueprint and C++.
+
+:::note
+
+`Hotpath` only influences routing when at least one cell in the assembly carries the tag. With no flagged cells there is no hot path and every cell's hot-path flags stay `false` — the graph builds exactly as it did before.
+
+:::
 
 
 ### Pre-Made Groups
