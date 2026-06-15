@@ -35,7 +35,7 @@ void Generate(UPARAM(ref) FNAssemblyOperationSettings& Settings);
 /**
  * Tear down every assembled object owned by the subsystem and return it to an empty state.
  * Cancels any in-flight operations, destroys every ANCellProxy in the world along with its streamed
- * level instance, destroys any actors previously enrolled via RegisterActorForCleanup, then empties
+ * level instance, destroys any actors previously enrolled via RegisterOperationActor, then empties
  * the tracked-actor list and broadcasts OnCleared.
  */
 UFUNCTION(BlueprintCallable, DisplayName="Clear", Category = "NEXUS|WorldAssembly")
@@ -44,27 +44,44 @@ void Clear();
 
 `Clear` does **not** destroy the per-player relays — those are tied to player-controller lifetime, not generation lifetime. In editor builds the global selection is cleared first so the typed-element registry does not assert on a stale handle after sub-level actors are torn down.
 
-To have `Clear` also dispose of actors it didn't spawn, enroll them with `RegisterActorForCleanup`:
+To have `Clear` also dispose of actors it didn't spawn, enroll them with `RegisterOperationActor`. Each actor is tracked under an **Operation Ticket** — the ticket of the operation that spawned it (`0`, the default, is the unassociated bucket) — so a single operation's actors can be torn down on their own without waiting for a full `Clear`:
 
 ```cpp
 /**
- * Track an externally-owned actor so it will be destroyed by the next Clear() pass.
- * Stored as a weak reference, so the actor is free to be destroyed by other systems first without
- * leaving a dangling entry. Safe to call repeatedly with the same actor — duplicates are ignored.
+ * Track an externally-owned actor under an Operation Ticket so it will be destroyed by the next Clear() pass, or
+ * by a DestroyOperationActors call for that ticket.
+ * Stored as a weak reference, so the actor is free to be destroyed by other systems first without leaving a
+ * dangling entry. Safe to call repeatedly with the same actor — duplicates within a ticket are ignored.
+ * @param OperationTicket Ticket of the operation that spawned the actor; 0 (the default) is the unassociated bucket.
  */
-UFUNCTION(BlueprintCallable, DisplayName="Register Actor For Cleanup", Category = "NEXUS|WorldAssembly")
-void RegisterActorForCleanup(AActor* Actor);
+UFUNCTION(BlueprintCallable, DisplayName="Register Operation Actor", Category = "NEXUS|WorldAssembly")
+void RegisterOperationActor(AActor* Actor, int32 OperationTicket = 0);
 
 /**
- * Stop tracking an actor for Clear()-driven destruction.
+ * Stop tracking an actor for Clear()-driven destruction, regardless of which ticket it was registered under.
  * Call when the actor's lifetime is taken over elsewhere, or when it has already been destroyed and
  * the slot should be reclaimed early. A no-op if the actor was never registered.
  */
-UFUNCTION(BlueprintCallable, DisplayName="Unregister Actor For Cleanup", Category = "NEXUS|WorldAssembly")
-void UnregisterActorForCleanup(AActor* Actor);
+UFUNCTION(BlueprintCallable, DisplayName="Unregister Operation Actor", Category = "NEXUS|WorldAssembly")
+void UnregisterOperationActor(AActor* Actor);
+
+/**
+ * Stop tracking an actor for cleanup under a specific Operation Ticket — a direct-lookup alternative to
+ * UnregisterOperationActor that avoids scanning every ticket bucket.
+ * @param OperationTicket Ticket the actor was registered under; 0 (the default) is the unassociated bucket.
+ */
+UFUNCTION(BlueprintCallable, DisplayName="Unregister Operation Actor (By Ticket)", Category = "NEXUS|WorldAssembly")
+void UnregisterOperationActorByTicket(AActor* Actor, int32 OperationTicket = 0);
+
+/**
+ * Destroy and stop tracking every actor enrolled under a single Operation Ticket, leaving other operations' actors untouched.
+ * @param OperationTicket Ticket whose tracked actors should be torn down. A no-op if nothing was registered for it.
+ */
+UFUNCTION(BlueprintCallable, DisplayName="Destroy Operation Actors", Category = "NEXUS|WorldAssembly")
+void DestroyOperationActors(int32 OperationTicket);
 ```
 
-Enrolled actors are held weakly, so an entry becomes inert rather than dangling if the actor is destroyed by another system first. Both calls tolerate a null actor.
+Enrolled actors are held weakly, so an entry becomes inert rather than dangling if the actor is destroyed by another system first. All calls tolerate a null actor.
 
 ## Per-Player Relays
 
