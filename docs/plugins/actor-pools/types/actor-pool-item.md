@@ -10,7 +10,7 @@ import TypeDetails from '../../../../src/components/TypeDetails';
 
 <TypeDetails icon="ue-interface" base="interface" type="INActorPoolItem" typeExtra=" / UNActorPoolItem" headerFile="NexusActorPools/Public/INActorPoolItem.h" />
 
-An interface that defines the contract between an `AActor` and the [FNActorPool](actor-pool.md). It is the communication bridge that lets any `AActor` participate in object pooling, surfacing the lifecycle hooks the pool calls into and the operational-state machine that gates them. [ANPooledActorBase](pooled-actor-base.md) is the convenience base class that already implements this interface — reach for the interface directly only when your `AActor` cannot inherit from `ANPooledActor`.
+An interface that defines the contract between an `AActor` and the [FNActorPool](actor-pool.md). It is the communication bridge that lets any `AActor` participate in object pooling, surfacing the lifecycle hooks the pool calls into and the operational-state machine that gates them. [ANPooledActorBase](pooled-actor-base.md) is the convenience base class that already implements this interface — reach for the interface directly only when your `AActor` cannot inherit from `ANPooledActorBase`.
 
 ## What It Is
 

@@ -16,7 +16,7 @@ A 32-bit integer inclusive range `[Minimum, Maximum]`. Defaults span the entire 
 
 | Property | Type | Description |
 | :-- | :-- | :-- |
-| `Minimum` | `int32` | Lower bound of the range (inclusive). Defaults to `MIN_int32`. |
+| `Minimum` | `int32` | Lower bound of the range (inclusive). Defaults to `-MIN_int32`. |
 | `Maximum` | `int32` | Upper bound of the range (inclusive). Defaults to `MAX_int32`. |
 
 ## Methods

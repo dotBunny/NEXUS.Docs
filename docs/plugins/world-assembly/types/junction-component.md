@@ -1,7 +1,7 @@
 ---
 description: A Junction serves as a sized (XY) connection point between two Cells.
 sidebar_class_name: type ue-scene-component
-tags: [0.3.0, 0.3.1]
+tags: [0.3.0, 0.3.1, 0.3.2]
 ---
 
 import TypeDetails from '../../../../src/components/TypeDetails';
@@ -34,15 +34,39 @@ A Junction will only persist on a Cell if the level contains a `UNCellRootCompon
 
 ## Component Details
 
-![Bone Component Details](junction-component-details.webp)
+![Junction Component Details](junction-component-details.webp)
+
+### Details
 
 | Setting | Type | Description | Default |
 |---|---|---|---|
 | Type | `ENCellJunctionType` | **NOT IMPLEMENTED** | `Two-Way` |
-| Requirements | `ENCellJunctionRequirements` | **NOT IMPLEMENTED** | `AllowBlocking` | 
+| Requirements | `ENCellJunctionRequirements` | How an unconnected junction is resolved after the graph is linked. `Required` — the junction must connect to another for the graph to be considered valid, and its selection weight is automatically **doubled**; `Allow Blocking` — a junction left unconnected is [filled](#fillers); `Allow Empty` — a junction left unconnected stays unfilled. | `AllowBlocking` | 
 | Socket Size | `FIntVector2` | Size of the junction socket in grid units (width, height) | `(2,4)` | 
 | Rotation Constraints | `FNRotationConstraints`| What rotations can be made by this junction to match another. | |
 | Weighting | `int32` | Relative weight against other junctions in the cell for selection. | `1` | 
+
+### Fillers
+
+When a junction is left **unconnected** at the end of generation, World Assembly can spawn a _filler_ actor to cap it — closing the opening with a wall, door, cover piece, or any other actor you author. Each junction carries an array of `FNCellJunctionFillerEntry` candidates; at fill time the owning cell gates them by their constraints, picks one weighted-at-random from the survivors, and spawns it. When no entry qualifies, the project-wide `Junction Default Filler` (see [Project Settings](../project-settings.md)) is used instead.
+
+The spawned actor **must** implement [INCellJunctionFiller](cell-junction-filler.md); it receives an `OnInitializedFromJunction` callback so it can size or configure itself from the junction it fills.
+
+| Setting | Type | Description | Default |
+|---|---|---|---|
+| Actor | `TSubclassOf<AActor>` | The actor to spawn when this entry is selected. Must implement [INCellJunctionFiller](cell-junction-filler.md). | `(None)` |
+| Offset | `FTransform` | Placement offset relative to the junction's frame: the location is rotated by the junction's orientation before being added, the rotation spins the actor in place, and the scale multiplies the actor's own scale. | `Identity` |
+| Required Context Tags | `FGameplayTagContainer` | Tags that must be present in the generated cell's `Context Tags` for this entry to be eligible. | `(Empty)` |
+| Tag Counter Constraints | `TArray<FNGameplayTagCounterConstraint>` | `Tag Counter` constraints that must **all** pass for this entry to be eligible. A constrained tag absent from the counter compares as `0`. | `(Empty)` |
+| Weighting | `int32` | Relative weight for random selection among eligible entries. Higher values are more likely to be chosen. | `1` |
+
+#### Spawn Filler Immediately
+
+| Setting | Type | Description | Default |
+|---|---|---|---|
+| Spawn Filler Immediately | `bool` | Bypass filler time-slicing and spawn this junction's filler immediately during `BeginPlay`, rather than spreading the work across frames. | `true` |
+
+Time-slicing of filler spawns is otherwise governed project-wide by `Delayed Junction Spawning` and `Junction Time Slice` (see [Project Settings](../project-settings.md)).
 
 ## Gizmo
 

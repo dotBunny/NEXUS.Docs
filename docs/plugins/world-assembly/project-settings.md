@@ -45,7 +45,10 @@ From the `Edit > Project Settings` window, find the **World Assembly** section.
 | `Tagging > Context Tags` | Default `Context Tags` provided to every Assembly Operation. | `(empty)` |
 | `Tagging > Starting Counters` | Default `Tag Counters` provided to every Assembly Operation. | `(empty)` |
 | `Direction Tolerance` | How close the placement bearing must be to a cell's `Direction Constraint` heading (within this many degrees +/-) for the cell to remain a valid candidate. | `15.f` |
-| `Spawning > Cell Time Slice` | Frame-time goal limit when to split spawning cells to the next frame task (in milliseconds). | `2.f` |
+| `Spawning > Cell Time Slice` | Frame-time goal limit when to split spawning cells to the next frame task (in milliseconds). | `1.f` |
+| `Spawning > Junction Default Filler` | The default `AActor` (requires `INCellJunctionFiller`-implemented) to use when no filler is available. | `(empty)` |
+| `Spawning > Delayed Junction Spawning` | Should time-slicing be used when spawning junction fillers. | `true` |
+| `Spawning > Junction Time Slice` | Frame-time goal limit when to split spawning junctions to the next frame task (in milliseconds). | `0.5f` |
 
 ### Debug
 

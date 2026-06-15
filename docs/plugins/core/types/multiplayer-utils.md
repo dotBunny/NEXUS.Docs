@@ -65,15 +65,16 @@ FORCEINLINE static bool HasGameStateAuthority(const UWorld& World);
 
 ### Get PlayerIdentifier<VersionBadge version="0.2.4" type="header" />
 
-Extract `APlayerState::GetPlayerId()` from a controller. Logs a warning and returns `0` if the controller has no player state attached.
+Extract `APlayerState::GetPlayerId()` from a controller. Returns `-1` when the controller has no player state attached (a warning is logged unless `bShouldLogWarning` is `false` — pass `false` for expected-failure polling, e.g. while a player is still connecting). A return of `0` is a valid identifier: it means the player state exists but the session has not assigned an identifier yet — only `-1` signals the state was missing entirely.
 
 ```cpp
 /**
  * Get a player's unique identifier from the APlayerController.
  * @param PlayerController The target APlayerController to use when querying for the player identification number.
- * @return The player's identifier.
+ * @param bShouldLogWarning Should a warning be logged when the player's APlayerState is unavailable? Pass false for expected-failure polling (e.g. while a player is still connecting).
+ * @return The player's identifier, or -1 when the APlayerState is unavailable.
  */
-FORCEINLINE static int32 GetPlayerIdentifier(const APlayerController* PlayerController);
+FORCEINLINE static int32 GetPlayerIdentifier(const APlayerController* PlayerController, const bool bShouldLogWarning = true);
 ```
 
 ### Get First PlayerIdentifier<VersionBadge version="0.2.4" type="header" />

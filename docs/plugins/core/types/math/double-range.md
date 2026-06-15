@@ -16,7 +16,7 @@ A double-precision inclusive range `[Minimum, Maximum]`. Defaults span the entir
 
 | Property | Type | Description |
 | :-- | :-- | :-- |
-| `Minimum` | `double` | Lower bound of the range (inclusive). Defaults to `MIN_dbl`. |
+| `Minimum` | `double` | Lower bound of the range (inclusive). Defaults to `-MIN_dbl`. |
 | `Maximum` | `double` | Upper bound of the range (inclusive). Defaults to `MAX_dbl`. |
 
 ## Methods

@@ -22,7 +22,7 @@ The class is `Abstract`; subclass it (typically as a Blueprint) before placing o
 
 ## Key Benefits
 
-- **Drop-in Replacement**: Reparent any `AActor` Blueprint to `ANPooledActor` to opt the class into pooling.
+- **Drop-in Replacement**: Reparent any `AActor` Blueprint to `ANPooledActorBase` to opt the class into pooling.
 - **Automatic World-Boundary Return**: Overrides `FellOutOfWorld` to call `ReturnToActorPool()` — Actors that cross the kill-Z return to their pool instead of being destroyed.
 - **Consistent Behavior**: Every subclass shares the same lifecycle event surface, so tools and editor utilities can drive any pooled Actor uniformly.
 
@@ -48,4 +48,4 @@ virtual void FellOutOfWorld(const UDamageType& dmgType) override
 }
 ```
 
-The base `AActor` implementation destroys the Actor when it falls below the world's kill-Z. `ANPooledActor` swaps that destroy with a return — useful for projectiles, debris, or any pooled Actor where falling out of bounds is a legitimate path back to the pool.
+The base `AActor` implementation destroys the Actor when it falls below the world's kill-Z. `ANPooledActorBase` swaps that destroy with a return — useful for projectiles, debris, or any pooled Actor where falling out of bounds is a legitimate path back to the pool.

@@ -64,24 +64,24 @@ float Float();
 void Float(TArray<float>& OutArray, const int32 Count, const int32 StartIndex = 0);
 
 /** Generate a random float between minimum and maximum. */
-float FloatRange(const float MinimumValue = MIN_flt, const float MaximumValue = MAX_flt);
-void FloatRange(TArray<float>& OutArray, const int32 Count, const float MinimumValue = MIN_flt, const float MaximumValue = MAX_flt, const int32 StartIndex = 0);
+float FloatRange(const float MinimumValue = -MIN_flt, const float MaximumValue = MAX_flt);
+void FloatRange(TArray<float>& OutArray, const int32 Count, const float MinimumValue = -MIN_flt, const float MaximumValue = MAX_flt, const int32 StartIndex = 0);
 
 /** Returns a pseudo random double between 0 and 1. */
 double Double();
 void Double(TArray<double>& OutArray, const int32 Count, const int32 StartIndex = 0);
 
 /** Generate a random double between minimum and maximum. */
-float DoubleRange(const double MinimumValue = MIN_dbl, const double MaximumValue = MAX_dbl);
-void DoubleRange(TArray<double>& OutArray, const int32 Count, const double MinimumValue = MIN_dbl, const double MaximumValue = MAX_dbl, const int32 StartIndex = 0);
+double DoubleRange(const double MinimumValue = -MIN_dbl, const double MaximumValue = MAX_dbl);
+void DoubleRange(TArray<double>& OutArray, const int32 Count, const double MinimumValue = -MIN_dbl, const double MaximumValue = MAX_dbl, const int32 StartIndex = 0);
 ```
 
 ### Integer
 
 ```cpp
 /** Generate a pseudo random integer between minimum and maximum. */
-int IntegerRange(const int MinimumValue = MIN_int32, const int MaximumValue = MAX_int32);
-void IntegerRange(TArray<int32>& OutArray, const int32 Count, const int32 MinimumValue = MIN_int32, const int32 MaximumValue = MAX_int32, const int32 StartIndex = 0);
+int IntegerRange(const int MinimumValue = -MIN_int32, const int MaximumValue = MAX_int32);
+void IntegerRange(TArray<int32>& OutArray, const int32 Count, const int32 MinimumValue = -MIN_int32, const int32 MaximumValue = MAX_int32, const int32 StartIndex = 0);
 
 /** Generate a pseudo random unsigned integer between minimum and maximum. */
 uint32 UnsignedIntegerRange(const uint32 MinimumValue = MIN_uint32, const uint32 MaximumValue = MAX_uint32);
@@ -97,7 +97,7 @@ uint64 UnsignedInteger64();
 
 ```cpp
 /** Generates a pseudo random FVector using the provided per-component range. */
-FVector Vector(const float MinimumRange = MIN_flt, const float MaximumRange = MAX_flt);
+FVector Vector(const float MinimumRange = -MIN_flt, const float MaximumRange = MAX_flt);
 
 /**
  * Generate a pseudo random unit-length FVector by rejection-sampling inside the unit sphere,

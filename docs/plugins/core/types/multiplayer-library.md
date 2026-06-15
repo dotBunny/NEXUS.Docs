@@ -141,11 +141,13 @@ Every `PlayerIdentifier` returned or accepted below is `APlayerState::GetPlayerI
 
 #### Get PlayerIdentifier<VersionBadge version="0.2.4" type="header" />
 
+Returns `-1` when the controller has no player state attached. A return of `0` is a valid identifier (the player state exists but no identifier has been assigned yet); only `-1` signals a missing state.
+
 ```cpp
 /**
   * Get a player's unique identifier from the APlayerController.
   * @param PlayerController The target APlayerController to use when querying for the player identification number.
-  * @return The player's identifier.
+  * @return The player's identifier, or -1 when the APlayerState is unavailable.
   */
 static int32 GetPlayerIdentifier(const APlayerController* PlayerController)
 ```

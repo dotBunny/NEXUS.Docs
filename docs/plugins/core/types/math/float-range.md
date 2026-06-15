@@ -16,7 +16,7 @@ A single-precision inclusive range `[Minimum, Maximum]`. Defaults span the entir
 
 | Property | Type | Description |
 | :-- | :-- | :-- |
-| `Minimum` | `float` | Lower bound of the range (inclusive). Defaults to `MIN_flt`. |
+| `Minimum` | `float` | Lower bound of the range (inclusive). Defaults to `-MIN_flt`. |
 | `Maximum` | `float` | Upper bound of the range (inclusive). Defaults to `MAX_flt`. |
 
 ## Methods

@@ -63,3 +63,9 @@ An array of [Tissues](../types/tissue.md) defining what should be used to popula
 | Generation Trigger | `ENOrganGenerationTrigger` | Determine if the Organ should automatically queue itself for generation on `Begin Play` or indicate that it will be manually generated `On Demand`. | `OnDemand` |
 | Seed | `int32` | Overrides the seed passed to the `FNVirtualOrganContext`, used for deterministic random for this given Organ during its assembly operation. If the value is `-1` it will not override, and preserves the passed seed. | `-1` |
 | Identifier | `FGuid` | A constructor generated identifier used to sort Organs. | `<ctor>` |
+
+:::note[Multiplayer]
+
+Generation only runs with world authority. An Organ set to generate on `Begin Play` is queued on the server only — on clients the request is dropped and the resulting Cells replicate in from the server rather than being generated locally.
+
+:::
