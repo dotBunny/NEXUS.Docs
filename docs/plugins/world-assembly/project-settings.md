@@ -1,7 +1,7 @@
 ---
 sidebar_position: 6
 description: The project settings for NWorldAssembly.
-tags: [0.3.0, 0.3.1]
+tags: [0.3.0, 0.3.1, 0.3.2]
 ---
 
 # Project Settings

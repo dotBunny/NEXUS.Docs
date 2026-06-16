@@ -130,3 +130,45 @@ static bool IsHotPathSequential(ANCellLevelInstance* LevelInstance);
 ```
 
 Likewise, an `Is HotPath (Sequential) ?` exec-pin variant (`IsHotPathSequentialExec`) is provided for branching directly in Blueprint.
+
+### Get Junction World Size
+
+Converts a [junction](junction-component.md)'s grid socket size into world units using the project's `Socket Size` / `Socket Depth` settings (see [Project Settings](../project-settings.md)).
+
+```cpp
+/**
+ * @param JunctionComponent The junction whose socket size to convert.
+ * @param bWithDepth When true, fills Z with the configured SocketDepth; otherwise Z stays 1.
+ * @return The junction's world-space size (X,Y scaled from the socket grid; Z = depth when requested).
+ */
+UFUNCTION(BlueprintCallable, Category = "NEXUS|WorldAssembly", DisplayName = "Get Junction World Size")
+static FVector GetJunctionWorldSize(UNCellJunctionComponent* JunctionComponent, bool bWithDepth = false);
+```
+
+### Get Junction World Size (Shifted)
+
+A variant of [Get Junction World Size](#get-junction-world-size) that packs the result as `(Depth, X, Y)` — useful when the depth axis must lead — and applies a uniform `Scale` to all three components.
+
+```cpp
+/**
+ * @param JunctionComponent The junction whose socket size to convert.
+ * @param Scale Uniform multiplier applied to all three components.
+ * @return A vector packed as (SocketDepth, world X, world Y), each scaled by Scale.
+ */
+UFUNCTION(BlueprintCallable, Category = "NEXUS|WorldAssembly", DisplayName = "Get Junction World Size (Shifted)", meta=(ToolTip="Depth, X, Y"))
+static FVector GetJunctionWorldSizeShifted(UNCellJunctionComponent* JunctionComponent, float Scale = 1.f);
+```
+
+### Get Junction World Corner Points
+
+Returns the junction's four corner points in world space for a given socket size — handy for projecting PCG volumes, debug draws, or gameplay markers onto the opening.
+
+```cpp
+/**
+ * @param JunctionComponent The junction to query.
+ * @param SocketSize Socket size (in grid units) to project the corners for.
+ * @return The junction's four corner points in world space for the given socket size.
+ */
+UFUNCTION(BlueprintCallable, Category = "NEXUS|WorldAssembly", DisplayName = "Get Junction World Corner Points")
+static TArray<FVector> GetJunctionWorldCornerPoints(UNCellJunctionComponent* JunctionComponent, const FVector2D& SocketSize);
+```

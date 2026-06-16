@@ -64,9 +64,17 @@ The spawned actor **must** implement [INCellJunctionFiller](cell-junction-filler
 
 | Setting | Type | Description | Default |
 |---|---|---|---|
-| Spawn Filler Immediately | `bool` | Bypass filler time-slicing and spawn this junction's filler immediately during `BeginPlay`, rather than spreading the work across frames. | `true` |
+| Spawn Filler Immediately | `bool` | Bypass filler time-slicing and spawn this junction's filler immediately during `BeginPlay`, rather than spreading the work across frames. | `false` |
 
 Time-slicing of filler spawns is otherwise governed project-wide by `Delayed Junction Spawning` and `Junction Time Slice` (see [Project Settings](../project-settings.md)).
+
+### Callbacks
+
+| Setting | Type | Description | Default |
+|---|---|---|---|
+| BeginPlay | `TArray<TObjectPtr<AActor>>` | Actors notified during the junction's `BeginPlay`. Each assigned actor that implements [INCellJunctionBeginPlay](cell-junction-begin-play.md) receives an `OnJunctionBeginPlay` call carrying the junction's resolved link details (`FNCellLinkDetails`), letting it react to how the junction was wired up during assembly. The field only accepts actors implementing that interface. | `(Empty)` |
+
+Unlike a [Filler](#fillers) — which the junction *spawns* to cap an unconnected opening — a BeginPlay callback target is an actor that already exists in the cell and simply wants to know how its junction resolved.
 
 ## Gizmo
 
