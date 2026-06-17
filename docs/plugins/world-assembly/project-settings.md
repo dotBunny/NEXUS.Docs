@@ -55,3 +55,7 @@ From the `Edit > Project Settings` window, find the **World Assembly** section.
 | Setting | Description | Default |
 | --- | :-- | :-- |
 | `Proxy Material` | The material to use with the DynamicMeshes as part of `ANCellProxy`. | `M_NCellProxy` |
+
+## See Also
+
+- [User Settings](user-settings.md) — per-user, machine-local editor preferences stored outside project config.

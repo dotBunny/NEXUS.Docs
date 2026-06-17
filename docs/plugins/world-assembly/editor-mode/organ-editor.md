@@ -19,6 +19,20 @@ The toolbar is kept to a minimum when outside of cell-editing, showing an Organ 
 
 ![Organ Editing Toolbar](mode-toolbar-organ.webp)
 
+### Quick Assembly
+
+![Quick Assembly](mode-toolbar-organ-quick-assembly.webp)
+
+An optional section of the toolbar when in **World Assembly Editor Mode** with [Organs](../types/organ-volume.md) present in the `UWorld`, that allows you to select an [Organ](../types/organ-volume.md) and create an assembly operation for it. The resulting operation will load the placed [Cells](../types/cell.md) all the way through `ANCellProxy` to the actualized `ANCellLevelInstance`. 
+
+During the operation, the button's action changes to cancellation of the started operation.
+
+:::info
+
+**Fillers** are not placed outside of `PIE` or runtime, optionally the unfilled junctions can have their gizmos colored differently in this situation.
+
+:::
+
 ### Organ Menu
 
 ![Organ Menu](organ-menu.webp)
