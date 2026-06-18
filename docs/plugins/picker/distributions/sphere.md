@@ -44,7 +44,7 @@ Generates a random point inside or on the surface of a sphere.
 
 :::info
 
-Uses `FNRandom::NonDeterministic` to produce pseudo-random results.
+Uses `FNRandom::GetNonDeterministic()` to produce pseudo-random results.
 
 :::
 

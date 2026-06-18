@@ -1,7 +1,7 @@
 ---
 sidebar_class_name: type native-class
 description: Mersenne Twister based FRandomStream-like API with some extras.
-tags: [0.1.0, 0.3.0]
+tags: [0.1.0, 0.3.0, 0.3.2]
 ---
 
 import TypeDetails from '../../../../../src/components/TypeDetails';
@@ -10,7 +10,7 @@ import TypeDetails from '../../../../../src/components/TypeDetails';
 
 <TypeDetails icon="native-class" base="class" type="FNMersenneTwister" typeExtra="" headerFile="NexusCore/Public/Math/NMersenneTwister.h" />
 
-Mersenne Twister based `FRandomStream`-like API with some extras. Implements the `std::mt19937_64` engine to produce high-quality `uint64` random numbers. Used as the deterministic random source by [`FNRandom::Deterministic`](../random.md).
+Mersenne Twister based `FRandomStream`-like API with some extras. Implements the `std::mt19937_64` engine to produce high-quality `uint64` random numbers. This is the deterministic random source you seed and own — directly in native code, or from Blueprint via the [Mersenne Twister Object](mersenne-twister-object.md) wrapper.
 
 ## Constructor
 
@@ -108,5 +108,6 @@ FORCEINLINE FVector VRand();
 
 ## See Also
 
-- [Random](../random.md) — global access to the deterministic / non-deterministic streams.
+- [Mersenne Twister Object](mersenne-twister-object.md) — a `BlueprintType` `UObject` wrapper that owns one of these and exposes it to Blueprint.
+- [Random](../random.md) — global access to the shared non-deterministic stream.
 - [Seed Generator](seed-generator.md) — produce, parse, and convert seeds across numeric / hex / friendly forms.

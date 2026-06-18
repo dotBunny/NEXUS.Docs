@@ -44,7 +44,7 @@ Gets a random point inside or on an `FOrientedBox`.
 
 :::info
 
-Uses `FNRandom::NonDeterministic` to produce pseudo-random results.
+Uses `FNRandom::GetNonDeterministic()` to produce pseudo-random results.
 
 :::
 

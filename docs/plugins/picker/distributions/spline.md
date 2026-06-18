@@ -44,7 +44,7 @@ Generates a random point on a `USplineComponent`'s spline.
 
 :::info
 
-Uses `FNRandom::NonDeterministic` to produce pseudo-random results.
+Uses `FNRandom::GetNonDeterministic()` to produce pseudo-random results.
 
 :::
 

@@ -1,7 +1,7 @@
 ---
 sidebar_class_name: type native-struct
 description: An inline array of integers that are proportionally weighted via repeated entries.
-tags: [0.2.0]
+tags: [0.2.0, 0.3.2]
 ---
 
 import TypeDetails from '../../../../../src/components/TypeDetails';
@@ -34,16 +34,16 @@ void RemoveSome(const int32 Value, int32 Limit = 1);
 
 | Method | Stream | Removes Picked? |
 | :-- | :-- | :-: |
-| `NextValue()` | Deterministic ([`FNRandom::Deterministic`](../random.md)) | No |
-| `NextValueAndRemove()` | Deterministic | Yes |
-| `RandomValue()` | Non-deterministic ([`FNRandom::NonDeterministic`](../random.md)) | No |
+| `TwistedValue(Twister&)` | Deterministic — caller-supplied [`Mersenne Twister`](../math/mersenne-twister.md) | No |
+| `TwistedValueAndRemove(Twister&)` | Deterministic — caller-supplied Mersenne Twister | Yes |
+| `RandomValue()` | Non-deterministic ([`FNRandom::GetNonDeterministic()`](../random.md)) | No |
 | `RandomValueAndRemove()` | Non-deterministic | Yes |
 | `RandomOneShotValue(Seed)` | One-shot `FRandomStream(Seed)` | No |
 | `RandomOneShotValueAndRemove(Seed)` | One-shot `FRandomStream(Seed)` | Yes |
 | `RandomTrackedValue(Seed&)` | `FRandomStream(Seed)`; `Seed` updated on return | No |
 | `RandomTrackedValueAndRemove(Seed&)` | Tracked stream | Yes |
-| `TwistedValue(Twister&)` | Caller-supplied [`Mersenne Twister`](../math/mersenne-twister.md) | No |
-| `TwistedValueAndRemove(Twister&)` | Caller-supplied Mersenne Twister | Yes |
+
+For reproducible (deterministic) picks, pass your own [Mersenne Twister](../math/mersenne-twister.md) to `TwistedValue` / `TwistedValueAndRemove` — `FNRandom` no longer provides a shared deterministic stream.
 
 ## Queries
 

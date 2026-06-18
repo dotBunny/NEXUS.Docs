@@ -1,7 +1,7 @@
 ---
 sidebar_class_name: type ue-blueprint-function-library
 description: Blueprint exposure layer for NEXUS collection types.
-tags: [0.3.0]
+tags: [0.3.0, 0.3.2]
 ---
 
 import TypeDetails from '../../../../src/components/TypeDetails';
@@ -65,18 +65,20 @@ static void WeightedIntegerArrayRemoveSome(UPARAM(ref) FNWeightedIntegerArray& W
 
 | Display Name | Stream | Removes Picked? |
 | :-- | :-- | :-: |
-| `Next Value` | Deterministic ([`FNRandom::Deterministic`](random.md)) | No |
-| `Next Value And Remove` | Deterministic | Yes |
-| `Random Value` | Non-deterministic ([`FNRandom::NonDeterministic`](random.md)) | No |
+| `Next Value` | Deterministic — supplied [`Mersenne Twister Object`](math/mersenne-twister-object.md) | No |
+| `Next Value And Remove` | Deterministic — supplied Mersenne Twister Object | Yes |
+| `Random Value` | Non-deterministic ([`FNRandom::GetNonDeterministic()`](random.md)) | No |
 | `Random Value And Remove` | Non-deterministic | Yes |
 | `Random One Shot Value` | One-shot `FRandomStream(Seed)` | No |
 | `Random One Shot Value And Remove` | One-shot `FRandomStream(Seed)` | Yes |
 | `Random Tracked Value` | `FRandomStream(Seed)` with `Seed` updated on return | No |
 | `Random Tracked Value And Remove` | Tracked stream | Yes |
 
+`Next Value` / `Next Value And Remove` take a [Mersenne Twister Object](math/mersenne-twister-object.md) and draw from its deterministic stream, so the caller owns the seed and call order. The `Random*` nodes use the shared non-deterministic stream and need no extra input.
+
 ```cpp
 UFUNCTION(BlueprintCallable, Category = "NEXUS|Collections|Weighted Integer Array", DisplayName = "Next Value")
-static int32 WeightedIntegerArrayNextValue(const FNWeightedIntegerArray& WeightedIntegerArray);
+static int32 WeightedIntegerArrayNextValue(const FNWeightedIntegerArray& WeightedIntegerArray, UNMersenneTwisterObject* TwisterObject);
 
 UFUNCTION(BlueprintCallable, Category = "NEXUS|Collections|Weighted Integer Array", DisplayName = "Random Value")
 static int32 WeightedIntegerArrayRandomValue(UPARAM(ref) FNWeightedIntegerArray& WeightedIntegerArray);

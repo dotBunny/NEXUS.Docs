@@ -44,4 +44,4 @@ TwisterObject->Seed(TEXT("HelloWorld"));
 
 - [Mersenne Twister](mersenne-twister.md) — the underlying deterministic engine and its full sampling API.
 - [Seed Generator](seed-generator.md) — produce, parse, and convert seeds across numeric / hex / friendly forms.
-- [Random](../random.md) — global access to the deterministic / non-deterministic streams.
+- [Random](../random.md) — global access to the shared non-deterministic stream.
