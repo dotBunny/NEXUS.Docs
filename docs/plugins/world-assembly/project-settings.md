@@ -46,7 +46,7 @@ From the `Edit > Project Settings` window, find the **World Assembly** section.
 | `Tagging > Starting Counters` | Default `Tag Counters` provided to every Assembly Operation. | `(empty)` |
 | `Direction Tolerance` | How close the placement bearing must be to a cell's `Direction Constraint` heading (within this many degrees +/-) for the cell to remain a valid candidate. | `15.f` |
 | `Spawning > Cell Time Slice` | Frame-time goal limit when to split spawning cells to the next frame task (in milliseconds). | `1.f` |
-| `Spawning > Junction Default Filler` | The default `AActor` (requires `INCellJunctionFiller`-implemented) to use when no filler is available. | `(empty)` |
+| `Spawning > Junction Default Filler` | The default filler to spawn when no authored filler is eligible — a soft (`TSoftClassPtr`) reference to an `AActor` that must implement [`INCellJunctionFiller`](types/cell-junction-filler.md). Resolved lazily so the class is only loaded when actually needed. | `(empty)` |
 | `Spawning > Delayed Junction Spawning` | Should time-slicing be used when spawning junction fillers. | `true` |
 | `Spawning > Junction Time Slice` | Frame-time goal limit when to split spawning junctions to the next frame task (in milliseconds). | `0.5f` |
 
@@ -55,6 +55,12 @@ From the `Edit > Project Settings` window, find the **World Assembly** section.
 | Setting | Description | Default |
 | --- | :-- | :-- |
 | `Proxy Material` | The material to use with the DynamicMeshes as part of `ANCellProxy`. | `M_NCellProxy` |
+
+:::warning Packaging
+
+Assigning a `Junction Default Filler` or a `Proxy Material` here does **not** guarantee the asset is pulled into a packaged build. Because both are referenced indirectly, they can be dropped by the cooker — add them to your project's **Additional Asset Directories to Cook** (or otherwise force a hard reference) so they are included.
+
+:::
 
 ## See Also
 
