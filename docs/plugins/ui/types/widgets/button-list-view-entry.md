@@ -1,6 +1,6 @@
 ---
 sidebar_class_name: type ue-widget
-description: A reusable list-view entry widget that renders a UButton + UCommonTextBlock pair driven by a bound UNButtonListViewEntryObject.
+description: A reusable list-view entry widget that renders a UButton + UCommonTextBlock pair driven by a bound UNButtonListEntry.
 tags: [0.2.7]
 ---
 
@@ -8,15 +8,15 @@ import TypeDetails from '../../../../../src/components/TypeDetails';
 
 # Button ListView Entry
 
-<TypeDetails icon="ue-widget" base="UUserWidget" type="UNButtonListViewEntry" typeExtra=" + UNButtonListViewEntryObject" headerFile="NexusUI/Public/Widgets/NButtonListViewEntry.h" />
+<TypeDetails icon="ue-widget" base="UUserWidget" type="UNButtonListViewEntry" typeExtra=" + UNButtonListEntry" headerFile="NexusUI/Public/Widgets/NButtonListViewEntry.h" />
 
-A reusable [UNListView](../components/list-view.md) entry widget that renders a `UButton` with a child `UCommonTextBlock` label, driven by a bound `UNButtonListViewEntryObject` data model. Hover, press, and release transitions swap the button's foreground/background colors using palette slots on the bound data object — so a single Blueprint widget can render rows in any color scheme by populating the data object's per-state `ENColor` fields.
+A reusable [UNListView](../components/list-view.md) entry widget that renders a `UButton` with a child `UCommonTextBlock` label, driven by a bound `UNButtonListEntry` data model. Hover, press, and release transitions swap the button's foreground/background colors using palette slots on the bound data object — so a single Blueprint widget can render rows in any color scheme by populating the data object's per-state `ENColor` fields.
 
 Used by the [UNActorPools](/docs/plugins/actor-pools/developer-overlay.md) and [UNDynamicRefs](/docs/plugins/dynamic-references/developer-overlay.md) developer overlays as the per-object button rows you click to focus an actor.
 
 ## What It Is
 
-- **Two-Type Pattern**: `UNButtonListViewEntry` is the widget; `UNButtonListViewEntryObject` is the `UObject` row data fed into the [UNListView](../components/list-view.md). Each row's data object carries the label text, a `TargetObject` payload, and per-state palette colors.
+- **Two-Type Pattern**: `UNButtonListViewEntry` is the widget; `UNButtonListEntry` is the `UObject` row data fed into the [UNListView](../components/list-view.md). Each row's data object carries the label text, a `TargetObject` payload, and per-state palette colors.
 - **Hover/Press/Release**: Native click and pointer events recolor the button and label using the bound data object's palette slots.
 - **Click Forwarding**: Pressing the button fires the data object's `OnPressedEvent` delegate, passing the row's `TargetObject` to subscribers.
 
@@ -30,15 +30,15 @@ Used by the [UNActorPools](/docs/plugins/actor-pools/developer-overlay.md) and [
 ## Behavior
 
 - **`NativeConstruct()`** wires `Button->OnClicked`, `OnHovered`, `OnUnhovered`, and `OnReleased` to internal handlers that recolor the button.
-- **`NativeOnListItemObjectSet(UObject*)`** receives the `UNButtonListViewEntryObject`, copies its label into `Text`, and binds the button's `OnClicked` to the object's `OnPressed` so the click forwards out via `OnPressedEvent`.
+- **`NativeOnListItemObjectSet(UObject*)`** receives the `UNButtonListEntry`, copies its label into `Text`, and binds the button's `OnClicked` to the object's `OnPressed` so the click forwards out via `OnPressedEvent`.
 - **`NativeOnEntryReleased()`** unbinds the row from the data object when the list view recycles the row.
 - **`NativeDestruct()`** unwires every button delegate, including when the bound `Button` has already been torn down.
 
-## Data Object — `UNButtonListViewEntryObject`
+## Data Object — `UNButtonListEntry`
 
 ```cpp
-UCLASS(BlueprintType)
-class NEXUSUI_API UNButtonListViewEntryObject : public UObject
+UCLASS(BlueprintType, DisplayName = "NEXUS | Button List Entry")
+class NEXUSUI_API UNButtonListEntry : public UObject
 ```
 
 The data model is a plain `UObject` (not the widget itself) that the list view binds to one row. The widget reads the following fields when its row is created:
@@ -58,6 +58,6 @@ The data object also exposes an `OnPressedEvent` delegate that fires when the bo
 
 :::tip
 
-Construct one `UNButtonListViewEntryObject` per row, set its `Text` and `TargetObject`, bind your handler to `OnPressedEvent`, then push the array of objects into a [UNListView](../components/list-view.md) configured to use `UNButtonListViewEntry` (or a Blueprint subclass of it). The plugin's developer overlays follow this pattern verbatim.
+Construct one `UNButtonListEntry` per row, set its `Text` and `TargetObject`, bind your handler to `OnPressedEvent`, then push the array of objects into a [UNListView](../components/list-view.md) configured to use `UNButtonListViewEntry` (or a Blueprint subclass of it). The plugin's developer overlays follow this pattern verbatim.
 
 :::
