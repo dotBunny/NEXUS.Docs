@@ -258,7 +258,7 @@ UObject* GetFirstObjectByName(FName Name);
 /**
   * Retrieves the last/newest AActor associated with a specified ENDynamicRef.
   * @param DynamicRef The ENDynamicRef collection to iterate.
-  * @return A pointer to the first AActor found for the specified ENDynamicRef, or nullptr if no actors are found.
+  * @return A pointer to the last AActor found for the specified ENDynamicRef, or nullptr if no actors are found.
   */
 AActor* GetLastActor(const ENDynamicRef DynamicRef);
 ```  
@@ -269,7 +269,7 @@ AActor* GetLastActor(const ENDynamicRef DynamicRef);
 /**
   * Retrieves the last/newest AActor associated with a specified FName.
   * @param Name The FName collection to iterate.
-  * @return A pointer to the first AActor found for the specified ENDynamicRef, or nullptr if no actors are found.
+  * @return A pointer to the last AActor found for the specified FName, or nullptr if no actors are found.
   */
 AActor* GetLastActorByName(FName Name);
 ```

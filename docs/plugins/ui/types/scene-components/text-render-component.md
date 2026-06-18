@@ -1,7 +1,7 @@
 ---
 sidebar_class_name: type ue-actor-component
 description: A component that builds a network-synchronized UTextRenderComponent between clients.
-tags: [0.1.0, 0.3.0]
+tags: [0.1.0, 0.3.0, 0.3.2]
 ---
 
 import TypeDetails from '../../../../../src/components/TypeDetails';
@@ -63,6 +63,12 @@ void SetFromText(const FText& NewValue);
 ## Replication
 
 The component holds a single replicated `FString CachedValue` field that is the source of truth across the wire. The three setters above all funnel into `CachedValue` on the server; clients receive the change via the `OnRep_TextValue` callback, which applies the new text to the underlying `UTextRenderComponent` and broadcasts `OnTextChanged`.
+
+Because replicated text only propagates when the **owning actor itself replicates**, `BeginPlay` verifies that the owner has replication enabled. If it does not, the component logs an error and the text will not propagate — it no longer silently turns on replication for the owner on your behalf (changed in `0.3.2`). Enable replication on the owning actor, or, for actors that are intentionally non-replicated, disable the check via the `Should Check Replication` property below.
+
+| Property | Type | Description | Default |
+| :-- | :-- | :-- | :-- |
+| `bShouldCheckReplication` | `bool` | When `true`, `BeginPlay` verifies the owning actor is replicated and logs an error if it is not. Disable to silence the check on owners that are intentionally non-replicated. | `true` |
 
 ## Delegates
 

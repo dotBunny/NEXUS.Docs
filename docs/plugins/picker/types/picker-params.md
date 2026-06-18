@@ -39,12 +39,12 @@ enum class ENPickerProjectionMode : uint8
 | Value | Behavior |
 | :-- | :-- |
 | `None` | The generated point is returned as-is. |
-| `Trace` | A line trace is cast from the point in direction `Projection` using `CollisionChannel`; if it hits, the hit location replaces the point. |
-| `NearestNavMeshV1` | The point is projected to the nearest reachable `UNavigationSystemV1` location using [FNPickerUtils](picker-utils.md)'s `NavQueryExtent` and `NavAgentProperties`. Falls back to the original location if the nav system is not initialized. Points that can't be projected (outside the volume or inside a NavModifier) are kept at their original location; a single summary `Warning` is logged per pick — enable `Verbose` for `LogNexusPicker` to see each one. |
+| `Trace` | A line trace is cast from the point in direction `Projection` using `CollisionChannel`; if it hits, the hit location replaces the point. Simple vs. complex collision is governed by the [`Trace Complex`](../project-settings.md) project setting. |
+| `NearestNavMeshV1` | The point is projected to the nearest reachable `UNavigationSystemV1` location using the [Picker project settings](../project-settings.md)' `Nav Query Extent`, `Nav Agent Radius`, and `Nav Agent Height`. Falls back to the original location if the nav system is not initialized. Points that can't be projected (outside the volume or inside a NavModifier) are kept at their original location; a single summary `Warning` is logged per pick — enable `Verbose` for `LogNexusPicker` to see each one. |
 
 The projection metadata is marked `AdvancedDisplay` so it only shows up in the detail panel after clicking the disclosure chevron — picking without projection is the common case.
 
 ## See Also
 
-- [PickerUtils](picker-utils.md) — owns the trace / nav-query defaults that the projection paths read from.
+- [Project Settings](../project-settings.md) — owns the trace / nav-query defaults that the projection paths read from.
 - [Distributions](../../distributions/) — one folder per shape, each subclassing this struct.

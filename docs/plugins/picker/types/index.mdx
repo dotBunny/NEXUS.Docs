@@ -1,5 +1,5 @@
 ---
-description: Base picker types — the shared FNPickerParams struct and the FNPickerUtils helper class used by every shape.
+description: Base picker types — the shared FNPickerParams struct that every shape derives from.
 sidebar_position: 1
 ---
 
@@ -7,6 +7,6 @@ import DocCardList from '@theme/DocCardList';
 
 # Types
 
-Base types shared by every distribution. [PickerParams](picker-params.md) is the projection-aware base struct every shape's `FN<Shape>PickerParams` derives from; [PickerUtils](picker-utils.md) holds the shared `FCollisionQueryParams` / nav-query defaults and the projection-helper macros the picker implementations expand into. Per-shape types live under [distributions/](../distributions/).
+Base types shared by every distribution. [PickerParams](picker-params.md) is the projection-aware base struct every shape's `FN<Shape>PickerParams` derives from; the projection defaults it reads from (trace complexity, navmesh query extent, nav agent dimensions) are configured in [Project Settings](../project-settings.md). Per-shape types live under [distributions/](../distributions/).
 
 <DocCardList />
