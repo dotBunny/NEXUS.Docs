@@ -62,7 +62,18 @@ An array of [Tissues](../types/tissue.md) defining what should be used to popula
 |---|---|---|---|
 | Generation Trigger | `ENOrganGenerationTrigger` | Determine if the Organ should automatically queue itself for generation on `Begin Play` or indicate that it will be manually generated `On Demand`. | `OnDemand` |
 | Seed | `int32` | Overrides the seed passed to the `FNVirtualOrganContext`, used for deterministic random for this given Organ during its assembly operation. If the value is `-1` it will not override, and preserves the passed seed. | `-1` |
+| Direction Mode | `ENOrganDirectionConstraintMode` | The reference point this Organ's Cell [directional constraints](../types/tissue.md#cells) measure candidate bearings from. See [Direction Mode](#direction-mode) below. | `Start Bone` |
 | Identifier | `FGuid` | A constructor generated identifier used to sort Organs. | `<ctor>` |
+
+#### Direction Mode
+
+When a Cell has a `Direction Constraint`, it can only be placed when its prospective bearing lands within the [`Direction Tolerance`](../project-settings.md) of the constrained compass heading. **Direction Mode** chooses the point that bearing is measured *from*, letting each Organ shape how its directional content lays out independently of every other Organ.
+
+| Mode | Description |
+|---|---|
+| `Start Bone` | Measure bearings from the Organ's start bone (the generation anchor). This is the default and the original behavior. |
+| `Organ Center` | Measure bearings from the geometric center of the Organ volume's bounds. `Unbounded` Organs have no meaningful volume center, so they fall back to `Start Bone`. |
+| `Dynamic Centroid` | Measure bearings from the running centroid of the Cells already placed in the Organ, so the reference point shifts as the Organ fills in. Before the first Cell is placed it falls back to `Start Bone`. |
 
 :::note[Multiplayer]
 

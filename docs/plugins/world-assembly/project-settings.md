@@ -40,6 +40,9 @@ From the `Edit > Project Settings` window, find the **World Assembly** section.
 | Setting | Description | Default |
 | --- | :-- | :-- |
 | `Retry Count` | The maximum amount of full attempts at assembling a space before it is considered a complete failure. | `10000` |
+| `World Collisions > Actor Ignore Tags` | Additional `FName` tags to query for when ignoring actors from world collision detection. Supplements the [`NWorldCollision_Ignore` markup tag](tagging.md#world-collision-markup-tags). | `(empty)` |
+| `World Collisions > Exclude Non-Collision Enabled Actors` | Do not include actors that have their collision turned off when capturing world collision. | `true` |
+| `World Collisions > Include Player Starts` | Player start positions should be considered (avoided) when capturing world collision. | `true` |
 | `Junction Matching > Cell Penetration Tolerance` | The maximum depth of penetration a cell's hull can penetrate another to make a junction connection. | `10.f` |
 | `Junction Matching > World Penetration Tolerance` | The maximum depth of penetration a cell's hull can penetrate world geometry to make a junction connection. | `2.f` |
 | `Tagging > Context Tags` | Default `Context Tags` provided to every Assembly Operation. | `(empty)` |
