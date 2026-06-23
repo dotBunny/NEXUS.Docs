@@ -74,7 +74,7 @@ A common requirement when generating gameplay spaces is ensuring that there is s
 | Minimum Node Distance | The minimum number of cell links away this cell must be to be used again. | `1` | 
 | Minimum Node Depth | The minimum graph depth at which this cell may be used, as a 1-based node depth. The start cell is depth `1`, its direct neighbors depth `2`, etc. A value of `N` first allows the cell at depth `N`. (_`0` no constraint; `1` is the start cell and likewise unconstrained_) | `0`  |
 | Maximum Node Depth | The maximum graph depth at which this cell may still be used, as a 1-based node depth. A value of `N` allows the cell up to depth `N`; a value of `1` restricts it to the start cell only. (_`0` no constraint_) | `0` |
-| Has Direction Constraint | When enabled, this cell may only be placed toward `Direction Constraint` relative to the operation's direction target. | `false` |
-| Direction Constraint | The compass heading — measured from the organ's start point out to the candidate's placement — this cell is restricted to while `Has Direction Constraint` is set. Enforced within the project/operation Direction Tolerance (degrees ±) during cell filtering. | `North` |
+| Has Direction Constraint | When enabled, this cell may only be placed toward `Direction Constraint` relative to the Organ's directional reference point. | `false` |
+| Direction Constraint | The compass heading — measured from the Organ's directional reference point out to the candidate's placement — this cell is restricted to while `Has Direction Constraint` is set. The reference point is chosen per Organ by its [Direction Mode](organ-volume.md#direction-mode) (start bone, organ center, or dynamic centroid). Enforced within the project/operation Direction Tolerance (degrees ±) during cell filtering. | `North` |
 | Weighting | Relative weight for random selection during generation. | `1`| 
 | Cell | A soft-object reference to the `UNCell` asset that will be consumed. | `n/a` | 
