@@ -75,9 +75,14 @@ Using the Cell menu, you can operate on the levels `ANCellActor` which in turn, 
 
 ### Junction Menu
 
-Given the importance of deploying junctions in a [Cell](../types/cell.md), the junction menu quickly allows you to add a `UNCellJunctionComponent` to the currently selected `AActor`. As well as a quick selection of any of the already created [Junction](../types/junction-component.md).
+Given the importance of deploying junctions in a [Cell](../types/cell.md), the junction menu provides quick actions for managing them, followed by a **Select Junction** section listing every already-created [Junction](../types/junction-component.md) for fast selection.
 
 ![Junction Menu](cell-edit-junction-menu.webp)
+
+| Command | Description |
+| --- | --- |
+| Add Component | Adds a `UNCellJunctionComponent` to the currently selected `AActor`. |
+| Collect Components | Moves every [Junction](../types/junction-component.md) in the level onto the selected `AActor`, preserving each one's world transform — handy for consolidating scattered junctions under a single owner. |
 
 ## Editing Data
 

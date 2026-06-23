@@ -27,6 +27,7 @@ From the `Edit > Project Settings` window, find the **World Assembly** section.
 | --- | :-- | :-- |
 | `Mode` | How should `ANCellLevelInstance`s be replicated to clients, either based on relevancy (proximity) or treated as always relevant. | `ReplicatedLevelInstances` |
 | `Initial Range` | The range to query for nearby `ANCellLevelInstance`s by `ANWorldAssemblyRelay`, used to determine if the client is considered loaded. Distance is calculated to the world position point of the `ANCellLevelInstance`. | `20000.f` |
+| `Support Seamless Travel` | When enabled, the [subsystem](types/world-assembly-subsystem.md) periodically polls for `PlayerController`s and adds relays for them automatically. Leave disabled if you instead call `SpawnRelay(PC)` on the `UNWorldAssemblySubsystem` manually from the GameMode (the recommended path for seamless travel). | `false` |
 
 ### Organ
 
@@ -39,6 +40,9 @@ From the `Edit > Project Settings` window, find the **World Assembly** section.
 
 | Setting | Description | Default |
 | --- | :-- | :-- |
+| `World Collisions > Actor Ignore Tags` | Additional actor tags to ignore when capturing world collision, on top of the [`NWorldCollision_Ignore`](tagging.md#world-collision-markup-tags) markup tag. An actor carrying any of these tags is excluded from the virtual-world capture and is invisible to every assembly pass. | `(empty)` |
+| `World Collisions > Exclude Non-Collision Enabled Actors` | When enabled, actors with collision turned off are excluded from world collision capture. | `true` |
+| `World Collisions > Include Player Starts` | When enabled, player start positions are captured so generated content avoids them. | `true` |
 | `Retry Count` | The maximum amount of full attempts at assembling a space before it is considered a complete failure. | `10000` |
 | `Junction Matching > Cell Penetration Tolerance` | The maximum depth of penetration a cell's hull can penetrate another to make a junction connection. | `10.f` |
 | `Junction Matching > World Penetration Tolerance` | The maximum depth of penetration a cell's hull can penetrate world geometry to make a junction connection. | `2.f` |
@@ -64,4 +68,5 @@ Assigning a `Junction Default Filler` or a `Proxy Material` here does **not** gu
 
 ## See Also
 
+- [Editor Settings](editor-settings.md) — project-shared editor defaults for new cells and the collision visualizer.
 - [User Settings](user-settings.md) — per-user, machine-local editor preferences stored outside project config.
