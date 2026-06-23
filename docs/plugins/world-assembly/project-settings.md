@@ -40,9 +40,6 @@ From the `Edit > Project Settings` window, find the **World Assembly** section.
 
 | Setting | Description | Default |
 | --- | :-- | :-- |
-| `World Collisions > Actor Ignore Tags` | Additional actor tags to ignore when capturing world collision, on top of the [`NWorldCollision_Ignore`](tagging.md#world-collision-markup-tags) markup tag. An actor carrying any of these tags is excluded from the virtual-world capture and is invisible to every assembly pass. | `(empty)` |
-| `World Collisions > Exclude Non-Collision Enabled Actors` | When enabled, actors with collision turned off are excluded from world collision capture. | `true` |
-| `World Collisions > Include Player Starts` | When enabled, player start positions are captured so generated content avoids them. | `true` |
 | `Retry Count` | The maximum amount of full attempts at assembling a space before it is considered a complete failure. | `10000` |
 | `World Collisions > Actor Ignore Tags` | Additional `FName` tags to query for when ignoring actors from world collision detection. Supplements the [`NWorldCollision_Ignore` markup tag](tagging.md#world-collision-markup-tags). | `(empty)` |
 | `World Collisions > Exclude Non-Collision Enabled Actors` | Do not include actors that have their collision turned off when capturing world collision. | `true` |
