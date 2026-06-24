@@ -10,6 +10,8 @@ Project-shared editor settings for World Assembly. Unlike the per-user [User Set
 
 From the `Edit > Editor Preferences` window, find the **World Assembly** section (the per-user values live in the separate **World Assembly (User)** section).
 
+![World Assembly Editor Preferences](world-assembly-editor-preferences.webp)
+
 ## Configuration Options
 
 ### Cell (Defaults)
