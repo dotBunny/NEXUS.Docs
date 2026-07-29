@@ -44,15 +44,13 @@ const config: Config = {
   // Set the production url of your site here
   url: 'https://nexus-framework.com',
   // Set the /<baseUrl>/ pathname under which your site is served
-  // For GitHub pages deployment, it is often '/<projectName>/'
+  // For Cloudflare pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
   trailingSlash: true,
 
-  // GitHub pages deployment config.
-  // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'dotBunny', // Usually your GitHub org/user name.
-  projectName: 'NEXUS.Docs', // Usually your repo name.
-
+  // Cloudflare pages deployment config.
+  organizationName: 'dotBunny',
+  projectName: 'NEXUS.Docs',
   onBrokenLinks: 'throw',
 
 
@@ -280,6 +278,10 @@ const config: Config = {
             {
               to: '/license',
               label: 'License',
+            },
+            {
+              to: 'https://dotbunny.com/dethol/',
+              label: 'DETHOL',
             },
           ],
         },

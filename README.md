@@ -95,4 +95,4 @@ Re-cutting is cheap while a version has not been deployed. Once it is live, its 
 
 ## Deployment
 
-We utilize a GitHub Workflow to generate the documentation based on the repository and upload it directly via the GitHub pages deployment action.
+We utilize Cloudflare Pages to generate the documentation based on the repository and upload it directly host it via a worker.
