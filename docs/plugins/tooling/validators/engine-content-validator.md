@@ -29,7 +29,7 @@ While there is no officially stated best-practice for when you explicitly need t
 
 The severity and behavior of this validator can be configured, project-wide in `Editor Preferences > NEXUS > Tooling > Engine: Content Change`
 
-![Engine Content Preferences](validator-settings.webp)
+![Engine Content Preferences](/assets/images/docs/plugins/tooling/validators/validator-settings.webp)
 
 ### Gotcha (Materials)
 
@@ -39,7 +39,7 @@ A contrived example of this would be if you used the `WorldGridMaterial` on a Ni
 
 Because of this scenario, it can be recommended that for your own base materials you disable the `Automatically Set Usage In Editor` setting.
 
-![Automatically Set Editor Usage](engine-content-material-usage.webp)
+![Automatically Set Editor Usage](/assets/images/docs/plugins/tooling/validators/engine-content-material-usage.webp)
 
 Why isn't this disabled for the Editor materials? Great question! _crickets ..._
 
@@ -47,4 +47,4 @@ Why isn't this disabled for the Editor materials? Great question! _crickets ..._
 
 Some assets identified as **Default Materials** inside of `/Engine/` are so critical that they have explicit warnings when you go to open them for editing. Unfortunately, there are many scenarios where such expressive warnings are not presented to the user, like in the above scenario. This further validates the importance of contributors being able to reason about what's in their changelists.
 
-![Content Warning](engine-content-material-warning.webp)
+![Content Warning](/assets/images/docs/plugins/tooling/validators/engine-content-material-warning.webp)

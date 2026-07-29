@@ -12,7 +12,7 @@ import TypeDetails from '../../../../../src/components/TypeDetails';
 
 A component that builds a network-synchronized `UTextRenderComponent` between clients.
 
-![Text Render Component](text-render-component.webp)
+![Text Render Component](/assets/images/docs/plugins/ui/types/scene-components/text-render-component.webp)
 
 :::info[Module Migration]
 

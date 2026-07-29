@@ -18,13 +18,13 @@ A `UDataAsset` that serves as a collection of preconfigured [FNActorPoolSettings
 
 From the **Content Browser**, right-click to bring up the **context menu** and navigate to the **NEXUS** submenu. From there, you should have an option to create an `NActorPool Set`.
 
-![Creating a new UNActorPoolSet](actor-pool-set-create.webp)
+![Creating a new UNActorPoolSet](/assets/images/docs/plugins/actor-pools/types/actor-pool-set-create.webp)
 
 ## Editing 
 
 By double-clicking on a `UNActorPoolSet` asset, it will open the *default* Data Asset editor window. From there, you create entries in the array for the specific `AActor` and its corresponding settings.
 
-![Editing a UNActorPoolSet](actor-pool-set-edit.webp)
+![Editing a UNActorPoolSet](/assets/images/docs/plugins/actor-pools/types/actor-pool-set-edit.webp)
 
 :::tip
 

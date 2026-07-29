@@ -30,13 +30,13 @@ Yes — they are like **Grammars**.
 
 A `UNTissue` can be created through the common `UDataAsset` creation wizard. 
 
-![Data Asset Wizard](tissue-data-asset-wizard.webp)
+![Data Asset Wizard](/assets/images/docs/plugins/world-assembly/types/tissue-data-asset-wizard.webp)
 
 Or as an added bonus it can be created through its own direct asset factory from the **Content Browser** context-menu, under `NEXUS > NTissue`.
 
 ## Dataset
 
-![Tissue Data](tissue-data.webp)
+![Tissue Data](/assets/images/docs/plugins/world-assembly/types/tissue-data.webp)
 
 ### Tag Groups
 

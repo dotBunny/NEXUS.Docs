@@ -225,7 +225,7 @@ static void DumpSnapshotDiffToLog(const FNObjectSnapshotDiff& Diff) { Diff.DumpT
 
 Renders an `FString` in the `UWorld` via a pseudo `DebugDrawLine` utilizing the `FNPrimitiveFont`.
 
-![Hello World](primitive-font-hello-world.webp)
+![Hello World](/assets/images/docs/plugins/core/types/developer/primitive-font-hello-world.webp)
 
 ```cpp
 /**

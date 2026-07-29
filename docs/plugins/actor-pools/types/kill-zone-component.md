@@ -12,7 +12,7 @@ import TypeDetails from '../../../../src/components/TypeDetails';
 
 A kill plane implementation built to automatically pool properly configured `AActor` upon overlap.
 
-![UNKillZoneComponent](kill-zone-component.webp)
+![UNKillZoneComponent](/assets/images/docs/plugins/actor-pools/types/kill-zone-component.webp)
 
 :::info
 

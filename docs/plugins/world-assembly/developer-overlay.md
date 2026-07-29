@@ -12,7 +12,7 @@ import TypeDetails from '../../../src/components/TypeDetails';
 
 By going to `Tools > NEXUS > World Assembly`, you can create a [UNEditorUtilityWidget](/docs/plugins/ui/editor-types/editor-utility-widget/) wrapped version of `/NexusWorldAssembly/WB_NWorldAssemblyDeveloperOverlay` which will show the status of AssemblyOperations in flight. 
 
-![World Assembly Developer Overlay](developer-overlay.webp)
+![World Assembly Developer Overlay](/assets/images/docs/plugins/world-assembly/developer-overlay.webp)
 
 :::tip
 

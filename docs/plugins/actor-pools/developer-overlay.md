@@ -15,8 +15,8 @@ By going to `Tools > NEXUS > Actor Pools`, you can create a [UNEditorUtilityWidg
 The overlay is built on two reusable types — [UNActorPoolObject](types/actor-pool-object.md) (a `UObject` wrapper that exposes a [FNActorPool](types/actor-pool.md) to UMG) and [UNActorPoolListViewEntry](types/actor-pool-list-view-entry.md) (the row widget). Subclass the latter to restyle the overlay without rewriting any of its logic.
 
 <div class="image-split">
-![No Actor Pools](actor-pools-developer-overlay-none.webp)
-![Actor Pools](actor-pools-developer-overlay.webp)
+![No Actor Pools](/assets/images/docs/plugins/actor-pools/actor-pools-developer-overlay-none.webp)
+![Actor Pools](/assets/images/docs/plugins/actor-pools/actor-pools-developer-overlay.webp)
 </div>
 
 :::tip
@@ -47,8 +47,8 @@ At the start of the bar entry for an [FNActorPool](types/actor-pool.md) is a col
 ## Tooltips
 
 <div class="image-split">
-![Actor Pools](actor-pools-developer-overlay-prefix.webp)
-![Actor Pools](actor-pools-developer-overlay-tooltip.webp)
+![Actor Pools](/assets/images/docs/plugins/actor-pools/actor-pools-developer-overlay-prefix.webp)
+![Actor Pools](/assets/images/docs/plugins/actor-pools/actor-pools-developer-overlay-tooltip.webp)
 </div>
 
 ### Swatch Tooltip

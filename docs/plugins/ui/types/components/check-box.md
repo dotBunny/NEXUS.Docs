@@ -10,7 +10,7 @@ import TypeDetails from '../../../../../src/components/TypeDetails';
 
 <TypeDetails icon="ue-widget" base="UCheckBox" type="UNCheckBox" typeExtra="" headerFile="NexusUI/Public/Components/NCheckBox.h" />
 
-![UNCheckBox](check-box.webp)
+![UNCheckBox](/assets/images/docs/plugins/ui/types/components/check-box.webp)
 
 An extension on the UMG `UCheckBox` which adds functionality to set its value without broadcasting / triggering events, **or so we thought**. The `_NoBroadcast` setters are kept for API symmetry with the rest of the no-broadcast widgets ([Slider](slider.md), [SpinBox](spin-box.md), [ComboBox String](combobox-string.md)) — see the [FAQ](../../faq.md) for the broader rationale.
 

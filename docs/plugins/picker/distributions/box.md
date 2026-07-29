@@ -12,7 +12,7 @@ import TypeDetails from '../../../../src/components/TypeDetails';
 
 <TypeDetails icon="ue-blueprint-function-library" base="UBlueprintFunctionLibrary" type="UNBoxPickerLibrary" typeExtra="/ FNBoxPicker" headerFile="NexusPicker/Public/NBoxPickerLibrary.h" />
 
-![Box: Next Density](box/box-next-density.webp)
+![Box: Next Density](/assets/images/docs/plugins/picker/distributions/box/box-next-density.webp)
 
 Provides various functions for generating points inside or on the surface of the **`FBox`** (axis-aligned) using different random generation strategies (deterministic, non-deterministic, seeded).
 
@@ -23,8 +23,8 @@ The `UNBoxPickerLibrary` wraps the native `FNBoxPicker` functionality in a **Blu
 ### Next Point
 
 <div class="image-split">
-![Box: Next](box/box-next.webp) 
-![Box: Next Projected](box/box-next-projected.webp)
+![Box: Next](/assets/images/docs/plugins/picker/distributions/box/box-next.webp) 
+![Box: Next Projected](/assets/images/docs/plugins/picker/distributions/box/box-next-projected.webp)
 </div>
 
 Gets the next point inside or on an `FBox` from a caller-owned [`FNMersenneTwister`](../../core/types/math/mersenne-twister.md), so the same picker can participate in a larger deterministic stream without rebuilding state between calls.
@@ -36,8 +36,8 @@ static void Next(TArray<FVector>& OutLocations, FNMersenneTwister& Random, const
 ### Random Point
 
 <div class="image-split">
-![Box: Random](box/box-random.webp)
-![Box: Random Projected](box/box-random-projected.webp)
+![Box: Random](/assets/images/docs/plugins/picker/distributions/box/box-random.webp)
+![Box: Random Projected](/assets/images/docs/plugins/picker/distributions/box/box-random-projected.webp)
 </div>
 
 Gets a random point inside or on an `FBox`.
@@ -51,8 +51,8 @@ Uses `FNRandom::GetNonDeterministic()` to produce pseudo-random results.
 ### One-Shot Point
 
 <div class="image-split">
-![Box: One-Shot](box/box-oneshot.webp)
-![Box: One-Shot Projected](box/box-oneshot-projected.webp)
+![Box: One-Shot](/assets/images/docs/plugins/picker/distributions/box/box-oneshot.webp)
+![Box: One-Shot Projected](/assets/images/docs/plugins/picker/distributions/box/box-oneshot-projected.webp)
 </div>
 
 Gets a random point inside or on an  `FBox` using a one-shot seed.
@@ -60,8 +60,8 @@ Gets a random point inside or on an  `FBox` using a one-shot seed.
 ### Tracked Point
 
 <div class="image-split">
-![Box: Tracked](box/box-tracked.webp)
-![Box: Tracked Projected](box/box-tracked-projected.webp)
+![Box: Tracked](/assets/images/docs/plugins/picker/distributions/box/box-tracked.webp)
+![Box: Tracked Projected](/assets/images/docs/plugins/picker/distributions/box/box-tracked-projected.webp)
 </div>
 
 Gets a random point inside or on an `FBox` using a tracked seed. The seed altered for each `Count`.

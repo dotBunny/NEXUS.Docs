@@ -7,16 +7,16 @@ description: Overrides the Unreal Editor icon with user-defined icons.
 Overrides the Unreal Editor icon with user-defined icons. While available to source users, through replacing the actual content files used, this feature presents a non-destructive option to customize both the Unreal Editor's internal theme icon, as well as the window icon registered with Windows.
 
 **Theme Icon**
-![Editor Window Icon: Theme](editor-window-theme-icon.webp)
+![Editor Window Icon: Theme](/assets/images/docs/plugins/tooling/enhancements/editor-window-theme-icon.webp)
 
 **Window Icon**
-![Editor Window Icon: Bar](editor-window-bar-icon.webp)
+![Editor Window Icon: Bar](/assets/images/docs/plugins/tooling/enhancements/editor-window-bar-icon.webp)
 
 ## Settings
 
 The settings for customizing the icons are found in the Editor Preferences under  `NEXUS > Core > Editor Icon`.
 
-![Editor Window Icon: Settings](editor-window-icon.webp)
+![Editor Window Icon: Settings](/assets/images/docs/plugins/tooling/enhancements/editor-window-icon.webp)
 
 | Setting | Description |
 | --- | :-- |

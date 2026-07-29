@@ -12,7 +12,7 @@ import TypeDetails from '../../../../src/components/TypeDetails';
 
 <TypeDetails icon="ue-blueprint-function-library" base="UBlueprintFunctionLibrary" type="UNSplinePickerLibrary" typeExtra="/ FNSplinePicker" headerFile="NexusPicker/Public/NSplinePickerLibrary.h" />
 
-![Spline: Next Density](spline/spline-next-density.webp)
+![Spline: Next Density](/assets/images/docs/plugins/picker/distributions/spline/spline-next-density.webp)
 
 Provides various functions for generating points along a `USplineComponent` spline using different random generation strategies (deterministic, non-deterministic, seeded).
 
@@ -23,8 +23,8 @@ The `UNSplinePickerLibrary` wraps the native `FNSplinePicker` functionality in a
 ### Next Point
 
 <div class="image-split">
-![Spline: Next](spline/spline-next.webp)
-![Spline: Next Projected](spline/spline-next-projected.webp)
+![Spline: Next](/assets/images/docs/plugins/picker/distributions/spline/spline-next.webp)
+![Spline: Next Projected](/assets/images/docs/plugins/picker/distributions/spline/spline-next-projected.webp)
 </div>
 
 Generates the next point on a `USplineComponent`'s spline from a caller-owned [`FNMersenneTwister`](../../core/types/math/mersenne-twister.md), so the same picker can participate in a larger deterministic stream without rebuilding state between calls.
@@ -36,8 +36,8 @@ static void Next(TArray<FVector>& OutLocations, FNMersenneTwister& Random, const
 ### Random Point
 
 <div class="image-split">
-![Spline: Random](spline/spline-random.webp)
-![Spline: Random Projected](spline/spline-random-projected.webp)
+![Spline: Random](/assets/images/docs/plugins/picker/distributions/spline/spline-random.webp)
+![Spline: Random Projected](/assets/images/docs/plugins/picker/distributions/spline/spline-random-projected.webp)
 </div>
 
 Generates a random point on a `USplineComponent`'s spline.
@@ -51,8 +51,8 @@ Uses `FNRandom::GetNonDeterministic()` to produce pseudo-random results.
 ### One-Shot Point
 
 <div class="image-split">
-![Spline: One-Shot](spline/spline-oneshot.webp)
-![Spline: One-Shot Projected](spline/spline-oneshot-projected.webp)
+![Spline: One-Shot](/assets/images/docs/plugins/picker/distributions/spline/spline-oneshot.webp)
+![Spline: One-Shot Projected](/assets/images/docs/plugins/picker/distributions/spline/spline-oneshot-projected.webp)
 </div>
 
 Generates a random point on a `USplineComponent`'s spline using a provided seed.
@@ -60,8 +60,8 @@ Generates a random point on a `USplineComponent`'s spline using a provided seed.
 ### Tracked Point
 
 <div class="image-split">
-![Spline: Tracked](spline/spline-tracked.webp)
-![Spline: Tracked Projected](spline/spline-tracked-projected.webp)
+![Spline: Tracked](/assets/images/docs/plugins/picker/distributions/spline/spline-tracked.webp)
+![Spline: Tracked Projected](/assets/images/docs/plugins/picker/distributions/spline/spline-tracked-projected.webp)
 </div>
 
 Generates a random point on a `USplineComponent`'s spline while tracking the random seed state.

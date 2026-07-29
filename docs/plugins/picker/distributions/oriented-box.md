@@ -12,7 +12,7 @@ import TypeDetails from '../../../../src/components/TypeDetails';
 
 <TypeDetails icon="ue-blueprint-function-library" base="UBlueprintFunctionLibrary" type="UNOrientedBoxPickerLibrary" typeExtra="/ FNOrientedBoxPicker" headerFile="NexusPicker/Public/NOrientedBoxPickerLibrary.h" />
 
-![OrientedBox: Next Density](oriented-box/oriented-box-next-density.webp)
+![OrientedBox: Next Density](/assets/images/docs/plugins/picker/distributions/oriented-box/oriented-box-next-density.webp)
 
 Provides various functions for generating points inside or on the surface of the **`FOrientedBox`** using different random generation strategies (deterministic, non-deterministic, seeded).
 
@@ -23,8 +23,8 @@ The `UNOrientedBoxPickerLibrary` wraps the native `FNOrientedBoxPicker` function
 ### Next Point
 
 <div class="image-split">
-![OrientedBox: Next](oriented-box/oriented-box-next.webp) 
-![OrientedBox: Next Projected](oriented-box/oriented-box-next-projected.webp)
+![OrientedBox: Next](/assets/images/docs/plugins/picker/distributions/oriented-box/oriented-box-next.webp) 
+![OrientedBox: Next Projected](/assets/images/docs/plugins/picker/distributions/oriented-box/oriented-box-next-projected.webp)
 </div>
 
 Gets the next point inside or on an `FOrientedBox` from a caller-owned [`FNMersenneTwister`](../../core/types/math/mersenne-twister.md), so the same picker can participate in a larger deterministic stream without rebuilding state between calls.
@@ -36,8 +36,8 @@ static void Next(TArray<FVector>& OutLocations, FNMersenneTwister& Random, const
 ### Random Point
 
 <div class="image-split">
-![OrientedBox: Random](oriented-box/oriented-box-random.webp)
-![OrientedBox: Random Projected](oriented-box/oriented-box-random-projected.webp)
+![OrientedBox: Random](/assets/images/docs/plugins/picker/distributions/oriented-box/oriented-box-random.webp)
+![OrientedBox: Random Projected](/assets/images/docs/plugins/picker/distributions/oriented-box/oriented-box-random-projected.webp)
 </div>
 
 Gets a random point inside or on an `FOrientedBox`.
@@ -51,8 +51,8 @@ Uses `FNRandom::GetNonDeterministic()` to produce pseudo-random results.
 ### One-Shot Point
 
 <div class="image-split">
-![OrientedBox: One-Shot](oriented-box/oriented-box-oneshot.webp)
-![OrientedBox: One-Shot Projected](oriented-box/oriented-box-oneshot-projected.webp)
+![OrientedBox: One-Shot](/assets/images/docs/plugins/picker/distributions/oriented-box/oriented-box-oneshot.webp)
+![OrientedBox: One-Shot Projected](/assets/images/docs/plugins/picker/distributions/oriented-box/oriented-box-oneshot-projected.webp)
 </div>
 
 Gets a random point inside or on an  `FOrientedBox` using a one-shot seed.
@@ -60,8 +60,8 @@ Gets a random point inside or on an  `FOrientedBox` using a one-shot seed.
 ### Tracked Point
 
 <div class="image-split">
-![OrientedBox: Tracked](oriented-box/oriented-box-tracked.webp)
-![OrientedBox: Tracked Projected](oriented-box/oriented-box-tracked-projected.webp)
+![OrientedBox: Tracked](/assets/images/docs/plugins/picker/distributions/oriented-box/oriented-box-tracked.webp)
+![OrientedBox: Tracked Projected](/assets/images/docs/plugins/picker/distributions/oriented-box/oriented-box-tracked-projected.webp)
 </div>
 
 Gets a random point inside or on an `FOrientedBox` using a tracked seed. The seed altered for each `Count`.

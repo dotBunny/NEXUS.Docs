@@ -7,7 +7,7 @@ description: The project settings for NActorPools.
 
 From the `Edit > Project Settings` window, find the **Actor Pools** section.
 
-![NActorPools](actor-pools-settings.webp)
+![NActorPools](/assets/images/docs/plugins/actor-pools/actor-pools-settings.webp)
 
 ## Configuration Options
 

@@ -12,7 +12,7 @@ import TypeDetails from '../../../../src/components/TypeDetails';
 
 A fundamental spawning component which will interact with the [UNActorPoolSubsystem](actor-pool-subsystem.md) to periodically spawn defined `AActors` in predefined distributions (shapes).
 
-![UNActorPoolSpawnerComponent](actor-pool-spawner-component.webp)
+![UNActorPoolSpawnerComponent](/assets/images/docs/plugins/actor-pools/types/actor-pool-spawner-component.webp)
 
 :::warning
 

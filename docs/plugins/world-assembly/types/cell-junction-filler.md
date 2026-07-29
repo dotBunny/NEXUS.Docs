@@ -34,6 +34,27 @@ UFUNCTION(BlueprintNativeEvent, CallInEditor, Category="NEXUS|World Assembly")
 void OnInitializedFromJunction(ANCellLevelInstance* CellLevelInstance, UNCellJunctionComponent* JunctionComponent, int32 JunctionIndex);
 ```
 
+:::tip[Size & Place From the Junction]
+
+Do not hard-code fill dimensions. The [World Assembly Library](world-assembly-library.md) reads the junction's real geometry straight off the `JunctionComponent` handed to `OnInitializedFromJunction`:
+
+- [Get Junction World Size](world-assembly-library.md#get-junction-world-size) — the opening's world-space width and height, optionally with the configured fill depth on Z.
+- [Get Junction World Size (Shifted)](world-assembly-library.md#get-junction-world-size-shifted) — the same measurement packed as `(Depth, X, Y)` with a uniform scale, for when the depth axis has to lead.
+- [Get Junction Fill Depth Offset](world-assembly-library.md#get-junction-fill-depth-offset) — the world-space offset to add to the spawn location so the fill extrudes correctly for the junction's [fill-depth mode](junction-component.md#fill-depth).
+- [Get Junction World Corner Points](world-assembly-library.md#get-junction-world-corner-points) — the four corners of the opening in world space.
+
+Driving a filler from these keeps a single actor reusable across every socket size in the project, instead of authoring a bespoke blueprint per opening.
+
+:::
+
+:::note[PCG Fills]
+
+PCG fills can be accomplished similarly — spawn a filler that carries a PCG component and feed its volume from the same junction measurements above, projecting the footprint from the corner points rather than a hand-authored bounds.
+
+World Assembly also ships two PCG nodes that read junction data directly, without going through a filler actor at all: `NEXUS | Get Junction Data` and `NEXUS | Get All Junction Data`. See [PCG Integration](junction-component.md#pcg-integration).
+
+:::
+
 ## Selection
 
 At fill time the owning cell filters the junction's `Fillers` down to the entries whose `Required Context Tags` and `Tag Counter Constraints` are satisfied by the cell's final assembly state, then picks one **weighted-at-random** from the survivors. If every entry is gated out, the project-wide `Junction Default Filler` is used as the fallback. See [Junction Component → Fillers](junction-component.md#fillers) for the authoring surface.

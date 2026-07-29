@@ -12,7 +12,7 @@ import TypeDetails from '../../../../src/components/TypeDetails';
 
 <TypeDetails icon="ue-blueprint-function-library" base="UBlueprintFunctionLibrary" type="UNRectanglePickerLibrary" typeExtra="/ FNRectanglePicker" headerFile="NexusPicker/Public/NRectanglePickerLibrary.h" />
 
-![Rectangle: Next Density](rectangle/rectangle-next-density.webp)
+![Rectangle: Next Density](/assets/images/docs/plugins/picker/distributions/rectangle/rectangle-next-density.webp)
 
 Provides various functions for generating points the plane of a **rectangle** using different random generation strategies (deterministic, non-deterministic, seeded).
 
@@ -23,8 +23,8 @@ The `UNRectanglePickerLibrary` wraps the native `FNRectanglePicker` functionalit
 ### Next Point
 
 <div class="image-split">
-![Rectangle: Next](rectangle/rectangle-next.webp) 
-![Rectangle: Next Projected](rectangle/rectangle-next-projected.webp)
+![Rectangle: Next](/assets/images/docs/plugins/picker/distributions/rectangle/rectangle-next.webp) 
+![Rectangle: Next Projected](/assets/images/docs/plugins/picker/distributions/rectangle/rectangle-next-projected.webp)
 </div>
 
 Generates the next point inside or on the boundary of a rectangle from a caller-owned [`FNMersenneTwister`](../../core/types/math/mersenne-twister.md), so the same picker can participate in a larger deterministic stream without rebuilding state between calls.
@@ -36,8 +36,8 @@ static void Next(TArray<FVector>& OutLocations, FNMersenneTwister& Random, const
 ### Random Point
 
 <div class="image-split">
-![Rectangle: Random](rectangle/rectangle-random.webp)
-![Rectangle: Random Projected](rectangle/rectangle-random-projected.webp)
+![Rectangle: Random](/assets/images/docs/plugins/picker/distributions/rectangle/rectangle-random.webp)
+![Rectangle: Random Projected](/assets/images/docs/plugins/picker/distributions/rectangle/rectangle-random-projected.webp)
 </div>
 
 Generates a random point inside or on the boundary of a rectangle.
@@ -51,8 +51,8 @@ Uses `FNRandom::GetNonDeterministic()` to produce pseudo-random results.
 ### One-Shot Point
 
 <div class="image-split">
-![Rectangle: One-Shot](rectangle/rectangle-oneshot.webp)
-![Rectangle: One-Shot Projected](rectangle/rectangle-oneshot-projected.webp)
+![Rectangle: One-Shot](/assets/images/docs/plugins/picker/distributions/rectangle/rectangle-oneshot.webp)
+![Rectangle: One-Shot Projected](/assets/images/docs/plugins/picker/distributions/rectangle/rectangle-oneshot-projected.webp)
 </div>
 
 Generates a random point inside or on the boundary of a rectangle using a provided seed.
@@ -60,8 +60,8 @@ Generates a random point inside or on the boundary of a rectangle using a provid
 ### Tracked Point
 
 <div class="image-split">
-![Rectangle: Tracked](rectangle/rectangle-tracked.webp)
-![Rectangle: Tracked Projected](rectangle/rectangle-tracked-projected.webp)
+![Rectangle: Tracked](/assets/images/docs/plugins/picker/distributions/rectangle/rectangle-tracked.webp)
+![Rectangle: Tracked Projected](/assets/images/docs/plugins/picker/distributions/rectangle/rectangle-tracked-projected.webp)
 </div>
 
 Generates a random point inside or on the boundary of a rectangle using a tracked seed.

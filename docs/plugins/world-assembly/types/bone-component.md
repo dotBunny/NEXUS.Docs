@@ -26,7 +26,7 @@ Currently, only the **Bone** built-in to the [Organ](organ-volume.md) is used as
 
 :::
 
-![Bone Gizmo](bone-gizmo.webp)
+![Bone Gizmo](/assets/images/docs/plugins/world-assembly/types/bone-gizmo.webp)
 
 A **Bone** represents itself in the world as a white-lined [Junction](junction-component.md), with identical indicators.
 
@@ -40,7 +40,7 @@ A `ANBoneActor` is available for situations where you want a bespoke **Bone**, a
 
 ## Component Details
 
-![Bone Component Details](bone-component-details.webp)
+![Bone Component Details](/assets/images/docs/plugins/world-assembly/types/bone-component-details.webp)
 
 | Setting | Type | Description | Default |
 | :-- | :-- | :-- | :-- |

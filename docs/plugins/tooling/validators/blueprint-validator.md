@@ -13,7 +13,7 @@ An opinionated set of validation for `UBlueprints`.
 
 The _hidden_ performance killer, the **empty tick**. This function of the `UNBlueprintValidator` evaluates a `UBlueprint` for any Tick events that are not disabled, and have no actual logic following them.
 
-![Empty Tick](blueprint-empty-tick.webp)
+![Empty Tick](/assets/images/docs/plugins/tooling/validators/blueprint-empty-tick.webp)
 
 ### Severity
 
@@ -21,7 +21,7 @@ By default, the severity of this validation is set to `Error` due to its direct 
 project-wide in `Editor Preferences > NEXUS > Tooling > Blueprint: Empty Tick`
 
 
-![Empty Tick Severity](validator-settings.webp)
+![Empty Tick Severity](/assets/images/docs/plugins/tooling/validators/validator-settings.webp)
 
 ## IsMultiPinPureNode
 
@@ -43,18 +43,18 @@ The quick solution is to convert any blueprint pure nodes where this occurs into
 
 A general rule of thumb is that pure nodes are green. That means things like the **Break** utility nodes also exhibit this problem and can be resolved the same way.
 
-![Break Pin](blueprint-multi-pin-pure-node-break.webp)
+![Break Pin](/assets/images/docs/plugins/tooling/validators/blueprint-multi-pin-pure-node-break.webp)
 
 In the above example, each of the branch evaluations will recalculate the full `Condition` chain. Meaning all the way back to the **Get Actor Forward Vector** will be reevaluated, almost doubling the computational costs (there are slight difference due the additional nodes in one of the branch conditions).
 
-![Break Exec Pin](blueprint-multi-pin-pure-node-break-exec.webp)
+![Break Exec Pin](/assets/images/docs/plugins/tooling/validators/blueprint-multi-pin-pure-node-break-exec.webp)
 
 In this corrected example, the outputs of the **Break** node are cached and can be accessed downstream without recomputation.
 
 
 ### Severity
 
-![Multi-Pin Pure Node Severity](validator-settings.webp)
+![Multi-Pin Pure Node Severity](/assets/images/docs/plugins/tooling/validators/validator-settings.webp)
 
 By default, the severity of this validation is set to `Warning`, as it will not break your project, and resolving it requires some cognitive load.
 

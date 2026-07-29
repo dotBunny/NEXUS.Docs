@@ -12,7 +12,7 @@ import TypeDetails from '../../../../src/components/TypeDetails';
 
 <TypeDetails icon="ue-blueprint-function-library" base="UBlueprintFunctionLibrary" type="UNArcPickerLibrary" typeExtra="/ FNArcPicker" headerFile="NexusPicker/Public/NArcPickerLibrary.h" />
 
-![Arc: Next Density](arc/arc-next-density.webp)
+![Arc: Next Density](/assets/images/docs/plugins/picker/distributions/arc/arc-next-density.webp)
 
 Provides various functions for generating points inside or on the surface of an arc using different random generation strategies (deterministic, non-deterministic, seeded).
 
@@ -23,8 +23,8 @@ The `UNArcPickerLibrary` wraps the native `FNArcPicker` functionality in a **Blu
 ### Next Point
 
 <div class="image-split">
-![Arc: Next](arc/arc-next.webp) 
-![Arc: Next Projected](arc/arc-next-projected.webp)
+![Arc: Next](/assets/images/docs/plugins/picker/distributions/arc/arc-next.webp) 
+![Arc: Next Projected](/assets/images/docs/plugins/picker/distributions/arc/arc-next-projected.webp)
 </div>
 
 Gets the next point inside or on an `FArc` from a caller-owned [`FNMersenneTwister`](../../core/types/math/mersenne-twister.md), so the same picker can participate in a larger deterministic stream without rebuilding state between calls.
@@ -36,8 +36,8 @@ static void Next(TArray<FVector>& OutLocations, FNMersenneTwister& Random, const
 ### Random Point
 
 <div class="image-split">
-![Arc: Random](arc/arc-random.webp)
-![Arc: Random Projected](arc/arc-random-projected.webp)
+![Arc: Random](/assets/images/docs/plugins/picker/distributions/arc/arc-random.webp)
+![Arc: Random Projected](/assets/images/docs/plugins/picker/distributions/arc/arc-random-projected.webp)
 </div>
 
 Gets a random point inside or on an arc.
@@ -51,8 +51,8 @@ Uses `FNRandom::GetNonDeterministic()` to produce pseudo-random results.
 ### One-Shot Point
 
 <div class="image-split">
-![Arc: One-Shot](arc/arc-oneshot.webp)
-![Arc: One-Shot Projected](arc/arc-oneshot-projected.webp)
+![Arc: One-Shot](/assets/images/docs/plugins/picker/distributions/arc/arc-oneshot.webp)
+![Arc: One-Shot Projected](/assets/images/docs/plugins/picker/distributions/arc/arc-oneshot-projected.webp)
 </div>
 
 Gets a random point inside or on an arc using a one-shot seed.
@@ -60,8 +60,8 @@ Gets a random point inside or on an arc using a one-shot seed.
 ### Tracked Point
 
 <div class="image-split">
-![Arc: Tracked](arc/arc-tracked.webp)
-![Arc: Tracked Projected](arc/arc-tracked-projected.webp)
+![Arc: Tracked](/assets/images/docs/plugins/picker/distributions/arc/arc-tracked.webp)
+![Arc: Tracked Projected](/assets/images/docs/plugins/picker/distributions/arc/arc-tracked-projected.webp)
 </div>
 
 Gets a random point inside or on an arc using a tracked seed. The seed altered for each `Count`.

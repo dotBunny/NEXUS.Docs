@@ -11,7 +11,7 @@ A simple system to notify you when updates are available to the **NEXUS** Framew
 
 Customizing the behavior and frequency of the update check can be done in the Editor Preferences under  `NEXUS > Core > Updates`.
 
-![Update Notifications](updates.webp)
+![Update Notifications](/assets/images/docs/getting-started/updates.webp)
 
 | Setting | Description | Default |
 | --- | :-- | :-- | 

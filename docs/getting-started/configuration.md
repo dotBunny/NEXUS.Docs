@@ -9,7 +9,7 @@ description: No one wants to be forced into having a bunch of overhead, so we ut
 
 By going to the `Edit > Plugins` you can configure what parts of the **NEXUS** Framework are loaded.
 
-![Plugins Window](configuration-plugins-window.webp)
+![Plugins Window](/assets/images/docs/getting-started/configuration-plugins-window.webp)
 
 ### NEXUS
 
@@ -31,13 +31,13 @@ For many of the **NEXUS** Framework plugins, there is a counterpart plugin that 
 
 Some of the plugins have persistent configuration values used at runtime; these are found in the **NEXUS** section of the **Project Settings**.
 
-![Project Settings Window](configuration-project-settings.webp)
+![Project Settings Window](/assets/images/docs/getting-started/configuration-project-settings.webp)
 
 ## Editor Preferences
 
 Depending on the plugin, corresponding entries will appear in the **NEXUS** section of the **Editor Preferences**.
 
-![Editor Preferences Window](configuration-editor-preferences.webp)
+![Editor Preferences Window](/assets/images/docs/getting-started/configuration-editor-preferences.webp)
 
 :::info
 

@@ -144,8 +144,8 @@ import TypeDetails from '../../../src/components/TypeDetails';
 By going to `Tools > NEXUS > <PluginName>`, you can create an [UNEditorUtilityWidget](/docs/plugins/ui/editor-types/editor-utility-widget/) wrapped version of `/Nexus<Plugin>/WB_N<Plugin>DeveloperOverlay` which will <TODO: short description of what it shows>.
 
 <div class="image-split">
-![No <Things>](<slug>-developer-overlay-none.webp)
-![<Things>](<slug>-developer-overlay.webp)
+![No <Things>](/assets/images/docs/plugins/<slug>/<slug>-developer-overlay-none.webp)
+![<Things>](/assets/images/docs/plugins/<slug>/<slug>-developer-overlay.webp)
 </div>
 
 <TODO: Layout, color states, behavior sections — see the existing overlays for shape.>
@@ -155,7 +155,7 @@ By going to `Tools > NEXUS > <PluginName>`, you can create an [UNEditorUtilityWi
 
 - `base="UNDeveloperOverlay"` — overlays subclass the NEXUS abstract, not a stock Unreal class.
 - `icon` is the **custom plugin SVG** (`iconType="img"` form), not a `ue-*` icon class. If the plugin doesn't have a branded SVG yet, use `icon="ue-widget"` (no `iconType`) as a fallback and flag in the report that the user should add a branded SVG to `static/assets/svg/<slug>/`.
-- The two screenshots (`<slug>-developer-overlay-none.webp` and `<slug>-developer-overlay.webp`) are the user's responsibility — flag them as TODOs.
+- The two screenshots are the user's responsibility — flag them as TODOs. They belong at `static/assets/images/docs/plugins/<slug>/<slug>-developer-overlay-none.webp` and `…-developer-overlay.webp`, referenced by **absolute** URL as shown above. Never co-locate an image next to the page — see the static-asset conventions in CLAUDE.md.
 - Common follow-on sections seen across the existing three overlays: `## What It Shows` (table), `## Layout`, `## Color States` (table), `## Idle vs. Runtime`, `## Click Handling`, `## Tooltips`, `## Editor-Only Features`. Pick what applies; don't include empty sections.
 - Most overlays also document a list-view entry widget and a `UObject` wrapper as separate type pages under `types/` — those go through `doc-new-type` separately.
 

@@ -1,7 +1,7 @@
 ---
 description: A utility class providing functionality to support World Assembly operations.
 sidebar_class_name: type ue-blueprint-function-library
-tags: [0.3.0, 0.3.1, 0.3.2, 0.3.5]
+tags: [0.3.0, 0.3.1, 0.3.2]
 ---
 
 import TypeDetails from '../../../../src/components/TypeDetails';
@@ -157,6 +157,32 @@ A variant of [Get Junction World Size](#get-junction-world-size) that packs the 
  */
 UFUNCTION(BlueprintCallable, Category = "NEXUS|WorldAssembly", DisplayName = "Get Junction World Size (Shifted)", meta=(ToolTip="Depth, X, Y"))
 static FVector GetJunctionWorldSizeShifted(UNCellJunctionComponent* JunctionComponent, float Scale = 1.f);
+```
+
+### Get Junction Fill Depth Anchor
+
+The signed distance, along the junction's forward axis, at which a filler should anchor its fill volume before it extrudes forward by the fill depth. This encodes the direction of the junction's [fill-depth mode](junction-component.md#fill-depth): `0` for the forward modes, `-depth` for the backward modes, and `-depth / 2` for the centered modes.
+
+```cpp
+/**
+ * @param JunctionComponent The junction whose fill-depth anchor to read.
+ * @return The anchor distance in world units; negative values shift the volume toward the junction's backward direction.
+ */
+UFUNCTION(BlueprintCallable, Category = "NEXUS|WorldAssembly", DisplayName = "Get Junction Fill Depth Anchor")
+static float GetJunctionFillDepthAnchor(UNCellJunctionComponent* JunctionComponent);
+```
+
+### Get Junction Fill Depth Offset
+
+The world-space form of [Get Junction Fill Depth Anchor](#get-junction-fill-depth-anchor) — the anchor distance projected along the junction's forward direction. Add this to a filler's placement location so it extrudes forward from the anchored near edge, which realizes the Forward / Backward / Centered fill-depth modes without moving the junction's spawn transform.
+
+```cpp
+/**
+ * @param JunctionComponent The junction whose fill-depth anchor to read.
+ * @return The world-space anchor offset (junction forward direction scaled by the signed anchor distance).
+ */
+UFUNCTION(BlueprintCallable, Category = "NEXUS|WorldAssembly", DisplayName = "Get Junction Fill Depth Offset")
+static FVector GetJunctionFillDepthOffset(UNCellJunctionComponent* JunctionComponent);
 ```
 
 ### Get Junction World Corner Points

@@ -17,7 +17,7 @@ The basic structural and functional unit of all living organisms. It is the smal
 
 :::
 
-![Editing Convex Hull](cell-edit-hull-vertex.webp)
+![Editing Convex Hull](/assets/images/docs/plugins/world-assembly/types/cell-edit-hull-vertex.webp)
 
 A cell represents a map's meta-data, allowing it to be placed in a World Assembly operation. It is meant to disconnect the actual `UWorld` (Map) from this data, allowing generation to occur without having to load any of the actual map data itself until it is actually used (`FNSpawnCellProxiesTask`).
 
@@ -34,7 +34,7 @@ Cell-level instances spawned at runtime/author-time are locked out from editing.
 
 The `ANCellActor` functions as the _root of all evil_, and also houses the level-side data for the `UNCell`.
 
-![Cell Actor Details](cell-actor-details.webp)
+![Cell Actor Details](/assets/images/docs/plugins/world-assembly/types/cell-actor-details.webp)
 
 | Setting | Description |
 |---|---|
@@ -48,7 +48,7 @@ The `ANCellActor` functions as the _root of all evil_, and also houses the level
 
 The `UNCellRootComponent` represents the data which is going to get mirrored into the `UNCell` when saved.
 
-![Cell Root Details](cell-root-component-details.webp)
+![Cell Root Details](/assets/images/docs/plugins/world-assembly/types/cell-root-component-details.webp)
 
 ### Bounds Settings
 

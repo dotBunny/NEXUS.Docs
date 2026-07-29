@@ -8,7 +8,7 @@ tags: [0.3.0, 0.3.1, 0.3.2]
 
 From the `Edit > Project Settings` window, find the **World Assembly** section.
 
-![World Assembly Project Settings](world-assembly-settings.webp)
+![World Assembly Project Settings](/assets/images/docs/plugins/world-assembly/world-assembly-settings.webp)
 
 ## Configuration Options
 

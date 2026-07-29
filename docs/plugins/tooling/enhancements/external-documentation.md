@@ -6,7 +6,7 @@ description: Adds an External Documentation option to the context menu of graph 
 
 Adds an `External Documentation` option to the context menu of _Call Function_ graph nodes.
 
-![External Documentation Context Menu](external-documentation.webp)
+![External Documentation Context Menu](/assets/images/docs/plugins/tooling/enhancements/external-documentation.webp)
 
 Add a `DocsURL` value to a `UFUNCTION` and it will be detected and used with the context menu command.
 

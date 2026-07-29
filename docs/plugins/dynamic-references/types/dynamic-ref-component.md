@@ -12,7 +12,7 @@ import TypeDetails from '../../../../src/components/TypeDetails';
 
 A component which registers and unregisters the owning `AActor` with the [UNDynamicRefSubsystem](dynamic-ref-subsystem.md) for future lookup.
 
-![DynamicRef Component](dynamic-ref-component.webp)
+![DynamicRef Component](/assets/images/docs/plugins/dynamic-references/types/dynamic-ref-component.webp)
 
 ## Lifecycle
 

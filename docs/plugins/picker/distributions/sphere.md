@@ -12,7 +12,7 @@ import TypeDetails from '../../../../src/components/TypeDetails';
 
 <TypeDetails icon="ue-blueprint-function-library" base="UBlueprintFunctionLibrary" type="UNSpherePickerLibrary" typeExtra="/ FNSpherePicker" headerFile="NexusPicker/Public/NSpherePickerLibrary.h" />
 
-![Sphere: Next Density](sphere/sphere-next-density.webp)
+![Sphere: Next Density](/assets/images/docs/plugins/picker/distributions/sphere/sphere-next-density.webp)
 
 Provides various functions for generating points ***[i]nside or [o]n*** the surface of a **sphere** using different random generation strategies (deterministic, non-deterministic, seeded).
 
@@ -23,8 +23,8 @@ The `UNSpherePickerLibrary` wraps the native `FNSpherePicker` functionality in a
 ### Next Point
 
 <div class="image-split">
-![Sphere: Next](sphere/sphere-next.webp)
-![Sphere: Next Projected](sphere/sphere-next-projected.webp)
+![Sphere: Next](/assets/images/docs/plugins/picker/distributions/sphere/sphere-next.webp)
+![Sphere: Next Projected](/assets/images/docs/plugins/picker/distributions/sphere/sphere-next-projected.webp)
 </div>
 
 Generates the next point inside or on the surface of a sphere from a caller-owned [`FNMersenneTwister`](../../core/types/math/mersenne-twister.md), so the same picker can participate in a larger deterministic stream without rebuilding state between calls.
@@ -36,8 +36,8 @@ static void Next(TArray<FVector>& OutLocations, FNMersenneTwister& Random, const
 ### Random Point
 
 <div class="image-split">
-![Sphere: Random](sphere/sphere-random.webp)
-![Sphere: Random Projected](sphere/sphere-random-projected.webp)
+![Sphere: Random](/assets/images/docs/plugins/picker/distributions/sphere/sphere-random.webp)
+![Sphere: Random Projected](/assets/images/docs/plugins/picker/distributions/sphere/sphere-random-projected.webp)
 </div>
 
 Generates a random point inside or on the surface of a sphere.
@@ -51,8 +51,8 @@ Uses `FNRandom::GetNonDeterministic()` to produce pseudo-random results.
 ### One-Shot Point
 
 <div class="image-split">
-![Sphere: One-Shot](sphere/sphere-oneshot.webp)
-![Sphere: One-Shot Projected](sphere/sphere-oneshot-projected.webp)
+![Sphere: One-Shot](/assets/images/docs/plugins/picker/distributions/sphere/sphere-oneshot.webp)
+![Sphere: One-Shot Projected](/assets/images/docs/plugins/picker/distributions/sphere/sphere-oneshot-projected.webp)
 </div>
 
 Generates a random point inside or on the surface of a sphere using a provided seed.
@@ -60,8 +60,8 @@ Generates a random point inside or on the surface of a sphere using a provided s
 ### Tracked Point
 
 <div class="image-split">
-![Sphere: Tracked](sphere/sphere-tracked.webp)
-![Sphere: Tracked Projected](sphere/sphere-tracked-projected.webp)
+![Sphere: Tracked](/assets/images/docs/plugins/picker/distributions/sphere/sphere-tracked.webp)
+![Sphere: Tracked Projected](/assets/images/docs/plugins/picker/distributions/sphere/sphere-tracked-projected.webp)
 </div>
 
 Generates a random point inside or on the surface of a sphere while tracking the random seed state.

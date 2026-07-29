@@ -12,7 +12,7 @@ import TypeDetails from '../../../../src/components/TypeDetails';
 
 <TypeDetails icon="ue-blueprint-function-library" base="UBlueprintFunctionLibrary" type="UNCirclePickerLibrary" typeExtra="/ FNCirclePicker" headerFile="NexusPicker/Public/NCirclePickerLibrary.h" />
 
-![Circle: Next Density](circle/circle-next-density.webp)
+![Circle: Next Density](/assets/images/docs/plugins/picker/distributions/circle/circle-next-density.webp)
 
 Provides various functions for generating points in the plane of a **circle** using different random generation strategies (deterministic, non-deterministic, seeded).
 
@@ -23,8 +23,8 @@ The `UNCirclePickerLibrary` wraps the native `FNCirclePicker` functionality in a
 ### Next Point
 
 <div class="image-split">
-![Circle: Next](circle/circle-next.webp)
-![Circle: Next Projected](circle/circle-next-projected.webp)
+![Circle: Next](/assets/images/docs/plugins/picker/distributions/circle/circle-next.webp)
+![Circle: Next Projected](/assets/images/docs/plugins/picker/distributions/circle/circle-next-projected.webp)
 </div>
 
 Generates the next point inside or on the perimeter of a circle from a caller-owned [`FNMersenneTwister`](../../core/types/math/mersenne-twister.md), so the same picker can participate in a larger deterministic stream without rebuilding state between calls.
@@ -36,8 +36,8 @@ static void Next(TArray<FVector>& OutLocations, FNMersenneTwister& Random, const
 ### Random Point
 
 <div class="image-split">
-![Circle: Random](circle/circle-random.webp)
-![Circle: Random Projected](circle/circle-random-projected.webp)
+![Circle: Random](/assets/images/docs/plugins/picker/distributions/circle/circle-random.webp)
+![Circle: Random Projected](/assets/images/docs/plugins/picker/distributions/circle/circle-random-projected.webp)
 </div>
 
 Generates a random point inside or on the perimeter of a circle.
@@ -51,8 +51,8 @@ Uses `FNRandom::GetNonDeterministic()` to produce pseudo-random results.
 ### One-Shot Point
 
 <div class="image-split">
-![Circle: One-Shot](circle/circle-oneshot.webp)
-![Circle: One-Shot Projected](circle/circle-oneshot-projected.webp)
+![Circle: One-Shot](/assets/images/docs/plugins/picker/distributions/circle/circle-oneshot.webp)
+![Circle: One-Shot Projected](/assets/images/docs/plugins/picker/distributions/circle/circle-oneshot-projected.webp)
 </div>
 
 Generates a random point inside or on the perimeter of a circle using a provided seed. Useful for one-time random point generation with reproducible results.
@@ -60,8 +60,8 @@ Generates a random point inside or on the perimeter of a circle using a provided
 ### Tracked Point
 
 <div class="image-split">
-![Circle: Tracked](circle/circle-tracked.webp)
-![Circle: Tracked Projected](circle/circle-tracked-projected.webp)
+![Circle: Tracked](/assets/images/docs/plugins/picker/distributions/circle/circle-tracked.webp)
+![Circle: Tracked Projected](/assets/images/docs/plugins/picker/distributions/circle/circle-tracked-projected.webp)
 </div>
 
 Generates a random point inside or on the perimeter of a circle while tracking the random seed state. Updates the seed value to enable sequential random point generation.

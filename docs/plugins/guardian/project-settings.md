@@ -7,7 +7,7 @@ description: The project settings for the NGuardian subsystem.
 
 From the `Edit > Project Settings` window, find the **Guardian** section.
 
-![Guardian Settings](guardian-settings.webp)
+![Guardian Settings](/assets/images/docs/plugins/guardian/guardian-settings.webp)
 
 ## Subsystem
 

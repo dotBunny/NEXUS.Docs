@@ -7,7 +7,7 @@ tags: [0.2.7]
 
 Opened by going to `Tools > Debug > Collision Visualizer`, this window can be used to quickly test world traces and their responses. Functioning in and out of PIE, as well as in SIE to draw the outcome of the defined trace.
 
-![Collision Visualizer](collision-visualizer-demo.webp)
+![Collision Visualizer](/assets/images/docs/plugins/tooling/debuggers/collision-visualizer-demo.webp)
 
 :::info
 
@@ -17,7 +17,7 @@ After watching George Prosser's UnrealFest 2023 talk [Collision Data in UE5](htt
 
 ## Configuration
 
-![Collision Viz Window](collision-visualizer-window.webp)
+![Collision Viz Window](/assets/images/docs/plugins/tooling/debuggers/collision-visualizer-window.webp)
 
 The configuration is persistent and copy-pastable for sharing (right-click on Settings).
 

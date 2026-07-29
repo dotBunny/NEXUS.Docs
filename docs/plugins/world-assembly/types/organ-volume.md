@@ -21,9 +21,9 @@ Organs can have sub-organs, and generation will account for and determine the mo
 
 
 <div class="image-tri">
-![Phased Organs](organ-phases.webp "Organ Phases")
-![Brush Organ](organ-brush.webp "Organ Brushes")
-![Unbounded Organ](organ-unbounded.webp "Unbounded Organ")
+![Phased Organs](/assets/images/docs/plugins/world-assembly/types/organ-phases.webp "Organ Phases")
+![Brush Organ](/assets/images/docs/plugins/world-assembly/types/organ-brush.webp "Organ Brushes")
+![Unbounded Organ](/assets/images/docs/plugins/world-assembly/types/organ-unbounded.webp "Unbounded Organ")
 
 </div>
 
@@ -33,7 +33,7 @@ When you have an Organ selected, its component has some action buttons available
 
 ## Component Settings
 
-![Organ Component Details](organ-component-details.webp)
+![Organ Component Details](/assets/images/docs/plugins/world-assembly/types/organ-component-details.webp)
 
 ### Tissues
 

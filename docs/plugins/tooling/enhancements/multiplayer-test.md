@@ -8,11 +8,11 @@ tags: [0.3.0]
 
 The **Multiplayer Test** quickly assumes a pivotal role in the development of a multiplayer game, enabling developers to validate their work efficiently in a locally bootstrapped multi-client setup. It is meant to augment the existing network simulation methods by providing **one-click** method.
 
-![Multiplayer Test](multiplayer-test.webp)
+![Multiplayer Test](/assets/images/docs/plugins/tooling/enhancements/multiplayer-test.webp)
 
 After some possible [initial configuration](#user-settings), clicking the button on the right side of the editor's header launches the preconfigured sessions directly into the current level. Clicking the button again tears it all down.
 
-![Multiplayer Test Button](multiplayer-test-button.webp)
+![Multiplayer Test Button](/assets/images/docs/plugins/tooling/enhancements/multiplayer-test-button.webp)
 
 *One click to get to testing. It's just that simple!*
 
@@ -21,7 +21,7 @@ After some possible [initial configuration](#user-settings), clicking the button
 
 The project-level toggles live under `Edit > Editor Preferences > NEXUS > Tooling > Multiplayer Test` and travel with the project (stored in `DefaultNexusEditor.ini`). These control whether the test surface is exposed at all and how authentication is configured for the spawned session — both apply to every developer working on the project.
 
-![Multiplayer Test Project Settings](multiplayer-test-project-settings.webp)
+![Multiplayer Test Project Settings](/assets/images/docs/plugins/tooling/enhancements/multiplayer-test-project-settings.webp)
 
 | Setting | Description | Default |
 | :-- | --- | :-- |
@@ -33,7 +33,7 @@ The project-level toggles live under `Edit > Editor Preferences > NEXUS > Toolin
 
 While the default settings should get most developers started, every game has its unique take on multiplayer and online services. The per-user knobs live under `Edit > Editor Preferences > NEXUS > Tooling (User) > Multiplayer Test` and are stored in your local `NexusUserSettings.ini`, so they don't pollute the project's shared configuration.
 
-![Multiplayer Test User Settings](multiplayer-test-user-settings.webp)
+![Multiplayer Test User Settings](/assets/images/docs/plugins/tooling/enhancements/multiplayer-test-user-settings.webp)
 
 ### Setup
 

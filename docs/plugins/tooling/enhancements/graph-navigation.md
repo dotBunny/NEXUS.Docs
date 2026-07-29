@@ -18,7 +18,7 @@ Not all graphs are created equal; this currently **only** works with Blueprint-b
 
 To enable, and customize this feature head on over to the developer's Editor Preferences under  `NEXUS > Core (User) > Graph Navigation`.
 
-![Graph Navigation: Settings](graph-navigation-settings.webp)
+![Graph Navigation: Settings](/assets/images/docs/plugins/tooling/enhancements/graph-navigation-settings.webp)
 
 |Setting|Description|Default|
 |:--|:--|:--|

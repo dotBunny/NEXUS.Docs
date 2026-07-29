@@ -16,17 +16,17 @@ This material is **entirely** based off of the public works of [**Nick Mower**](
 ## Shades
 
 <div class="image-thumbnails">
-![MI_NGrid_White](grid/grid-white.webp "MI_NGrid_White")
-![MI_NGrid_Grey](grid/grid-grey.webp "MI_NGrid_Grey")
-![MI_NGrid_GreyDark](grid/grid-grey-dark.webp "MI_NGrid_GreyDark")
-![MI_NGrid_Black](grid/grid-black.webp "MI_NGrid_Black")
+![MI_NGrid_White](/assets/images/docs/plugins/blockout/material-library/grid/grid-white.webp "MI_NGrid_White")
+![MI_NGrid_Grey](/assets/images/docs/plugins/blockout/material-library/grid/grid-grey.webp "MI_NGrid_Grey")
+![MI_NGrid_GreyDark](/assets/images/docs/plugins/blockout/material-library/grid/grid-grey-dark.webp "MI_NGrid_GreyDark")
+![MI_NGrid_Black](/assets/images/docs/plugins/blockout/material-library/grid/grid-black.webp "MI_NGrid_Black")
 </div>
 
 ## Colors
 
 <div class="image-thumbnails">
-![MI_NGrid_Blue](grid/grid-blue.webp "MI_NGrid_Blue")
-![MI_NGrid_Green](grid/grid-green.webp "MI_NGrid_Green")
-![MI_NGrid_Yellow](grid/grid-yellow.webp "MI_NGrid_Yellow")
-![MI_NGrid_Red](grid/grid-red.webp "MI_NGrid_Red")
+![MI_NGrid_Blue](/assets/images/docs/plugins/blockout/material-library/grid/grid-blue.webp "MI_NGrid_Blue")
+![MI_NGrid_Green](/assets/images/docs/plugins/blockout/material-library/grid/grid-green.webp "MI_NGrid_Green")
+![MI_NGrid_Yellow](/assets/images/docs/plugins/blockout/material-library/grid/grid-yellow.webp "MI_NGrid_Yellow")
+![MI_NGrid_Red](/assets/images/docs/plugins/blockout/material-library/grid/grid-red.webp "MI_NGrid_Red")
 </div>

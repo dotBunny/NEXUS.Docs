@@ -19,10 +19,10 @@ This only occurs when the Unreal Editor is user-controlled.
 
 A quick toggle to ensure that the Unreal Editor's Performance setting for showing its framerate and memory metrics is on by **default**.
 
-![Editor Performance Metrics](editor-performance-metrics.webp)
+![Editor Performance Metrics](/assets/images/docs/plugins/tooling/enhancements/editor-performance-metrics.webp)
 
 ## Settings
 
 The configuration for these features is available in the Editor Preferences under  `NEXUS > Tooling (User) > Editor Performance`.
 
-![Editor Performance Settings](performance-settings.webp)
+![Editor Performance Settings](/assets/images/docs/plugins/tooling/enhancements/performance-settings.webp)

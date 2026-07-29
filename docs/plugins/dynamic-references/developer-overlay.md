@@ -14,8 +14,8 @@ import TypeDetails from '../../../src/components/TypeDetails';
 By going to `Tools > NEXUS > Dynamic References`, you can create an [UNEditorUtilityWidget](/docs/plugins/ui/editor-types/editor-utility-widget/) wrapped version of `/NexusDynamicRefs/WB_NDynamicRefsDeveloperOverlay` which will list every live [ENDynamicRef](types/dynamic-ref.md) slot and `FName` bucket registered with the [UNDynamicRefSubsystem](types/dynamic-ref-subsystem.md).
 
 <div class="image-split">
-![No DynamicRefs](dynamicrefs-developer-overlay-none.webp)
-![DynamicRefs](dynamicrefs-developer-overlay.webp)
+![No DynamicRefs](/assets/images/docs/plugins/dynamic-references/dynamicrefs-developer-overlay-none.webp)
+![DynamicRefs](/assets/images/docs/plugins/dynamic-references/dynamicrefs-developer-overlay.webp)
 </div>
 
 ## Layout

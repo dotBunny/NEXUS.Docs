@@ -12,7 +12,7 @@ import TypeDetails from '../../../../../src/components/TypeDetails';
 
 A simple glyph collection that can be rendered via PDI or `ULineBatchComponent`. Provides line-based primitive rendering of ASCII strings for debug and developer visualisation, without relying on UE's Slate or UMG text systems. Glyph data is built once during module startup by `FNCoreModule`.
 
-![Hello World](primitive-font-hello-world.webp)
+![Hello World](/assets/images/docs/plugins/core/types/developer/primitive-font-hello-world.webp)
 
 ## FNPrimitiveFontPoint
 

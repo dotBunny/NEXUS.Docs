@@ -10,7 +10,7 @@ import TypeDetails from '../../../../../src/components/TypeDetails';
 
 <TypeDetails icon="ue-widget" base="USpinBox" type="UNSpinBox" typeExtra="" headerFile="NexusUI/Public/Components/NSpinBox.h" />
 
-![UNSpinBox](spin-box.webp)
+![UNSpinBox](/assets/images/docs/plugins/ui/types/components/spin-box.webp)
 
 An extension on the UMG `USpinBox` which adds functionality to set its value without broadcasting / triggering events. This is the workaround for the [usual UMG behavior](../../faq.md) where setting a value re-fires the bound change handler — useful when initializing the widget from a saved value without re-triggering the save path.
 
