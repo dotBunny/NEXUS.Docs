@@ -44,6 +44,55 @@ You will need to install [Node.js](https://nodejs.org/en/download), and navigate
 
 Using the `npm run start` command will build an **live** hosting environment which will react to changes in the source files. This is typically how you will want to work on changes so that you can see the output in real-time. If you've built the output already (`npm run build`) you can also statically host that content via `npm run serve`. 
 
+## Versioning
+
+The documentation is versioned. Editing anything in `docs/` changes the **in-development** docs served at `/docs/dev/`; released versions are frozen snapshots under `versioned_docs/` and are edited there directly.
+
+### Cutting a version
+
+When a release ships, snapshot the current docs:
+
+```bash
+npm run docusaurus docs:version 0.3.2
+```
+
+That copies `docs/` into `versioned_docs/version-0.3.2/`, writes `versioned_sidebars/version-0.3.2-sidebars.json`, and prepends the version to `versions.json`. The newest entry in `versions.json` automatically becomes the default served at `/docs/`, so no configuration needs editing.
+
+Commit all three — `versioned_docs/`, `versioned_sidebars/`, and `versions.json` — or the version will not exist in a clean build.
+
+### Removing or re-cutting a version
+
+Docusaurus has **no command to delete a version** — `docs:version` is the only versioning command it provides. Removal is three manual steps, all of which must be done together:
+
+1. Delete the snapshot folder `versioned_docs/version-<version>/`
+2. Delete the sidebar file `versioned_sidebars/version-<version>-sidebars.json`
+3. Remove the `"<version>"` entry from `versions.json`
+
+To **re-cut** a version (discard the snapshot and retake it from the current `docs/`), do the three removal steps and then run `docs:version` again. For `0.3.2`:
+
+```bash
+rm -rf versioned_docs/version-0.3.2 versioned_sidebars/version-0.3.2-sidebars.json
+# then remove "0.3.2" from versions.json
+npm run docusaurus docs:version 0.3.2
+```
+
+On PowerShell, the first line is:
+
+```powershell
+Remove-Item -Recurse -Force versioned_docs/version-0.3.2, versioned_sidebars/version-0.3.2-sidebars.json
+```
+
+Removing the only archived version leaves `versions.json` as `[]`, which is a valid state — `/docs/` then serves the in-development docs directly and `/docs/dev/` is no longer generated. No configuration changes are needed either way.
+
+Re-cutting is cheap while a version has not been deployed. Once it is live, its URLs are public and the archive is what readers on that release depend on, so prefer editing the snapshot in place over re-cutting it.
+
+### Notes
+
+- **Snapshots are text-only.** Images live in `static/assets/images/docs/` and are referenced by absolute URL, so every version shares one copy rather than duplicating them per release.
+- **Import components with `@site`** (`@site/src/components/TypeDetails`), never a relative path. Snapshotting shifts pages one directory deeper, which breaks relative imports.
+- **Only cut a version that has actually been released** — a snapshot is permanent and freezes any mistakes in it alongside the content.
+- **`docs:version:community` also exists** but is unused; the `community/` docs are intentionally not versioned.
+
 ## Deployment
 
 We utilize a GitHub Workflow to generate the documentation based on the repository and upload it directly via the GitHub pages deployment action.

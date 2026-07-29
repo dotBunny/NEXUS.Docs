@@ -40,7 +40,7 @@ sidebar_position: <next integer — read existing docs/plugins/*/index.mdx files
 ---
 
 import DocCardList from '@theme/DocCardList';
-import PluginDetails from '../../../src/components/PluginDetails';
+import PluginDetails from '@site/src/components/PluginDetails';
 
 # <Friendly name without "NEXUS: " prefix>
 
@@ -135,7 +135,7 @@ sidebar_position: 3
 description: <one-sentence summary of what the overlay shows>
 ---
 
-import TypeDetails from '../../../src/components/TypeDetails';
+import TypeDetails from '@site/src/components/TypeDetails';
 
 # Developer Overlay
 

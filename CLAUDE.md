@@ -74,14 +74,39 @@ The actual plugin source code can be found locally in `../NEXUS/Plugins` or remo
 
 Each subfolder needs its own `index.mdx` describing the group — see [docs/plugins/core/types/math/index.mdx](docs/plugins/core/types/math/index.mdx) for the canonical shape. The `Plugins` map's `link` field still points at the plugin root; subfolders are never surfaced there.
 
-### Import-path depth in subfolders
+### Component imports always use `@site`
 
-A type page's `TypeDetails` import is relative to `src/components/`, so the `../` count depends on depth:
+Import components from `src/components/` via the **`@site` alias**, never a relative path:
 
-- `types/foo.md` → `../../../../src/components/TypeDetails` (4-deep)
-- `types/<subfolder>/foo.md` → `../../../../../src/components/TypeDetails` (5-deep)
+```mdx
+import TypeDetails from '@site/src/components/TypeDetails';
+```
 
-Same rule applies to `VersionBadge` and any other `src/components/` import. Cross-plugin links (`../../<other-plugin>/index.mdx`) likewise gain an extra `../` from a subfolder, becoming `../../../<other-plugin>/index.mdx`.
+`@site` resolves to the project root from any file depth, so the same line is correct in `types/foo.md`, `types/<subfolder>/foo.md`, and inside a `versioned_docs/version-<x>/` snapshot. Relative imports (`../../../../src/components/…`) are **broken by versioning**: snapshotting shifts every page one directory deeper, so a path that resolved to the repo root from `docs/` resolves to `versioned_docs/` instead, and the build fails with "Module not found".
+
+Note this applies to **component imports only**. Cross-page markdown *links* stay relative (`[Other Type](../other-type.md)`, `[Plugin](../../<other-plugin>/index.mdx)`) — source and target move together inside a snapshot, so those keep working.
+
+## Versioning
+
+Docs are versioned; `community/` is not. `versions.json` lists archived versions newest-first, and `docusaurus.config.ts` derives `lastVersion` from it, so the newest archive is served at `/docs/` and unreleased work on main is served at `/docs/dev/` under the label `main 🚧`.
+
+### Cutting a release
+
+```bash
+npm run docusaurus docs:version <x.y.z>   # snapshot docs/ -> versioned_docs/version-<x.y.z>/
+npm run build                             # verify
+```
+
+`lastVersion` updates itself from `versions.json`; nothing in the config needs editing.
+
+### What this means when writing docs
+
+- **Editing `docs/` only changes `/docs/dev/`.** Released versions are frozen copies in `versioned_docs/`. To correct an error in a shipped version you must edit that snapshot directly.
+- **A snapshot is text-only (~1.2 MB).** Images live in `static/` and are shared by every version — see the static-asset conventions above, including the archive-on-change recipe when a screenshot must stay period-accurate.
+- **Never use relative component imports** (see `@site` above) — this is the one thing that silently breaks every future snapshot.
+- **Navbar plugin links use `type: 'doc'` + `docId`**, not raw `to:` paths, so a reader stays inside the version they're browsing. docIds keep the trailing `/index` (e.g. `plugins/core/index`). Adding a plugin means adding a `docId` entry, not a URL.
+- **`onlyIncludeVersions` is dev-only** and derived from `versions.json`; production builds always contain every version.
+- **Algolia `contextualSearch` is on**, which scopes results to the active version. It depends on the crawler emitting version facets — that is configured at algolia.com, not in this repo.
 
 ## Documentation Skills
 

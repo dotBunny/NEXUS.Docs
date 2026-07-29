@@ -25,7 +25,6 @@ Everything else comes from the header.
 - **`typeExtra`** — for interfaces, the `U*` companion class (`/ UNActorPoolItem`). For others, leave empty (`""`) unless there's a meaningful pair.
 - **`headerFile`** — relative path from the module's `Source/` folder, e.g. `NexusActorPools/Public/INActorPoolItem.h`.
 - **`description`** — the first sentence of the doxygen comment immediately above the macro. If none, ask.
-- **Initial-release version for `tags`** — read the plugin's `.uplugin` `VersionName` if the type is brand-new, OR ask the user. Do not invent a version.
 
 ## Icon and `sidebar_class_name`
 
@@ -93,10 +92,9 @@ sidebar_position: <next integer>
 sidebar_label: <Title Case Name>
 sidebar_class_name: type <icon-key>
 description: <one-sentence description from doxygen comment>
-tags: [<version>]
 ---
 
-import TypeDetails from '<relative path to src/components/TypeDetails>';
+import TypeDetails from '@site/src/components/TypeDetails';
 
 # <Title Case Name>
 
@@ -105,14 +103,11 @@ import TypeDetails from '<relative path to src/components/TypeDetails>';
 <Lead paragraph: 1-2 sentences explaining the type's purpose. Cross-link related types in the same plugin using relative links like [Actor Pool](actor-pool.md).>
 ```
 
-- The tags `<version>` is an array of version tags which have had changes to the page and its content , for example on the documentation page for actor-pool-settings, because there were changes in version 0.1.0, and 0.2.6, they are included in the tag array as follows: [0.1.0,0.2.6]
+- **Do not add a `tags:` frontmatter key.** Version tags were the old way of signalling which releases changed a page; that is now handled by real Docusaurus versioning (`/docs/` = latest release, `/docs/dev/` = main). Use only the keys shown above.
 
-The relative `import` path depends on depth — count from the new file's location, don't hardcode:
+The `import` is **always** `@site/src/components/TypeDetails` — identical at every folder depth, no counting. The same applies to any other `src/components/` import (e.g. `VersionBadge`).
 
-- `types/foo.md` (or `editor-types/foo.md`) → `../../../../src/components/TypeDetails` (4-deep)
-- `types/<subfolder>/foo.md` (or `editor-types/<subfolder>/foo.md`) → `../../../../../src/components/TypeDetails` (5-deep)
-
-The same depth rule applies to any other `src/components/` import (e.g. `VersionBadge`).
+Never write a relative component import (`../../../../src/components/…`). The docs are versioned, and snapshotting shifts every page one directory deeper, which breaks relative imports and fails the build. Cross-page markdown *links* are unaffected and stay relative — see the link rules below.
 
 If the type has a custom plugin SVG (rare; mainly developer overlays), use the `iconType="img"` form for the `TypeDetails`:
 
@@ -219,7 +214,7 @@ When the new type's header references other NEXUS types (other `N*` symbols), li
 - Don't add the page to any sidebar config — the sidebar is auto-generated from the filesystem.
 - Don't write `.mdx` for a type page; existing convention is `.md` even when it imports `TypeDetails`.
 - Don't include code samples, tabs, or screenshots in the initial scaffold — keep the page minimal so the user can flesh it out.
-- Don't guess the `tags` version to add. If you can't determine it from `.uplugin` or the user, ask.
+- Don't add a `tags:` key — version tags are retired in favour of Docusaurus versioning.
 - Don't run `npm run build` after generating — fast feedback is `npm run start`, and the user will run it themselves.
 
 ## When done

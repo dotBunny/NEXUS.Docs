@@ -1,9 +1,35 @@
+import { readFileSync } from 'fs';
 import { themes as prismThemes } from 'prism-react-renderer';
 import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 import type { Options as DocsOptions } from '@docusaurus/plugin-content-docs';
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
+
+// Archived doc versions, newest first. Written by `npm run docusaurus docs:version <x>`.
+// Tolerates the file being absent or empty, which is the valid "no releases archived
+// yet" state you land in after removing a version (see Versioning in README.md).
+const DOC_VERSIONS: string[] = (() => {
+  try {
+    return JSON.parse(readFileSync('./versions.json', 'utf8'));
+  } catch {
+    return [];
+  }
+})();
+
+// The newest archived version becomes the default served at /docs/. When nothing is
+// archived this stays undefined, which Docusaurus reads as "current is the default",
+// so /docs/ serves the in-development docs and /docs/dev/ is not generated.
+const LAST_VERSION = DOC_VERSIONS[0];
+
+// Building every archived version on each hot reload gets slow as the archive grows,
+// so in development we build only `current` plus the newest archive. Production is
+// left undefined so a release build always contains the complete set. Filtering keeps
+// this valid when there is nothing archived yet.
+const DEV_ONLY_VERSIONS =
+  process.env.NODE_ENV === 'development'
+    ? ['current', LAST_VERSION].filter(Boolean)
+    : undefined;
 
 const config: Config = {
   title: 'NEXUS Framework',
@@ -52,6 +78,23 @@ const config: Config = {
           // Remove this to remove the "edit this page" links.
           editUrl:
             'https://github.com/dotBunny/NEXUS.Docs/tree/main/',
+
+          // The newest released version, served at /docs/ as the default.
+          // Bump this each time a new version is cut.
+          lastVersion: LAST_VERSION,
+
+          versions: {
+            // Unreleased work on main, served at /docs/dev/.
+            current: {
+              label: 'main 🚧',
+              path: 'dev',
+            },
+          },
+
+          // Dev-only: build just the two newest versions so `npm run start` stays
+          // fast as the archive grows. Derived from versions.json so it cannot go
+          // stale, and always undefined in production so a release build is complete.
+          onlyIncludeVersions: DEV_ONLY_VERSIONS,
         },
         blog: false,
         theme: {
@@ -65,7 +108,6 @@ const config: Config = {
             './src/css/plugin-details.css',
             './src/css/plugin-image-markup.css',
             './src/css/version-badge.css',
-            './src/css/dev-banner.css',
             './src/css/responsive.css'
           ]
         },
@@ -118,57 +160,75 @@ const config: Config = {
           activeBaseRegex: `/community/`
         },
         {
+          type: 'docsVersionDropdown',
+          position: 'right',
+          dropdownActiveClassDisabled: true,
+        },
+        {
           href: 'https://github.com/dotBunny/NEXUS/issues/new/choose',
           label: 'Report Issue',
           position: 'right',
         },
+        // Plugin dropdown. These use `type: 'doc'` rather than raw `to:` paths so a
+        // reader browsing an older version (or /docs/dev/) stays inside that version
+        // when they jump between plugins. docIds keep the trailing `/index`.
         {
+          type: 'doc',
+          docId: 'plugins/index',
           label: 'NEXUS Plugins',
-          to: "/docs/plugins/",
           className: 'plugin-menu plugin-menu-base'
         },
         {
-          to: '/docs/plugins/core',
+          type: 'doc',
+          docId: 'plugins/core/index',
           label: 'Core',
           className: 'plugin-menu'
         },
         {
-          to: '/docs/plugins/actor-pools',
+          type: 'doc',
+          docId: 'plugins/actor-pools/index',
           label: 'Actor Pools',
           className: 'plugin-menu'
         },
         {
-          to: '/docs/plugins/blockout',
+          type: 'doc',
+          docId: 'plugins/blockout/index',
           label: 'Blockout',
           className: 'plugin-menu'
         },
         {
-          to: '/docs/plugins/dynamic-references',
+          type: 'doc',
+          docId: 'plugins/dynamic-references/index',
           label: 'Dynamic References',
           className: 'plugin-menu'
         },
         {
-          to: '/docs/plugins/guardian',
+          type: 'doc',
+          docId: 'plugins/guardian/index',
           label: 'Guardian',
           className: 'plugin-menu'
         },
         {
-          to: '/docs/plugins/picker',
+          type: 'doc',
+          docId: 'plugins/picker/index',
           label: 'Picker',
           className: 'plugin-menu'
         },
         {
-          to: '/docs/plugins/tooling',
+          type: 'doc',
+          docId: 'plugins/tooling/index',
           label: 'Tooling',
           className: 'plugin-menu'
         },
         {
-          to: '/docs/plugins/ui',
+          type: 'doc',
+          docId: 'plugins/ui/index',
           label: 'User Interface',
           className: 'plugin-menu'
         },
         {
-          to: '/docs/plugins/world-assembly',
+          type: 'doc',
+          docId: 'plugins/world-assembly/index',
           label: 'World Assembly 🚧',
           className: 'plugin-menu'
         },
@@ -221,11 +281,6 @@ const config: Config = {
               to: '/license',
               label: 'License',
             },
-            {
-              to: '/docs/tags',
-              label: 'Tags',
-
-            },
           ],
         },
         {
@@ -256,7 +311,13 @@ const config: Config = {
       appId: 'D8GP244DEM',
       apiKey: 'bd75718f03cda407bf3d9fb59f637d96',
       indexName: 'nexus_framework_com_d8gp244dem_articles',
-      contextualSearch: false,
+      // Required now that docs are versioned: scopes results to the version the
+      // reader is currently browsing. With this false, a search from /docs/ would
+      // return hits from /docs/dev/ and every archived version, mixed together.
+      // NOTE: this only works once the Algolia crawler is emitting version facets
+      // (docusaurus_tag / docusaurus_version) — that is configured at algolia.com,
+      // not here. Until the index is re-crawled, results may look sparse.
+      contextualSearch: true,
       searchPagePath: 'search',
     }
   } satisfies Preset.ThemeConfig,

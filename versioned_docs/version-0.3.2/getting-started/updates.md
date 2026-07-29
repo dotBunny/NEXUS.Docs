@@ -1,0 +1,23 @@
+---
+sidebar_position: 4
+description: A simple system to notify developers of when updates are available to the NEXUS Framework.
+---
+
+# Updates
+
+A simple system to notify you when updates are available to the **NEXUS** Framework.
+
+## Settings
+
+Customizing the behavior and frequency of the update check can be done in the Editor Preferences under  `NEXUS > Core > Updates`.
+
+![Update Notifications](/assets/images/docs/getting-started/updates.webp)
+
+| Setting | Description | Default |
+| --- | :-- | :-- | 
+| `Check For Updates` | Should update checks be made?  | `true` |
+| `Frequency (Days)` | After how many days should an update check be made. | `7` |
+| `Channel` | What channel to monitor for updates: `Main`, `Release` or a `Custom` one. | `Release` |
+| `Custom Query URI` | [`Channel==Custom`] A fully qualified URI to the `NCoreMinimal.h` file located in a custom repository to be checked as the source of updates. | `<empty>` |
+| `Custom Update URI` |  [`Channel==Custom`] A fully qualified URI to open when an update is detected and requested. | `<empty>` |
+| `Ignore Version Number <=` | A project settable version number that is compared against `N_VERSION_NUMBER` to determine if an update should be ignored. Allowing developers to set up ignores for the notification project-wide based on customized versions. | `N_VERSION_NUMBER` |
