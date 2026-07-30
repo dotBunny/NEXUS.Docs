@@ -9,7 +9,7 @@ import TypeDetails from '@site/src/components/TypeDetails';
 
 <TypeDetails icon="/assets/svg/world-assembly/world-assembly.svg" iconType="img" base="UNDeveloperOverlay" type="UNWorldAssemblyDeveloperOverlay" typeExtra="" headerFile="NexusWorldAssembly/Public/NWorldAssemblyDeveloperOverlay.h" />
 
-By going to `Tools > NEXUS > World Assembly`, you can create a [UNEditorUtilityWidget](/docs/plugins/ui/editor-types/editor-utility-widget/) wrapped version of `/NexusWorldAssembly/WB_NWorldAssemblyDeveloperOverlay` which will show the status of AssemblyOperations in flight. 
+By going to `Tools > NEXUS > World Assembly`, you can create a [UNEditorUtilityWidget](/docs/plugins/ui/editor-types/editor-utility-widget/) wrapped version of `/NexusWorldAssembly/WB_NWorldAssemblyDeveloperOverlay` which will show the status of AssemblyOperations in flight.
 
 ![World Assembly Developer Overlay](/assets/images/docs/plugins/world-assembly/developer-overlay.webp)
 
@@ -19,12 +19,11 @@ This overlay (`WB_NWorldAssemblyDeveloperOverlay`) can be included in packaged b
 
 :::
 
-
 ## Understanding The Bars
 
 ### Top-Level Bars
 
-Each `Assembly Operation` is given a top-level bar whilst it is running. On the left is the generated (or manually given) name of the `Assembly Operation`. 
+Each `Assembly Operation` is given a top-level bar whilst it is running. On the left is the generated (or manually given) name of the `Assembly Operation`.
 
 In the middle is the last `Status Message` broadcast out from any of the tasks, running underneath the operation. This messaging system operates on a thread-safe consumption model so it is used sparingly and mainly to convey top-level status.
 

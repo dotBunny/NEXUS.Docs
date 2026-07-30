@@ -105,7 +105,6 @@ const config: Config = {
             './src/css/type-definitions.css',
             './src/css/plugin-details.css',
             './src/css/plugin-image-markup.css',
-            './src/css/version-badge.css',
             './src/css/responsive.css'
           ]
         },

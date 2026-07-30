@@ -22,7 +22,6 @@ A cell represents a map's meta-data, allowing it to be placed in a World Assembl
 
 This allows for an extremely efficient World Assembly operation, off of the Game Thread.
 
-
 :::tip
 
 Cell-level instances spawned at runtime/author-time are locked out from editing. Open the source level directly when you need to make changes. See the [Cell Editor](../editor-mode/cell-editor.md) as part of the [Editor Mode](../editor-mode/index.mdx).
@@ -38,10 +37,10 @@ The `ANCellActor` functions as the _root of all evil_, and also houses the level
 | Setting | Description |
 |---|---|
 | Cell Junctions | Internal mapping of a ticket/identifier to a [Junction](junction-component.md). |
-| Author Time Actors | A user-defined list of `AActors` that should be destroyed when a `ANCellLevelInstance` is loaded. Will not effect cell spatial calculations either. | 
-| Initialize Callback Actors | Reference list to all `AActors` that implement the [INCellInitialized](cell-initialized.md) interface. Populated automatically during the save process to avoid finding at build time. | 
+| Author Time Actors | A user-defined list of `AActors` that should be destroyed when a `ANCellLevelInstance` is loaded. Will not effect cell spatial calculations either. |
+| Initialize Callback Actors | Reference list to all `AActors` that implement the [INCellInitialized](cell-initialized.md) interface. Populated automatically during the save process to avoid finding at build time. |
 | Sidecar | Soft-pointer to the associated side-car data (`UNCell`) for the level. |
-| Cell Junction Next Identifier | Storage for the next internal ticket/identifier. | 
+| Cell Junction Next Identifier | Storage for the next internal ticket/identifier. |
 
 ## Cell Root Component
 
@@ -65,12 +64,11 @@ The cell exposes a dual-interval `FNRotationConstraints` set. The _matching_ int
 | Setting | Type | Description | Default |
 |---|---|---|---|
 | Enforce Matching? | `bool` | Enables the matching-interval test on the candidate rotation itself. | `true` |
-| Minimum Matching Rotation | `FRotator` | Lower bound (inclusive) of the matching interval. | `(0,0,-180.f)` | 
+| Minimum Matching Rotation | `FRotator` | Lower bound (inclusive) of the matching interval. | `(0,0,-180.f)` |
 | Maximum Matching Rotation | `FRotator` | Upper bound (inclusive) of the matching interval. | `(0,0,180.f)` |
 | Enforce Difference? | `bool` | Enables the difference-interval test on the delta between two rotations. | `false` |
 | Minimum Difference Rotation | `FRotator` | Lower bound (inclusive) of the difference interval. | `(0,0,-180.f)` |
 | Maximum Difference Rotation | `FRotator` | Upper bound (inclusive) of the difference interval. | `(0,0,180.f)` |
-
 
 ### Hull Settings
 
@@ -85,7 +83,6 @@ The cell exposes a dual-interval `FNRotationConstraints` set. The _matching_ int
 
 ### Proxy Color
 
-
 ### Voxel Settings
 
 | Setting | Type | Description | Default |
@@ -96,7 +93,6 @@ The cell exposes a dual-interval `FNRotationConstraints` set. The _matching_ int
 | Include Editor Only | `bool` | Include `AActors` flagged as `EditorOnly` in voxel data calculations. | `false` |
 | Actor Ignore Tags | `TArray<FName>` | `AActor`'s with these tags will be ignored during voxel data calculations. | `NCell_Ignore`, `NCell_VoxelIgnore` |
 | Collision Channel | `ECollisionChannel` | The collision channel used when tracing for collisions to determine occupancy. | `WorldStatic` |
-
 
 ## Side-Car Data
 

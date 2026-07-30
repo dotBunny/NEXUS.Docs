@@ -104,7 +104,7 @@ import TypeDetails from '@site/src/components/TypeDetails';
 
 - **Do not add a `tags:` frontmatter key.** Version tags were the old way of signalling which releases changed a page; that is now handled by real Docusaurus versioning (`/docs/` = latest release, `/docs/dev/` = main). Use only the keys shown above.
 
-The `import` is **always** `@site/src/components/TypeDetails` — identical at every folder depth, no counting. The same applies to any other `src/components/` import (e.g. `VersionBadge`).
+The `import` is **always** `@site/src/components/TypeDetails` — identical at every folder depth, no counting. The same applies to any other `src/components/` import.
 
 Never write a relative component import (`../../../../src/components/…`). The docs are versioned, and snapshotting shifts every page one directory deeper, which breaks relative imports and fails the build. Cross-page markdown *links* are unaffected and stay relative — see the link rules below.
 

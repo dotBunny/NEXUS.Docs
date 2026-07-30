@@ -22,7 +22,7 @@ The `UNOrientedBoxPickerLibrary` wraps the native `FNOrientedBoxPicker` function
 ### Next Point
 
 <div class="image-split">
-![OrientedBox: Next](/assets/images/docs/plugins/picker/distributions/oriented-box/oriented-box-next.webp) 
+![OrientedBox: Next](/assets/images/docs/plugins/picker/distributions/oriented-box/oriented-box-next.webp)
 ![OrientedBox: Next Projected](/assets/images/docs/plugins/picker/distributions/oriented-box/oriented-box-next-projected.webp)
 </div>
 
@@ -106,7 +106,8 @@ It is important to be aware of the **performance penalty** when using `MinimumDi
 
 :::
 
-### Base
+### Base Parameters
+
 |Parameter|Type|Description|Default|
 |:--|:--|:--|:--|
 | Count | `int` | The number of points to generate in a single pass. | `1` |
@@ -115,7 +116,8 @@ It is important to be aware of the **performance penalty** when using `MinimumDi
 | Projection | `FVector` | Direction and distance for the line trace. | `FVector(0,0,-500.f)` |
 | CollisionChannel | `TEnumAsByte<ECollisionChannel>` | The collision channel to use for tracing. | `ECC_WorldStatic` |
 
-### OrientedBox
+### OrientedBox Parameters
+
 |Parameter|Type|Description|Default|
 |:--|:--|:--|:--|
 | Origin | `FVector` | The center point when attempting to generate new points. | `FVector::ZeroVector` |

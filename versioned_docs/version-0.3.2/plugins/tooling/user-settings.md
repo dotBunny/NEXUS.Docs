@@ -85,7 +85,7 @@ These become command-line switches on each launched client, applied **on top of*
 | `Packet Loss` | `int32` | Simulated packet loss, as a percentage. Becomes `-PktLoss`. | `0` | `0`–`100` |
 | `Packet Jitter` | `int32` | Simulated packet jitter, in ms. Becomes `-PktJitter`. | `0` | `0`–`1000` |
 | `Packet Duplication` | `int32` | Simulated packet duplication, as a percentage. Becomes `-PktDup`. | `0` | `0`–`100` |
-| `Receive Out Of Order` | `bool` | Force clients to receive packets out of order. Becomes `-PktOrder=1`. | `false` |
+| `Receive Out Of Order` | `bool` | Force clients to receive packets out of order. Becomes `-PktOrder=1`. | `false` | — |
 
 :::note[The lag values are round-trip, and are halved on the way out]
 
@@ -105,15 +105,7 @@ The defaults are not a clean network: `20`–`60` ms of lag is on out of the box
 | :-- | :-- | :-- | :-- |
 | `Dedicated Server` | `bool` | Spawn a dedicated server for the test clients. | `true` |
 | `Spawn Separate Server` | `bool` | Rarely needed. Launches a separate server even when the net mode would not require one (such as Standalone). If the net mode *does* require a server, one is launched regardless of this setting. | `false` |
-| `Generate Network Profile` | `bool` | Capture a server-side network profile. **Hidden in the panel while the client-side option is on** — see below. | `false` |
+| `Generate Network Profile` | `bool` | Capture a server-side network profile. | `false` |
 | `Parameters` | `FString` | Extra command-line parameters passed to the launched server. | empty |
 
 Client and server arguments are built and delivered **separately** — the client set goes to the play session's client launch parameters and the server set to its server launch parameters. So `Parameters` here is the server's own list, not an addition to or override of the client's.
-
-:::warning[A hidden `Generate Network Profile` still applies]
-
-The server profiling checkbox is hidden by an `EditCondition` whenever the client-side option is enabled, but the stored value is **still read** when the arguments are assembled. If you enabled server profiling earlier and then turned on client profiling, the server continues to launch with profiling on even though the field is no longer visible to tell you so.
-
-Turn client profiling off, clear the server checkbox, then turn client profiling back on if you need the server clean.
-
-:::

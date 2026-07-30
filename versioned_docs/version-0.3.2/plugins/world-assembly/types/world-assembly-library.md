@@ -320,7 +320,7 @@ Check `Has Operation Context Cache` before a write you care about.
 
 ## Exec-Pin Variants
 
-Every boolean predicate in this library ships a twin node whose name ends in ` ?`, carrying `meta = (ExpandBoolAsExecs="ReturnValue")`. Instead of returning a bool for you to branch on, these drive **True** / **False** execution pins directly — one node instead of two.
+Every boolean predicate in this library ships a twin node whose name gains a trailing `?`, carrying `meta = (ExpandBoolAsExecs="ReturnValue")`. Instead of returning a bool for you to branch on, these drive **True** / **False** execution pins directly — one node instead of two.
 
 | Predicate | Exec-pin twin |
 | :-- | :-- |

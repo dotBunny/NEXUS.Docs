@@ -7,9 +7,7 @@ import TypeDetails from '@site/src/components/TypeDetails';
 
 # Junction Component
 
-
 <TypeDetails icon="/assets/svg/world-assembly/world-assembly-junction-component.svg" iconType="img" base="USceneComponent" type="UNCellJunctionComponent" typeExtra="" headerFile="NexusWorldAssembly/Public/Cell/NCellJunctionComponent.h" />
-
 
 :::info[Wikipedia Definition]
 
@@ -48,12 +46,12 @@ The component warns about this at author time when it registers, and `UNWorldAss
 | Setting | Type | Description | Default |
 |---|---|---|---|
 | Type | `ENCellJunctionType` | Directionality of the junction — `Two-Way`, `In-Only`, `Out-Only`, or `One-Way`. **Not yet enforced during graph traversal**; today it drives the gizmo's [corner-point lines](#corner-points) and the socket bounds emitted by the [PCG nodes](#pcg-integration). | `Two-Way` |
-| Requirements | `ENCellJunctionRequirements` | How an unconnected junction is resolved after the graph is linked. `Required` — the junction must connect to another for the graph to be considered valid, and its selection weight is automatically **doubled**; `Allow Blocking` — a junction left unconnected is [filled](#fillers); `Allow Empty` — a junction left unconnected stays unfilled. | `AllowBlocking` | 
-| Socket Size | `FIntVector2` | Size of the junction socket in grid units (width, height) | `(2,4)` | 
+| Requirements | `ENCellJunctionRequirements` | How an unconnected junction is resolved after the graph is linked. `Required` — the junction must connect to another for the graph to be considered valid, and its selection weight is automatically **doubled**; `Allow Blocking` — a junction left unconnected is [filled](#fillers); `Allow Empty` — a junction left unconnected stays unfilled. | `AllowBlocking` |
+| Socket Size | `FIntVector2` | Size of the junction socket in grid units (width, height) | `(2,4)` |
 | Fill Depth Mode | `ENCellJunctionFillDepthMode` | How deep a fill volume is and which way it grows from the socket plane. See [Fill Depth](#fill-depth). | `Default Forward` |
 | Override Fill Depth | `float` | Depth in centimetres used by the three `Override*` modes. Only editable when Fill Depth Mode is an `Override*` value. | `10.0` |
 | Rotation Constraints | `FNRotationConstraints`| What rotations can be made by this junction to match another. | |
-| Weighting | `int32` | Relative weight against other junctions in the cell when the graph builder picks an open junction to extend from. `Required` junctions have this **doubled** automatically. | `1` | 
+| Weighting | `int32` | Relative weight against other junctions in the cell when the graph builder picks an open junction to extend from. `Required` junctions have this **doubled** automatically. | `1` |
 
 The following are derived rather than authored, and are shown read-only in the details panel:
 
@@ -228,7 +226,7 @@ It is important that the direction of the **Junction** in a Cell always faces in
 
 ### Color
 
-When in `World Assembly Mode`, the gizmo color is derived from the penetration depth into the [UNCell](cell.md)'s hull. So long as it remains green the junction is matchable and will not be excluded due to the depth setting (see `Cell Penetration Tolerance` in the [Project Settings](../project-settings.md)). 
+When in `World Assembly Mode`, the gizmo color is derived from the penetration depth into the [UNCell](cell.md)'s hull. So long as it remains green the junction is matchable and will not be excluded due to the depth setting (see `Cell Penetration Tolerance` in the [Project Settings](../project-settings.md)).
 
 <div class="image-split">
 ![Junction Gizmo w/ Depth](/assets/images/docs/plugins/world-assembly/types/junction-gizmo-distance.webp)

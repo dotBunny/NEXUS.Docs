@@ -5,8 +5,6 @@ hide_table_of_contents: false
 sidebar_position: 2
 ---
 
-# Contributing
-
 Thank you for your interest in contributing to the **NEXUS** Framework! ♥️ We appreciate all forms of contributions, big and small — every little bit helps move the needle forward.
 
 Bug reports, bug fixes, documentation additions, features, code, coffee, etc., benefit everyone.
@@ -48,7 +46,7 @@ The **NEXUS** Framework is released under the [Boost Software License 1.0](https
 
 ## Assisting With Documentation
 
-The documentation is meant to be a living document that allows for easy additions and corrections. The documentation is statically generated from a GitHub repository that can be easily edited. Each page of the documentation has a corresponding **Edit this page** link at the bottom. 
+The documentation is meant to be a living document that allows for easy additions and corrections. The documentation is statically generated from a GitHub repository that can be easily edited. Each page of the documentation has a corresponding **Edit this page** link at the bottom.
 
 *Let's not kid ourselves...* We are all a little lacking in documenting our work area, so this is our best bet at creating a spot to collate formalized documentation. Code documentation should still be present to mark up methods and other elements.
 
@@ -56,4 +54,4 @@ For more information about how to work with the documentation, please see its [r
 
 ## Source Assets
 
-All of the [source assets](https://github.com/dotBunny/NEXUS/tree/main/SourceAssets) used by the **NEXUS** Framework are included in the repository. We elected to use [Affinity Designer](https://affinity.serif.com/en-us/designer/), [Affinity Photo](https://affinity.serif.com/en-us/photo/), and [Blender](https://www.blender.org/) as our tools of choice. This should allow for easier access for other developers who are tired of Adobe. 
+All of the [source assets](https://github.com/dotBunny/NEXUS/tree/main/SourceAssets) used by the **NEXUS** Framework are included in the repository. We elected to use [Affinity Designer](https://affinity.serif.com/en-us/designer/), [Affinity Photo](https://affinity.serif.com/en-us/photo/), and [Blender](https://www.blender.org/) as our tools of choice. This should allow for easier access for other developers who are tired of Adobe.

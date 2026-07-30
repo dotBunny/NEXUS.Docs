@@ -5,8 +5,6 @@ hide_table_of_contents: false
 sidebar_position: 5
 ---
 
-# Automation
-
 Every change to `main` is exercised through CI before it shows up green on GitHub. This page describes what runs, where, and how often.
 
 ## Pipeline

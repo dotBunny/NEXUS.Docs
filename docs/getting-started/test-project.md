@@ -11,7 +11,6 @@ Primarily to demonstrate some of the functionality provided by the framework and
 
 The secondary part is where the `DEMO_` prefixed levels are used as sub-levels to the `TEST_` prefixed levels that then run functional tests on the content displays.
 
-
 ![Test Project](/assets/images/docs/getting-started/test-project.webp)
 
 ## Finding

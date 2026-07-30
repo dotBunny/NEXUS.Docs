@@ -4,7 +4,7 @@ description: A selection of colored material instances useful for prototyping an
 
 # Debug
 
-A selection of colored material instances (prefixed with `MI_NDebug_`) useful for prototyping and simple tests. 
+A selection of colored material instances (prefixed with `MI_NDebug_`) useful for prototyping and simple tests.
 
 ## Shades
 

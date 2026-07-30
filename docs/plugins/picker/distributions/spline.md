@@ -79,7 +79,8 @@ Exposed to Blueprint as `Spline: Is Point On?` and `Spline: Is Points On?`. The 
 
 ## FNSplinePickerParams
 
-### Base
+### Base Parameters
+
 |Parameter|Type|Description|Default|
 |:--|:--|:--|:--|
 | Count | `int` | The number of points to generate in a single pass. | `1` |
@@ -88,7 +89,8 @@ Exposed to Blueprint as `Spline: Is Point On?` and `Spline: Is Points On?`. The 
 | Projection | `FVector` | Direction and distance for the line trace. | `FVector(0,0,-500.f)` |
 | CollisionChannel | `TEnumAsByte<ECollisionChannel>` | The collision channel to use for tracing. | `ECC_WorldStatic` |
 
-### Spline
+### Spline Parameters
+
 |Parameter|Type|Description|Default|
 |:--|:--|:--|:--|
 | SplineComponent | `TObjectPtr<USplineComponent>` | The spline component to generate points on. | `nullptr` |

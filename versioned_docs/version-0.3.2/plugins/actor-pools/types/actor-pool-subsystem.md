@@ -23,7 +23,7 @@ A centralized management system that provides `UWorld`-specific access to `AActo
 
 ### Creating An Actor Pool
 
-When trying to maximize the usefulness of the actor pooling pattern, it is essential to try to create pools ahead of the actual usage of the `AActors` so that the initial creation cost is controlled. 
+When trying to maximize the usefulness of the actor pooling pattern, it is essential to try to create pools ahead of the actual usage of the `AActors` so that the initial creation cost is controlled.
 
 #### Manually
 
@@ -36,7 +36,7 @@ The time-tested, I know what I want, let me handle this approach.  You can tell 
   <TabItem value="native" label="C++" attributes={{className: 'tab-native' }}>
 ```cpp title="Creating An Actor Pool"
 UNActorPoolSubsystem::Get(GetWorld())->CreateActorPool(MyActorClass, UNActorPoolsSettings::Get()->DefaultSettings);
-```    
+```
   </TabItem>
 </Tabs>
 
@@ -65,7 +65,7 @@ If your Blueprint references the `AActor` class as a `TSoftClassPtr` rather than
   <TabItem value="native" label="C++" attributes={{className: 'tab-native' }}>
 ```cpp title="Spawn Actor"
 AMyActorType* SpawnedActor = UNActorPoolSubsystem::Get(GetWorld())->SpawnActor<AMyActorType>(MyActorClass, MyPosition, MyRotation);
-```    
+```
   </TabItem>
 </Tabs>
 
@@ -273,6 +273,7 @@ OnActorPoolAddedDelegate OnActorPoolAdded;
 ```
 
 A native multicast delegate (`DECLARE_MULTICAST_DELEGATE_OneParam(..., FNActorPool*)`) that fires whenever a new pool is registered — including pools created lazily by [Get Actor](#get-actor), [Spawn Actor](#spawn-actor), the `CreateDefaultPool` unknown-actor path, or an applied [UNActorPoolSet](actor-pool-set.md). Bind from native via `OnActorPoolAdded.AddUObject(...)` and clean up with `RemoveAll(this)` in your teardown.
+
 ### Default Settings
 
 A per-class registry of [pool settings](actor-pool-settings.md) consulted whenever a pool is created on demand. This is the programmatic counterpart to a [UNActorPoolSet](actor-pool-set.md) — useful when the settings for a class are computed at runtime rather than authored as an asset.

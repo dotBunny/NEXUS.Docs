@@ -85,7 +85,8 @@ Exposed to Blueprint as `Circle: Is Point Inside Or On?` and `Circle: Is Points 
 
 ## FNCirclePickerParams
 
-### Base
+### Base Parameters
+
 |Parameter|Type|Description|Default|
 |:--|:--|:--|:--|
 | Count | `int` | The number of points to generate in a single pass. | `1` |
@@ -94,7 +95,8 @@ Exposed to Blueprint as `Circle: Is Point Inside Or On?` and `Circle: Is Points 
 | Projection | `FVector` | Direction and distance for the line trace. | `FVector(0,0,-500.f)` |
 | CollisionChannel | `TEnumAsByte<ECollisionChannel>` | The collision channel to use for tracing. | `ECC_WorldStatic` |
 
-### Circle
+### Circle Parameters
+
 |Parameter|Type|Description|Default|
 |:--|:--|:--|:--|
 | Origin | `FVector` | The center point when attempting to generate new points. | `FVector::ZeroVector` |

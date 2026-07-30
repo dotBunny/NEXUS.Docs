@@ -15,7 +15,6 @@ After some possible [initial configuration](#user-settings), clicking the button
 
 *One click to get to testing. It's just that simple!*
 
-
 ## Project-Level Settings
 
 The project-level toggles live under `Edit > Editor Preferences > NEXUS > Tooling > Multiplayer Test` and travel with the project (stored in `DefaultNexusEditor.ini`). These control whether the test surface is exposed at all and how authentication is configured for the spawned session — both apply to every developer working on the project.
@@ -26,7 +25,6 @@ The project-level toggles live under `Edit > Editor Preferences > NEXUS > Toolin
 | :-- | --- | :-- |
 | Enabled | Toggles whether the **Multiplayer Test** entry is added to the editor's play menu and toolbar. Turning this off removes the test button without uninstalling the plugin. | `true` |
 | Use Online Subsystem | Should authentication use the Online Subsystem when the test session is launched? | `false` |
-
 
 ## User Settings
 
@@ -72,8 +70,8 @@ While the default settings should get most developers started, every game has it
 
 ## Network Profiler
 
-One of the options available for the **Multiplayer Test** is to generate a network profile alongside the test, which is stored in the local `<PROJECT_DIRECTORY>/Saved/Profiling/` folder. 
-These profiles can provide vital information about the makeup of your network communications and reveal crucial optimization opportunities. 
+One of the options available for the **Multiplayer Test** is to generate a network profile alongside the test, which is stored in the local `<PROJECT_DIRECTORY>/Saved/Profiling/` folder.
+These profiles can provide vital information about the makeup of your network communications and reveal crucial optimization opportunities.
 
 :::warning
 This [tool](https://dev.epicgames.com/documentation/en-us/unreal-engine/using-the-network-profiler-in-unreal-engine) is **NOT** bundled with the downloadable Epic Game Launcher version of the Unreal Engine, and must be built from [source](https://github.com/EpicGames/UnrealEngine/tree/master/Engine/Source/Programs/NetworkProfiler). There is a [public rewrite](https://github.com/ryanjon2040/UnrealNetworkProfiler) of the tool available from 2021, but is not as feature complete as the internal tool.

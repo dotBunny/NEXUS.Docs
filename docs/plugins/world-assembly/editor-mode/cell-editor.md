@@ -29,9 +29,9 @@ Once an `ANCellActor` is present in the level, the toolbar will expand out with 
 |Button|Action|Description|
 |---|---|---|
 |![Select Cell](/assets/images/docs/plugins/world-assembly/editor-mode/cell-edit-select-cell.webp) | Select `ANCellActor` | Selects the levels `ANCellActor`, converting into an edit selection mode. |
-|![Edit Bounds](/assets/images/docs/plugins/world-assembly/editor-mode/cell-bounds-edit.webp) | [Edit Bounds](#editing-bounds) | Default behavior when an `ANCellActor` is selected, allowing the editing of the defined AABB. If altered, will flag data to not be automatically calculated.
-|![Select Mesh](/assets/images/docs/plugins/world-assembly/editor-mode/cell-mesh-edit.webp) | [Edit Convex Hull](#editing-convex-hull)* | Switches to editing the convex hull generated from the level. _Options are available to break the convex requirement._
-|![Select Voxel](/assets/images/docs/plugins/world-assembly/editor-mode/cell-voxel-edit.webp) | [Edit Voxel Data](#editing-voxel-data)| Switches to editing the voxel data created from the level.
+|![Edit Bounds](/assets/images/docs/plugins/world-assembly/editor-mode/cell-bounds-edit.webp) | [Edit Bounds](#editing-bounds) | Default behavior when an `ANCellActor` is selected, allowing the editing of the defined AABB. If altered, will flag data to not be automatically calculated. |
+|![Select Mesh](/assets/images/docs/plugins/world-assembly/editor-mode/cell-mesh-edit.webp) | [Edit Convex Hull](#editing-convex-hull)* | Switches to editing the convex hull generated from the level. _Options are available to break the convex requirement._ |
+|![Select Voxel](/assets/images/docs/plugins/world-assembly/editor-mode/cell-voxel-edit.webp) | [Edit Voxel Data](#editing-voxel-data)| Switches to editing the voxel data created from the level. |
 
 ### Cell Menu
 

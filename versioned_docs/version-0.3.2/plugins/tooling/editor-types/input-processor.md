@@ -56,6 +56,7 @@ bool IsShiftDown() const;
 ```
 
 ### Control
+
 ```cpp
 /**
   * Is the left control-key pressed?

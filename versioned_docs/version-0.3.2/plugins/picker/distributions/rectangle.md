@@ -22,7 +22,7 @@ The `UNRectanglePickerLibrary` wraps the native `FNRectanglePicker` functionalit
 ### Next Point
 
 <div class="image-split">
-![Rectangle: Next](/assets/images/docs/plugins/picker/distributions/rectangle/rectangle-next.webp) 
+![Rectangle: Next](/assets/images/docs/plugins/picker/distributions/rectangle/rectangle-next.webp)
 ![Rectangle: Next Projected](/assets/images/docs/plugins/picker/distributions/rectangle/rectangle-next-projected.webp)
 </div>
 
@@ -91,7 +91,8 @@ It is important to be aware of the **performance penalty** when using `MinimumDi
 
 :::
 
-### Base
+### Base Parameters
+
 |Parameter|Type|Description|Default|
 |:--|:--|:--|:--|
 | Count | `int` | The number of points to generate in a single pass. | `1` |
@@ -100,7 +101,8 @@ It is important to be aware of the **performance penalty** when using `MinimumDi
 | Projection | `FVector` | Direction and distance for the line trace. | `FVector(0,0,-500.f)` |
 | CollisionChannel | `TEnumAsByte<ECollisionChannel>` | The collision channel to use for tracing. | `ECC_WorldStatic` |
 
-### Box
+### Rectangle Parameters
+
 |Parameter|Type|Description|Default|
 |:--|:--|:--|:--|
 | Origin | `FVector` | The center point when attempting to generate new points. | `FVector::ZeroVector` |

@@ -15,7 +15,7 @@ A viewport with some base functionality added.
 
 ### Toggle World Rendering
 
-```cpp	
+```cpp
 /**
   * Toggles if the world should render.
   * @remark This can be useful when you pause a game and want to show a fullscreen UI.
@@ -23,6 +23,7 @@ A viewport with some base functionality added.
   */
 void ToggleWorldRendering(const bool bNewValue)
 ```
+
 ## Delegates
 
 ### On Toggle World Rendering

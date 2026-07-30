@@ -9,13 +9,11 @@ import TypeDetails from '@site/src/components/TypeDetails';
 
 <TypeDetails icon="/assets/svg/world-assembly/world-assembly-tissue.svg" iconType="img" base="UDataAsset" type="UNTissue" typeExtra="" headerFile="NexusWorldAssembly/Public/Cell/NTissue.h" />
 
-
 :::info[Wikipedia Definition]
 
 An ensemble of similar (or dissimilar in structure but same in origin) cells that together carry out a specific function.
 
 :::
-
 
 A tissue defines the [Cells](cell.md) which can be used in that specific tissue. If multiple **Tissues** are assigned to an [Organ](organ-volume.md) a combinatory effect will apply where all **tissue** entries will be flattened down into a single list, similarly to how **sub-tissues** work.
 
@@ -27,7 +25,7 @@ Yes — they are like **Grammars**.
 
 ## Creating
 
-A `UNTissue` can be created through the common `UDataAsset` creation wizard. 
+A `UNTissue` can be created through the common `UDataAsset` creation wizard.
 
 ![Data Asset Wizard](/assets/images/docs/plugins/world-assembly/types/tissue-data-asset-wizard.webp)
 
@@ -47,7 +45,7 @@ The details panel labels this group **Assembly Tag Groups**; it is shortened to 
 
 Identifying an `FGameplayTag` as part of `Tag Groups > Unique` will create a behavioral contract during the assembly operation of a `UNOrganComponent` that ensures that once a Cell is placed that has that `FGameplayTag` as part of its `Assembly Tags`, no other Cell with that `FGameplayTag` can be used.
 
-> As an example, you may want to have only one **hero** piece appear in a given assembly operation. You could add your `Hero` tag to all the **hero** Cell entries in their `Assembly Tags` and would then also add it to the `Tag Groups > Unique`. 
+> As an example, you may want to have only one **hero** piece appear in a given assembly operation. You could add your `Hero` tag to all the **hero** Cell entries in their `Assembly Tags` and would then also add it to the `Tag Groups > Unique`.
 
 #### `RequiredAny`
 
@@ -73,14 +71,14 @@ Each row of the tissue's cell list is an `FNTissueEntry` — a cell reference pl
 | Tag Counter Constraints | Requirements for this cell to be made available for selection. Every constraint must pass for the cell to remain a candidate. If a constrained `FGameplayTag` is not present in the `TagCounter`, its count is compared as `0` rather than automatically failing. | `(Empty)` |
 | Tag Counter Operations | If a cell is placed the operations will be applied against the `Tag Counters` of the assembly operation. This is only replicated outside of the organ at the end of the pass. Counts are signed — a `Subtract` that takes a tag below zero is no longer clamped, so the resulting value may be negative. | `(Empty)` |
 | Minimum Count | A minimum number of times this cell must be used in the generated `FNAssemblyGraph` for the graph to validate. If unmet, the graph is regenerated. (_`0` no constraint_) | `0` |
-| Maximum Count | The maximum number of times this cell can be used in the generated `FNAssemblyGraph`. (_`0` unlimited usage — to stop a cell from being generated, remove it from the tissue rather than setting a count_) | `0` | 
-| Minimum Node Distance | The minimum number of cell links away this cell must be to be used again. | `1` | 
+| Maximum Count | The maximum number of times this cell can be used in the generated `FNAssemblyGraph`. (_`0` unlimited usage — to stop a cell from being generated, remove it from the tissue rather than setting a count_) | `0` |
+| Minimum Node Distance | The minimum number of cell links away this cell must be to be used again. | `1` |
 | Minimum Node Depth | The minimum graph depth at which this cell may be used, as a 1-based node depth. The start cell is depth `1`, its direct neighbors depth `2`, etc. A value of `N` first allows the cell at depth `N`. (_`0` no constraint; `1` is the start cell and likewise unconstrained_) | `0`  |
 | Maximum Node Depth | The maximum graph depth at which this cell may still be used, as a 1-based node depth. A value of `N` allows the cell up to depth `N`; a value of `1` restricts it to the start cell only. (_`0` no constraint_) | `0` |
 | Has Direction Constraint | When enabled, this cell may only be placed toward `Direction Constraint` relative to the Organ's directional reference point. | `false` |
 | Direction Constraint | The compass heading — measured from the Organ's directional reference point out to the candidate's placement — this cell is restricted to while `Has Direction Constraint` is set. The reference point is chosen per Organ by its [Direction Mode](organ-volume.md#direction-mode) (start bone, organ center, or dynamic centroid). Enforced within the project/operation Direction Tolerance (degrees ±) during cell filtering. | `North` |
-| Weighting | Relative weight for random selection during generation. | `1`| 
-| Cell | A soft-object reference to the `UNCell` asset that will be consumed. | `n/a` | 
+| Weighting | Relative weight for random selection during generation. | `1`|
+| Cell | A soft-object reference to the `UNCell` asset that will be consumed. | `n/a` |
 
 ### Additional Tissue
 

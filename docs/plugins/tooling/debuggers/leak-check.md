@@ -14,7 +14,7 @@ If a leak is detected, an `FNObjectSnapshotDiff` will be written out to the proj
 
 :::
 
-## Settings 
+## Settings
 
 The configuration of the delay is a user-defined setting, available in a developer's Editor Preferences under  `NEXUS > Tooling (User) > Leak Check > Duration`.
 

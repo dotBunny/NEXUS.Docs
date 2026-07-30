@@ -39,7 +39,7 @@ By default, the subsystem captures the baseline automatically — [`Auto Baselin
 ```cpp title="Set Delayed Baseline"
 FTimerHandle SetBaselineTimerHandle;
 GetWorld()->GetTimerManager().SetTimer(SetBaselineTimerHandle, UNGuardianSubsystem::Get(GetWorld()), &UNGuardianSubsystem::SetBaseline,1.0f, false);
-```    
+```
   </TabItem>
 </Tabs>
 

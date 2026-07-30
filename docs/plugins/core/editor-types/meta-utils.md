@@ -89,7 +89,7 @@ static FString GetData(const UStruct* Struct, const FName& Key);
   * @return The meta-data for the provided key.
   */		
 static FString GetData(const UClass* Class, const FName& Key);
-```	
+```
 
 ### Try Get Data
 

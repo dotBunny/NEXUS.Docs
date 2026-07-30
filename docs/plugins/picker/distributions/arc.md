@@ -22,7 +22,7 @@ The `UNArcPickerLibrary` wraps the native `FNArcPicker` functionality in a **Blu
 ### Next Point
 
 <div class="image-split">
-![Arc: Next](/assets/images/docs/plugins/picker/distributions/arc/arc-next.webp) 
+![Arc: Next](/assets/images/docs/plugins/picker/distributions/arc/arc-next.webp)
 ![Arc: Next Projected](/assets/images/docs/plugins/picker/distributions/arc/arc-next-projected.webp)
 </div>
 
@@ -79,7 +79,8 @@ Exposed to Blueprint as `Arc: Is Point Inside Or On?` and `Arc: Is Points Inside
 
 ## FNArcPickerParams
 
-### Base
+### Base Parameters
+
 |Parameter|Type|Description|Default|
 |:--|:--|:--|:--|
 | Count | `int` | The number of points to generate in a single pass. | `1` |
@@ -88,7 +89,8 @@ Exposed to Blueprint as `Arc: Is Point Inside Or On?` and `Arc: Is Points Inside
 | Projection | `FVector` | Direction and distance for the line trace. | `FVector(0,0,-500.f)` |
 | CollisionChannel | `TEnumAsByte<ECollisionChannel>` | The collision channel to use for tracing. | `ECC_WorldStatic` |
 
-### Arc
+### Arc Parameters
+
 |Parameter|Type|Description|Default|
 |:--|:--|:--|:--|
 | Origin | `FVector` | The center point when attempting to generate new points. | `FVector::ZeroVector` |

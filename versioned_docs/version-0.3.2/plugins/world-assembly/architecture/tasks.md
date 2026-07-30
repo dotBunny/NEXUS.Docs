@@ -37,6 +37,8 @@ It also filters as it gathers: organ volumes are excluded, because they are *inp
 
 `FNOrganGraphBuilderTask` is where generation actually happens. It builds one organ's graph using the **Frontier model** — expanding outward from each bone, consuming open junctions, until none remain or the organ's bounds or cell limits are hit. One task per organ, so independent organs build in parallel.
 
+A builder is only created for components whose `SourceComponent->bActivated` is true — an inactive organ is skipped entirely rather than built and discarded. A pass containing nothing but inactive components still increments the pass counter but adds no tasks to the graph.
+
 `FNProcessPassTask` runs between passes: it moves the graphs a pass produced up to the top-level context and adds their cell hulls to the world context, so the *next* pass treats already-placed cells as collision. That is what makes phased organs compose rather than overlap.
 
 :::warning[Concurrency contract]
@@ -47,17 +49,51 @@ It also filters as it gathers: organ volumes are excluded, because they are *inp
 
 ## Ordering
 
-The dependency chain is linear at the level of stages even though organ builds fan out within one:
+The dependency chain is linear at the level of stages, even though organ builds fan out within one and passes repeat:
 
 ```mermaid
 flowchart TD
-    A[Create Virtual World<br/><i>game thread</i>] --> B[Process Virtual World<br/><i>worker</i>]
-    B --> C[Organ Graph Builder<br/><i>worker, one per organ</i>]
-    C --> D[Process Pass<br/><i>worker</i>]
-    D -->|next pass| C
-    D --> E[Create Spawns<br/><i>worker</i>]
-    E --> F[Spawn Cell Proxies<br/><i>game thread, time-sliced</i>]
-    F --> G[Finalize<br/><i>game thread</i>]
+  classDef gameThread fill:#3b6ea5,stroke:#1f3b5f,color:#fff
+  classDef anyThread  fill:#2f7a4f,stroke:#1c4a30,color:#fff
+  classDef gate       fill:#8a6a1f,stroke:#4a3810,color:#fff,stroke-dasharray: 4 2
+
+  CreateVW["FNCreateVirtualWorldTask<br/><i>Step 0 · Capture World</i>"]:::gameThread
+  ProcessVW["FNProcessVirtualWorldTask<br/><i>Step 1 · Process Capture</i>"]:::anyThread
+
+  subgraph Pass0["Pass 0"]
+    direction TB
+    Organ0["FNOrganGraphBuilderTask × N<br/>(one per activated organ component)"]:::anyThread
+    ProcPass0["FNProcessPassTask<br/>(collects pass results, propagates collision)"]:::anyThread
+    Organ0 --> ProcPass0
+  end
+
+  subgraph PassN["Pass 1 … N"]
+    direction TB
+    OrganN["FNOrganGraphBuilderTask × N"]:::anyThread
+    ProcPassN["FNProcessPassTask"]:::anyThread
+    OrganN --> ProcPassN
+  end
+
+  CreateSpawns["FNCreateSpawnsTask<br/><i>Step 3 · Flatten graphs into spawn context</i>"]:::anyThread
+  SpawnProxies["FNSpawnCellProxiesTask<br/><i>Step 4 · Time-sliced proxy spawning</i>"]:::gameThread
+  SpawnGate(["SpawnCellProxiesTaskCompleted<br/><i>graph-event gate</i>"]):::gate
+  Finalize["FNAssemblyFinalizeTask<br/><i>Step 5 · Finalize &amp; analytics</i>"]:::gameThread
+
+  CreateVW --> ProcessVW
+  ProcessVW --> Organ0
+  ProcPass0 --> OrganN
+  ProcPassN --> CreateSpawns
+  CreateSpawns --> SpawnProxies
+  SpawnProxies --> SpawnGate
+  SpawnGate --> Finalize
+  CreateSpawns -.->|also a finalizer prereq| Finalize
 ```
 
-See [Process Flows](../process-flows.md) for the same sequence described from a user's perspective, and [Analytics](analytics.md) for the timing each stage records.
+Node colour follows the thread column above — <span style={{color:'#3b6ea5',fontWeight:600}}>game thread</span> and <span style={{color:'#2f7a4f',fontWeight:600}}>any worker</span>.
+
+Two details the shape alone does not show:
+
+- **Passes chain on the collector, not the builders.** Each pass's organ builders depend on the *previous* pass's `FNProcessPassTask` rather than on its builders, so that pass's collision data is fully propagated into the shared `FNVirtualWorldContext` before any builder reads `NodeCollisionMeshes`.
+- **A graph event gates finalize, not the spawn task.** `SpawnCellProxiesTaskCompleted` is a manually-fired `FGraphEvent` that `FNSpawnCellProxiesTask` triggers once its time-sliced work drains. That event is what releases `FNAssemblyFinalizeTask` — the dispatcher task completing is not sufficient on its own. `FNCreateSpawnsTask` is separately a finalizer prerequisite.
+
+See [Analytics](analytics.md) for the timing each stage records.

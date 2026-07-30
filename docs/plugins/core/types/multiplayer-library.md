@@ -4,7 +4,6 @@ description: A handful of methods meant to support the building logic that works
 ---
 
 import TypeDetails from '@site/src/components/TypeDetails';
-import VersionBadge from '@site/src/components/VersionBadge';
 
 # Multiplayer Library
 
@@ -20,7 +19,7 @@ If you already have a `UWorld*` pointer, prefer calling [`FNMultiplayerUtils`](h
 
 :::
 
-:::info[Module Migration <VersionBadge version="0.3.0" type="header" />]
+:::info[Module Migration]
 
 `UNMultiplayerLibrary` was previously shipped in the standalone `NexusMultiplayer` module and now lives in `NexusCore`. Existing Blueprint references continue to resolve via a `ClassRedirect` in `DefaultEngine.ini` — no action is required when upgrading.
 
@@ -138,7 +137,7 @@ These are Blueprint-only conveniences — from C++ call the boolean version dire
 
 Every `PlayerIdentifier` returned or accepted below is `APlayerState::GetPlayerId()`, the stable per-player identifier replicated to every machine. The lookup helpers walk `GameStateBase::PlayerArray` server-side, so they are intended to run with authority — calling them on a client returns whatever the client's replicated player array currently holds.
 
-#### Get PlayerIdentifier<VersionBadge version="0.2.4" type="header" />
+#### Get PlayerIdentifier
 
 Returns `-1` when the controller has no player state attached. A return of `0` is a valid identifier (the player state exists but no identifier has been assigned yet); only `-1` signals a missing state.
 
@@ -151,7 +150,7 @@ Returns `-1` when the controller has no player state attached. A return of `0` i
 static int32 GetPlayerIdentifier(const APlayerController* PlayerController)
 ```
 
-#### Get First PlayerIdentifier<VersionBadge version="0.2.4" type="header" />
+#### Get First PlayerIdentifier
 
 ```cpp
 /**
@@ -162,7 +161,7 @@ static int32 GetPlayerIdentifier(const APlayerController* PlayerController)
 static int32 GetFirstPlayerIdentifier(UObject* WorldContextObject);
 ```
 
-#### Get Pawn From PlayerIdentifier<VersionBadge version="0.2.4" type="header" />
+#### Get Pawn From PlayerIdentifier
 
 ```cpp
 /**
@@ -174,7 +173,7 @@ static int32 GetFirstPlayerIdentifier(UObject* WorldContextObject);
 static APawn* GetPawnFromPlayerIdentifier(UObject* WorldContextObject, const int32 PlayerIdentifier);
 ```
 
-#### Get PlayerController From PlayerIdentifier<VersionBadge version="0.2.4" type="header" />
+#### Get PlayerController From PlayerIdentifier
 
 ```cpp
 /**
@@ -186,7 +185,7 @@ static APawn* GetPawnFromPlayerIdentifier(UObject* WorldContextObject, const int
 static AActor* GetPlayerControllerFromPlayerIdentifier(UObject* WorldContextObject, const int32 PlayerIdentifier);
 ```
 
-#### Get PlayerState From PlayerIdentifier<VersionBadge version="0.2.4" type="header" />
+#### Get PlayerState From PlayerIdentifier
 
 ```cpp
 /**

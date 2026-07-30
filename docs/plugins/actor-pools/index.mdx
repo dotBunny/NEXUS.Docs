@@ -17,9 +17,8 @@ This plugin is purpose-built for scenarios with high-frequency `AActor` reusage:
 - **Gameplay Objects:** Collectible items, temporary platforms, interactive props
 - **NPCs:** Enemies, crowds
 
-The pooling concept dramatically improves performance by eliminating the cost of spawning `AActors` and the associated garbage collection spikes, resulting in reduced hiccups and overhead associated with `AActor` usage. 
+The pooling concept dramatically improves performance by eliminating the cost of spawning `AActors` and the associated garbage collection spikes, resulting in reduced hiccups and overhead associated with `AActor` usage.
 It is important to note that there are bespoke pooling systems included with different parts of the engine; these should be utilized when available.
-
 
 ## Lifecycle
 
@@ -46,7 +45,7 @@ There is a `NActorPools` category added to the built-in `stat` system when `N.Ac
   <TabItem value="native" label="C++" attributes={{className: 'tab-native' }}>
 ```cpp title="Spawn Actor"
 AMyActorType* SpawnedActor = UNActorPoolSubsystem::Get(GetWorld())->SpawnActor<AMyActorType>(MyActorClass, MyPosition, MyRotation);
-```    
+```
   </TabItem>
 </Tabs>
 
@@ -70,13 +69,14 @@ There are **two causes** where a [FNActorPool](types/actor-pool.md) will return 
 
 ```cpp title="Ambiguous Return"
 UNActorPoolSubsystem::Get(GetWorld())->ReturnActor(TargetActor);
-``` 
+```
 
 While the Blueprint logic is the most generic, one of the benefits of utilizing the [INActorPoolItem](types/actor-pool-item.md) interfaces is that there are baked-in fast paths.
 
 ```cpp title="INActorPoolItem-Based Return"
 TargetActor->ReturnToActorPool();
-```    
+```
+
   </TabItem>
 </Tabs>
 
@@ -86,7 +86,7 @@ The real advantage of pooling objects comes from when you have an opportunity to
 
 #### Method Call
 
-Because the [FNActorPools](/docs/plugins/actor-pools/types/actor-pool/) is not a `UObject`, there is no interaction with a given pool directly via Blueprint. It is strongly encouraged to use the provided `UFUNCTION` on [UNActorPoolSubsystem](types/actor-pool-subsystem.md) to accomplish similar outcomes. 
+Because the [FNActorPools](/docs/plugins/actor-pools/types/actor-pool/) is not a `UObject`, there is no interaction with a given pool directly via Blueprint. It is strongly encouraged to use the provided `UFUNCTION` on [UNActorPoolSubsystem](types/actor-pool-subsystem.md) to accomplish similar outcomes.
 
 :::info
 This is intentional and creates some unique preferred workflows in **C++**.

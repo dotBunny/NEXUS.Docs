@@ -36,11 +36,11 @@ A Blueprint-compatible struct that defines configuration parameters for managing
 
 | Native | Display | Description |
 | :-- | :-- | :-- |
-| `Create` | Create | Create `AActor` as needed. | 
+| `Create` | Create | Create `AActor` as needed. |
 | `CreateLimited` | Create Till Cap | Create `AActor` until `MaximumActorCount` is reached and stop returning a `nullptr` in such cases. |
-| `CreateRecycleFirst` | Create Till Cap, Recycle First | Create `AActor` until `MaximumActorCount` is reached, any requests beyond provide the oldest already spawned `AActor` in a FIFO behavior. | 
-| `CreateRecycleLast` | Create Till Cap, Recycle Last | Create `AActor` until `MaximumActorCount` is reached, any requests beyond provide the newest spawned `AActor` in a LIFO behavior. | 
-| `Fixed` | Fixed Availability | Deploys `AActor` as needed from fixed pools, exceeding availability results in a `nullptr` being returned.| 
+| `CreateRecycleFirst` | Create Till Cap, Recycle First | Create `AActor` until `MaximumActorCount` is reached, any requests beyond provide the oldest already spawned `AActor` in a FIFO behavior. |
+| `CreateRecycleLast` | Create Till Cap, Recycle Last | Create `AActor` until `MaximumActorCount` is reached, any requests beyond provide the newest spawned `AActor` in a LIFO behavior. |
+| `Fixed` | Fixed Availability | Deploys `AActor` as needed from fixed pools, exceeding availability results in a `nullptr` being returned.|
 | `FixedRecycleFirst` | Fixed Availability, Recycle First | Deploys `AActor` as needed from fixed pools, exceeding availability will return the oldest already spawned `AActor` in a FIFO behavior. |
 | `FixedRecycleLast` | Fixed Availability, Recycle Last | Deploys `AActor` as needed from fixed pools, exceeding availability will return the newest already spawned `AActor` in a LIFO behavior. |
 
@@ -48,9 +48,9 @@ A Blueprint-compatible struct that defines configuration parameters for managing
 
 | Native | Display | Description |
 | :-- | :-- | :-- |
-| `SweepBeforeSettingLocation` | Sweep Before Setting Location | Should a sweep be done when setting the location of an `AActor` being spawned? | 
+| `SweepBeforeSettingLocation` | Sweep Before Setting Location | Should a sweep be done when setting the location of an `AActor` being spawned? |
 | `ReturnToStorage` | Return To Storage Location | Should the `AActor` being returned to the pool be moved to a storage transform? |
-| `DeferConstruction` | Defer Construction | Controls whether `AActor` construction is deferred when creating new `AActors`; allowing for additional calls to be made to the `INActorPoolItem::OnDeferredConstruction()` (or the matching `OnDeferredConstruction` UFunction) before calling the `AActors` `FinishSpawning()`. | 
+| `DeferConstruction` | Defer Construction | Controls whether `AActor` construction is deferred when creating new `AActors`; allowing for additional calls to be made to the `INActorPoolItem::OnDeferredConstruction()` (or the matching `OnDeferredConstruction` UFunction) before calling the `AActors` `FinishSpawning()`. |
 | `ServerOnly` | Server Only | Safely ensure all actions only actually occur on world authority (server), transparently making the pool networked. |
 | `BroadcastRelease` | Broadcast Release | Broadcast the released-from-pool event on the Actor through the operational change state delegate. |
 | `SetNetDormancy` | Set Net Dormancy | Should an Actor's network dormancy be updated based on state? |

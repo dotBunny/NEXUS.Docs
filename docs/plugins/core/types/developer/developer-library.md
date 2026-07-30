@@ -4,7 +4,6 @@ description: A small collection of functionality to wrap the usage of developer 
 ---
 
 import TypeDetails from '@site/src/components/TypeDetails';
-import VersionBadge from '@site/src/components/VersionBadge';
 
 # Developer Library
 
@@ -215,12 +214,11 @@ Removed (%i):
   * @param Diff The FNObjectSnapshotDiff to generate output from.
   */
 static void DumpSnapshotDiffToLog(const FNObjectSnapshotDiff& Diff) { Diff.DumpToLog(); }
-``` 
-
+```
 
 ### Drawing
 
-#### Draw Debug String<VersionBadge version="0.2.3" type="header" />
+#### Draw Debug String
 
 Renders an `FString` in the `UWorld` via a pseudo `DebugDrawLine` utilizing the `FNPrimitiveFont`.
 
@@ -255,6 +253,7 @@ static void DrawDebugString(const UObject* WorldContextObject, FString String, c
     DepthPriority, ForegroundColor, Scale, LineHeight, Thickness, bInvertLineFeed, bDrawBelowPosition);		
 }
 ```
+
 ### Random
 
 #### Create Mersenne Twister Object

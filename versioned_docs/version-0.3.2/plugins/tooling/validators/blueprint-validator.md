@@ -14,25 +14,24 @@ The _hidden_ performance killer, the **empty tick**. This function of the `UNBlu
 
 ![Empty Tick](/assets/images/docs/plugins/tooling/validators/blueprint-empty-tick.webp)
 
-### Severity
+### IsEmptyTick Severity
 
-By default, the severity of this validation is set to `Error` due to its direct performance impact and relative ease of resolution. Should you wish to change the level (or disable) of this validation, it can be found in the 
+By default, the severity of this validation is set to `Error` due to its direct performance impact and relative ease of resolution. Should you wish to change the level (or disable) of this validation, it can be found in the
 project-wide in `Editor Preferences > NEXUS > Tooling > Blueprint: Empty Tick`
-
 
 ![Empty Tick Severity](/assets/images/docs/plugins/tooling/validators/validator-settings.webp)
 
 ## IsMultiPinPureNode
 
-One of the older traps of development is accessing properties, and the hidden cost of accessing the output value. Often, developers will not evaluate the underlying backing of the property and reason whether that property should be cached locally in that frame instead of accessing it repeatedly. 
+One of the older traps of development is accessing properties, and the hidden cost of accessing the output value. Often, developers will not evaluate the underlying backing of the property and reason whether that property should be cached locally in that frame instead of accessing it repeatedly.
 
-This problem gets exacerbated by the multi-pin pure node accessing that can happen with a `UBlueprint`. Each access of a pin **can** reevaluate the logic to produce its output. 
+This problem gets exacerbated by the multi-pin pure node accessing that can happen with a `UBlueprint`. Each access of a pin **can** reevaluate the logic to produce its output.
 
 This function of the `UNBlueprintValidator` looks for occurrences where this occurs.
 
 :::tip
 
-The quick solution is to convert any blueprint pure nodes where this occurs into an execution-based node which can be  reliably cached. At the bottom of the context-menu for pure nodes there is an option **Show Exec pins**. This will then allow you to place the node in your blueprint graph and ensure it’s sequential place. 
+The quick solution is to convert any blueprint pure nodes where this occurs into an execution-based node which can be  reliably cached. At the bottom of the context-menu for pure nodes there is an option **Show Exec pins**. This will then allow you to place the node in your blueprint graph and ensure it’s sequential place.
 
 <ContributorLink id="reapazor" /> wrote a [blog](https://reapazor.com/2025/06/25/multipin-pure-nodes-validator-woes/) post explaining why this is an important validator to pay attention too, and how to easily solve the raised concerns.
 
@@ -50,8 +49,7 @@ In the above example, each of the branch evaluations will recalculate the full `
 
 In this corrected example, the outputs of the **Break** node are cached and can be accessed downstream without recomputation.
 
-
-### Severity
+### IsMultiPinPureNode Severity
 
 ![Multi-Pin Pure Node Severity](/assets/images/docs/plugins/tooling/validators/validator-settings.webp)
 

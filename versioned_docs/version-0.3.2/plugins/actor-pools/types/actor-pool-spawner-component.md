@@ -57,11 +57,11 @@ Each entry in `Templates` is an `FNActorPoolSpawnerTemplate`:
 
 | Native | Display | Description |
 | :-- | :-- | :-- |
-| `Point` | Point | Always spawn at the given component's location + `Offset`. | 
+| `Point` | Point | Always spawn at the given component's location + `Offset`. |
 | `Radius` | Radius | Selects a point at the given component's location + `Offset`, with a minimum radius of `DistributionRange.X` and a maximum radius of `DistributionRange.Y` on the horizontal axis. |
-| `Sphere` | Sphere | Selects a point at the given component's location + `Offset`, in a sphere, with a minimum radius of `DistributionRange.X` and a maximum radius of `DistributionRange.Y`. | 
+| `Sphere` | Sphere | Selects a point at the given component's location + `Offset`, in a sphere, with a minimum radius of `DistributionRange.X` and a maximum radius of `DistributionRange.Y`. |
 | `Box` | Box | Selects a point at the given component's location + `Offset`, in an axis-aligned box, using the `DistributionRange` for size. |
-| `Spline` | Spline | Selects a point along the target spline — `SplineLevelReference` for a spline placed in the level, or `SplineComponentName` for one inside the same Blueprint.  | 
+| `Spline` | Spline | Selects a point along the target spline — `SplineLevelReference` for a spline placed in the level, or `SplineComponentName` for one inside the same Blueprint.  |
 
 ## UFunctions
 

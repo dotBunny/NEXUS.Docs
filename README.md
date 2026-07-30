@@ -6,7 +6,6 @@ Statically built with [Docusaurus](https://docusaurus.io/)!
 
 > Feel free to make pull requests. *Every little bit helps!*
 
-
 ## License
 
 ````log
@@ -37,12 +36,12 @@ DEALINGS IN THE SOFTWARE.
 
 ## Environment Setup
 
-You will need to install [Node.js](https://nodejs.org/en/download), and navigate to the cloned repository, issuing the 
+You will need to install [Node.js](https://nodejs.org/en/download), and navigate to the cloned repository, issuing the
 `npm ci` command to ensure all prerequisites are installed.
 
 ## Development
 
-Using the `npm run start` command will build an **live** hosting environment which will react to changes in the source files. This is typically how you will want to work on changes so that you can see the output in real-time. If you've built the output already (`npm run build`) you can also statically host that content via `npm run serve`. 
+Using the `npm run start` command will build an **live** hosting environment which will react to changes in the source files. This is typically how you will want to work on changes so that you can see the output in real-time. If you've built the output already (`npm run build`) you can also statically host that content via `npm run serve`.
 
 ## Versioning
 

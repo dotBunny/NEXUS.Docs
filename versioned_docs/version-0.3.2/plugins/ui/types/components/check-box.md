@@ -22,6 +22,7 @@ The stock `UCheckBox` does **not** trigger events when its value is altered prog
 ## UFunctions
 
 ### Set IsChecked (No Broadcast)
+
 ```cpp
 	/**
 	 * Sets if the UCheckBox is checked without triggering exposed event bindings.

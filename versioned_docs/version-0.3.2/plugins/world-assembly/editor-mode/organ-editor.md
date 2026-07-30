@@ -10,7 +10,7 @@ When a [Organ](../types/organ-volume.md) is selected, a quick process runs to de
 
 ![Phase Labels](/assets/images/docs/plugins/world-assembly/editor-mode/organ-phase-labels.webp)
 
-The ordering is determined by first deterministically sorting the [Organs](../types/organ-volume.md) by their internal `FGuid`. Then detecting which volumes fully encompass and intersect one another, and finally appending independent phases/passes for `Unbound` volumes (as they could have world-wide impact). 
+The ordering is determined by first deterministically sorting the [Organs](../types/organ-volume.md) by their internal `FGuid`. Then detecting which volumes fully encompass and intersect one another, and finally appending independent phases/passes for `Unbound` volumes (as they could have world-wide impact).
 
 ## Toolbar
 
@@ -55,14 +55,14 @@ A list of known [Organ](../types/organ-volume.md) in the world are listed to all
 
 #### Selected Actions
 
-Once an [Organ](../types/organ-volume.md) is selected, specific functionality is made available just targeting the selected [Organ](../types/organ-volume.md). 
+Once an [Organ](../types/organ-volume.md) is selected, specific functionality is made available just targeting the selected [Organ](../types/organ-volume.md).
 
 #### World Actions
 
 ##### Generate All Proxies
 
-Runs an editor-time assembly operation for all [Organ](../types/organ-volume.md) in the `UWorld`. Placing transient `ANCellProxy` into the `UWorld` representing the generated cell graph. 
- 
+Runs an editor-time assembly operation for all [Organ](../types/organ-volume.md) in the `UWorld`. Placing transient `ANCellProxy` into the `UWorld` representing the generated cell graph.
+
 ![Generate Proxies](/assets/images/docs/plugins/world-assembly/editor-mode/organ-generate-proxies.webp)
 
 Added elements are tracked so that repeated generation will remove the last. This is useful to quickly see how WorldAssembly is going to behave through rapid iterations.

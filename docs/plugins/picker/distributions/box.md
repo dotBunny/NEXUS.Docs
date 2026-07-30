@@ -22,7 +22,7 @@ The `UNBoxPickerLibrary` wraps the native `FNBoxPicker` functionality in a **Blu
 ### Next Point
 
 <div class="image-split">
-![Box: Next](/assets/images/docs/plugins/picker/distributions/box/box-next.webp) 
+![Box: Next](/assets/images/docs/plugins/picker/distributions/box/box-next.webp)
 ![Box: Next Projected](/assets/images/docs/plugins/picker/distributions/box/box-next-projected.webp)
 </div>
 
@@ -91,7 +91,8 @@ It is important to be aware of the **performance penalty** when using `MinimumBo
 
 :::
 
-### Base
+### Base Parameters
+
 |Parameter|Type|Description|Default|
 |:--|:--|:--|:--|
 | Count | `int` | The number of points to generate in a single pass. | `1` |
@@ -100,7 +101,8 @@ It is important to be aware of the **performance penalty** when using `MinimumBo
 | Projection | `FVector` | Direction and distance for the line trace. | `FVector(0,0,-500.f)` |
 | CollisionChannel | `TEnumAsByte<ECollisionChannel>` | The collision channel to use for tracing. | `ECC_WorldStatic` |
 
-### Box
+### Box Parameters
+
 |Parameter|Type|Description|Default|
 |:--|:--|:--|:--|
 | Origin | `FVector` | The center point when attempting to generate new points. | `FVector::ZeroVector` |

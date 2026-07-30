@@ -36,7 +36,6 @@ Both are `EditInstanceOnly`, so they are set per placed kill zone rather than on
 | `ReturnToActorPool` | Force the `AActor` back to its [FNActorPool](actor-pool.md) (or destroy it if no pool exists). |
 | `ApplyFellOutOfWorld` | Apply the world fall damage type to the `AActor`, matching engine kill-volume behavior. *(default)* |
 
-
 ## UFunctions
 
 The methods exposed to Blueprint.
@@ -69,4 +68,3 @@ void SetKillCount(const int32 NewKillCount) { KillCount = NewKillCount; }
   */
 void ResetKillCount() { KillCount = 0; }
 ```
-

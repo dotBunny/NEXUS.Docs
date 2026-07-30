@@ -1,0 +1,4 @@
+# Documentation sources are normalized to LF so that snapshots cut by
+# `docusaurus docs:version` inherit consistent line endings from docs/.
+*.md   text eol=lf
+*.mdx  text eol=lf

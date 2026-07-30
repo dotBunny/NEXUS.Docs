@@ -19,7 +19,7 @@ From the **Content Browser**, right-click to bring up the **context menu** and n
 
 ![Creating a new UNActorPoolSet](/assets/images/docs/plugins/actor-pools/types/actor-pool-set-create.webp)
 
-## Editing 
+## Editing
 
 By double-clicking on a `UNActorPoolSet` asset, it will open the *default* Data Asset editor window. From there, you create entries in the array for the specific `AActor` and its corresponding settings.
 
@@ -66,6 +66,6 @@ Once you have a valid reference to the desired `UNActorPoolSet`, you instruct th
   <TabItem value="native" label="C++" attributes={{className: 'tab-native' }}>
 ```cpp title="Apply UNActorPoolSet"
 UNActorPoolSubsystem::Get(GetWorld())->ApplyActorPoolSet(TargetActorPoolSet);
-```    
+```
   </TabItem>
 </Tabs>

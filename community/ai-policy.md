@@ -5,8 +5,6 @@ hide_table_of_contents: false
 sidebar_position: 4
 ---
 
-# AI Policy
-
 The use of AI in software engineering is an evolving practice. For the **NEXUS** Framework it has been genuinely helpful — for research, bug investigation, initial test generation, and building out narrowly scoped methods. We treat it as an accelerant and force amplifier, not as a replacement for good old human thought.
 
 ## Contributor Responsibility

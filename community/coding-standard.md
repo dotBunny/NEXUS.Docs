@@ -5,8 +5,6 @@ hide_table_of_contents: false
 sidebar_position: 3
 ---
 
-# Coding Standard
-
 We follow the published [Epic C++ Coding Standard](https://dev.epicgames.com/documentation/en-us/unreal-engine/epic-cplusplus-coding-standard-for-unreal-engine) wherever possible. There are some minor cases where we will diverge with an opinionated purpose, with inspirations from Michael Allar’s [UE5 Style Guide](https://github.com/Allar/ue5-style-guide/tree/v2) as well.
 
 :::info[Editor Config]
@@ -58,19 +56,19 @@ The EditorConfig is the source of truth, but in summary:
 - **Max line length** of 150 characters.
 - Pointer/reference alignment is left (`Type* Name`, not `Type *Name`).
 
-## Comments 
+## Comments
 
 Unreal Engine implements a Javadoc-style parsing system, which supports some of the tags of the typical Doxygen spec.
 
 | Tag | Outcome | Description |
 | :-- | :-: | :-- |
-| `@param` | **Parsed** | |	
-| `@note` |	**Parsed** | Converted to "Notes:" inside of tooltips. |
-| `@brief` | Passthrough | |	
-| `@remark` |	Passthrough | |	
-| `@see` | Passthrough | |	
-| `@warning` | _Ignored_ | |	
-| `@return` |	**Parsed** | |	
+| `@param` | **Parsed** | |
+| `@note` | **Parsed** | Converted to "Notes:" inside of tooltips. |
+| `@brief` | Passthrough | |
+| `@remark` | Passthrough | |
+| `@see` | Passthrough | |
+| `@warning` | _Ignored_ | |
+| `@return` | **Parsed** | |
 
 :::info[Passthrough]
 

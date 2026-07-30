@@ -29,9 +29,7 @@ Currently, only the **Bone** built-in to the [Organ](organ-volume.md) is used as
 
 A **Bone** represents itself in the world as a white-lined [Junction](junction-component.md), with identical indicators.
 
-
 :::tip[Bone Actor]
-
 
 A `ANBoneActor` is available for situations where you want a bespoke **Bone**, and do not want to attach a `UNBoneComponent` to another `AActor`.
 

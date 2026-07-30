@@ -7,11 +7,12 @@ description: Some performance settings we thought should be available, by defaul
 Some performance settings we thought should be available, by default.
 
 ## Framerate Limit
+
 As our GPUs go **vroooooooom** more and more, the need to limit the editor's framerate becomes more in focus. This feature sets the editor's maximum framerate on start so that you don't have to.
 
 :::info
 
-This only occurs when the Unreal Editor is user-controlled. 
+This only occurs when the Unreal Editor is user-controlled.
 
 :::
 

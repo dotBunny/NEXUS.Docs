@@ -165,4 +165,3 @@ static void InitializeWindowModeComboBoxString(UNComboBoxString* ComboBox, const
 */
 static void InitializeDisplayResolutionComboBoxString(UNComboBoxString* ComboBox, const bool bSelectCurrent = true);
 ```
-

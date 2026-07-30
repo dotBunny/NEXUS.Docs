@@ -10,6 +10,7 @@ description: It has got to go somewhere, and that somewhere is entirely up to yo
 There are numerous ways to include the framework into your Unreal project; ultimately, you control where you place your plugins. How and where you acquire **NEXUS** really is entirely dependent on you.
 
 ### GitHub
+
 The most straightforward approach to getting **NEXUS** is to check it out into your plugins folder. You can do this by running the commands below (from within your plugins folder):
 
 ````bash
@@ -28,7 +29,6 @@ While there are aspirations of distributing the framework via [Fab](https://www.
 ## Placement
 
 The framework has been tested to work when placed inside of a Project's `Plugins` folder, as well as referenced via External Plugins references.
-
 
 :::tip[Rocket Build Support]
 

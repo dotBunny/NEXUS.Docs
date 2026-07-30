@@ -4,7 +4,6 @@ description: Native helpers for authority checks, player-identifier lookups, ser
 ---
 
 import TypeDetails from '@site/src/components/TypeDetails';
-import VersionBadge from '@site/src/components/VersionBadge';
 
 # Multiplayer Utils
 
@@ -62,7 +61,7 @@ FORCEINLINE static bool HasGameStateAuthority(const UWorld* World);
 FORCEINLINE static bool HasGameStateAuthority(const UWorld& World);
 ```
 
-### Get PlayerIdentifier<VersionBadge version="0.2.4" type="header" />
+### Get PlayerIdentifier
 
 Extract `APlayerState::GetPlayerId()` from a controller. Returns `-1` when the controller has no player state attached (a warning is logged unless `bShouldLogWarning` is `false` — pass `false` for expected-failure polling, e.g. while a player is still connecting). A return of `0` is a valid identifier: it means the player state exists but the session has not assigned an identifier yet — only `-1` signals the state was missing entirely.
 
@@ -76,7 +75,7 @@ Extract `APlayerState::GetPlayerId()` from a controller. Returns `-1` when the c
 FORCEINLINE static int32 GetPlayerIdentifier(const APlayerController* PlayerController, const bool bShouldLogWarning = true);
 ```
 
-### Get First PlayerIdentifier<VersionBadge version="0.2.4" type="header" />
+### Get First PlayerIdentifier
 
 Read the first entry of `GameStateBase::PlayerArray` and return its identifier. Returns `0` when the array is empty.
 
@@ -89,7 +88,7 @@ Read the first entry of `GameStateBase::PlayerArray` and return its identifier. 
 FORCEINLINE static int32 GetFirstPlayerIdentifier(const UWorld* World);
 ```
 
-### Get Pawn From PlayerIdentifier<VersionBadge version="0.2.4" type="header" />
+### Get Pawn From PlayerIdentifier
 
 Walk `GameStateBase::PlayerArray` looking for a matching identifier and return that player's `APawn`. Intended to run with authority — clients only see whatever the replicated array currently holds.
 
@@ -103,7 +102,7 @@ Walk `GameStateBase::PlayerArray` looking for a matching identifier and return t
 FORCEINLINE static APawn* GetPawnFromPlayerIdentifier(const UWorld* World, const int32 PlayerIdentifier);
 ```
 
-### Get PlayerController From PlayerIdentifier<VersionBadge version="0.2.4" type="header" />
+### Get PlayerController From PlayerIdentifier
 
 Same lookup as above, returning the controller (typed as `AActor*` to match the Blueprint surface).
 
@@ -117,7 +116,7 @@ Same lookup as above, returning the controller (typed as `AActor*` to match the 
 FORCEINLINE static AActor* GetPlayerControllerFromPlayerIdentifier(const UWorld* World, const int32 PlayerIdentifier);
 ```
 
-### Get PlayerState From PlayerIdentifier<VersionBadge version="0.2.4" type="header" />
+### Get PlayerState From PlayerIdentifier
 
 Same lookup, returning the `APlayerState` directly without going through the controller.
 

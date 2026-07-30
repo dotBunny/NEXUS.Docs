@@ -87,7 +87,6 @@ A cell is considered "on the hot path" if it lies on *either* variant, and any j
 
 :::
 
-
 ### Pre-Made Groups
 
 These tags are here as example content, or first-usage type tags. They are automatically added to their respective `Tag Groups`, so you don't have to worry about adding them — they are just here to get you started.

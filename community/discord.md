@@ -11,7 +11,6 @@ We have a brand-new Discord server set up to allow for quicker responses to inqu
 
 https://discord.gg/2M9HczHanW
 
-
 :::tip[Join the conversation!]
 
 Active discussions happen in `#nexus-general` and `#nexus-support`.

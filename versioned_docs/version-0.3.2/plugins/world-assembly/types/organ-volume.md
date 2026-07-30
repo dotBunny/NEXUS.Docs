@@ -15,13 +15,12 @@ A collection of tissues joined in a structural unit to serve a common function.
 
 :::
 
-An Organ represents a spatial unit where World Assembly of [Cells](../types/cell.md) (via [Tissues](../types/tissue.md)) should be generated. 
+An Organ represents a spatial unit where World Assembly of [Cells](../types/cell.md) (via [Tissues](../types/tissue.md)) should be generated.
 Organs can have sub-organs, and generation will account for and determine the most parallelizable order possible.
 
 `ANOrganVolume` itself is a convenience actor: it bundles a [Bone Component](bone-component.md) and an organ component together so that dropping one into a level is all it takes to declare a region for World Assembly to populate. The organ component supplies the tissue and cell rules; the bone component supplies the spatial skeleton that shapes placement during graph construction. Both are exposed as `BlueprintReadOnly` properties, and native code can reach them via `GetOrganComponent()` and `GetBoneComponent()`.
 
 Everything below documents the bundled organ component's settings.
-
 
 <div class="image-tri">
 ![Phased Organs](/assets/images/docs/plugins/world-assembly/types/organ-phases.webp "Organ Phases")

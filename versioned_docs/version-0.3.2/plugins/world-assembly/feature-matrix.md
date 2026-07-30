@@ -22,11 +22,11 @@ sidebar_position: 7
 | Directional Constraint | A [Cell](types/cell.md) can be restricted to a compass heading, measured from the Organ's directional reference point — selectable per Organ via [`Direction Mode`](types/organ-volume.md#direction-mode) (start bone, organ center, or dynamic centroid) — and enforced within the project/operation `Direction Tolerance`. |
 | Weighting | Both `UNCell` and `UNCellJunctionComponent` support weighting their selection for usage. |
 | Initialization Callback | `INCellInitialized`-implementing `AActors` in a [Cell](types/cell.md) receive a callback when they are placed in the the world (with context about the assembly), but before `BeginPlay`. |
+| Empty Junction Filling | Spawn Actors (optionally implementing `INCellJunctionFiller`) to fill unused defined junctions, defaulted with localized overrides. |
 
 ## Planned
 
 | Feature | Description | Release |
 | --- | --- | --- |
-| Empty Junction Filling | Implement system to fill unused junctions with static or PCG content | [0.3.2 #164](https://github.com/dotBunny/NEXUS/issues/164) |
 | Proximal Junction Matching | Automatically match Junctions that end up overlapping during regular placement | [0.3.5 #162](https://github.com/dotBunny/NEXUS/issues/162) |
 | Loops | Creating circular paths through interconnected [Cell](types/cell.md)s. The concept will create geometry between junctions and bones with some predetermined limits, utilizing the defined corners of the junctions/bones and PCG-based spline geometry. | [0.4.0 #254](https://github.com/dotBunny/NEXUS/issues/254) |

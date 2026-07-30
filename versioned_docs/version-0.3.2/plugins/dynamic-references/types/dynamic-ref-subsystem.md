@@ -4,7 +4,6 @@ description: A locator system that maintains a map that organizes actors into pr
 ---
 
 import TypeDetails from '@site/src/components/TypeDetails';
-import VersionBadge from '@site/src/components/VersionBadge';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
@@ -14,7 +13,7 @@ import TabItem from '@theme/TabItem';
 
 A locator system that maintains a map that organizes `UObject` into predefined categories ([ENDynamicRef](dynamic-ref.md)), named buckets (`FName`), or `FGameplayTag` keys. Tag-keyed entries are stored in the same `FName`-bucket map under the tag's `TagName`, so every tag accessor is effectively a thin convenience wrapper over its `*ByName` equivalent.
 
-:::info[Weak References <VersionBadge version="0.3.1" type="header" />]
+:::info[Weak References]
 
 Registrations are stored as `TWeakObjectPtr` — **the subsystem never keeps a registered object alive**. When a tracked `UObject` is destroyed or garbage-collected without an explicit `Remove*`, its entry simply goes stale; it is not a dangling pointer. Every Blueprint-facing accessor accounts for this:
 
@@ -48,7 +47,7 @@ for (AActor* Actor : ReferencedActors)
 {
   // Do something with Actor
 }
-```    
+```
   </TabItem>
 </Tabs>
 
@@ -59,7 +58,6 @@ for (AActor* Actor : ReferencedActors)
 The [UNDynamicRefComponent](dynamic-ref-component.md) automatically manages the registration lifecycle.
 
 :::
-
 
 ### Adding References
 
@@ -123,7 +121,7 @@ void AddObjectsByName(FName Name, TArray<UObject*> InObjects);
   */
 void RemoveObject(ENDynamicRef DynamicRef, UObject* InObject);
 ```  
-	
+
 #### Remove Object (By Name)
 
 ```cpp
@@ -172,7 +170,7 @@ void RemoveObjectsByName(FName Name, TArray<UObject*> InObjects);
   */
 TArray<AActor*> GetActors(const ENDynamicRef DynamicRef);
 ```  
-	
+
 #### Get Actors (By Name)
 
 ```cpp
@@ -220,7 +218,7 @@ AActor* GetFirstActor(const ENDynamicRef DynamicRef);
 
 #### Get First Actor (By Name)
 
-```cpp	
+```cpp
 /**
   * Retrieves the first/oldest AActor associated with a specified FName.
   * @param Name The FName collection to iterate.
@@ -242,7 +240,7 @@ UObject* GetFirstObject(const ENDynamicRef DynamicRef);
 
 #### Get First Object (By Name)
 
-```cpp	
+```cpp
 /**
   * Gets the first/oldest UObject associated with the provided FName.
   * @param Name The desired FName to access.
@@ -250,10 +248,10 @@ UObject* GetFirstObject(const ENDynamicRef DynamicRef);
   */
 UObject* GetFirstObjectByName(FName Name);
 ```  
-	
+
 #### Get Last Actor
 
-```cpp	
+```cpp
 /**
   * Retrieves the last/newest AActor associated with a specified ENDynamicRef.
   * @param DynamicRef The ENDynamicRef collection to iterate.
@@ -264,7 +262,7 @@ AActor* GetLastActor(const ENDynamicRef DynamicRef);
 
 #### Get Last Actor (By Name)
 
-```cpp		
+```cpp  
 /**
   * Retrieves the last/newest AActor associated with a specified FName.
   * @param Name The FName collection to iterate.
@@ -275,7 +273,7 @@ AActor* GetLastActorByName(FName Name);
 
 #### Get Last Object
 
-```cpp	
+```cpp
 /**
   * Gets the last/newest UObject associated with the provided ENDynamicRef.
   * @param DynamicRef The desired ENDynamicRef collection to access.
@@ -286,7 +284,7 @@ UObject* GetLastObject(const ENDynamicRef DynamicRef);
 
 #### Get Last Object (By Name)
 
-```cpp			
+```cpp
 /**
 	* Gets the last/newest UObject associated with the provided FName.
 	* @param Name The desired FName type to access.
@@ -295,7 +293,7 @@ UObject* GetLastObject(const ENDynamicRef DynamicRef);
 UObject* GetLastObjectByName(FName Name);
 ```
 
-### Tag References<VersionBadge version="0.3.0" type="header" />
+### Tag References
 
 `FGameplayTag` accessors operate on the same named map as the `*ByName` calls — the tag's `TagName` is the key. There are no tag-specific `Add*` / `Remove*` calls: register a tag via the [UNDynamicRefComponent](dynamic-ref-component.md)'s `TagReferences` (or by calling the matching `*ByName` overload with `Tag.GetTagName()`). Tags that fail `IsValid()` are treated as a no-op and return empty/null.
 
@@ -366,7 +364,7 @@ AActor* GetLastActorByTag(FGameplayTag Tag);
 UObject* GetLastObjectByTag(FGameplayTag Tag);
 ```
 
-### Tag Containers<VersionBadge version="0.3.0" type="header" />
+### Tag Containers
 
 Set-style accessors that operate on an `FGameplayTagContainer`. `*ByAnyTags` returns the union of every supplied tag's bucket (deduplicated); `*ByAllTags` returns the intersection (a `UObject` must appear under every requested tag). Invalid tags in the container are skipped for the *Any* variants; for the *All* variants, an invalid or absent tag short-circuits the result to empty.
 
@@ -461,7 +459,7 @@ int32 GetCount(const ENDynamicRef DynamicRef);
 int32 GetCountByName(FName Name);
 ```
 
-#### Get Count (By Tag)<VersionBadge version="0.3.0" type="header" />
+#### Get Count (By Tag)
 
 ```cpp
 /**
@@ -490,7 +488,7 @@ TArray<FName> GetNames() const;
 
 Same shape as `GetDynamicRefs`, but for the free-form `FName` buckets backed by the named-collection map.
 
-#### Get Tags<VersionBadge version="0.3.0" type="header" />
+#### Get Tags
 
 ```cpp
 /**
@@ -512,10 +510,10 @@ Two families of native-only accessors skip the safety checks performed by their 
 | :-- | :-- |
 | `GetFirstObjectUnsafe(ENDynamicRef)` | `GetFirstObject` without nullptr/empty checks. |
 | `GetFirstObjectByNameUnsafe(FName)` | `GetFirstObjectByName` without nullptr/empty checks. |
-| `GetFirstObjectByTagUnsafe(FGameplayTag)` <VersionBadge version="0.3.0" type="header" /> | `GetFirstObjectByTag` without validity/empty checks. |
+| `GetFirstObjectByTagUnsafe(FGameplayTag)` | `GetFirstObjectByTag` without validity/empty checks. |
 | `GetLastObjectUnsafe(ENDynamicRef)` | `GetLastObject` without nullptr/empty checks. |
 | `GetLastObjectByNameUnsafe(FName)` | `GetLastObjectByName` without nullptr/empty checks. |
-| `GetLastObjectByTagUnsafe(FGameplayTag)` <VersionBadge version="0.3.0" type="header" /> | `GetLastObjectByTag` without validity/empty checks. |
+| `GetLastObjectByTagUnsafe(FGameplayTag)` | `GetLastObjectByTag` without validity/empty checks. |
 
 :::warning
 
@@ -541,7 +539,7 @@ Return a `const FNDynamicRefCollection&` directly, avoiding the per-call `TArray
 | :-- | :-- |
 | `GetObjectCollectionRefUnsafe(ENDynamicRef)` | The collection for the slot. No bounds check on `DynamicRef`. |
 | `GetObjectCollectionByNameRefUnsafe(FName)` | The collection for the bucket. `FindChecked` — asserts if `Name` is not present. |
-| `GetObjectCollectionByTagRefUnsafe(FGameplayTag)` <VersionBadge version="0.3.0" type="header" /> | The collection for the tag's `TagName` bucket. `FindChecked` — asserts if the tag is not present. |
+| `GetObjectCollectionByTagRefUnsafe(FGameplayTag)` | The collection for the tag's `TagName` bucket. `FindChecked` — asserts if the tag is not present. |
 
 :::warning
 

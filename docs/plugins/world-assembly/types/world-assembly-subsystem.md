@@ -144,6 +144,7 @@ Bind these to drive demo / sample logic that needs to react to "world is generat
 ## Useful Examples
 
 ### Hookup Actor Pool Subsystem
+
 ```cpp
 UNWorldAssemblySubsystem* WorldAssemblySubsystem = UNWorldAssemblySubsystem::Get(InWorld);
 UNActorPoolSubsystem* ActorPoolSubsystem = UNActorPoolSubsystem::Get(InWorld);

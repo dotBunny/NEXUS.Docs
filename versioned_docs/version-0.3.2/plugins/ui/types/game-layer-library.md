@@ -11,7 +11,6 @@ import TypeDetails from '@site/src/components/TypeDetails';
 
 A small collection of functionality to help with the Game Layer UI system.
 
-
 ## UFunctions
 
 ### Layers

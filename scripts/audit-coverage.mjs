@@ -30,8 +30,9 @@
  *   3. Type prefixes include A (actors) and H (hit proxies), not just U/F/I/E/S.
  *   4. Find the `)` that closes the parameter list. `lastIndexOf(')')` reaches into inline
  *      bodies and member-init lists, e.g. `: Seed(TaskSeed), Name(MoveTemp(TaskName)) {}`.
- *   5. Strip inline JSX before slugifying a heading: `#### Get PlayerIdentifier<VersionBadge …/>`
- *      resolves to `get-playeridentifier`.
+ *   5. Strip inline JSX before slugifying a heading: `#### Get PlayerIdentifier<Badge …/>`
+ *      resolves to `get-playeridentifier`. No page currently does this (the component that
+ *      prompted it was removed), but keep the strip -- it is what makes the anchor match.
  *   6. A `#if` can sit between a doc comment and the `#define` it documents.
  *   7. Build the known-symbol set from code with comments stripped. Including comment text makes
  *      the check circular -- a symbol mentioned only in comments validates itself.

@@ -7,9 +7,9 @@ sidebar_position: 8
 
 ## Why the Anatomy naming?
 
-The age old developer problem of naming; it went through many iterations as complexity increased and it just became easier to explain to people using basic anatomy concepts. The faster someone was able to understand the concepts, the faster they were able to start making content. 
+The age old developer problem of naming; it went through many iterations as complexity increased and it just became easier to explain to people using basic anatomy concepts. The faster someone was able to understand the concepts, the faster they were able to start making content.
 
-## Why not use PCG to do this? 
+## Why not use PCG to do this?
 
 While PCG is great at many things, building out gameplay spaces it is not (as of the point of writing this). The concept of stitching together levels is not novel in any sense of the word. There are many great examples of it out in the wild ([Dead Cells](https://dead-cells.com/), [Windblown](https://windblown.game/), [Returnal](https://housemarque.com/games/returnal), [Saros](https://housemarque.com/games/saros), [Warframe](https://www.warframe.com/), etc.). Where it doesn’t fit well with the current PCG plugin state is that there is a lot of context that goes into a placed piece and how it interacts with those around it and the world it is being placed in.
 

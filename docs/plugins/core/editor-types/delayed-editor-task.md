@@ -13,7 +13,6 @@ import TabItem from '@theme/TabItem';
 
 An **abstract**  class designed to encompass work to be completed at some level of delay from the time of its creation.
 
-
 ## Creating The Delay
 
 ```cpp

@@ -14,7 +14,7 @@ Customizing the behavior and frequency of the update check can be done in the Ed
 ![Update Notifications](/assets/images/docs/getting-started/updates.webp)
 
 | Setting | Description | Default |
-| --- | :-- | :-- | 
+| --- | :-- | :-- |
 | `Check For Updates` | Should update checks be made?  | `true` |
 | `Frequency (Days)` | After how many days should an update check be made. | `7` |
 | `Channel` | What channel to monitor for updates: `Main`, `Release` or a `Custom` one. | `Release` |

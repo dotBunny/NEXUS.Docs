@@ -1,0 +1,50 @@
+{
+  // Markdown lint rules for the NEXUS docs site. Run with `npm run lint:md`.
+  //
+  // Docusaurus/MDX makes a handful of stock rules meaningless here, so they are
+  // switched off deliberately rather than worked around page by page.
+  "config": {
+    "default": true,
+
+    // Prose is written unwrapped — there is no 80-column convention in this repo.
+    "MD013": false,
+
+    // Pages embed MDX components (TypeDetails, DocCardList, PluginDetails,
+    // Tabs). Inline "HTML" is the point, not a defect.
+    "MD033": false,
+
+    // Type pages legitimately open with `import … from '@site/…'` before the H1.
+    "MD041": false,
+
+    // Tabs inside ```cpp fences are the plugin source's own indentation and must
+    // survive verbatim. Tabs anywhere else are still flagged.
+    "MD010": { "code_blocks": false },
+
+    // A page's H1 and a subsection may share a word without colliding; only
+    // duplicates at the same heading level are worth flagging.
+    "MD024": { "siblings_only": true },
+
+    // Deferred house-style tier. Flip any of these to true to take that pass on.
+    "MD060": false, // table cell padding (`| :-- |` vs `|:--|`)
+    "MD049": false, // emphasis style (`_x_` vs `*x*`)
+    "MD001": false, // heading level increment
+    "MD034": false, // bare URLs
+    "MD026": false  // trailing punctuation in headings ("Welcome!")
+  },
+
+  "globs": [
+    "docs/**/*.{md,mdx}",
+    "community/**/*.md",
+    "versioned_docs/**/*.{md,mdx}",
+    "*.md"
+  ],
+
+  "ignores": [
+    "node_modules",
+    "build",
+    ".docusaurus",
+    // Fetched at build time from the dotBunny/NEXUS repo; not ours to lint.
+    "community/changelog.md",
+    "community/changelog-dev.md"
+  ]
+}

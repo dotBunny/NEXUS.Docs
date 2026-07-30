@@ -28,6 +28,7 @@ This overlay (`WB_NActorPoolsDeveloperOverlay`) can be included in packaged buil
 ## Understanding The Bars
 
 ### Text
+
 The number at the left-most part of the progress bar represents the total number of `AActors` that are currently considered available (**in**) to **Spawn** from the [FNActorPool](types/actor-pool.md). For the pools above, this would be `11` for the `BP_NActorPoolsSamples_Cube` pool, and `9` for the `BP_NActorPoolsSamples_Sphere` pool.
 
 In the middle of the progress bar is the `AActor`/[FNActorPool](types/actor-pool.md) name.
@@ -40,7 +41,7 @@ At the start of the bar entry for an [FNActorPool](types/actor-pool.md) is a col
 
 | Color | Description |
 | :-- | :-- |
-| <code class="swatch blue">Blue</code> | No callbacks are made by the [FNActorPool](types/actor-pool.md). | 
+| <code class="swatch blue">Blue</code> | No callbacks are made by the [FNActorPool](types/actor-pool.md). |
 | <code class="swatch green">Green</code> | The [FNActorPool](types/actor-pool.md)'s template `AActor` class implements the [INActorPoolItem](types/actor-pool-item.md) interface, providing the fastest possible callbacks for the [FNActorPool](types/actor-pool.md). |
 | <code class="swatch yellow">Yellow</code> | The [FNActorPool](types/actor-pool.md) has been directed (via settings flags) to invoke any **UFUNCTION** methods (`OnCreatedByActorPool`, `OnSpawnedFromActorPool`, `OnReturnToActorPool`, and `OnReleasedFromActorPool`) found on the `AActor`. |
 
@@ -74,7 +75,7 @@ At the bottom of the `EditorUtilityWidget` is a button bar that houses the `Crea
 
 Clicking this button will write out a [UNActorPoolSet](types/actor-pool-set.md) based on the currently known [FNActorPool](types/actor-pool.md).
 
-:::warning 
+:::warning
 
 The asset still needs to be saved to disk as it was written out during **Play-In-Editor**.
 

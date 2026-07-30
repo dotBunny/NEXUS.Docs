@@ -80,8 +80,10 @@ Each of these produced false positives while the script was written. Do not "sim
 3. Type prefixes include `A` (actors) and `H` (hit proxies), not just `U/F/I/E/S`.
 4. Find the `)` that closes the parameter list. `lastIndexOf(')')` reaches into inline bodies and
    member-init lists — `: Seed(TaskSeed), Name(MoveTemp(TaskName)) {}`.
-5. Strip inline JSX before slugifying a heading. `#### Get PlayerIdentifier<VersionBadge …/>`
-   resolves to `get-playeridentifier`. This alone caused 6 false "broken anchor" reports.
+5. Strip inline JSX before slugifying a heading. `#### Get PlayerIdentifier<Badge …/>` resolves
+   to `get-playeridentifier` — JSX contributes no text. This alone caused 6 false "broken anchor"
+   reports. No page does this today (the component that prompted it was removed), but keep the
+   strip: it is cheap, and re-introducing inline JSX in a heading would silently break anchors.
 6. A `#if` **and** a `//` comment can sit between a doc comment and the `#define` it documents.
 7. **A reflection macro can wrap across lines.** `UCLASS(… HideCategories=(Tags, Activation,\n
    AssetUserData))` breaks any walk-up that assumes one intervening line. This bug inflated
