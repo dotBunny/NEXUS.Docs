@@ -5,7 +5,13 @@ hide_table_of_contents: false
 sidebar_position: 4
 ---
 
-The use of AI in software engineering is an evolving practice. For the **NEXUS** Framework it has been genuinely helpful — for research, bug investigation, initial test generation, and building out narrowly scoped methods. We treat it as an accelerant and force amplifier, not as a replacement for good old human thought.
+The use of AI in software engineering is an evolving practice. For the **NEXUS** Framework it has been genuinely helpful — for research, bug investigation, initial test generation, drafting documentation, and building out narrowly scoped methods. We treat it as an accelerant and force amplifier, not as a replacement for good old human thought.
+
+## Where It Helps Most
+
+By a wide margin, the most valuable use has been documentation — both the Doxygen comments in the source and the pages on this site. Documentation is essential, it is a lot of work, and it is almost never the work that pushes a project forward. Handing the first pass to a model and then reviewing, correcting, and finishing it turns a task that used to eat entire days into one that fits around everything else.
+
+That is the real win, and it isn't that AI writes better documentation than a person. It's an extra set of hands. The time it hands back goes into design, architecture, and the parts of the project that are actually enjoyable to build — which is what lets **NEXUS** keep moving at breakneck speed without the documentation falling behind. More gets done, in less time, and the docs stay current while it happens.
 
 ## Contributor Responsibility
 
