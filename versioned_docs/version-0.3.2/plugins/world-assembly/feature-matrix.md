@@ -1,6 +1,6 @@
 ---
 description: A breakdown of World Assembly features, their availability, and the release each is targeted for.
-sidebar_position: 7
+sidebar_position: 11
 ---
 
 # Feature Matrix

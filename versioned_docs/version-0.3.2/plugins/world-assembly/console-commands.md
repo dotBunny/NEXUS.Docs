@@ -1,5 +1,5 @@
 ---
-sidebar_position: 5
+sidebar_position: 6
 description: Console commands and editor commandlets for developers, provided by World Assembly.
 ---
 
