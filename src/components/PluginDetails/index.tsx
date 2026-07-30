@@ -6,7 +6,6 @@ interface IPlugin {
   category: string;
   moduleName: string;
   shortName: string;
-  initialRelease: string;
   owner: string;
   description: string;
   link: string;
@@ -20,7 +19,6 @@ var Plugins: { [id: string]: IPlugin; } = {
     moduleName: "NexusCore",
     shortName: "NCore",
     category: "N/A",
-    initialRelease: "0.1.0",
     owner: "reapazor",
     description: "Functionality used by all NEXUS plugins in the framework.",
     link: "/docs/plugins/core/",
@@ -32,7 +30,6 @@ var Plugins: { [id: string]: IPlugin; } = {
     moduleName: "NexusActorPools",
     shortName: "NActorPools",
     category: "Systems",
-    initialRelease: "0.1.0",
     owner: "reapazor",
     description: "Generalized pooling system for Actors.",
     link: "/docs/plugins/actor-pools/",
@@ -44,7 +41,6 @@ var Plugins: { [id: string]: IPlugin; } = {
     moduleName: "NexusBlockout",
     shortName: "NBlockout",
     category: "Content",
-    initialRelease: "0.2.0",
     owner: "reapazor",
     description: "A collection of useful content for blocking out a level or two early in development.",
     link: "/docs/plugins/blockout/",
@@ -56,7 +52,6 @@ var Plugins: { [id: string]: IPlugin; } = {
     moduleName: "NexusDynamicRefs",
     shortName: "NDynamicRef",
     category: "Systems",
-    initialRelease: "0.1.0",
     owner: "reapazor",
     description: "Method for referring to UObjects prior to runtime, and by developer readable names.",
     link: "/docs/plugins/dynamic-references/",
@@ -68,7 +63,6 @@ var Plugins: { [id: string]: IPlugin; } = {
     moduleName: "NexusGuardian",
     shortName: "NGuardian",
     category: "Systems",
-    initialRelease: "0.2.7",
     owner: "reapazor",
     description: "A system which monitors metrics and takes action when thresholds are hit.",
     link: "/docs/plugins/guardian/",
@@ -80,7 +74,6 @@ var Plugins: { [id: string]: IPlugin; } = {
     moduleName: "NexusPicker",
     shortName: "NPicker",
     category: "Helpers",
-    initialRelease: "0.1.0",
     owner: "reapazor",
     description: "Selection functionality for points and other items.",
     link: "/docs/plugins/picker/",
@@ -92,7 +85,6 @@ var Plugins: { [id: string]: IPlugin; } = {
     moduleName: "NexusWorldAssembly",
     shortName: "NWorldAssembly",
     category: "Systems",
-    initialRelease: "0.3.0",
     owner: "reapazor",
     description: "A procedural generation system focused on creating dynamic gameplay-focused spaces.",
     link: "/docs/plugins/world-assembly/",
@@ -104,7 +96,6 @@ var Plugins: { [id: string]: IPlugin; } = {
     moduleName: "NexusTooling",
     shortName: "NTooling",
     category: "Editor",
-    initialRelease: "0.2.7",
     owner: "reapazor",
     description: "An assortment of developer tools for the Unreal Editor.",
     link: "/docs/plugins/tooling/",
@@ -116,7 +107,6 @@ var Plugins: { [id: string]: IPlugin; } = {
     moduleName: "NexusUI",
     shortName: "NUI",
     category: "Content",
-    initialRelease: "0.1.0",
     owner: "reapazor",
     description: "Components for creating a user interface based on UMG/Slate.",
     link: "/docs/plugins/ui/",
@@ -140,12 +130,6 @@ export default function PluginDetails({ moduleName, link, children }): ReactNode
       <dl>
         <dt>Module Name:</dt>
         <dd>{moduleName} <span>/ {Plugins[moduleName].shortName}</span></dd>
-        {!isLink && (
-          <>
-            <dt className="small-hide">Initial Release:</dt>
-            <dd className="small-hide">{Plugins[moduleName].initialRelease}</dd>
-          </>
-        )}
         <dt>Description:</dt>
         <dd>{Plugins[moduleName].description}</dd>
         {(!isLink && hasBlueprintCategory) && (
