@@ -68,8 +68,8 @@ static void WeightedIntegerArrayRemoveSome(UPARAM(ref) FNWeightedIntegerArray& W
 | `Next Value And Remove` | Deterministic — supplied Mersenne Twister Object | Yes |
 | `Random Value` | Non-deterministic ([`FNRandom::GetNonDeterministic()`](random.md)) | No |
 | `Random Value And Remove` | Non-deterministic | Yes |
-| `Random One Shot Value` | One-shot `FRandomStream(Seed)` | No |
-| `Random One Shot Value And Remove` | One-shot `FRandomStream(Seed)` | Yes |
+| `Random One-Shot Value` | One-shot `FRandomStream(Seed)` | No |
+| `Random One-Shot Value And Remove` | One-shot `FRandomStream(Seed)` | Yes |
 | `Random Tracked Value` | `FRandomStream(Seed)` with `Seed` updated on return | No |
 | `Random Tracked Value And Remove` | Tracked stream | Yes |
 
@@ -82,7 +82,7 @@ static int32 WeightedIntegerArrayNextValue(const FNWeightedIntegerArray& Weighte
 UFUNCTION(BlueprintCallable, Category = "NEXUS|Collections|Weighted Integer Array", DisplayName = "Random Value")
 static int32 WeightedIntegerArrayRandomValue(UPARAM(ref) FNWeightedIntegerArray& WeightedIntegerArray);
 
-UFUNCTION(BlueprintCallable, Category = "NEXUS|Collections|Weighted Integer Array", DisplayName = "Random One Shot Value")
+UFUNCTION(BlueprintCallable, Category = "NEXUS|Collections|Weighted Integer Array", DisplayName = "Random One-Shot Value")
 static int32 WeightedIntegerArrayRandomOneShotValue(UPARAM(ref) FNWeightedIntegerArray& WeightedIntegerArray, const int32 Seed);
 
 UFUNCTION(BlueprintCallable, Category = "NEXUS|Collections|Weighted Integer Array", DisplayName = "Random Tracked Value")

@@ -90,7 +90,13 @@ The subsystem spawns one `ANWorldAssemblyRelay` per logged-in player controller.
 /** @return Relay associated with the local player, or nullptr if it has not yet been spawned. */
 UFUNCTION(BlueprintCallable, DisplayName="Get Local Relay", Category = "NEXUS|WorldAssembly")
 ANWorldAssemblyRelay* GetLocalRelay() const;
+
+/** Spawn an ANWorldAssemblyRelay bound to PlayerController and store it in RelayMap. */
+UFUNCTION(BlueprintCallable, DisplayName="Spawn Relay", Category = "NEXUS|WorldAssembly")
+void SpawnRelay(APlayerController* PlayerController);
 ```
+
+Relays are spawned for you as players log in, so `Spawn Relay` is only needed when that automatic pass has been bypassed — most notably **after seamless travel**, where the server must re-spawn relays for controllers that carried over.
 
 ## Readiness
 
@@ -99,7 +105,7 @@ ANWorldAssemblyRelay* GetLocalRelay() const;
  * @param bWaitOnStreaming When true, also report not-ready while any level streaming is still in
  *        flight (see FNWorldUtils::IsStreaming). Pass false to ignore streaming and gate purely on
  *        operation/relay state.
- * @return true when the local procgen view is settled relative to the server.
+ * @return true when the local WorldAssembly view is settled relative to the server.
  * @remark Server path: no operations are currently in flight.
  *         Client path: LocalRelay has replicated, the nearby-cell payload has been received,
  *         and no operations the client has been notified of are pending.
@@ -110,6 +116,18 @@ bool IsReady(bool bWaitOnStreaming = true);
 ```
 
 Use `IsReady` for UI gating ("ready to start"), not as a precondition for issuing more work. It surfaces in Blueprint graphs as **Is Ready?**. By default (`bWaitOnStreaming = true`) it also stays not-ready until level streaming settles; pass `false` to skip that streaming check.
+
+For a progress readout rather than a boolean, clients can ask how much is still inbound:
+
+```cpp
+/** @return On clients, the ANCellLevelInstances still to sync as (Remaining, Total); zero on the server. */
+UFUNCTION(BlueprintCallable, DisplayName="Get Remaining Status", Category = "NEXUS|WorldAssembly")
+FIntVector2 GetRemainingStatus();
+```
+
+`X` is how many cell level instances have yet to sync and `Y` is the total, which makes it directly usable as a loading-bar fraction.
+
+Both components are zero whenever there is no local relay to ask — on the server, where nothing needs syncing, but also on a client before its relay has replicated. So a zero `Total` means "not applicable yet", not "complete"; pair it with [`IsReady`](#readiness) rather than treating `Remaining == 0` as done on its own.
 
 ## Events
 

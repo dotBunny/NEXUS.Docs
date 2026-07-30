@@ -212,3 +212,21 @@ static float Ping(const UObject* WorldContextObject);
 ```
 
 Reads `APlayerState::ExactPing` for the local player, so the value is meaningful only on a client connected to a remote host. On the host itself, or when no local player exists yet, the underlying `FNMultiplayerUtils::GetPing` returns the `NEXUS::Multiplayer::InvalidPing` sentinel — check the returned value before treating it as a real latency reading.
+
+#### Is Multiplayer Test
+
+```cpp
+/**
+ * Is the current session created from the MultiplayerTest editor command?
+ * @return true/false if it is.
+ */
+static bool IsMultiplayerTest();
+```
+
+Reports whether the process was launched by the editor's [Multiplayer Test](../../tooling/enhancements/multiplayer-test.md) tooling. The underlying `FNMultiplayerUtils::IsMultiplayerTest` simply checks the command line for the `-NMultiplayerTest` switch, so it is world-independent and takes no context object — useful for gating test-only behavior that should never run in a shipped session.
+
+A branch-shaped companion is also available, following the same pattern as the [Branch-Style Variants](#branch-style-variants) above:
+
+| Branching Node (Blueprint) | Wraps |
+| :-- | :-- |
+| `Is Multiplayer Test ?` | `Is Multiplayer Test` |

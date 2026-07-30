@@ -11,17 +11,17 @@ import TypeDetails from '@site/src/components/TypeDetails';
 
 <TypeDetails icon="native-struct" base="struct" type="FNPickerParams" typeExtra="" headerFile="NexusPicker/Public/NPickerParams.h" />
 
-The base struct every shape-specific params type inherits from — see the per-shape pages under [distributions/](../../distributions/) for `FNArcPickerParams`, `FNBoxPickerParams`, and their siblings. Carries the point count, the cached `UWorld*` used for tracing/drawing, and the optional projection settings that snap generated points onto level geometry or the navmesh.
+The base struct every shape-specific params type inherits from — see the per-shape pages under [distributions/](../distributions/index.mdx) for `FNArcPickerParams`, `FNBoxPickerParams`, and their siblings. Carries the point count, the cached `UWorld*` used for tracing/drawing, and the optional projection settings that snap generated points onto level geometry or the navmesh.
 
 ## Properties
 
 | Property | Type | Category | Description |
 | :-- | :-- | :-- | :-- |
-| `Count` | `int32` | Base | Number of points to generate in a single pass. Default `1`. |
-| `CachedWorld` | `UWorld*` | Base | World used for line tracing and debug drawing. `BlueprintReadOnly`, `VisibleInstanceOnly` — populated automatically by every `UN<Shape>PickerLibrary` via `N_GET_WORLD_FROM_CONTEXT` if left null. |
+| `Count` | `int32` | Base | Number of points to generate in a single pass. Default `1`. Clamped to a minimum of `1`. |
+| `CachedWorld` | `TWeakObjectPtr<UWorld>` | Base | World used for line tracing and debug drawing. `BlueprintReadOnly`, `VisibleInstanceOnly` — populated automatically by every `UN<Shape>PickerLibrary` via `N_GET_WORLD_FROM_CONTEXT` if left null. |
 | `ProjectionMode` | `ENPickerProjectionMode` | Projection (advanced) | Strategy used to snap a generated point to surrounding geometry. Default `None`. |
 | `Projection` | `FVector` | Projection (advanced) | Direction and distance of the line trace when `ProjectionMode == Trace`. Default `(0, 0, -500)`. |
-| `CollisionChannel` | `ECollisionChannel` | Projection (advanced) | Trace channel used when `ProjectionMode == Trace`. Default `ECC_WorldStatic`. |
+| `CollisionChannel` | `TEnumAsByte<ECollisionChannel>` | Projection (advanced) | Trace channel used when `ProjectionMode == Trace`. Default `ECC_WorldStatic`. |
 
 ## Projection Mode
 
@@ -46,4 +46,4 @@ The projection metadata is marked `AdvancedDisplay` so it only shows up in the d
 ## See Also
 
 - [Project Settings](../project-settings.md) — owns the trace / nav-query defaults that the projection paths read from.
-- [Distributions](../../distributions/) — one folder per shape, each subclassing this struct.
+- [Distributions](../distributions/index.mdx) — one folder per shape, each subclassing this struct.

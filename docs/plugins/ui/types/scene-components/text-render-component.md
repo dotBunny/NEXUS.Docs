@@ -63,11 +63,20 @@ void SetFromText(const FText& NewValue);
 
 The component holds a single replicated `FString CachedValue` field that is the source of truth across the wire. The three setters above all funnel into `CachedValue` on the server; clients receive the change via the `OnRep_TextValue` callback, which applies the new text to the underlying `UTextRenderComponent` and broadcasts `OnTextChanged`.
 
-Because replicated text only propagates when the **owning actor itself replicates**, `BeginPlay` verifies that the owner has replication enabled. If it does not, the component logs an error and the text will not propagate — it no longer silently turns on replication for the owner on your behalf (changed in `0.3.2`). Enable replication on the owning actor, or, for actors that are intentionally non-replicated, disable the check via the `Should Check Replication` property below.
+Because replicated text only propagates when the **owning actor itself replicates**, `BeginPlay` checks the owner's replication flag — on the authority only — and two properties decide what happens when it finds replication switched off.
 
 | Property | Type | Description | Default |
 | :-- | :-- | :-- | :-- |
-| `bShouldCheckReplication` | `bool` | When `true`, `BeginPlay` verifies the owning actor is replicated and logs an error if it is not. Disable to silence the check on owners that are intentionally non-replicated. | `true` |
+| `bShouldCheckReplication` | `bool` | Gates the check entirely. Set to `false` for owners that are intentionally non-replicated and the component stays silent. | `true` |
+| `bForceOwnerReplication` | `bool` | What to do when the check finds a non-replicated owner. `true` calls `SetReplicates(true)` on the owner and logs at `Log`; `false` leaves the owner alone and logs a `Warning` that the text will not propagate. | `true` |
+
+With the defaults, **the component does enable replication on your owning actor for you**, and tells you it did. If you would rather it never touched the owner, set `bForceOwnerReplication` to `false` — you then get a warning instead, and the text will not propagate until you enable replication yourself.
+
+:::note
+
+The check runs inside a `HasWorldAuthority` guard, so neither branch fires on a client. Nothing here logs at `Error` level.
+
+:::
 
 ## Delegates
 

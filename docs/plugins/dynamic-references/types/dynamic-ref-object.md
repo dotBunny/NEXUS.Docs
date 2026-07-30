@@ -37,15 +37,18 @@ The wrapper is created `RF_Transient` and remembers its `Outer` (typically the o
 | :-- | :-- |
 | `GetDynamicRef()` | The targeted [ENDynamicRef](dynamic-ref.md) slot. Meaningful only when `GetTargetName()` is `NAME_None`. |
 | `GetTargetName()` | The targeted `FName` bucket. `NAME_None` when the wrapper targets a slot. |
-| `AddObject(UObject*)` | Appends the object to the mirrored list and broadcasts `Changed`. |
+| `AddObject(UObject*)` | Adds the object to the mirrored list via `AddUnique`, so a duplicate is not appended twice — but `Changed` is broadcast either way. |
 | `RemoveObject(UObject*)` | Removes the object from the mirrored list and broadcasts `Changed` (only when something was actually removed). |
+| `RemoveObjectsForWorld(const UWorld*)` | Drops every tracked object whose own `GetWorld()` matches, broadcasts `Changed` if any were, and returns whether it removed anything. World-agnostic objects (`GetWorld() == nullptr`) never match and are dropped only once they go stale. Native only. |
 | `GetCount()` | Number of **live** objects currently mirrored (stale weak entries are pruned first). |
 | `GetReferenceText()` | Display label — the `FName` when set, otherwise the `ENDynamicRef`'s display name. |
 | `GetObjects()` | Mutable view of the mirrored list, stale entries pruned first (native only). |
 | `Compact()` | Prune entries whose object has been destroyed/GC'd so the wrapper only reflects live objects (native only). |
 
+Note the asymmetry: `RemoveObject` suppresses the broadcast when nothing changed, `AddObject` does not.
+
 :::warning
 
-The wrapper holds `TWeakObjectPtr` entries but is not a source of truth — it can drift from the [UNDynamicRefSubsystem](dynamic-ref-subsystem.md) if you forget to call `AddObject` / `RemoveObject` in response to the subsystem's `OnAdded` / `OnRemoved` delegates. The [Developer Overlay](../developer-overlay.md) handles this wiring; if you build a custom UI on top of these wrappers, mirror that pattern.
+The wrapper holds `TWeakObjectPtr` entries but is not a source of truth — it can drift from the [UNDynamicRefSubsystem](dynamic-ref-subsystem.md) if you forget to call `AddObject` / `RemoveObject` in response to the subsystem's change delegates. Slot-targeting wrappers follow `OnAdded` / `OnRemoved`; bucket-targeting wrappers need `OnAddedByName` / `OnRemovedByName` instead. The [Developer Overlay](../developer-overlay.md) handles this wiring; if you build a custom UI on top of these wrappers, mirror that pattern.
 
 :::

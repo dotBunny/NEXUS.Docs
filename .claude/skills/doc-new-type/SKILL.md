@@ -76,11 +76,10 @@ If the engine base doesn't match any existing icon, ask the user — don't inven
   - `BlueprintAsyncAction` → `Async`. `Component`, `Subsystem`, `Settings`, `Object` are descriptive and **kept**.
   - When unsure whether to collapse, ask the user — match an existing sibling page if one is present.
 - `sidebar_label` and H1: Title Case with spaces (`Actor Pool Item`, not `INActorPoolItem`).
-- **`sidebar_position`** — within any folder, subfolders sort first (alphabetical), then at-level `.md` files. Concretely:
-  - Subfolder `index.mdx` files use positions `1..N` (alpha among themselves).
-  - At-level `.md` files start at `N+1`. Glob the folder's existing `.md` files, take max + 1 as the new page's position.
-  - If the new page lives in a subfolder, `N` is the number of sibling subfolders inside that subfolder (usually 0), so the page typically uses `1`+ relative to that subfolder.
-  - If you create a NEW subfolder, you must bump every at-level page's position by one and assign the new subfolder index a position that keeps the alphabetical order. See [CLAUDE.md](CLAUDE.md) Sidebar ordering for the full rule.
+- **`sidebar_position` — do NOT set it on a type page.** Zero of the 65 existing type pages carry one; they sort alphabetically by filename, which is what the convention relies on. Adding one to a single page pulls it out of that ordering and looks like a bug.
+  - **Subfolder `index.mdx` files DO carry it**, and they are the only files in `types/` that do. When you create a new subfolder, give its `index.mdx` a position that places the group sensibly among its siblings.
+  - Existing positions are not always a clean `1..N` sequence — some plugins have ties, and Docusaurus falls back to alphabetical within a tie. Prefer picking a free number that reads correctly over renumbering every sibling to close a gap.
+  - A contributor-facing group (an `architecture/` folder, say) usually belongs *after* the user-facing pages rather than first, even though the alphabetical rule would sort it early. Position it deliberately.
 
 ## Frontmatter and header
 
@@ -217,6 +216,26 @@ When the new type's header references other NEXUS types (other `N*` symbols), li
 - Don't add a `tags:` key — version tags are retired in favour of Docusaurus versioning.
 - Don't run `npm run build` after generating — fast feedback is `npm run start`, and the user will run it themselves.
 
+## Before you finish — housekeeping
+
+A new page is not done when the file is written. See [doc-audit](../doc-audit/SKILL.md) for the full
+rationale; the short version:
+
+1. **Mirror it into `versioned_docs/version-<x>/`** if the type already ships in the released version.
+   `docs/` only serves `/docs/dev/`, so a page that exists only there is invisible at `/docs/`.
+2. **Add the `@see` backlink** to the header's doc comment, per
+   [coding-standard](../../../community/coding-standard.md).
+3. **Add `meta=(DocsURL="…#anchor")`** to any `UFUNCTION` whose new section it can point at — but only
+   when that anchor really exists, or you ship a dead in-editor link.
+4. **Run `npm run audit:coverage`.** It catches broken links and anchors — including ones you just
+   introduced by referencing a page you have not written yet — and confirms the page is credited
+   against its header. `--update` the baseline once findings are genuinely cleared.
+
+Forward-referencing a sibling page you are about to write is fine; just write it before you stop, or
+the link stays broken.
+
 ## When done
 
-Report: the path of the new file, the resolved plugin slug, the next `sidebar_position` you used, and whether you cross-linked any sibling types. Note if the user still needs to fill in the `What It Is` / `What It Does` bullets.
+Report: the path of the new file, the resolved plugin slug, whether you cross-linked any sibling types,
+and that the audit is green. Note if the user still needs to fill in the `What It Is` / `What It Does`
+bullets.

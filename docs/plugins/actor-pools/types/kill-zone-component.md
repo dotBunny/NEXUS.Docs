@@ -1,5 +1,5 @@
 ---
-sidebar_class_name: type ue-actor-component
+sidebar_class_name: type ue-scene-component
 description: A kill plane implementation built to automatically pool properly configured AActor upon overlap.
 ---
 
@@ -7,7 +7,7 @@ import TypeDetails from '@site/src/components/TypeDetails';
 
 # Kill Zone Component
 
-<TypeDetails icon="/assets/svg/actor-pools/kill-zone-component.svg" iconType="img" base="UActorComponent" type="UNKillZoneComponent" typeExtra="" headerFile="NexusActorPools/Public/NKillZoneComponent.h" />
+<TypeDetails icon="/assets/svg/actor-pools/kill-zone-component.svg" iconType="img" base="UBoxComponent" type="UNKillZoneComponent" typeExtra="" headerFile="NexusActorPools/Public/NKillZoneComponent.h" />
 
 A kill plane implementation built to automatically pool properly configured `AActor` upon overlap.
 
@@ -25,6 +25,8 @@ By default the component will automatically change its collision profile to `Ove
 | :-- | :-- | :-- | :-- |
 | Ignore Static Actors | `bool` | Ignore static (Non-movable) actors that trigger an overlap event. | `true` |
 | Non-INActorPoolItem Behavior | `ENKillZoneBehavior` | What should occur for an `AActor` that doesn't implement the `INActorPoolItem` interface and doesn't have an existing `FNActorPool`. | `ApplyFellOutOfWorld` |
+
+Both are `EditInstanceOnly`, so they are set per placed kill zone rather than on a Blueprint's defaults.
 
 ### Behaviors
 

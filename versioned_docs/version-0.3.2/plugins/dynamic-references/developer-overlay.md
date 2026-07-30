@@ -36,7 +36,7 @@ The overlay only holds `TWeakObjectPtr`s to the displayed `UObject`s — it neve
 
 ## Multi-World Support
 
-The overlay subscribes to `OnPostWorldInitialization` and `OnWorldBeginTearDown` and automatically binds to every `Game` / `PIE` world's [UNDynamicRefSubsystem](types/dynamic-ref-subsystem.md). Each subsystem's `OnAdded` / `OnRemoved` delegates feed the same lists, so a PIE session with both server and client worlds shows the union of their registrations.
+The overlay subscribes to `OnPostWorldInitialization` and `OnWorldBeginTearDown` and automatically binds to every `Game` / `PIE` world's [UNDynamicRefSubsystem](types/dynamic-ref-subsystem.md). It takes four subscriptions per world — `OnAdded` / `OnRemoved` drive the `Dynamic References` list and `OnAddedByName` / `OnRemovedByName` drive `Named References` — holding the handles per world so each can be dropped independently. All worlds feed the same lists, so a PIE session with both server and client worlds shows the union of their registrations.
 
 ## Click Handling
 

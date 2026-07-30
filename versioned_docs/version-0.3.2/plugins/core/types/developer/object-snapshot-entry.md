@@ -23,26 +23,21 @@ A single row within a [`Object Snapshot`](object-snapshot.md), summarising one `
 | `Name` | `FString` | Short name (`FName` as string) of the captured object. |
 | `FullName` | `FString` | Full path name of the captured object, including outer chain. |
 
+## Identity
+
+The struct deliberately exposes **no equality operator**. [Object Snapshot Utils](object-snapshot-utils.md) keys entries by `ObjectPtr` when diffing, and because a `TWeakObjectPtr`'s identity is already the object's index *and* serial number, that key distinguishes objects — and survives garbage collection — without any separate serial-number comparison.
+
 ## Methods
-
-### Is Equal
-
-Tests whether two entries describe the same `UObject`. Uses pointer identity first and falls back to serial number when pointers are unavailable.
-
-```cpp
-/**
- * Tests whether two entries describe the same UObject.
- * @param Other The entry to compare against.
- * @return true when both entries share a pointer or a serial number.
- */
-bool IsEqual(const FNObjectSnapshotEntry& Other) const;
-```
 
 ### To String
 
 Returns a single-line textual summary suitable for logs and diff output.
 
 ```cpp
+/**
+ * Returns a single-line textual summary suitable for logs and diff output.
+ * @return A string encoding RefCount, Root/Garbage flags, and FullName.
+ */
 FString ToString() const;
 ```
 

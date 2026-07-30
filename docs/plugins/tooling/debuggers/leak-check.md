@@ -4,7 +4,7 @@ description: A spot-check function which fires off a configurable, timed-delayed
 
 # Leak Check
 
-A spot-check function which fires off a configurable, timed-delayed task in the editor to look at any created `UObjects`.
+A spot-check function which fires off a configurable, timed-delayed task in the editor to look at any created `UObjects`. The delayed half is a `UNLeakTestDelayedEditorTask`, which is what survives the wait and takes the second reading.
 
 ![Leak Check Command](/assets/images/docs/plugins/tooling/debuggers/leak-check-menu.webp)
 

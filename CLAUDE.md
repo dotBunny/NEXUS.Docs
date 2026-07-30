@@ -66,7 +66,21 @@ The actual plugin source code can be found locally in `../NEXUS/Plugins` or remo
   **`onBrokenLinks: 'throw'` does not validate image sources** — a bad image path fails silently at build time and only shows up as a missing image in the browser. After bulk image work, verify refs resolve on disk rather than trusting a green build.
 - **Per-plugin Developer Overlay pages** live at the plugin root (e.g. `docs/plugins/actor-pools/developer-overlay.md`), not inside `types/`. They subclass `UNDeveloperOverlay` and follow a shared structure — see existing overlays under actor-pools, dynamic-references, and guardian. The **abstract base `UNDeveloperOverlay` itself** is the exception: it is documented as a type page at [docs/plugins/ui/types/widgets/developer-overlay.md](docs/plugins/ui/types/widgets/developer-overlay.md) (it lives in the UI plugin) and subclasses `UCommonUserWidget`, not a stock `UUserWidget` — the UI plugin is built on CommonUI.
 - **Macro headers are intentionally undocumented.** `*Macros.h` files in any plugin's `Public/Macros/` (or editor equivalents like `Public/Macros/NEditor*Macros.h`) are header-only convenience and not part of the public type surface. Do not scaffold pages for them — the doc-new-type skill should skip them, and any audit that lists them as "missing" is reporting policy, not a gap.
-- **Verification loop**: `npm run start` for fast iteration; reserve `npm run build` for catching link/MDX errors before pushing. Avoid `npm run build` during scaffolding — it is slow and the dev server surfaces the same errors.
+
+  **But a macro header can still hold behaviour worth documenting.** `Math/NRangeMacros.h` defines `FNRangeSampler`, whose scalar-type dispatch is what makes float/double range sampling half-open and integer sampling inclusive — a semantic difference every consumer needs. The rule is "no page for the macro header", not "the behaviour goes undocumented": explain it on the pages of the types that mix the macro in ([double-range.md](docs/plugins/core/types/math/double-range.md#sampler-dispatch) is the canonical write-up, with the other two ranges linking to it). Check a macro header for support types before assuming it is pure boilerplate.
+- **Out of scope for a type page.** These are deliberate exclusions, not backlog. An audit listing them is reporting policy:
+  - `*Macros.h`, plus **macro-only headers not named that way** (`NPickerUtils.h` is macros only — either rename it or treat it as one).
+  - `*Minimal.h` (include aggregators) and `*Module.h` (module boot classes).
+  - `*Style.h`, `*Commands.h`, `*GameplayTags.h` — near-identical per-plugin boilerplate. Core documents its own as the reference pattern; the other plugins' copies are skipped.
+  - `*Tests` modules.
+  - **Engine-contract overrides** — `OnRegister`, `Tick`, `IsTickable`, `PostEditChangeProperty`, `GetPaletteCategory`, `GetMouseCursor`, latent-command `Update`, PCG's `CreateElement`/`ExecuteInternal`. Their meaning comes from the base class; documenting them is noise.
+  - World Assembly's pipeline internals, which are covered as prose under `docs/plugins/world-assembly/architecture/` rather than one page per header.
+  - **Editor-type parity is settled, in favour of documenting them.** Visualizers, asset definitions, and factories *do* get pages — ActorPools and World Assembly both ship a full `editor-types/` tree (`visualizers/`, `asset-definitions/`, and the factory at the root). This resolves what was previously recorded as an open inconsistency: a plugin adding one of these should add the page too, not treat it as skipped boilerplate. `*Style.h` / `*Commands.h` / customizations remain excluded.
+- **A property's edit scope belongs in the docs.** `EditInstanceOnly` and `EditDefaultsOnly` change where a user can set a value, and readers hit this repeatedly (bone `Socket Size`/`Type`/`Requirements`, kill-zone properties, the spawner's `Spline Component Name`). Say so in the settings table rather than leaving someone hunting for a field on a Blueprint default.
+- **Verification loop**: `npm run audit:coverage` first — it is fast and catches far more than a build (see below). Then `npm run start` for fast iteration; reserve `npm run build` for catching MDX errors before pushing. Avoid `npm run build` during scaffolding — it is slow and the dev server surfaces the same errors.
+- **`npm run audit:coverage`** checks the docs against the plugin source: code quoted in a page vs the header it cites, all three link mechanisms (`@see`, `UFUNCTION meta=(DocsURL=…)`, page-to-page) including `#anchors`, static asset refs, `@param` accuracy, headers with no page, and types with no doc comment. `scripts/coverage-baseline.json` records accepted state so the run exits non-zero only on *new* findings; `-- --update` re-snapshots it. `scripts/` needs no build exclusion — Docusaurus only scans `docs/`, `community/`, and `versioned_docs/`, and `tsc` ignores `.mjs`.
+
+  It exists because name-level checks are not enough: a page can cite a real type and a real header and still describe neither correctly. Treat its raw counts as a triage queue, not a findings list — roughly two-thirds of "missing function" hits are false positives (locals in inline bodies, cross-class calls, display-name headings, engine overrides). The `doc-audit` skill documents each class.
 
 ### Type-folder layout
 
@@ -110,7 +124,10 @@ npm run build                             # verify
 
 ## Documentation Skills
 
-Two skills automate doc scaffolding — invoke them by user prompt rather than writing pages from scratch:
+Three skills cover doc work — invoke them by user prompt rather than working from scratch:
 
 - `doc-new-plugin` — scaffolds the `docs/plugins/<slug>/` folder, `index.mdx`, `types/index.mdx`, optional `editor-types/index.mdx`, optional `developer-overlay.md`, and the `Plugins` map entry in `PluginDetails/index.tsx`.
 - `doc-new-type` — scaffolds a single type page from a header file, choosing the appropriate body shape (default / wrapper UObject / list-view entry / async action / subsystem) based on the engine base class.
+- `doc-audit` — verifies existing pages against the source and repairs drift. Read it before trusting `npm run audit:coverage` output, and for the housekeeping every doc edit needs (versioned-snapshot sync, `@see` backlink, `DocsURL` meta, baseline update).
+
+**Writing or fixing a page is not finished when the file is saved.** `docs/` only serves `/docs/dev/`; `versioned_docs/version-<x>/` is a separate copy that does not inherit fixes, so a correction usually means editing both. A header that gains a page needs its `@see` backlink, and a `UFUNCTION` whose page gains a section can take a `DocsURL`. `doc-audit` has the full checklist.

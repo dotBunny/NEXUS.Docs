@@ -7,7 +7,7 @@ import TypeDetails from '@site/src/components/TypeDetails';
 
 # Severity
 
-<TypeDetails icon="ue-enum" base="UEnum" type="ENSeverity" typeExtra="" headerFile="NexusCore/Public/Types/NSeverity.h" />
+<TypeDetails icon="ue-enum" base="enum" type="ENSeverity" typeExtra="" headerFile="NexusCore/Public/Types/NSeverity.h" />
 
 A shared severity ladder used across NEXUS for log lines, message classifications, and the [Developer Overlay](../../../ui/types/widgets/developer-overlay.md) border-color resolution in [`FNMultiLineTextBoxCanvasItem`](../../../ui/types/canvas-items/multi-line-text-box-canvas-item.md). Values are ordered from quietest to loudest so callers can do straight numeric comparisons (`if (Current > Threshold)`).
 

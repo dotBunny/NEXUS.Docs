@@ -43,7 +43,18 @@ if (Pool != nullptr)
 }
 ```
 
-The wrapper is created with `RF_Transient` — it is intended to be short-lived display state, not persisted. If the underlying [FNActorPool](actor-pool.md) is destroyed, the wrapper's calls will continue to forward and crash; tear down the wrapper alongside any UI that references it.
+The wrapper is created with `RF_Transient` — it is intended to be short-lived display state, not persisted.
+
+### Surviving A Destroyed Pool
+
+Linking is two-way. `Create` stores the pool on the wrapper *and* a back-pointer to the wrapper on the pool, so `FNActorPool`'s destructor can null the wrapper's pool reference. A wrapper therefore outlives its pool safely rather than dangling — which matters because the world owns pool lifetime and tears them down on teardown, not the UI holding the wrapper.
+
+```cpp
+/** @return true if this wrapper is still linked to a live native FNActorPool. */
+bool IsValid() const;
+```
+
+Check `IsValid()` before reading through a wrapper you have held across a level transition or world teardown; it returns `false` once the pool is gone, letting you skip work instead of dereferencing a destroyed pool. The accessors are safe to call either way — there is no need to tear the wrapper down defensively in lockstep with the pool.
 
 :::info
 

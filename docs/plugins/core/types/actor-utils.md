@@ -80,3 +80,20 @@ Collect every actor in a world that satisfies the supplied filter settings. Null
  */
 static TArray<AActor*> GetWorldActors(const UWorld* World, const FNWorldActorFilterSettings& Settings);
 ```
+
+## Testing A Single Actor
+
+`GetWorldActors` applies its filter while walking the world. To ask the same question about one actor you already hold — without gathering a whole array — use the predicate directly:
+
+```cpp
+/**
+ * Tests a single actor against the same rules GetWorldActors applies.
+ * @return true if the actor would be kept by GetWorldActors under these settings.
+ */
+static bool PassesFilter(const AActor* Actor, const FNWorldActorFilterSettings& Settings);
+```
+
+The two share one implementation, so a `true` here guarantees the actor appears in the corresponding `GetWorldActors` result. Two behaviours are worth knowing:
+
+- A null or pending-kill actor (anything failing `IsValid`) returns `false` rather than asserting.
+- An `APlayerStart` **short-circuits to `true`** when `bIncludePlayerStarts` is set, bypassing every other filter — including the editor-only and collision checks and any `ExclusionFunction`. That matches `GetWorldActors` exactly, but it does mean a player start can pass a filter that would otherwise reject it.

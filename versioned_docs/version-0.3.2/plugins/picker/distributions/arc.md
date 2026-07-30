@@ -65,6 +65,18 @@ Gets a random point inside or on an arc using a one-shot seed.
 
 Gets a random point inside or on an arc using a tracked seed. The seed altered for each `Count`.
 
+### Containment
+
+Standalone predicates for testing whether a point is inside or on the surface of the shape. Unlike the generation methods above these take explicit geometry rather than an `FNArcPickerParams`, so they are usable without building a params struct first.
+
+```cpp
+static bool IsPointInsideOrOn(const FVector& Origin, const FRotator& Rotation, const float& Degrees, const float& MinimumDistance, const float& MaximumDistance, const FVector& Point);
+
+static TArray<bool> IsPointsInsideOrOn(const TArray<FVector>& Points, const FVector& Origin, const FRotator& Rotation, const float& Degrees, const float& MinimumDistance, const float& MaximumDistance);
+```
+
+Exposed to Blueprint as `Arc: Is Point Inside Or On?` and `Arc: Is Points Inside Or On?`. The array form returns one `bool` per input point, in the same order.
+
 ## FNArcPickerParams
 
 ### Base

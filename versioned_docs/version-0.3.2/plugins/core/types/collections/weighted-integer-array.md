@@ -19,8 +19,11 @@ For Blueprint exposure of these methods, see [Collections Library](../collection
 /** Add a value to the array, duplicated according to its weight. */
 void Add(const int32 Value, const int32 Weight = 1);
 
-/** Clears all entries from the array. */
+/** Clears all entries from the array, releasing the allocation. */
 void Empty();
+
+/** Clears all entries from the array while retaining the allocated slack. */
+void Reset();
 
 /** Removes every copy of the supplied value from the array. */
 void Remove(const int32 Value);

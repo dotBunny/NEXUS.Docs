@@ -15,13 +15,15 @@ A utility class for operating on [`ENToggle`](#entoggle) — an enumeration repr
 
 ```cpp
 UENUM(BlueprintType)
-enum ENToggle : int8
+enum class ENToggle : uint8
 {
-    T_Default = -1     UMETA(DisplayName = "Default", Description = "Take no action"),
-    T_False = 0        UMETA(DisplayName = "False"),
-    T_True = 1         UMETA(DisplayName = "True")
+    Default = 0        UMETA(DisplayName = "Default", Description = "Take no action"),
+    Disabled = 1       UMETA(DisplayName = "Disabled"),
+    Enabled = 2        UMETA(DisplayName = "Enabled")
 };
 ```
+
+`Default` is the zero value, so a freshly default-constructed `ENToggle` means "take no action" rather than `Disabled`. Because this is a scoped enumeration, enumerators must be qualified in native code (`ENToggle::Enabled`).
 
 ## Methods
 
@@ -33,7 +35,7 @@ Returns a human-readable name for `InToggle`.
 /**
  * Returns a human-readable name for InToggle.
  * @param InToggle The enum value to stringify.
- * @return "Default", "False", "True", or "Unknown" for unrecognized values.
+ * @return "Default", "Disabled", "Enabled", or "Unknown" for unrecognized values.
  */
 static FString ToString(const ENToggle& InToggle);
 ```

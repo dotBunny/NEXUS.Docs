@@ -47,7 +47,9 @@ A `ANBoneActor` is available for situations where you want a bespoke **Bone**, a
 | Type | `ENCellJunctionType` | **NOT IMPLEMENTED** | `Two-Way` |
 | Requirements | `ENCellJunctionRequirements` | **NOT IMPLEMENTED** | `AllowEmpty` |
 | Mode | `ENBoneMode`| The **Bone** placement behavior at author-time. | `Automatic` |
-| Identifier | `FGuid` | A pseudo-unique identifier for the **Bone** component. | `N/A` |
+| Identifier | `FGuid` | Stable identifier for this **Bone**, used to keep generation deterministic across runs. Read-only. | `<ctor>` |
+
+`Socket Size`, `Type`, and `Requirements` are `EditInstanceOnly` — they can be set on a **Bone** placed in a level, but not on a Blueprint's defaults. `Mode` is the only one of the four editable in both places.
 
 ## ENBoneMode
 

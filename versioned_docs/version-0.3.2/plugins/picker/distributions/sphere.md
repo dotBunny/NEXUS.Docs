@@ -71,6 +71,24 @@ As of `0.3.0`, `FNSpherePicker` no longer emits points that fall ever-so-slightl
 
 :::
 
+### Containment
+
+Standalone predicates for testing whether a point is inside or on the surface of the shape. Unlike the generation methods above these take explicit geometry rather than an `FNSpherePickerParams`, so they are usable without building a params struct first.
+
+```cpp
+static bool IsPointInsideOrOn(const FVector& Origin, const float Radius, const FVector& Point);
+
+static TArray<bool> IsPointsInsideOrOn(const TArray<FVector>& Points, const FVector& Origin, const float MinimumRadius, const float MaximumRadius);
+```
+
+Exposed to Blueprint as `Sphere: Is Point Inside Or On?` and `Sphere: Is Points Inside Or On?`. The array form returns one `bool` per input point, in the same order.
+
+:::warning
+
+The two are not symmetric. The single-point test takes a single `Radius` and tests one solid shape; the array test takes a `MinimumRadius` and a `MaximumRadius` and tests the **shell between them**. Passing the same value for both collapses it to a surface test. A minimum of zero leaves no hole, so every point within the outer bound — including the origin — is included.
+
+:::
+
 ## FNSpherePickerParams
 
 ### Base

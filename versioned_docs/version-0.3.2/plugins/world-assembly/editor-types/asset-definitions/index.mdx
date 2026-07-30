@@ -1,0 +1,16 @@
+---
+description: UAssetDefinition subclasses that register World Assembly assets with the Content Browser.
+sidebar_position: 1
+---
+
+import DocCardList from '@theme/DocCardList';
+
+# Asset Definitions
+
+`UAssetDefinition` subclasses that register World Assembly assets with the Content Browser — supplying display names, category paths, asset colors, and validation hooks. Mirrors the layout of `NexusWorldAssemblyEditor/Public/AssetDefinitions/`.
+
+Both share the NEXUS light-blue asset tint and both expose a static `ValidateAsset` that `UNWorldAssemblyEditorValidator` calls during data-validation runs.
+
+They differ in how much they own beyond presentation. [Tissue](asset-definition-tissue.md) is a self-contained asset an author creates and fills, so its definition is display metadata and little else. [Cell](asset-definition-cell.md) is a **side-car** bound to one specific world, so its definition also carries the package-lifecycle machinery that keeps the two in step — and blocks duplication outright.
+
+<DocCardList />

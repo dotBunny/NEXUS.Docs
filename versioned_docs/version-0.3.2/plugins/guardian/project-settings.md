@@ -7,6 +7,8 @@ description: The project settings for the NGuardian subsystem.
 
 From the `Edit > Project Settings` window, find the **Guardian** section.
 
+Backed by `UNGuardianSettings`; from C++, read it with `UNGuardianSettings::Get()`.
+
 ![Guardian Settings](/assets/images/docs/plugins/guardian/guardian-settings.webp)
 
 ## Subsystem
@@ -15,7 +17,7 @@ From the `Edit > Project Settings` window, find the **Guardian** section.
 | :-- | --- | :-- |
 | `Build Availability` | Bitmask of `ENBuildConfigurationAvailability` flags (`Debug`, `Development`, `Shipping`, `Test`, `Editor`) controlling which build configurations the [UNGuardianSubsystem](types/guardian-subsystem.md) is created in. Set to `None` (`0`) to disable the subsystem entirely. | `Debug`, `Development`, `Test`, `Editor` (everything except `Shipping`) |
 | `Tick Rate` | How often the subsystem polls the live `UObject` count (seconds). Lower values catch threshold crossings sooner at the cost of more sampling work. Clamped `0.0` – `300.0`. | `1.0` |
-| `Save Capture` | When `true`, snapshot and compare results are written to the project's `Saved/Logs` folder with the prefix `NEXUS_Snapshot_*` and `NEXUS_Compare_*`. Disk output is not required for comparison — snapshots are also held in memory. | `false` |
+| `Save Capture` | When `true`, the full snapshot taken at the `Snapshot Threshold` is written to the project's `Saved/Logs` folder as `NEXUS_Snapshot_*`. Disk output is not required for comparison — the snapshot is held in memory regardless. Note this setting does **not** gate the compare report, which is always written as `NEXUS_Compare_*`. | `false` |
 
 ## Baseline
 
@@ -30,7 +32,7 @@ From the `Edit > Project Settings` window, find the **Guardian** section.
 | :-- | --- | :-- |
 | `Warning Threshold` | The number of `UObjects` added after [`SetBaseline()`](types/guardian-subsystem.md) at which a warning is logged. | `25000` |
 | `Snapshot Threshold` | The number of `UObjects` added after baseline at which an `FNObjectSnapshot` is captured. The snapshot is held in memory and (if `Save Capture` is enabled) written to disk. | `30000` |
-| `Compare Threshold` | The number of `UObjects` added after baseline at which a second snapshot is captured and diffed against the first. The detailed compare summary is written to the project log folder when `Save Capture` is enabled. | `40000` |
+| `Compare Threshold` | The number of `UObjects` added after baseline at which a second snapshot is captured and diffed against the first. The compare summary is always written to the project log folder, independently of `Save Capture`. | `40000` |
 
 :::info
 

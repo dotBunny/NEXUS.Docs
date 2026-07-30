@@ -255,3 +255,21 @@ static void DrawDebugString(const UObject* WorldContextObject, FString String, c
     DepthPriority, ForegroundColor, Scale, LineHeight, Thickness, bInvertLineFeed, bDrawBelowPosition);		
 }
 ```
+### Random
+
+#### Create Mersenne Twister Object
+
+```cpp
+/**
+ * @param WorldContextObject Object used to resolve the owning UWorld.
+ * @param Seed String seed used to initialize the random stream.
+ * @return The newly created, seeded twister object.
+ */
+UFUNCTION(BlueprintCallable, DisplayName = "Create Mersenne Twister Object", Category = "NEXUS|Developer",
+    meta = (WorldContext = "WorldContextObject"))
+static UNMersenneTwisterObject* CreateMersenneTwisterObject(const UObject* WorldContextObject, const FString& Seed);
+```
+
+Creates a [Mersenne Twister Object](../math/mersenne-twister-object.md) seeded from a string, giving Blueprint a deterministic stream it can hold and draw from repeatedly. The string is converted through [Seed Generator](../math/seed-generator.md), so the same phrase always yields the same sequence — which is what makes it usable for a shareable, reproducible run.
+
+The returned object is owned by the resolved world, so keep a reference for as long as you need the stream.

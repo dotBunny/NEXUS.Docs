@@ -65,6 +65,24 @@ Gets a random point inside or on an  `FBox` using a one-shot seed.
 
 Gets a random point inside or on an `FBox` using a tracked seed. The seed altered for each `Count`.
 
+### Containment
+
+Standalone predicates for testing whether a point is inside or on the surface of the shape. Unlike the generation methods above these take explicit geometry rather than an `FNBoxPickerParams`, so they are usable without building a params struct first.
+
+```cpp
+static bool IsPointInsideOrOn(const FVector& Origin, const FBox& Box, const FVector& Point);
+
+static TArray<bool> IsPointsInsideOrOn(const TArray<FVector>& Points, const FVector& Origin, const FBox& MinimumBox, const FBox& MaximumBox);
+```
+
+Exposed to Blueprint as `Box: Is Point Inside Or On?` and `Box: Is Points Inside Or On?`. The array form returns one `bool` per input point, in the same order.
+
+:::warning
+
+The two are not symmetric. The single-point test takes a single `Box` and tests one solid shape; the array test takes a `MinimumBox` and a `MaximumBox` and tests the **shell between them**. Passing the same value for both collapses it to a surface test. A minimum of zero leaves no hole, so every point within the outer bound — including the origin — is included.
+
+:::
+
 ## FNBoxPickerParams
 
 :::warning

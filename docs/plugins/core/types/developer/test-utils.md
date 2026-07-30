@@ -11,16 +11,14 @@ import TypeDetails from '@site/src/components/TypeDetails';
 
 Helpers that standardise how NEXUS tests set up and tear down worlds and measure performance. These utilities are only meaningful inside the Low-Level Test framework and depend on its macros (`REQUIRE_MESSAGE`, `ADD_ERROR`). All methods are designed to be safely re-entrant — every world is disposed before the call returns.
 
+## Performance Test Setup
+
+`FNTestUtils` itself has no performance-test entry points. Stabilising the engine around a timed region is handled by a pair of latent automation commands, which the `N_TEST_PERF_*` macros add for you:
+
+- [Test Latent Command: Pre Performance Test](test-latent-commands/test-latent-command-pre-performance-test.md) — warms up stack walking (via `FNTestUtils::Environment.InitializeStackWalking()`), forces a garbage-collection pass, flushes the log and visual-log streams, and streams in all resources, so one-time costs don't contaminate the measured region.
+- [Test Latent Command: Post Performance Test](test-latent-commands/test-latent-command-post-performance-test.md) — forces a garbage-collection pass once the timed region finishes, so allocations made during the test don't leak into the next one.
+
 ## Methods
-
-### Pre/Post Performance Test
-
-Prepares global state so a performance test can produce comparable, low-noise measurements. Initializes stack walking, forces a GC, and flushes the log/visual-log streams. The matching `Post` helper forces a GC so the next test starts clean.
-
-```cpp
-FORCEINLINE static void PrePerformanceTest();
-FORCEINLINE static void PostPerformanceTest();
-```
 
 ### World Test
 

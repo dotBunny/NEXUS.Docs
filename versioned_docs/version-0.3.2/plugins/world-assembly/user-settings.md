@@ -11,6 +11,8 @@ From the `Edit > Editor Preferences` window, find the **World Assembly (User)** 
 
 ![World Assembly Editor Preferences User](/assets/images/docs/plugins/world-assembly/world-assembly-editor-preferences-user.webp)
 
+Backed by `UNWorldAssemblyEditorUserSettings`; from C++, read it with `UNWorldAssemblyEditorUserSettings::Get()`.
+
 ## Configuration Options
 
 ### Color Palette

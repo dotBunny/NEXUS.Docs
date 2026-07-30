@@ -11,6 +11,8 @@ From the `Edit > Editor Preferences` window, find the **World Assembly** section
 
 ![World Assembly Editor Preferences](/assets/images/docs/plugins/world-assembly/world-assembly-editor-preferences.webp)
 
+Backed by `UNWorldAssemblyEditorSettings`; from C++, read it with `UNWorldAssemblyEditorSettings::Get()`.
+
 ## Configuration Options
 
 ### Cell (Defaults)

@@ -65,6 +65,39 @@ Gets a random point inside or on an  `FOrientedBox` using a one-shot seed.
 
 Gets a random point inside or on an `FOrientedBox` using a tracked seed. The seed altered for each `Count`.
 
+### Containment
+
+Standalone predicates for testing whether a point is inside or on the surface of the shape. Unlike the generation methods above these take explicit geometry rather than an `FNOrientedBoxPickerParams`, so they are usable without building a params struct first.
+
+```cpp
+static bool IsPointInsideOrOn(const FVector& Origin, const FVector& Dimensions, const FRotator& Rotation, const FVector& Point);
+
+static TArray<bool> IsPointsInsideOrOn(const TArray<FVector>& Points, const FVector& Origin, const FVector& MinimumDimensions, const FVector& MaximumDimensions, const FRotator& Rotation = FRotator::ZeroRotator);
+```
+
+Exposed to Blueprint as `OrientedBox: Is Point Inside Or On?` and `OrientedBox: Is Points Inside Or On?`. The array form returns one `bool` per input point, in the same order.
+
+:::warning
+
+The two are not symmetric. The single-point test takes a single `Dimensions` and tests one solid shape; the array test takes `MinimumDimensions` and `MaximumDimensions` and tests the **shell between them**. Passing the same value for both collapses it to a surface test. A minimum of zero leaves no hole, so every point within the outer bound — including the origin — is included.
+
+:::
+
+### Initialize Params
+
+Builds an [`FNOrientedBoxPickerParams`](#fnorientedboxpickerparams) from an existing `FOrientedBox`, so you can feed engine geometry straight into a pick without filling the struct out by hand.
+
+```cpp
+/**
+ * Creates a FNOrientedBoxPickerParams initialized with the properties of a FOrientedBox.
+ * @param OrientedBox The FOrientedBox to initialize the parameters from.
+ * @return The initialized FNOrientedBoxPickerParams.
+ */
+static FNOrientedBoxPickerParams InitializeParams(const FOrientedBox& OrientedBox);
+```
+
+Exposed to Blueprint as `OrientedBox: Initialize Params`. This is unique to the oriented-box distribution — the other shapes have no equivalent.
+
 ## FNOrientedBoxPickerParams
 
 :::warning

@@ -65,6 +65,24 @@ Generates a random point inside or on the boundary of a rectangle using a provid
 
 Generates a random point inside or on the boundary of a rectangle using a tracked seed.
 
+### Containment
+
+Standalone predicates for testing whether a point is inside or on the surface of the shape. Unlike the generation methods above these take explicit geometry rather than an `FNRectanglePickerParams`, so they are usable without building a params struct first.
+
+```cpp
+static bool IsPointInsideOrOn(const FVector& Origin, const FVector2D Dimensions, const FRotator Rotation, const FVector& Point);
+
+static TArray<bool> IsPointsInsideOrOn(const TArray<FVector>& Points, const FVector& Origin, const FVector2D& MinimumDimensions, const FVector2D& MaximumDimensions, const FRotator Rotation = FRotator::ZeroRotator);
+```
+
+Exposed to Blueprint as `Rectangle: Is Point Inside Or On?` and `Rectangle: Is Points Inside Or On?`. The array form returns one `bool` per input point, in the same order.
+
+:::warning
+
+The two are not symmetric. The single-point test takes a single `Dimensions` and tests one solid shape; the array test takes `MinimumDimensions` and `MaximumDimensions` and tests the **shell between them**. Passing the same value for both collapses it to a surface test. A minimum of zero leaves no hole, so every point within the outer bound — including the origin — is included.
+
+:::
+
 ## FNRectanglePickerParams
 
 :::warning

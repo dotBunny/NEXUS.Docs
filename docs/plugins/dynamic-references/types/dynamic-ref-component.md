@@ -26,12 +26,30 @@ Choose `InitializeComponent` when other components' `BeginPlay()` needs the regi
 
 ## References
 
-A component can claim slots two ways, and both arrays can be populated on the same component:
+A component can claim slots three ways, and all three can be populated on the same component:
 
 | Property | Type | Used For |
 | :-- | :-- | :-- |
-| `Fast References` | `TArray<ENDynamicRef>` | Fixed-slot lookups via the [ENDynamicRef](dynamic-ref.md) enum (fast array-backed). |
+| `Fast References` | `TArray<TEnumAsByte<ENDynamicRef>>` | Fixed-slot lookups via the [ENDynamicRef](dynamic-ref.md) enum (fast array-backed). |
 | `Named References` | `TArray<FName>` | Free-form `FName` buckets for ad-hoc keys not covered by `ENDynamicRef`. |
 | `Tag References` | `FGameplayTagContainer` | A pre-defined tag system, backed by the `FName` buckets. |
 
-There is no hard limit on the number of entries in the arrays. `NDR_None`, `NAME_None`, `FGameplayTag::Empty` entries are skipped during registration.
+Tag references are not a third storage mechanism — each tag is registered under its own `FName` via `GetTagName()`, so a tag and a named reference of the same string resolve to the same bucket.
+
+There is no hard limit on the number of entries in the arrays. `NDR_None`, `NAME_None`, and `FGameplayTag::EmptyTag` entries are skipped during registration.
+
+## Methods
+
+### To String Slow
+
+```cpp
+/**
+ * Resolve an ENDynamicRef value to its human-readable display name via UE reflection.
+ * @param DynamicReference The enum value to convert.
+ * @return The display name (e.g. "Objective A").
+ * @note Uses reflection; avoid in tight loops.
+ */
+static FString ToStringSlow(const ENDynamicRef& DynamicReference);
+```
+
+A static helper for turning a slot identifier into its editor display name — handy for debug readouts. As the name warns, it resolves through `StaticEnum<>()` reflection on every call, so keep it out of hot paths.

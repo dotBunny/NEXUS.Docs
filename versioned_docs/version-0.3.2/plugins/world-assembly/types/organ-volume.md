@@ -11,12 +11,16 @@ import TypeDetails from '@site/src/components/TypeDetails';
 
 :::info[Wikipedia Definition]
 
-A bone is a rigid organ that constitutes part of the skeleton in most vertebrate animals. Bones provide structural support, protect internal organs, enable mobility, and serve as vital sites for producing blood cells and storing minerals.
+A collection of tissues joined in a structural unit to serve a common function.
 
 :::
 
 An Organ represents a spatial unit where World Assembly of [Cells](../types/cell.md) (via [Tissues](../types/tissue.md)) should be generated. 
 Organs can have sub-organs, and generation will account for and determine the most parallelizable order possible.
+
+`ANOrganVolume` itself is a convenience actor: it bundles a [Bone Component](bone-component.md) and an organ component together so that dropping one into a level is all it takes to declare a region for World Assembly to populate. The organ component supplies the tissue and cell rules; the bone component supplies the spatial skeleton that shapes placement during graph construction. Both are exposed as `BlueprintReadOnly` properties, and native code can reach them via `GetOrganComponent()` and `GetBoneComponent()`.
+
+Everything below documents the bundled organ component's settings.
 
 
 <div class="image-tri">
@@ -36,7 +40,7 @@ When you have an Organ selected, its component has some action buttons available
 
 ### Tissues
 
-An array of [Tissues](../types/tissue.md) defining what should be used to populate an Organ. 
+An array of [Tissues](../types/tissue.md) defining what should be used to populate an Organ. Stored as `TArray<TSoftObjectPtr<UNTissue>>`, so referencing a tissue here does not pull it into memory until an assembly operation builds its cell map. At that point the tissue and the [Cell](cell.md) data assets it names are loaded — but each cell's *level* stays unloaded until the cell is actually placed, which is what the side-car design buys you. This is the one organ setting that is editor-only (`EditAnywhere` without `BlueprintReadWrite`); the tissue list cannot be swapped from Blueprint at runtime.
 
 ### Inputs
 
@@ -44,7 +48,7 @@ An array of [Tissues](../types/tissue.md) defining what should be used to popula
 |---|---|---|---|
 | Activated | `bool` | Should this Organ be included in World Assembly? | `true` |
 | Required | `bool` | Is a successful generation of this organ required for the whole assembly operation to be considered successful? | `true` |
-| Unbounded | `bool` | Should the Organ **NOT** enforce that placed Cells during generation fall within its bounds / brush. | `false` |
+| Unbound | `bool` | Should the Organ **NOT** enforce that placed Cells during generation fall within its bounds / brush. | `false` |
 
 ### Requirements
 
@@ -71,7 +75,7 @@ When a Cell has a `Direction Constraint`, it can only be placed when its prospec
 | Mode | Description |
 |---|---|
 | `Start Bone` | Measure bearings from the Organ's start bone (the generation anchor). This is the default and the original behavior. |
-| `Organ Center` | Measure bearings from the geometric center of the Organ volume's bounds. `Unbounded` Organs have no meaningful volume center, so they fall back to `Start Bone`. |
+| `Organ Center` | Measure bearings from the geometric center of the Organ volume's bounds. `Unbound` Organs have no meaningful volume center, so they fall back to `Start Bone`. |
 | `Dynamic Centroid` | Measure bearings from the running centroid of the Cells already placed in the Organ, so the reference point shifts as the Organ fills in. Before the first Cell is placed it falls back to `Start Bone`. |
 
 :::note[Multiplayer]

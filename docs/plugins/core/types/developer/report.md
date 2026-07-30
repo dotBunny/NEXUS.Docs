@@ -158,3 +158,32 @@ void OutputToFile(const FString& FilePath, ENReportOutputFormat OutputFormat = E
 - [Report List Block](report-list-block.md) — Bulleted list block.
 - [Report Collapsable Block](report-collapsable-block.md) — Grouping that vanishes when empty.
 - [Report Output Format](report-output-format.md) — Plain text vs. Markdown selector.
+
+### Add Replace Token
+
+```cpp
+/**
+ * Registers a token/value pair to be substituted when the report is rendered, overwriting any
+ * existing value for the token.
+ * @param Token The token to search for during rendering.
+ * @param Value The replacement text substituted for the token.
+ */
+void AddReplaceToken(const FString& Token, const FString& Value);
+```
+
+Substitution happens at render time, so tokens can be registered before or after the blocks that contain them. Re-registering a token replaces its value rather than adding a second entry.
+
+### Desired File Name
+
+```cpp
+void SetDesiredFileName(const FString& FileName);
+FString& GetDesiredFileName();
+```
+
+A name the report carries for callers that write it out, letting whatever produced the report suggest a filename rather than having the writer invent one. It is advisory — [Output To File](#output-to-file) takes an explicit path and does not consult it.
+
+:::note
+
+`GetDesiredFileName` returns a **mutable reference** to the report's own string, not a copy. Assigning through it mutates the report.
+
+:::

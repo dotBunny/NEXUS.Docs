@@ -112,6 +112,12 @@ void RotatedAroundPivot(const FVector& WorldPoint, const FRotator& Rotation);
 /** Bakes Scale into every vertex, then refreshes Center and Bounds. No-op when Scale is the identity. */
 void ApplyScale(const FVector& Scale);
 
+/**
+ * Bakes a full transform (translation, rotation, scale) into every vertex and the center, then
+ * refreshes Bounds from the transformed vertices. No-op when Transform is the identity.
+ */
+void ApplyTransform(const FTransform& Transform);
+
 /** Recomputes Center as the mean of Vertices and Bounds as the AABB enclosing them. */
 void CalculateCenterAndBounds();
 
@@ -120,6 +126,25 @@ FDynamicMesh3 CreateDynamicMesh(bool bProcessMesh = false) const;
 ```
 
 `CreateDynamicMesh` no longer crashes on non-triangle-based meshes — it now returns a default `FDynamicMesh3` and logs an error instead. Run `ConvertToTriangles()` first if you need the conversion to succeed.
+
+#### Moving A Single Vertex
+
+```cpp
+/**
+ * Moves one vertex and invalidates everything cached from it.
+ * @param Index Vertex to move. Out-of-range indices are ignored.
+ * @param Position New position, in the mesh's own space.
+ */
+void SetVertex(const int32 Index, const FVector& Position);
+```
+
+`Vertices` is public, so it is possible to assign into it directly — but a raw write bypasses every mutator and leaves the convexity, non-tri, and bounds flags plus the face-plane cache still describing the *old* geometry. That is a silent wrong answer rather than a slow one. Per-vertex edits should go through `SetVertex`, which invalidates both.
+
+:::warning
+
+`SetVertex` deliberately does **not** recompute `Center` or `Bounds` — that pass is O(vertices), and a caller moving several vertices should pay it once. Call `CalculateCenterAndBounds()` yourself when you are done editing and those values matter.
+
+:::
 
 ### Topology Edits
 

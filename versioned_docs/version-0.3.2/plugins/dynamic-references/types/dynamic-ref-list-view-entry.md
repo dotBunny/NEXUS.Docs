@@ -30,5 +30,5 @@ The widget expects the following named widgets in any Blueprint subclass — the
 
 - **`NativeOnListItemObjectSet(UObject*)`** receives the [UNDynamicRefObject](dynamic-ref-object.md) the row is bound to and triggers the initial population.
 - **`NativeOnEntryReleased()`** is called when the list view recycles the row; bound state is cleared so the row can be reused for a different slot/bucket.
-- **`Refresh()`** is `BlueprintCallable` and re-reads the bound wrapper. The shipped overlay calls it in response to the wrapper's `Changed` delegate.
+- **`Refresh()`** is `BlueprintCallable` and re-reads the bound wrapper — it sets the label text and rebuilds the nested list, creating one `UNButtonListEntry` per live registered object. The entry binds this to the wrapper's `Changed` delegate itself when the item is set, so rows update without the overlay driving them.
 - **`OnButtonPressed(UObject*)`** is the row's per-object button handler; it forwards the click up to the [Developer Overlay](../developer-overlay.md)'s `OnButtonClicked` delegate, which the editor wires up to actor selection.

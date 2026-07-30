@@ -45,7 +45,7 @@ The `ANCellActor` functions as the _root of all evil_, and also houses the level
 
 ## Cell Root Component
 
-The `UNCellRootComponent` represents the data which is going to get mirrored into the `UNCell` when saved.
+The `UNCellRootComponent` represents the data which is going to get mirrored into the `UNCell` when saved. Its authored state lives on a single `FNCellRootDetails` struct — the settings groups below are that struct's sections, and it is what the mirror copies.
 
 ![Cell Root Details](/assets/images/docs/plugins/world-assembly/types/cell-root-component-details.webp)
 
@@ -105,3 +105,7 @@ Each cell is stored as a side-car asset (`<CellName>_NCell.uasset`) that lives n
 When a thumbnail is captured for the `ANCellActor` in the level editor (via the **Capture Thumbnail** menu option in [Cell Editor](../editor-mode/cell-editor.md)), it propagates (with gizmos) to the side-car automatically so the cell shows similar preview in the content browser as the source level.
 
 The side-car asset's content-browser context menu includes a **Select Level** action button that jumps to the source level in the content browser — handy when triaging a generation result and you need to open the source map for the cell that produced a particular proxy.
+
+### Schema Version
+
+Each side-car stores the schema version it was written with, readable in native code via `GetVersion()`. Comparing it against the current schema is how stale data is detected after an upgrade — which is why a release that changes what the side-car caches asks you to rebake. The field is `VisibleAnywhere` and written by the save path, not something you set by hand.

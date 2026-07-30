@@ -66,7 +66,7 @@ class NEXUSUI_API UNTextListEntry : public UObject
 
 | Field | Default | Purpose |
 | :-- | :-- | :-- |
-| `Text` | empty | Label rendered in the row. |
+| `Text` | empty | Label rendered in the row. Private — read and write it with the `Get Text` / `Set Text` nodes (`GetText()` / `SetText()`) rather than directly. |
 | `ForegroundColor` | `NC_White` | Text color override; only applied when `HasForegroundColor()` returns `true`. |
 | `BackgroundColor` | `NC_Transparent` | Border brush color override; only applied when `HasBackgroundColor()` returns `true`. |
 

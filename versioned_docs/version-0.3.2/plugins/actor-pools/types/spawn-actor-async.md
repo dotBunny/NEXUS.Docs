@@ -31,6 +31,8 @@ An async Blueprint action that takes a `TSoftClassPtr<AActor>`, streams it in, e
 
 The pin always fires exactly once. Check `SpawnedActor` for `null` before using it.
 
+That holds even when the level changes while the class is still streaming. An async action outlives its world context, so if the context has expired by the time the load finishes the action still completes with `null` — releasing the latent node rather than hanging it — and logs a warning to `LogNexusActorPools`.
+
 ## Notes
 
 - Honors all the [pool flags](actor-pool-settings.md#flags) of the resolved pool. In particular:

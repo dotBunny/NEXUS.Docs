@@ -113,7 +113,7 @@ void AddObjectsByName(FName Name, TArray<UObject*> InObjects);
 
 ### Removing References
 
-#### Remove Object	
+#### Remove Object
 
 ```cpp
 /**
@@ -124,7 +124,7 @@ void AddObjectsByName(FName Name, TArray<UObject*> InObjects);
 void RemoveObject(ENDynamicRef DynamicRef, UObject* InObject);
 ```  
 	
-#### Remove Object	(By Name)
+#### Remove Object (By Name)
 
 ```cpp
 /**
@@ -147,7 +147,7 @@ void RemoveObjectByName(FName Name, UObject* InObject);
 void RemoveObjects(ENDynamicRef DynamicRef, TArray<UObject*> InObjects);
 ```  
 
-#### Remove Objects	(By Name)
+#### Remove Objects (By Name)
 
 ```cpp
 /**
@@ -527,7 +527,15 @@ Because references are weak (see the **Weak References** note at the top of this
 
 ### Collection References
 
-Return a `const FNDynamicRefCollection&` directly, avoiding the per-call `TArray` copy that `GetObjects*` performs. Prefer these when you only need to read the backing storage. The collection stores `TWeakObjectPtr` entries and is **not** compacted by these accessors, so iterate with `.Get()` null-checks (or call its `HasObjects()` / `GetObjectsCopy()` / `GetFirstValid()` / `GetLastValid()` helpers) to skip any stale entries.
+Return a `const FNDynamicRefCollection&` directly, avoiding the per-call `TArray` copy that `GetObjects*` performs. Prefer these when you only need to read the backing storage. The collection stores `TWeakObjectPtr` entries in registration order and is **not** compacted by these accessors, so iterate with `.Get()` null-checks or use its helpers to skip stale entries:
+
+| Helper | Returns |
+| :-- | :-- |
+| `HasObjects()` | `true` if at least one entry is still live. Early-outs on the first hit. |
+| `CountValid()` | The number of live entries, skipping stale ones, **without** pruning. |
+| `GetObjectsCopy()` | A copy of the live entries as raw pointers. |
+| `GetFirstValid()` / `GetLastValid()` | The first / last live entry. |
+| `Compact()` | Prunes stale entries in place and returns how many remain. Mutating — not available through the `const&` these accessors hand back. |
 
 | Method | Returns |
 | :-- | :-- |

@@ -27,6 +27,8 @@ The action exposes a single output pin:
 
 The pin always fires exactly once, even if the underlying load fails or no `AActor` is available; check `SpawnedActor` for `null` before using it.
 
+That guarantee holds even when the level changes while the class is still streaming. An async action outlives its world context, so if the context has expired by the time the load finishes the action still completes with `null` — releasing the latent node instead of hanging it — and logs a warning to `LogNexusActorPools`.
+
 ## Notes
 
 - Honors all the [pool flags](actor-pool-settings.md#flags) of the resolved pool — including `ServerOnly`, which will return `null` on clients.

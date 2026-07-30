@@ -30,7 +30,7 @@ void OnInitializedFromProxy(ANCellLevelInstance* CellLevelInstance);
 
 :::warning
 
-The callback occurs **before** the [Cell's](cell.md)'s Actors have been **positioned**. Anything involving accessing the placed **World Position** or **World Rotation** of an `AActor` should be done during or after `BeginPlay`.
+The callback occurs **before** the [Cell](cell.md)'s Actors have been **positioned**. Anything involving accessing the placed **World Position** or **World Rotation** of an `AActor` should be done during or after `BeginPlay`.
 
 :::
 

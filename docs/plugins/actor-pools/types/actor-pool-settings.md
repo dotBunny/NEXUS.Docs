@@ -7,7 +7,7 @@ import TypeDetails from '@site/src/components/TypeDetails';
 
 # Actor Pool Settings
 
-<TypeDetails icon="native-struct" base="UStruct" type="FNActorPoolSettings" typeExtra="" headerFile="NexusActorPools/Public/NActorPoolSettings.h" />
+<TypeDetails icon="native-struct" base="struct" type="FNActorPoolSettings" typeExtra="" headerFile="NexusActorPools/Public/NActorPoolSettings.h" />
 
 A Blueprint-compatible struct that defines configuration parameters for managing object pooling inside a [FNActorPool](actor-pool.md). This struct provides comprehensive settings to control how actors are created, managed, and recycled.
 

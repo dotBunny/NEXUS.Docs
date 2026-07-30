@@ -41,6 +41,8 @@ Or as an added bonus it can be created through its own direct asset factory from
 
 These are collections of tags that correspond to specific described behavior when used. They pull their possible tags from `NEXUS.WorldAssembly.*`. User-created tags should be added under that namespace if you wish for them to show up in the details inspector.
 
+The details panel labels this group **Assembly Tag Groups**; it is shortened to `Tag Groups` throughout the rest of this page. In C++ it is an `FNTissueTagGroups`.
+
 #### `Unique`
 
 Identifying an `FGameplayTag` as part of `Tag Groups > Unique` will create a behavioral contract during the assembly operation of a `UNOrganComponent` that ensures that once a Cell is placed that has that `FGameplayTag` as part of its `Assembly Tags`, no other Cell with that `FGameplayTag` can be used.
@@ -61,6 +63,8 @@ A common requirement when generating gameplay spaces is ensuring that there is s
 
 ### Cells
 
+Each row of the tissue's cell list is an `FNTissueEntry` — a cell reference plus the per-entry constraints below.
+
 | Settings | | Default |
 | --- | --- | --- |
 | Assembly Tags | Tags used to define behavior during the assembly process, pulled from `NEXUS.WorldAssembly.*`. _See [Tagging](../tagging.md#assembly-gameplay-tags)_ | `(Empty)` |
@@ -77,3 +81,25 @@ A common requirement when generating gameplay spaces is ensuring that there is s
 | Direction Constraint | The compass heading — measured from the Organ's directional reference point out to the candidate's placement — this cell is restricted to while `Has Direction Constraint` is set. The reference point is chosen per Organ by its [Direction Mode](organ-volume.md#direction-mode) (start bone, organ center, or dynamic centroid). Enforced within the project/operation Direction Tolerance (degrees ±) during cell filtering. | `North` |
 | Weighting | Relative weight for random selection during generation. | `1`| 
 | Cell | A soft-object reference to the `UNCell` asset that will be consumed. | `n/a` | 
+
+### Additional Tissue
+
+A tissue can pull in other tissue assets rather than duplicating their cell entries:
+
+| Setting | Type | Description | Default |
+| --- | --- | --- | --- |
+| Additional Tissue | `TArray<TSoftObjectPtr<UNTissue>>` | Other tissues merged into this one when the assembly operation flattens it. | `(Empty)` |
+
+At operation time `UNTissue::BuildTissueMap` walks the root tissue and everything reachable through `Additional Tissue`, producing a single cell-to-entry map plus the union of every visited tissue's tag groups. This lets you compose a large tissue from smaller themed ones — a base set of corridors plus a themed set of rooms — and keep each reusable on its own.
+
+The map is keyed by cell, so a cell reachable through more than one tissue still yields one entry — listing it twice does not double its weighting. The walk also tracks which tissue assets it has visited, so a cycle (A referencing B referencing A) terminates rather than recursing forever.
+
+:::warning[The first entry wins]
+
+When the same `UNCell` appears in more than one merged tissue, only its **`Assembly Tags` are combined**. Every other field on the duplicate — counts, node distance and depths, direction constraint, weighting — is discarded in favour of the entry encountered first, and no warning is logged.
+
+So if a base tissue lists a cell with `Maximum Count = 2` and a themed tissue lists the same cell with `Maximum Count = 10`, whichever is reached first silently decides the limit. Order follows the root tissue's own `Cells` array before it descends into `Additional Tissue`, depth-first in array order. When two tissues need genuinely different constraints for a cell, give each its own `UNCell` asset rather than relying on the merge.
+
+:::
+
+Because the merge calls `LoadSynchronous()` on each reference, every tissue reachable from the root — and every cell it names — is loaded when the map is built.

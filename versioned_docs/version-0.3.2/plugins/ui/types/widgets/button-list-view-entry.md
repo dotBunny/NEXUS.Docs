@@ -44,7 +44,7 @@ The data model is a plain `UObject` (not the widget itself) that the list view b
 
 | Field | Default | Purpose |
 | :-- | :-- | :-- |
-| `Text` | empty | Label rendered in the button. |
+| `Text` | empty | Label rendered in the button. Private — read and write it with the `Get Text` / `Set Text` nodes (`GetText()` / `SetText()`) rather than directly. |
 | `TargetObject` | `nullptr` | Arbitrary payload forwarded to `OnPressedEvent` subscribers. |
 | `HoverStateForegroundColor` | `NC_White` | Text color while the pointer hovers. |
 | `HoverStateBackgroundColor` | `NC_BlueLight` | Button color while the pointer hovers. |

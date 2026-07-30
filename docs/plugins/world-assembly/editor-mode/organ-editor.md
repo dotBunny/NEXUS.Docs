@@ -10,7 +10,7 @@ When a [Organ](../types/organ-volume.md) is selected, a quick process runs to de
 
 ![Phase Labels](/assets/images/docs/plugins/world-assembly/editor-mode/organ-phase-labels.webp)
 
-The ordering is determined by first deterministically sorting the [Organs](../types/organ-volume.md) by their internal `FGuid`. Then detecting which volumes fully encompass and intersect one another, and finally appending independent phases/passes for `Unbounded volumes (as they could have world-wide impact). 
+The ordering is determined by first deterministically sorting the [Organs](../types/organ-volume.md) by their internal `FGuid`. Then detecting which volumes fully encompass and intersect one another, and finally appending independent phases/passes for `Unbound` volumes (as they could have world-wide impact). 
 
 ## Toolbar
 

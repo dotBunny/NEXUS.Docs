@@ -14,7 +14,7 @@ Overrides the Unreal Editor icon with user-defined icons. While available to sou
 
 ## Settings
 
-The settings for customizing the icons are found in the Editor Preferences under  `NEXUS > Core > Editor Icon`.
+The settings for customizing the icons are found in the Editor Preferences under `NEXUS > Tooling > Editor Icon` — see [Editor Settings](../editor-settings.md#editor-icon). They are project-shared, so a studio's branding travels with the project rather than being set per developer.
 
 ![Editor Window Icon: Settings](/assets/images/docs/plugins/tooling/enhancements/editor-window-icon.webp)
 

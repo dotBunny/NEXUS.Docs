@@ -7,7 +7,7 @@ import TypeDetails from '@site/src/components/TypeDetails';
 
 # DynamicRef
 
-<TypeDetails icon="ue-enum" base="UEnum" type="ENDynamicRef" typeExtra="" headerFile="NexusDynamicRefs/Public/NDynamicRef.h" />
+<TypeDetails icon="ue-enum" base="enum" type="ENDynamicRef" typeExtra="" headerFile="NexusDynamicRefs/Public/NDynamicRef.h" />
 
 A compact, fixed-identifier `int32` enumeration used as the key for a dynamic reference. Each value identifies a slot that can be claimed by one or more `UObjects` per world via the [UNDynamicRefSubsystem](dynamic-ref-subsystem.md). Slots are grouped by conceptual role (Location, Objective, Target, Secret, Spawn, Enemy, Pickup, Item) so manually assigning them in the editor is ergonomic — pick the role first, then a letter.
 

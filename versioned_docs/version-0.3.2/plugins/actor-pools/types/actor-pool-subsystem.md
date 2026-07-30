@@ -273,3 +273,36 @@ OnActorPoolAddedDelegate OnActorPoolAdded;
 ```
 
 A native multicast delegate (`DECLARE_MULTICAST_DELEGATE_OneParam(..., FNActorPool*)`) that fires whenever a new pool is registered — including pools created lazily by [Get Actor](#get-actor), [Spawn Actor](#spawn-actor), the `CreateDefaultPool` unknown-actor path, or an applied [UNActorPoolSet](actor-pool-set.md). Bind from native via `OnActorPoolAdded.AddUObject(...)` and clean up with `RemoveAll(this)` in your teardown.
+### Default Settings
+
+A per-class registry of [pool settings](actor-pool-settings.md) consulted whenever a pool is created on demand. This is the programmatic counterpart to a [UNActorPoolSet](actor-pool-set.md) — useful when the settings for a class are computed at runtime rather than authored as an asset.
+
+```cpp
+/** @return True if added; false if settings already exist for the class. */
+bool AddDefaultSettings(TSubclassOf<AActor> ActorClass, const FNActorPoolSettings& Settings);
+
+/** @return True if updated; false if no settings were found for the class. */
+bool UpdateDefaultSettings(TSubclassOf<AActor> ActorClass, const FNActorPoolSettings& Settings);
+
+/** @return True if removed; false if no settings were found for the class. */
+bool RemoveDefaultSettings(TSubclassOf<AActor> ActorClass);
+
+/** @return True if settings are registered for the class. */
+bool HasDefaultSettings(TSubclassOf<AActor> ActorClass) const;
+
+/** @return Registered settings for the class, or the global defaults when none are registered. */
+FNActorPoolSettings GetDefaultSettings(TSubclassOf<AActor> ActorClass) const;
+```
+
+Note the split between `Add` and `Update`: `AddDefaultSettings` **fails** rather than overwrites when an entry already exists, so use `UpdateDefaultSettings` to change one that is already registered — or check with `HasDefaultSettings` first. Both return a `bool` you should not ignore.
+
+`GetDefaultSettings` never fails. When a class has no registered entry it falls back to the project-wide defaults on [`UNActorPoolsSettings`](../project-settings.md), so it always yields usable settings.
+
+### Tickable Spawner Registration
+
+```cpp
+void RegisterTickableSpawner(UNActorPoolSpawnerComponent* TargetComponent);
+void UnregisterTickableSpawner(UNActorPoolSpawnerComponent* TargetComponent);
+```
+
+The subsystem drives periodic updates for registered [spawner components](actor-pool-spawner-component.md) from its own tick rather than each component ticking itself. A [UNActorPoolSpawnerComponent](actor-pool-spawner-component.md) registers and unregisters itself, so you only need these when driving a spawner's lifetime by hand.

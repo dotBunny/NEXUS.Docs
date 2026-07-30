@@ -1,0 +1,22 @@
+---
+description: Editor component visualizers that draw World Assembly geometry into level viewports, and in the cell's case edit it.
+sidebar_position: 2
+---
+
+import DocCardList from '@theme/DocCardList';
+
+# Visualizers
+
+`FComponentVisualizer` subclasses that draw World Assembly geometry into level viewports while the editor is open. Mirrors the layout of `NexusWorldAssemblyEditor/Public/Visualizers/`.
+
+All three draw **without requiring selection**, which is the point — an author needs to see where junction anchors and cell bounds sit while working on something else.
+
+They are not equally passive, though:
+
+| Visualizer | Draws | Also edits |
+| :-- | :-- | :-- |
+| [Cell Root Component Visualizer](cell-root-component-visualizer.md) | Bounds, hull, and voxel overlays | **Yes** — hull/bounds vertices and voxel toggling |
+| [Bone Component Visualizer](bone-component-visualizer.md) | Socket, reach, mode widgets | No |
+| [Cell Junction Component Visualizer](cell-junction-component-visualizer.md) | Socket footprint and orientation gizmo | No |
+
+<DocCardList />

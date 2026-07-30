@@ -48,6 +48,56 @@ UFUNCTION(BlueprintCallable)
 void HideContainerBanner() const;
 ```
 
+## World Binding
+
+Populating `ContainerBox` gets you a layout; overriding the world hooks is what gets you data. The base class owns the whole subscription lifecycle and leaves two empty virtuals for the subclass to fill:
+
+```cpp
+/** Override to subscribe to a specific world's subsystems when the overlay is constructed or a world is added. */
+virtual void BindWorld(UWorld* World);
+
+/** Override to unsubscribe from a specific world's subsystems when the overlay is destroyed or a world is removed. */
+virtual void UnbindWorld(const UWorld* World);
+```
+
+Both are no-ops on the base. The sequence around them is:
+
+| When | What the base does |
+| :-- | :-- |
+| `NativeConstruct` | Subscribes to `FWorldDelegates::OnPostWorldInitialization` and `OnWorldBeginTearDown`, then calls `BindAllCurrentWorlds()`. |
+| A world initializes | `BindWorld(World)` for the new world. |
+| A world tears down | `UnbindWorld(World)` for that world. |
+| `NativeDestruct` | Removes both delegates, then calls `UnbindAllCurrentWorlds()`. |
+
+Because construction binds existing worlds *and* the delegates cover later ones, a subclass never has to poll for worlds or handle "the overlay opened after the world already existed" — that case is the `BindAllCurrentWorlds()` call.
+
+```cpp
+/** Iterates all current GEngine world contexts and calls BindWorld() on each. Safe when GEngine is null. */
+void BindAllCurrentWorlds();
+
+/** Iterates all current GEngine world contexts and calls UnbindWorld() on each. Safe when GEngine is null. */
+void UnbindAllCurrentWorlds();
+```
+
+These walk `GEngine->GetWorldContexts()` and are called for you; you would only invoke them directly to force a re-bind.
+
+:::warning[Filter the world type yourself]
+
+The base class does **not** filter which worlds it hands you — `BindWorld` fires for every world context, including editor and preview worlds. A subclass that binds a game subsystem must gate on the world type itself:
+
+```cpp
+void UNMyDeveloperOverlay::BindWorld(UWorld* World)
+{
+    if (World == nullptr) return;
+    if (World->WorldType != EWorldType::PIE && World->WorldType != EWorldType::Game) return;
+    // ... subscribe here
+}
+```
+
+Every shipped overlay does this. `UnbindWorld` must apply the same gate, or it will try to unsubscribe from worlds it never bound.
+
+:::
+
 ## Editor Utility Widget Mode
 
 ```cpp

@@ -57,3 +57,18 @@ Writes a detailed summary of the snapshot to `LogNexusCore`, one entry per line.
 ```cpp
 void DumpToLog();
 ```
+
+### To Report
+
+```cpp
+/**
+ * Builds a structured FNReport describing the snapshot's contents.
+ * @return A report containing a header block with the capture/untracked counts and a table block
+ *         listing each captured entry's reference count, root-set state, garbage-marked state, and full name.
+ */
+FNReport ToReport() const;
+```
+
+Where the string helpers above produce flat text, `ToReport` returns a structured [Report](report.md) — a content block holding the capture and untracked counts, plus a table block with one row per captured entry. Because a report can be rendered in any [output format](report-output-format.md), this is the route to take when the destination is a file or a diagnostics surface rather than the log.
+
+This is what the [UNGuardianSubsystem](/docs/plugins/guardian/types/guardian-subsystem.md) writes to `Saved/Logs` when its snapshot threshold is crossed.

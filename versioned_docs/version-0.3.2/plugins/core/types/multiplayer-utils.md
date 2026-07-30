@@ -143,3 +143,17 @@ Read `APlayerState::ExactPing` for the local player. Returns the `NEXUS::Multipl
  */
 FORCEINLINE static float GetPing(const UWorld* World);
 ```
+
+## Multiplayer Test Detection
+
+```cpp
+/**
+ * Is the current session created from the MultiplayerTest editor command?
+ * @return true/false if it is.
+ */
+FORCEINLINE static bool IsMultiplayerTest();
+```
+
+Unlike everything above, this takes no world or context object — it checks the process command line for the `-NMultiplayerTest` switch that the editor's [Multiplayer Test](/docs/plugins/tooling/enhancements/multiplayer-test.md) tooling passes to the sessions it launches.
+
+Use it to gate test-only behaviour that must never run in a shipped session. The Blueprint-facing equivalent is [`Is Multiplayer Test`](multiplayer-library.md#is-multiplayer-test) on the library.

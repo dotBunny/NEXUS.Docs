@@ -61,7 +61,7 @@ The following are derived rather than authored, and are shown read-only in the d
 |---|---|---|
 | World Location | `FVector` | World-space location, kept in sync from the component transform. |
 | World Rotation | `FRotator` | World-space rotation, kept in sync from the component transform. |
-| Instance Identifier | `int32` | Stable per-cell identifier allocated on registration. This is the key the side-car `UNCell` data and [Link Details](#link-details) reference. |
+| Instance Identifier | `int32` | Stable per-cell identifier allocated on registration. This is the key the side-car `UNCell` data and [Link Details](#link-details) reference. Defaults to `-1`, so that value means "not yet registered" rather than a valid junction. |
 
 ### Fillers
 
@@ -255,10 +255,12 @@ Junctions with a fill depth of `0` draw no volume.
 
 Junction data is exposed to PCG through two nodes, both under the **NEXUS** category:
 
-| Node | Input | Emits |
-|---|---|---|
-| `NEXUS \| Get Junction Data` | A param set carrying a `ComponentReference` attribute (soft object paths to junction components). | One point per successfully resolved junction. |
-| `NEXUS \| Get All Junction Data` | None. | One point per junction currently registered with the World Assembly registry. |
+| Node | Type | Input | Emits |
+|---|---|---|---|
+| `NEXUS \| Get Junction Data` | `UNGetJunctionDataSettings` | A param set carrying a `ComponentReference` attribute (soft object paths to junction components). Shaped by `FNGetJunctionDataParams`. | One point per successfully resolved junction. |
+| `NEXUS \| Get All Junction Data` | `UNGetAllJunctionDataSettings` | None. | One point per junction currently registered with the World Assembly registry. |
+
+Both follow the same settings/element split as the other [Elements](elements/index.mdx) — `FNGetJunctionDataElement` and `FNGetAllJunctionDataElement` are the executors. They are documented here rather than alongside the others because what they emit is a property of the junction, not of the node.
 
 Both output on a **Junctions** pin, and both emit points in the same shape:
 

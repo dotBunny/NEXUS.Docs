@@ -11,6 +11,25 @@ import TypeDetails from '@site/src/components/TypeDetails';
 
 A utility class providing functionality to support World Assembly operations. Static helpers callable from both C++ and Blueprint contexts for seeding generation passes and reading the gameplay tags a placed cell contributes.
 
+## Two Scopes of Tag State
+
+Most of this library is tag access, and it comes in **two independent scopes** that share a vocabulary but not a lifetime. Getting them mixed up is the single easiest mistake to make here.
+
+| Scope | Keyed by | Lives as long as | Covered under |
+| :-- | :-- | :-- | :-- |
+| **Per-cell** | an `ANCellLevelInstance*` | the placed cell | [Cell Tag State](#cell-tag-state) |
+| **Per-operation** | an `int32` operation ticket | the entry in the [context cache](#operation-context-cache) | [Operation Context Cache](#operation-context-cache) |
+
+Per-cell state is what a spawned cell ended up with. Per-operation state is the *running* total the generation pass accumulated, held in `FNWorldAssemblyContextCache` and reachable only while that operation's entry survives. [Get Operation Ticket](#reading-cell-state) is the bridge — it takes a cell and gives you the ticket for the operation that placed it.
+
+:::warning[Reads are copies; mutate through the dedicated nodes]
+
+Every `Get …Tags` / `Get Tag Counter` node hands Blueprint a **copy**. Editing that copy changes nothing. To persist a change, use the matching `Append` / `Remove` / `Add` / `Subtract` node, which writes through to the live state.
+
+This applies to both scopes and is the reason those mutator nodes exist at all.
+
+:::
+
 ## UFunctions
 
 ### Get New Friendly Seed
@@ -27,37 +46,45 @@ static FString GetNewFriendlySeed();
 
 Internally this delegates to `FNSeedGenerator::RandomFriendlySeed()`, so the result is a readable token rather than an opaque number — handy for surfacing in UI or logs where a player or designer might want to share or re-enter the seed.
 
-### Get Context Tags (ANCellLevelInstance)
+### Get Context Tags
 
-Returns the context `FGameplayTagContainer` carried by the supplied `ANCellLevelInstance`.
-
-```cpp
-/**
- * @param LevelInstance The cell level instance to query.
- * @return The context tags associated with the world assembly.
- */
-UFUNCTION(BlueprintCallable, Category = "NEXUS|WorldAssembly", DisplayName="Get Context Tags (ANCellLevelInstance)")
-static FGameplayTagContainer& GetContextTagsFromCellLevelInstance(ANCellLevelInstance* LevelInstance);
-```
-
-The container is returned by reference, so reads reflect the live state of the level instance.
-
-### Get Assembly Tags (ANCellLevelInstance)
-
-Returns the assembly `FGameplayTagContainer` that describes the cell itself, as opposed to the surrounding context tags above.
+Returns the final context `FGameplayTagContainer` carried by the supplied `ANCellLevelInstance`.
 
 ```cpp
 /**
  * @param LevelInstance The cell level instance to query.
- * @return The assembly tags describing the cell itself.
+ * @return The final context tags associated with the world assembly.
+ * @note Returns a copy; edits made to it are not written back to the cell. Use Append/Remove Context Tags to persist changes.
  */
-UFUNCTION(BlueprintCallable, Category = "NEXUS|WorldAssembly", DisplayName="Get Assembly Tags (ANCellLevelInstance)")
-static FGameplayTagContainer& GetAssemblyTagsFromCellLevelInstance(ANCellLevelInstance* LevelInstance);
+UFUNCTION(BlueprintCallable, Category = "NEXUS|WorldAssembly", DisplayName="Get Context Tags")
+static FGameplayTagContainer GetContextTags(ANCellLevelInstance* LevelInstance);
 ```
 
-Like the context tags, the container is returned by reference and reflects the live state of the level instance.
+:::warning
 
-### Get Hex Seed (ANCellLevelInstance)
+The container is returned **by value**. Mutating the result does nothing to the cell — use the `Append Context Tags` / `Remove Context Tags` nodes to persist a change.
+
+:::
+
+An invalid `LevelInstance` yields an empty container rather than failing.
+
+### Get Assembly Tags
+
+Returns the assembly `FGameplayTagContainer` used by the cell itself, as opposed to the surrounding context tags above.
+
+```cpp
+/**
+ * @param LevelInstance The cell level instance to query.
+ * @return The assembly tags used by the cell itself.
+ * @note Returns a copy; edits made to it are not written back to the cell.
+ */
+UFUNCTION(BlueprintCallable, Category = "NEXUS|WorldAssembly", DisplayName="Get Assembly Tags")
+static FGameplayTagContainer GetAssemblyTags(ANCellLevelInstance* LevelInstance);
+```
+
+Like the context tags, this is a copy and an invalid `LevelInstance` yields an empty container.
+
+### Get Hex Seed
 
 Returns the cell's seed formatted as a human-readable hexadecimal string, handy for surfacing in UI or logs alongside the friendly seed produced by [Get New Friendly Seed](#get-new-friendly-seed).
 
@@ -66,13 +93,13 @@ Returns the cell's seed formatted as a human-readable hexadecimal string, handy 
  * @param LevelInstance The cell level instance to query.
  * @return The cell's seed formatted as a human-readable hexadecimal string.
  */
-UFUNCTION(BlueprintCallable, Category = "NEXUS|WorldAssembly", DisplayName="Get Hex Seed (ANCellLevelInstance)")
-static FString GetHexSeedFromCellLevelInstance(ANCellLevelInstance* LevelInstance);
+UFUNCTION(BlueprintCallable, Category = "NEXUS|WorldAssembly", DisplayName="Get Hex Seed")
+static FString GetHexSeed(ANCellLevelInstance* LevelInstance);
 ```
 
-Internally this delegates to `FNSeedGenerator::HexFromSeed()` using the value returned by the level instance's `GetSeed()`.
+Internally this delegates to `FNSeedGenerator::HexFromSeed()` using the value returned by the level instance's `GetSeed()`. An invalid `LevelInstance` yields an empty string.
 
-### Get Node Identifier (ANCellLevelInstance)
+### Get Node Identifier
 
 Returns the identifier of the graph node this cell was assembled from, letting gameplay code trace a placed cell back to its position in the assembly graph.
 
@@ -81,9 +108,11 @@ Returns the identifier of the graph node this cell was assembled from, letting g
  * @param LevelInstance The cell level instance to query.
  * @return The identifier of the graph node this cell was assembled from.
  */
-UFUNCTION(BlueprintCallable, Category = "NEXUS|WorldAssembly", DisplayName="Get Node Identifier (ANCellLevelInstance)")
-static int32 GetNodeIdentifierFromCellLevelInstance(ANCellLevelInstance* LevelInstance);
+UFUNCTION(BlueprintCallable, Category = "NEXUS|WorldAssembly", DisplayName="Get Node Identifier")
+static int32 GetNodeIdentifier(ANCellLevelInstance* LevelInstance);
 ```
+
+An invalid `LevelInstance` returns `INDEX_NONE`.
 
 ### Is HotPath
 
@@ -197,3 +226,125 @@ Returns the junction's four corner points in world space for a given socket size
 UFUNCTION(BlueprintCallable, Category = "NEXUS|WorldAssembly", DisplayName = "Get Junction World Corner Points")
 static TArray<FVector> GetJunctionWorldCornerPoints(UNCellJunctionComponent* JunctionComponent, const FVector2D& SocketSize);
 ```
+
+## Cell Tag State
+
+Everything in this section takes an `ANCellLevelInstance*` and reads or writes the tag state of **that one placed cell**. An invalid instance is always safe: readers return an empty/`INDEX_NONE` result and writers do nothing.
+
+### Reading Cell State
+
+| Node | Returns | Notes |
+| :-- | :-- | :-- |
+| `Get Context Tags` | `FGameplayTagContainer` | The cell's final context tags. See [above](#get-context-tags). |
+| `Get Context Tags Added` | `FGameplayTagContainer` | Only the tags **this cell contributed** to the overall state, rather than everything it ended up carrying. |
+| `Get Assembly Tags` | `FGameplayTagContainer` | The cell's own assembly tags. See [above](#get-assembly-tags). |
+| `Get Tag Counter (Map)` | `TMap<FGameplayTag, int32>` | The final tag counter as a map. |
+| `Get Tag Counter (Array)` | `TArray<FNGameplayTagCount>` | The same counter as tag/count pairs. |
+| `Get Operation Ticket` | `int32` | The ticket of the operation that placed this cell — the key for everything in [Operation Context Cache](#operation-context-cache). `INDEX_NONE` if invalid. |
+
+`Get Context Tags` and `Get Context Tags Added` answer different questions. The first is "what does this cell know?", the second is "what did this cell teach the pass?" — useful when you need to attribute an accumulated tag to the cell that introduced it.
+
+:::note[Map vs Array is not just a formatting choice]
+
+The **array** is the live backing store; the map is derived from it. That is why the `Add`/`Subtract Tag Counter` mutators below operate on the array form, and why a `TMap` read cannot be written through even in C++ — the level instance returns the map by value and the array by reference.
+
+Prefer the map for lookups and the array when you care about ordering or are working alongside the mutators.
+
+:::
+
+### Testing Cell State
+
+| Node | Tests |
+| :-- | :-- |
+| `Has Tag Counter` | Whether the cell's counter has an entry for a tag. |
+| `Has Context Tag(s)` | Whether the cell's context tags contain **every** tag in a container. |
+
+:::warning[Containment is an exact match]
+
+`Has Context Tag(s)` uses `HasAllExact`, so tag hierarchy does **not** apply. A cell carrying `NEXUS.WorldAssembly.Foo.Bar` does not satisfy a query for `NEXUS.WorldAssembly.Foo`. Query for the exact tags you expect, not their parents.
+
+The same is true of the per-operation equivalent.
+
+:::
+
+### Mutating Cell State
+
+| Node | Effect |
+| :-- | :-- |
+| `Append Context Tags` | Adds tags to the cell's context set as a union — duplicates are ignored. |
+| `Remove Context Tags` | Removes tags from the cell's context set. |
+| `Add Tag Counter` | Increases the counter for a tag by `Value` (default `1`), creating the entry if absent. |
+| `Subtract Tag Counter` | Decreases the counter for a tag by `Value` (default `1`), creating the entry if absent. |
+
+:::warning[`Subtract Tag Counter` on an unknown tag creates a negative entry]
+
+Both mutators go through a find-or-add helper that appends a **zero-initialized** entry when the tag is absent. So subtracting from a tag the cell never counted does not no-op — it creates that tag with a count of `-Value`.
+
+Guard with `Has Tag Counter` first if a negative count would be meaningless to your logic. There is no clamping.
+
+:::
+
+## Operation Context Cache
+
+These take an **operation ticket** (`int32`) rather than a cell, and read or write `FNWorldAssemblyContextCache` — the thread-safe store holding each in-flight operation's running tag counter and context tags. Get a ticket from [Get Operation Ticket](#reading-cell-state).
+
+Every call locks the cache for its full duration, so each one is atomic with respect to entries being added or removed. No reference into the cache is ever handed out, so a caller cannot observe a dangling entry.
+
+| Node | Purpose |
+| :-- | :-- |
+| `Has Operation Context Cache` | Whether cached state still exists for a ticket. **The guard for everything else here.** |
+| `Get Operation Tag Counter` | Reads one tag's running counter. Returns `-1` when the operation *or* the tag is absent. |
+| `TryGet Operation Tag Counter` | Same read, but returns success separately so absent is distinguishable from a real value. |
+| `Has Operation Tag Counter` | Whether the operation has a counter entry for a tag. |
+| `Add Operation Tag Counter` | Increases a tag's running counter by `Value` (default `1`). |
+| `Subtract Operation Tag Counter` | Decreases a tag's running counter by `Value` (default `1`). |
+| `Has Operation Context Tag(s)` | Whether the operation's context tags contain every tag in a container (exact match). |
+| `Append Operation Context Tag(s)` | Adds tags to the operation's context set as a union. |
+| `Remove Operation Context Tag(s)` | Removes tags from the operation's context set. |
+
+:::info[`Get` collapses two different failures into `-1`]
+
+`Get Operation Tag Counter` returns `-1` both when the ticket is unknown and when the tag simply is not counted — and `-1` is also a perfectly legal counter value, since nothing clamps counters at zero.
+
+Use `TryGet Operation Tag Counter` whenever that distinction matters. It reports presence through its return value and **leaves your output variable unchanged** when the entry is absent, rather than zeroing it — so seed the variable with a sensible fallback before the call.
+
+:::
+
+:::warning[Mutating an expired operation silently does nothing]
+
+Unlike the per-cell mutators, the cache mutators are **no-ops for an unregistered ticket** — they look the operation up and return without creating it. Since the cache entry is dropped when its operation is cleaned up, a ticket held past that point will accept writes that go nowhere and report no error.
+
+Check `Has Operation Context Cache` before a write you care about.
+
+:::
+
+## Exec-Pin Variants
+
+Every boolean predicate in this library ships a twin node whose name ends in ` ?`, carrying `meta = (ExpandBoolAsExecs="ReturnValue")`. Instead of returning a bool for you to branch on, these drive **True** / **False** execution pins directly — one node instead of two.
+
+| Predicate | Exec-pin twin |
+| :-- | :-- |
+| `Is HotPath` | `Is HotPath ?` |
+| `Is HotPath (Shortest)` | `Is HotPath (Shortest) ?` |
+| `Is HotPath (Sequential)` | `Is HotPath (Sequential) ?` |
+| `Has Tag Counter` | `Has Tag Counter ?` |
+| `Has Context Tag(s)` | `Has Context Tag(s) ?` |
+| `Has Operation Context Cache` | `Has Operation Context Cache ?` |
+| `Has Operation Context Tag(s)` | `Has Operation Context Tag(s) ?` |
+
+The two forms are behaviourally identical — the twin is not a cheaper or stricter check, just a different pin layout. Note `Has Operation Tag Counter` has **no** exec twin, so branch on its return value.
+
+## Not Blueprint-Exposed
+
+`GetProxyMesh` is a plain `static` C++ function with no `UFUNCTION`, so it does not appear in Blueprint:
+
+```cpp
+/**
+ * Only the owner / creator of the ANCellProxy will be able to reach the DynamicMesh through their ANCellLevelInstance.
+ * @param LevelInstance The cell level instance to query.
+ * @return The cell's proxy dynamic mesh, or nullptr if the instance is invalid or has no proxy mesh set.
+ */
+static UDynamicMesh* GetProxyMesh(ANCellLevelInstance* LevelInstance);
+```
+
+That is deliberate: the [proxy](cell-proxy.md) mesh is reachable only by whoever owns the `ANCellProxy`, and exposing it as a Blueprint node would invite reads from code that has no such claim.

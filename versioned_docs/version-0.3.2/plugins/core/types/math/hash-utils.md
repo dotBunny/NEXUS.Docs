@@ -29,5 +29,5 @@ Not cryptographically secure; suitable for hash tables and non-security-sensitiv
  * @param InString The string to hash.
  * @return The 64-bit djb2 hash of InString.
  */
-static uint64 dbj2(const FString& InString);
+static uint64 djb2(const FString& InString);
 ```

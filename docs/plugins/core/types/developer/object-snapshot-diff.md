@@ -55,3 +55,16 @@ Writes a detailed summary of the diff to `LogNexusCore`, one category and one en
 ```cpp
 void DumpToLog() const;
 ```
+
+### To Report
+
+```cpp
+/**
+ * Builds a structured report summarizing this diff (captured object count, change count, and the
+ * added, removed, and changed entries).
+ * @return An FNReport populated with the diff contents, ready for output to log or file.
+ */
+FNReport ToReport() const;
+```
+
+The structured counterpart to the string helpers above: a [Report](report.md) carrying the captured-object and change counts alongside blocks for the added, removed, and changed entries. Render it through any [output format](report-output-format.md) to send a diff to a file rather than the log — which is how the [UNGuardianSubsystem](/docs/plugins/guardian/types/guardian-subsystem.md) produces its `NEXUS_Compare_*` files.

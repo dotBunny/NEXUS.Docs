@@ -9,6 +9,8 @@ From the `Edit > Project Settings` window, find the **Picker** section.
 
 ![Picker Settings](/assets/images/docs/plugins/picker/picker-settings.webp)
 
+Backed by `UNPickerSettings`; from C++, read it with `UNPickerSettings::Get()`.
+
 These values control how a generated point is resolved onto geometry or the navmesh when a picker's [`ProjectionMode`](types/picker-params.md#projection-mode) is set to something other than `None`. They are read once per generation call on the **Game thread**, so a change applies to every picker in the project. Pickers left at `ProjectionMode::None` ignore these settings entirely.
 
 ## Projection

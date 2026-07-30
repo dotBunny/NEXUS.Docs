@@ -58,10 +58,26 @@ Once the baseline is set, every tick samples the total `UObject` count and compa
 | Threshold | Action when crossed | Latched flag |
 | :-- | :-- | :-- |
 | Warning | Emits a log warning. | `HasPassedWarningThreshold()` |
-| Snapshot | Captures an `FNObjectSnapshot` of every live `UObject`. Held in memory; written to `Saved/Logs/NEXUS_Snapshot_*` if `Save Capture` is enabled. | `HasPassedSnapshotThreshold()` |
-| Compare | Captures a second snapshot and diffs it against the first; writes `Saved/Logs/NEXUS_Compare_*` if `Save Capture` is enabled. | `HasPassedCompareThreshold()` |
+| Snapshot | Captures an `FNObjectSnapshot` of every live `UObject`. Held in memory; written to `Saved/Logs/NEXUS_Snapshot_*` **if `Save Capture` is enabled**. | `HasPassedSnapshotThreshold()` |
+| Compare | Captures a second snapshot and diffs it against the first, then **always** writes `Saved/Logs/NEXUS_Compare_*`. | `HasPassedCompareThreshold()` |
+
+:::note
+
+`Save Capture` gates only the full snapshot dump. The comparison report is written to disk whenever the compare threshold is crossed, regardless of that setting.
+
+:::
 
 Each action fires once per arming of the ladder — the latched flag is checked before the action runs, so the subsystem will not re-warn or re-snapshot while the count stays above the warning threshold. The ladder re-arms automatically when the live count drops back below the warning threshold (latched flags clear, the held snapshot is dropped), and can be re-armed manually by calling `SetBaseline()` again.
+
+The ladder evaluates **one rung per tick**: each rung latches its flag and returns, so the next is only considered on a later tick. This deliberately spreads the two synchronous snapshot captures across separate frames to limit game-thread hitching, but it means climbing all three rungs takes at least three samples — three seconds at the default `Tick Rate`.
+
+:::warning[Bursts produce a near-empty diff]
+
+Because the two snapshots are taken on separate ticks, the compare diff only attributes growth occurring **between** the snapshot and compare thresholds — that is, gradual growth. A burst that climbs from below the warning threshold to above the compare threshold inside a single sample has already finished before either snapshot is taken, so both are post-burst and the diff comes back nearly empty.
+
+For that case rely on the warning and error logs, which still fire, and — with `Save Capture` enabled — the full snapshot dump taken at the snapshot threshold, which records the post-burst world as absolute counts rather than a delta. Lowering `Tick Rate` narrows the window in which a burst can hide.
+
+:::
 
 The tick frequency itself is configurable via [`Tick Rate`](../project-settings.md#subsystem) (default `1.0s`); when a snapshot or compare action does fire, the disk write is dispatched to a background task so the game thread is never blocked waiting on file I/O.
 

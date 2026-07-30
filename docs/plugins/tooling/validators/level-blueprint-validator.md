@@ -4,7 +4,7 @@ description: A validator that looks at maps to see if any active nodes exist on 
 
 # Level Blueprint Validator
 
-A validator that looks at maps to see if any active nodes exist on the `LevelScriptBlueprint`.
+A validator that looks at maps to see if any active nodes exist on the `LevelScriptBlueprint`. Implemented by `UNLevelBlueprintValidator`; its severity is set project-wide under [Editor Settings](../editor-settings.md#validators--severity).
 
 :::warning
 

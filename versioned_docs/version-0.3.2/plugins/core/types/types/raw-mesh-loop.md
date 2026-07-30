@@ -35,8 +35,10 @@ FNRawMeshLoop(TArray<int32> InIndices);
 ## Methods
 
 ```cpp
-/** Exact order-sensitive equality with Other. */
-bool IsEqual(const FNRawMeshLoop& Other) const;
+/** Exact order-sensitive equality. */
+bool operator==(const FNRawMeshLoop& Other) const;
+
+bool operator!=(const FNRawMeshLoop& Other) const;
 
 /** Returns true when the loop has exactly three vertices. */
 bool IsTriangle() const;

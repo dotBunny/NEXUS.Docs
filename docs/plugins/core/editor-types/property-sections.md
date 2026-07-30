@@ -22,9 +22,17 @@ The section appears as a `NEXUS` tab in the details panel of any registered type
  * that ran before Register().
  */
 static void Register();
+
+/**
+ * Releases the cached property sections, clears any queued categories, and resets registration state
+ * so a later Register() rebinds cleanly.
+ */
+static void Unregister();
 ```
 
-`Register()` is called once by `FNCoreEditorModule::StartupModule()`; consumers should not call it directly.
+`Register()` is called once by `FNCoreEditorModule::StartupModule()`, and `Unregister()` by the matching shutdown; consumers should not call either directly.
+
+Because `Unregister` resets the registration state rather than merely dropping the sections, a `Register` / `Unregister` / `Register` cycle — which is what a hot reload looks like — rebinds correctly and replays whatever categories were queued in between.
 
 ## Category Registration
 

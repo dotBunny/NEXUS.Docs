@@ -105,6 +105,52 @@ FVector Vector(const float MinimumRange = -MIN_flt, const float MaximumRange = M
 FORCEINLINE FVector VRand();
 ```
 
+## Saving & Restoring State
+
+A seed alone reproduces a sequence from its beginning. To resume a stream mid-way — a savegame, a deterministic replay, a repeatable test that starts partway through — capture the engine's *position* as well:
+
+```cpp
+/**
+ * Captures the engine's current position so it can be restored to this exact point later.
+ * @return a snapshot { InitialSeed, draw count } sufficient to reproduce the exact sequence from here.
+ */
+FNMersenneTwisterState SaveState() const;
+
+/**
+ * Restores the engine to a previously captured state by re-seeding and replaying.
+ * @param State The snapshot produced by SaveState.
+ * @return true if restored; false if State.DrawCount exceeds MaxRestoreDrawCount, leaving the engine unchanged.
+ */
+bool RestoreState(const FNMersenneTwisterState& State);
+```
+
+A snapshot is just the initial seed plus the number of draws taken since — it does not store the engine's internal 312-word state. `RestoreState` therefore re-seeds and **replays forward** with `discard()`, making it **O(DrawCount)**: cheap for a few thousand draws, expensive for hundreds of millions. Restore from a checkpoint rather than from a long-running stream where you can.
+
+The replay is bit-identical across platforms and compilers, because both `std::mt19937_64` and `discard()` are fully specified by the standard. That is what makes a snapshot safe to persist in a savegame or ship in a bug report.
+
+:::warning
+
+`RestoreState` returns `false` and leaves the engine untouched when `State.DrawCount` exceeds `MaxRestoreDrawCount` (10<sup>18</sup>). That ceiling is not about overflow — a genuine workload would need centuries to reach it — but about a corrupt or hand-edited snapshot whose huge draw count would make the linear replay appear to hang. **Check the return value** rather than assuming a restore succeeded.
+
+:::
+
+### FNMersenneTwisterState
+
+The snapshot struct, with a compact string form for logging and storage:
+
+| Member | Type | Purpose |
+| :-- | :-- | :-- |
+| `InitialSeed` | `uint64` | The seed the engine was initialized with. |
+| `DrawCount` | `uint64` | Exact number of engine draws taken since the seed was set. |
+
+| Method | Returns |
+| :-- | :-- |
+| `IsValid()` | Whether this snapshot's draw count is within the bounds `RestoreState` will replay. Check it before trusting a snapshot you loaded from disk. |
+| `ToString()` | A hexadecimal token of the form `"<SeedHex>-<DrawCountHex>"`. |
+| `FromString(const FString&)` | Static. Parses a token produced by `ToString`, returning a **zeroed** snapshot when the token is malformed — so validate with `IsValid()` rather than assuming a parse succeeded. |
+
+`FNMersenneTwisterState` is a plain native struct, so it cannot ride UE serialization or be shown in the editor. For that there is `FNMersenneTwisterFriendlyState` — a `BlueprintType` struct holding the same two values as an editable hex seed string and a plain draw count, suitable for a SaveGame, asset, or JSON payload. Convert at the native boundary with its `ToNative()` / `FromNative()` helpers.
+
 ## See Also
 
 - [Mersenne Twister Object](mersenne-twister-object.md) — a `BlueprintType` `UObject` wrapper that owns one of these and exposes it to Blueprint.

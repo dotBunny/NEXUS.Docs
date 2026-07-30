@@ -124,3 +124,17 @@ static bool IsRelativePointInside(const FNRawMesh& Mesh, const FVector& Relative
 /** Tests whether any of RelativePoints are inside Mesh. Short-circuits on the first hit. */
 static bool AnyRelativePointsInside(const FNRawMesh& Mesh, const TArray<FVector>& RelativePoints);
 ```
+
+## Constructing A Hull
+
+```cpp
+/**
+ * Builds a convex box hull spanning Box.
+ * @param Box Axis-aligned bounds the hull should span.
+ * @return A convex box hull with 8 vertices, 6 quad FaceLoops, 12 triangle Loops, populated
+ *         Center/Bounds, and validated convexity flags.
+ */
+static FNRawMesh MakeBoxHull(const FBox& Box);
+```
+
+Returns a ready-to-use [Raw Mesh](raw-mesh.md) rather than a bare vertex list: the face loops, triangle loops, `Center`, and `Bounds` are all populated, and the convexity flags are already validated so `IsConvex()` reports `true` without any further mutation. Useful as a starting hull for a cell or volume before refining it.

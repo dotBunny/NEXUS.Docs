@@ -4,7 +4,7 @@ description: A single path validator ensuring changes to Engine Content bubble u
 
 # Engine Content Validator
 
-A single path validator ensuring changes to Engine Content bubble up.
+A single path validator ensuring changes to Engine Content bubble up. Implemented by `UNEngineContentValidator`; its severity is set project-wide under [Editor Settings](../editor-settings.md#validators--severity).
 
 ## Engine: Content Changed
 This validator looks at assets being saved and triggers when the asset lives inside of Unreal Engine's content (`/Engine/`).

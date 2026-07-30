@@ -16,7 +16,7 @@ Not all graphs are created equal; this currently **only** works with Blueprint-b
 
 ## Settings
 
-To enable, and customize this feature head on over to the developer's Editor Preferences under  `NEXUS > Core (User) > Graph Navigation`.
+To enable and customize this feature head on over to the developer's Editor Preferences under `NEXUS > Tooling (User) > Graph Navigation` — see [User Settings](../user-settings.md#graph-navigation). It is a per-user preference, so your panning ergonomics stay on your machine.
 
 ![Graph Navigation: Settings](/assets/images/docs/plugins/tooling/enhancements/graph-navigation-settings.webp)
 

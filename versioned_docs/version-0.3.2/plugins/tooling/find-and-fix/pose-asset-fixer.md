@@ -4,6 +4,8 @@ description: An action to find and resolve UPoseAssets that are out-of-date with
 
 # Pose Asset Fixer
 
+Implemented by `FNPoseAssetFixer`, reachable from the editor's **Fixers** menu.
+
 ## Outdated PoseAsset Source Animations
 
 A particularly annoying error when cooking occurs when your `UPoseAsset` _throws_ because the saved hash of the source animation no longer matches the calculated source animation hash at the time of the cook. What makes this annoying is that the error only occurs during cooking because both assets are opened and evaluated. It's a latent error that content developers will not see outside of the build process.

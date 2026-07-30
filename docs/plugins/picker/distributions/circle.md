@@ -71,6 +71,18 @@ As of `0.3.0`, `FNCirclePicker::IsPointInsideOrOn` and `UNCirclePickerLibrary::I
 
 :::
 
+### Containment
+
+Standalone predicates for testing whether a point is inside or on the surface of the shape. Unlike the generation methods above these take explicit geometry rather than an `FNCirclePickerParams`, so they are usable without building a params struct first.
+
+```cpp
+static bool IsPointInsideOrOn(const FVector& Origin, const float MinimumRadius, const float MaximumRadius, const FRotator Rotation, const FVector& Point);
+
+static TArray<bool> IsPointsInsideOrOn(const TArray<FVector>& Points, const FVector& Origin, const float MinimumRadius, const float MaximumRadius, const FRotator Rotation);
+```
+
+Exposed to Blueprint as `Circle: Is Point Inside Or On?` and `Circle: Is Points Inside Or On?`. The array form returns one `bool` per input point, in the same order.
+
 ## FNCirclePickerParams
 
 ### Base

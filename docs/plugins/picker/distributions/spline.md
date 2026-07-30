@@ -65,6 +65,18 @@ Generates a random point on a `USplineComponent`'s spline using a provided seed.
 
 Generates a random point on a `USplineComponent`'s spline while tracking the random seed state.
 
+### Containment
+
+Standalone predicates for testing whether a point lies on the shape. Unlike the generation methods above these take explicit geometry rather than an `FNSplinePickerParams`, so they are usable without building a params struct first.
+
+```cpp
+static bool IsPointOn(const USplineComponent* SplineComponent, const FVector& Point);
+
+static TArray<bool> IsPointsOn(const TArray<FVector>& Points, const USplineComponent* SplineComponent);
+```
+
+Exposed to Blueprint as `Spline: Is Point On?` and `Spline: Is Points On?`. The array form returns one `bool` per input point, in the same order.
+
 ## FNSplinePickerParams
 
 ### Base
