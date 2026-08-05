@@ -254,6 +254,36 @@ static void DrawDebugString(const UObject* WorldContextObject, FString String, c
 }
 ```
 
+#### Draw Point Line
+
+Draws a connected run of debug lines through an ordered set of points — the **polyline counterpart** to `DrawDebugLine`.
+
+```cpp
+/**
+ * Draw a connected run of debug lines through an ordered set of points.
+ * @param WorldContextObject Object that provides the context of which world to operate in.
+ * @param Points Ordered world-space points to connect. Fewer than two draws nothing.
+ * @param Color The color to draw the lines with.
+ * @param bClosedLoop Should a final segment connect the last point back to the first?
+ * @param bPersistentLines Should the drawn lines be permanent?
+ * @param LifeTime How long should the lines last if not permanent, -1 for a single frame.
+ * @param DepthPriority What priority should they be drawn at?
+ * @param Thickness The thickness of the drawn lines.
+ */
+UFUNCTION(BlueprintCallable, DisplayName = "Draw Point Line", Category = "NEXUS|Developer",
+	meta = (WorldContext = "WorldContextObject"))
+static void DrawPointLine(const UObject* WorldContextObject, const TArray<FVector>& Points,
+	const FLinearColor Color = FLinearColor::White, const bool bClosedLoop = false,
+	const bool bPersistentLines = false, const float LifeTime = -1.f, const uint8 DepthPriority = 0,
+	const float Thickness = 2.f);
+```
+
+Reach for this wherever a path **already exists as an array of points** — a spline sampled to a polyline, a traced route, a hull edge loop — instead of writing a loop at the call site. `bClosedLoop` adds the final segment back to the first point, which is what makes it usable for closed outlines.
+
+Fewer than two points draws nothing rather than erroring.
+
+Wraps [`FNDrawDebugHelpers::DrawPointLine`](../draw-debug-helpers.md#draw-point-line).
+
 ### Random
 
 #### Create Mersenne Twister Object

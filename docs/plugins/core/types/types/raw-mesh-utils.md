@@ -138,3 +138,38 @@ static FNRawMesh MakeBoxHull(const FBox& Box);
 ```
 
 Returns a ready-to-use [Raw Mesh](raw-mesh.md) rather than a bare vertex list: the face loops, triangle loops, `Center`, and `Bounds` are all populated, and the convexity flags are already validated so `IsConvex()` reports `true` without any further mutation. Useful as a starting hull for a cell or volume before refining it.
+
+### Make Convex Prism
+
+The **swept-volume sibling** of `MakeBoxHull`. Where that spans an axis-aligned box, this spans an arbitrary pair of quadrilateral caps — so a caller sweeping a cross-section along a path can emit one prism per segment.
+
+```cpp
+/**
+ * Builds a closed, outward-wound prism hull spanning two quadrilateral caps.
+ * @param NearCorners The four corners of the cap the prism sweeps from.
+ * @param FarCorners The four corners of the cap the prism sweeps to, in the same corner order as NearCorners.
+ * @return A prism hull with 8 vertices, 6 quad FaceLoops, 12 triangle Loops, populated Center/Bounds, and
+ *         validated flags.
+ */
+static FNRawMesh MakeConvexPrism(const TStaticArray<FVector, 4>& NearCorners, const TStaticArray<FVector, 4>& FarCorners);
+```
+
+Emits the same shape as `MakeBoxHull` — polygonal `FaceLoops` plus a matching triangulated `Loops` buffer, populated `Center`/`Bounds`, and eagerly validated flags.
+
+`NearCorners[i]` is paired with `FarCorners[i]`, so the two caps **must be supplied in the same corner order**.
+
+:::tip[Cap Winding Does Not Matter]
+
+You do not have to get the winding right. The near cap's Newell normal is compared against the near-to-far sweep direction, and **both caps are reversed together** when it points the wrong way — so every face ends up wound away from the interior either way.
+
+:::
+
+:::warning[Not Convex By Construction]
+
+Unlike `MakeBoxHull`, the result is **not** guaranteed convex. A twisted or non-planar cap pair produces a closed but **concave** prism, and `IsConvex()` reports that honestly.
+
+Both are still usable: the [containment](#containment-tests) and intersection paths fall back to their non-convex algorithms, whose closed-manifold requirement a prism satisfies. Expect the slower path for a twisted prism.
+
+Degenerate input — coincident caps, a zero-area cap — yields a **degenerate hull rather than a failure**, so validate your caps if that distinction matters to you.
+
+:::

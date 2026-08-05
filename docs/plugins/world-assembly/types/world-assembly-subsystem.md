@@ -129,6 +129,56 @@ FIntVector2 GetRemainingStatus();
 
 Both components are zero whenever there is no local relay to ask — on the server, where nothing needs syncing, but also on a client before its relay has replicated. So a zero `Total` means "not applicable yet", not "complete"; pair it with [`IsReady`](#readiness) rather than treating `Remaining == 0` as done on its own.
 
+## Junction Connectors
+
+A [connector](cell-junction-connector.md) spans **two** cells, and cells stream in asynchronously. That makes it impossible to spawn one when its pairing is produced: at that point neither junction component exists, so there is nothing to connect and no way to resolve the junction-level overrides that live on those components.
+
+The subsystem is what bridges that gap. [`FNSpawnJunctionConnectorsTask`](../architecture/tasks.md#junction-connecting) hands it every accepted pairing, and it builds each one once **both** ends have reported in.
+
+```cpp
+/** Record a junction pairing the connector pass accepted, to be built once both of its cells are live. */
+void RegisterPendingJunctionConnector(const FNCellJunctionConnection& Connection);
+
+/** Report a junction that the connector pass paired as live and ready to be connected. */
+void RegisterJunctionConnectorEndpoint(UNCellJunctionComponent* CellJunction);
+
+/** Withdraw a junction from its connector pairing, destroying the connecting actor if one was built. */
+void UnregisterJunctionConnectorEndpoint(const UNCellJunctionComponent* CellJunction);
+
+/** @return true if at least one connector pairing is waiting on its endpoints or on a spawn slice. */
+bool HasPendingJunctionConnectors() const;
+```
+
+Native-only — none of these are `UFUNCTION`s, and you should not need to call them yourself. Junctions register and unregister themselves.
+
+### Build Sequence
+
+1. `RegisterPendingJunctionConnector` records the [pairing](cell-junction-connection.md), including the route proved clear for it, keyed by its `ConnectorIdentifier`.
+2. Each paired junction calls `RegisterJunctionConnectorEndpoint` on its own `BeginPlay`. A junction whose link details name no connector pairing is ignored.
+3. The **second** endpoint to arrive moves the pairing onto the spawn queue; the first simply waits.
+4. The queue drains **time-sliced** against `Junction Time Slice` (see [Project Settings](../project-settings.md)), the same budget filler spawning uses.
+5. `UnregisterJunctionConnectorEndpoint` — most often triggered by a cell streaming out — destroys the connector actor but **keeps the pairing**, so it is rebuilt if that cell streams back in.
+
+:::note[Keyed by Connector Identifier, Not by Junction]
+
+The pending-pairing map is keyed on `ConnectorIdentifier` because that is the only key both ends agree on. Node identifiers restart per assembly graph, and a pairing can span graphs. See [Cell Junction Connection](cell-junction-connection.md#ordering).
+
+:::
+
+### Resolving Which Connector to Spawn
+
+When a pairing is built, the subsystem walks a priority chain and takes the first level that yields an eligible entry:
+
+1. The **start** junction's [`Connectors`](junction-component.md#connectors).
+2. The **end** junction's `Connectors`.
+3. The organ that placed the **start** cell ([`UNOrganComponent::Connectors`](organ-component.md#connectors)).
+4. The organ that placed the **end** cell.
+5. The project-wide `Junction Default Connector`.
+
+Within a list, entries are gated by their context-tag and tag-counter constraints against the owning cell's assembly state, then one is picked weighted-at-random — the same selection [fillers](junction-component.md#fillers) use. The winning entry's `Offset` is applied relative to the start junction's frame.
+
+If nothing is authored and the default is unset or unloaded, no connector is spawned. See [Cell Junction Connector Entry](cell-junction-connector-entry.md) for the authoring surface.
+
 ## Events
 
 Three `BlueprintAssignable` dynamic multicast delegates broadcast the generation lifecycle transitions:

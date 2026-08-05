@@ -51,7 +51,11 @@ The component warns about this at author time when it registers, and `UNWorldAss
 | Fill Depth Mode | `ENCellJunctionFillDepthMode` | How deep a fill volume is and which way it grows from the socket plane. See [Fill Depth](#fill-depth). | `Default Forward` |
 | Override Fill Depth | `float` | Depth in centimetres used by the three `Override*` modes. Only editable when Fill Depth Mode is an `Override*` value. | `10.0` |
 | Rotation Constraints | `FNRotationConstraints`| What rotations can be made by this junction to match another. | |
+| Disable Connecting | `bool` | Exclude this junction from being paired with another cell's by the [connector pass](#disable-connecting). Does **not** affect mating or filling. | `false` |
+| Connection Constraints | `FNCellJunctionConnectionConstraints` | Optional per-junction tightening of the angle limits the connector pass pairs this junction on. See [Cell Junction Connection Constraints](cell-junction-connection-constraints.md). | *(disabled)* |
 | Weighting | `int32` | Relative weight against other junctions in the cell when the graph builder picks an open junction to extend from. `Required` junctions have this **doubled** automatically. | `1` |
+
+All of the above are `EditInstanceOnly` — set them on a placed junction inside the cell level, not on a blueprint default.
 
 The following are derived rather than authored, and are shown read-only in the details panel:
 
@@ -91,6 +95,51 @@ A junction with `Disable Filling` set still participates in generation normally 
 | Spawn Filler Immediately | `bool` | Bypass filler time-slicing and spawn this junction's filler immediately during `BeginPlay`, rather than spreading the work across frames. | `false` |
 
 Time-slicing of filler spawns is otherwise governed project-wide by `Delayed Junction Spawning` and `Junction Time Slice` (see [Project Settings](../project-settings.md)).
+
+### Connectors
+
+Where a [filler](#fillers) **caps** an unconnected junction, a *connector* **bridges** two of them. When the [connector pass](../architecture/tasks.md#junction-connecting) finds two unmatched junctions on different cells whose openings face each other across clear space, it routes a path between them and spawns a single actor to span it — instead of capping both.
+
+Each junction carries an array of [`FNCellJunctionConnectorEntry`](cell-junction-connector-entry.md) candidates, mirroring `Fillers` field for field and gated the same way.
+
+| Setting | Type | Description | Default |
+|---|---|---|---|
+| Connectors | `TArray<FNCellJunctionConnectorEntry>` | Candidate connectors for this junction, used when the connector pass pairs it with another cell's junction. Each entry's actor must implement [INCellJunctionConnector](cell-junction-connector.md). | `(Empty)` |
+
+This list takes priority over the owning [organ's](organ-component.md#connectors) and over the project-wide `Junction Default Connector`. When a pairing has a list at **both** ends, the *start* end's wins — see [Priority](cell-junction-connector-entry.md#priority).
+
+:::note[Connected, But Not Yet Occupied]
+
+A connector-paired junction is flagged `bConnected`, so it is **not** filled. But nothing occupies the opening until the connector actor spawns, which only happens once **both** cells of the pairing have streamed in.
+
+See [Link Details](#link-details) for the `bConnector` and `Connector Identifier` fields that record this, and [Lifecycle](cell-junction-connector.md#lifecycle) for the build sequence.
+
+:::
+
+#### Disable Connecting
+
+| Setting | Type | Description | Default |
+|---|---|---|---|
+| Disable Connecting | `bool` | Never pair this junction with another cell's junction via the connector pass. | `false` |
+
+A junction with `Disable Connecting` set:
+
+- **Still mates normally** during graph building.
+- **Is still eligible** for [Connect Coincidences](../project-settings.md#coincident-mating) — that produces no connector geometry to have opted out of.
+- **Is still filled** according to its `Requirements` if it ends up unconnected.
+
+Reported in analytics as `Disabled Junctions`, a subset of `Open Junctions`.
+
+:::info[Why It Lives on the Details, Not the Component]
+
+`Disable Connecting` sits on `FNCellJunctionDetails` rather than beside [`Disable Filling`](#disable-filling) on the component itself. That is not an inconsistency — the two flags are read at different times by different code:
+
+- **Filling** happens on the component, at `BeginPlay`, on the game thread. It can read a component property.
+- **Connecting** happens during generation, on a **worker thread**, against the cell's **side-car junction data**. It never sees the component at all.
+
+Putting the flag on the details is what makes it reach the code that needs it.
+
+:::
 
 ### Additional Actors
 
@@ -194,6 +243,18 @@ The project-wide `Junction Default Filler` is a **soft** reference. On the first
 | Connected Junction Instance Identifier | `int32` | The identifier of the junction on the other side; `-1` when unconnected. |
 | bHotPathShortest | `bool` | Whether this junction joins two cells that *both* sit on the shortest-path hot path. |
 | bHotPathSequential | `bool` | Whether this junction joins two cells that *both* sit on the sequential hot path. |
+| bConnector | `bool` | Whether this junction was paired by the [connector pass](#connectors) rather than by two cells mating directly. `bConnected` is **also** true for these. |
+| Connector Identifier | `int32` | Identifier of the connector pairing this junction belongs to; `-1` when it is not connector-paired. |
+
+Both connector fields replicate with the cell.
+
+:::important[The Connector Identifier Is the Runtime Key]
+
+Both ends of a pairing carry the **same** `Connector Identifier`, and that — not `Connected Node Identifier` — is what rejoins them at runtime.
+
+Node identifiers are only unique **within a single assembly graph**, and a connector pairing can span graphs. See [Cell Junction Connection](cell-junction-connection.md#ordering).
+
+:::
 
 The two hot-path flags describe the **link**, not the cells — a junction is only flagged when the connection it forms is itself part of the hot path, which is what lets you decorate the route through a level rather than every room adjacent to it. See [Tagging](../tagging.md#nexusworldassemblyflaghotpath) for how the hot path is resolved, and [Is HotPath](world-assembly-library.md#is-hotpath) for the per-cell equivalents.
 
@@ -202,7 +263,7 @@ Alongside `LinkDetails`, two more runtime values are exposed read-only under **A
 | Field | Type | Description |
 |---|---|---|
 | Filler Actor | `TWeakObjectPtr<AActor>` | The filler this junction spawned, if any. |
-| Level Instance | `TWeakObjectPtr<ALevelInstance>` | The cell level instance this junction streamed in as part of. |
+| Level Instance | `TWeakObjectPtr<ALevelInstance>` | The cell level instance this junction streamed in as part of. Read it from C++ with `GetLevelInstance()`, which returns `nullptr` before the cell is streamed in. |
 
 ## Gizmo
 

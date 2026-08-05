@@ -40,12 +40,22 @@ The `Color Palette` groups drive the gizmos and debug markers drawn in the viewp
 | `Unfilled` | `FLinearColor` | Color of a [junction](types/junction-component.md) left unfilled during a world assembly operation. Used when `Draw Unfilled Junctions` is enabled. | White `#FFFFFF` |
 | `Valid` | `FLinearColor` | Color of a [junction](types/junction-component.md) that resolved to a valid connection. | Spring Green `#1AFFA8` |
 | `Invalid` | `FLinearColor` | Color of a [junction](types/junction-component.md) embedded too far into geometry to be matched. | Magenta `#FF58FF` |
+| `Connector Corners` | `FLinearColor` | Color of the four socket-corner curves bounding the volume a [junction connector](types/cell-junction-connector.md)'s geometry may occupy. Used when `Draw Junction Connectors` is enabled. | Pale Lilac `#F9E0FB` |
 
 ### Debug
 
 | Setting | Type | Description | Default |
 | :-- | :-- | :-- | :-- |
 | `Draw Unfilled Junctions` | `bool` | Draw debug markers for unfilled (unconnected) [junctions](types/junction-component.md) in the world preview. | `true` |
+| `Draw Junction Connectors` | `bool` | Draw the [routes](types/cell-junction-connection.md#path) the connector pass proved clear during the last operation — the center curve in the `Valid` junction color, the four socket-corner curves in `Connector Corners`. See [Drawing Connector Routes](#drawing-connector-routes). | `true` |
+
+#### Drawing Connector Routes
+
+The [editor mode](editor-mode/index.mdx) draws accepted [connector](types/cell-junction-connector.md) routes, and tints connector-paired junctions distinctly from mated ones.
+
+This works in the **default proxy-only preview**, where there are no junction components at all: `UNWorldAssemblyEditorSubsystem` retains each completed operation's pairings rather than relying on live components to draw from.
+
+What is drawn is the route's **stored samples** — the exact points that were swept for collisions — rather than a re-approximation, so a sharply-bending route reads as a run of flat facets. That is the honest view. For a smoothed read at runtime, see [Draw Junction Connector Path](types/world-assembly-library.md#draw-junction-connector-path).
 
 ### Notifications
 

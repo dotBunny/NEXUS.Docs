@@ -62,6 +62,24 @@ An organ set to `BeginPlay` queues **only on the authority**. On a client the re
 
 :::
 
+## Connectors
+
+| Setting | Type | Description | Default |
+| :-- | :-- | :-- | :-- |
+| Connectors | `TArray<FNCellJunctionConnectorEntry>` | Candidate connectors used when the [connector pass](../architecture/tasks.md#junction-connecting) pairs a junction on a cell **this organ placed**. Each entry's actor must implement [INCellJunctionConnector](cell-junction-connector.md). | `(Empty)` |
+
+Authored under `Organ Component > Connect`. This is the organ-wide fallback for junctions that name no connector of their own, and it in turn falls back to the project-wide `Junction Default Connector` (see [Project Settings](../project-settings.md#junction-connecting)).
+
+Entries are [`FNCellJunctionConnectorEntry`](cell-junction-connector-entry.md) and are gated and weighted exactly as a junction's own list is.
+
+:::note[Which Organ Is Consulted First]
+
+A connector pairing can span **two** organs. When it does, the organ that placed the *start* cell is consulted before the one that placed the end cell — and both are consulted only after **both** junctions' own lists.
+
+Which end is "start" is fixed by the pass's deterministic ordering; see [Cell Junction Connection → Ordering](cell-junction-connection.md#ordering) and the full chain in [Priority](cell-junction-connector-entry.md#priority).
+
+:::
+
 ## Native Helpers
 
 | Method | Purpose |

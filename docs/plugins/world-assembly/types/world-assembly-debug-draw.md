@@ -47,6 +47,31 @@ static void DrawSocket(FPrimitiveDrawInterface* PDI, const FVector& Location, co
 
 The first four have **no defaults** — a caller must set `UnitSize`, `SocketSize`, `SocketType`, and `Color` explicitly, since a zero-initialised socket would draw as a degenerate rectangle in whatever colour `FLinearColor` happens to default to.
 
+## Drawing a Connector Route
+
+```cpp
+static void DrawConnectorPath(FPrimitiveDrawInterface* PDI, const FNCellJunctionConnectorPath& Path,
+	const FLinearColor& CenterColor, const FLinearColor& CornerColor,
+	ESceneDepthPriorityGroup Priority = SDPG_Foreground,
+	float Thickness = NEXUS::WorldAssembly::Debug::LineThickness);
+```
+
+Draws the [route](cell-junction-connection.md#path) cached for a [junction connector](cell-junction-connector.md): its center curve plus the four socket-corner curves that bound the volume a connector's geometry may occupy.
+
+A path with no sampled center curve draws nothing.
+
+:::note[The Stored Samples, Not a Smoothed Curve]
+
+The stored samples are drawn **directly** rather than re-evaluated from the curve definition, so what appears is the geometry the connector pass actually swept for collisions. Drawing a smoothed curve would show a path that was never tested.
+
+The Blueprint-facing [Draw Junction Connector Path](world-assembly-library.md#draw-junction-connector-path) does offer a `Subdivisions` pin for a smoother read — but only by subdividing at a whole multiple of the stored step, so the drawn line still passes through every tested point.
+
+:::
+
+The socket rectangles at either end are deliberately **not** drawn. [`UNCellJunctionComponent`](junction-component.md) already covers those wherever the junction components exist, and the corner curves terminate exactly on the socket corners regardless — so each end still reads as a rectangle.
+
+This is what the [editor mode](../editor-mode/index.mdx) uses for its `Draw Junction Connectors` overlay; see [User Settings](../user-settings.md#drawing-connector-routes) for the colors it passes.
+
 ## Drawing Meshes
 
 Four mesh overloads, in two pairs. `DrawDashedRawMesh` draws edges as dashed segments; `DrawRawMesh` draws them solid.

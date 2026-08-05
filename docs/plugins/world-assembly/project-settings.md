@@ -45,8 +45,6 @@ Backed by `UNWorldAssemblySettings`; from C++, read it with `UNWorldAssemblySett
 | `World Collisions > Actor Ignore Tags` | Additional `FName` tags to query for when ignoring actors from world collision detection. Supplements the [`NWorldCollision_Ignore` markup tag](tagging.md#world-collision-markup-tags). | `(empty)` |
 | `World Collisions > Exclude Non-Collision Enabled Actors` | Do not include actors that have their collision turned off when capturing world collision. | `true` |
 | `World Collisions > Include Player Starts` | Player start positions should be considered (avoided) when capturing world collision. | `true` |
-| `Junction Matching > Cell Penetration Tolerance` | The maximum depth of penetration a cell's hull can penetrate another to make a junction connection. | `10.f` |
-| `Junction Matching > World Penetration Tolerance` | The maximum depth of penetration a cell's hull can penetrate world geometry to make a junction connection. | `2.f` |
 | `Tagging > Context Tags` | Default `Context Tags` provided to every Assembly Operation. | `(empty)` |
 | `Tagging > Starting Counters` | Default `Tag Counters` provided to every Assembly Operation. | `(empty)` |
 | `Direction Tolerance` | How close the placement bearing must be to a cell's `Direction Constraint` heading (within this many degrees +/-) for the cell to remain a valid candidate. | `15.f` |
@@ -54,6 +52,123 @@ Backed by `UNWorldAssemblySettings`; from C++, read it with `UNWorldAssemblySett
 | `Spawning > Junction Default Filler` | The default filler to spawn when no authored filler is eligible — a soft (`TSoftClassPtr`) reference to an `AActor` that must implement [`INCellJunctionFiller`](types/cell-junction-filler.md). Resolved lazily so the class is only loaded when actually needed. | `(empty)` |
 | `Spawning > Delayed Junction Spawning` | Should time-slicing be used when spawning junction fillers. | `true` |
 | `Spawning > Junction Time Slice` | Frame-time goal limit when to split spawning junctions to the next frame task (in milliseconds). | `0.5f` |
+
+### Junction Matching
+
+Found under `Assembly > Junction Matching`. These govern how the graph builders **mate** two cells directly — socket onto socket, with the cells flush.
+
+| Setting | Description | Default |
+| --- | :-- | :-- |
+| `Cell Penetration Tolerance` | The maximum depth of penetration a cell's hull can penetrate another to make a junction connection. | `10.f` |
+| `World Penetration Tolerance` | The maximum depth of penetration a cell's hull can penetrate world geometry to make a junction connection. | `2.f` |
+| `Connect Coincidences` | Mate two unmatched junctions that already sit in the **same place facing opposite ways**, as if the builder had joined them. See [Coincident Mating](#coincident-mating). | `false` |
+
+#### Coincident Mating
+
+The graph builders only ever grow a **new** cell off an open junction. So a graph that loops back on itself — or two organs that grow into each other — can leave two junctions sitting in exactly the same place facing opposite ways with **no link between them**. Both are then capped, walling off what is physically an open doorway.
+
+`Connect Coincidences` picks those up and links them.
+
+- They link as a **plain cell mating**, not a connector pairing. The cells are already flush, so nothing is routed and nothing is spawned.
+- It runs **whether or not** the [connector pass](#junction-connecting) is enabled.
+- It wires the node-level graph edge too, so hot paths route through.
+- It still accepts a junction carrying [`Disable Connecting`](types/junction-component.md#disable-connecting) — that flag turns off routed connector geometry, and a coincident mating produces none.
+
+Reported in analytics as `Inverse Matched` (see [Analytics](architecture/analytics.md)).
+
+### Junction Connecting
+
+Found under `Assembly > Junction Connecting`. These tune the [connector pass](architecture/tasks.md#junction-connecting), which pairs junctions the graph builders left **unmatched** and proves a collision-free swept path between each pair — so two cells whose openings face each other across clear space are bridged by geometry instead of both being capped off.
+
+| Setting | Description | Default |
+| --- | :-- | :-- |
+| `Junction Default Connector` | The fallback connector spawned for a paired junction when neither junction nor organ names one — a soft (`TSoftClassPtr`) reference to an `AActor` that must implement [`INCellJunctionConnector`](types/cell-junction-connector.md). | `(empty)` |
+
+Everything below is nested under `Junction Connectors`, an `FNWorldAssemblyJunctionConnectorSettings`. The same struct is mirrored **per-operation** onto `FNAssemblyOperationSettings`, and it is the operation's copy the task graph actually reads — the pass runs on a worker thread and cannot touch the settings object.
+
+| Setting | Description | Default |
+| --- | :-- | :-- |
+| `Enabled` | When false, the pass is skipped entirely and unmatched junctions are filled as before. | `true` |
+| `Maximum Range` | Straight-line distance within which two unmatched junctions are considered a candidate pair. | `5000.f` |
+| `Maximum Spline Length` | Upper bound on the arc length of the connecting spline; a pair whose path exceeds this is rejected. | `1000.f` |
+| `Maximum Facing Angle` | How far from directly facing each other two junctions may be and still be paired. See [Orientation Gating](#orientation-gating). | `180.f` |
+| `Maximum Approach Angle` | How far off its own facing a junction's partner may sit, tested at **both** ends. | `180.f` |
+| `Maximum Elevation Difference` | How far two junctions may differ in how steeply they face up or down. | `45.f` |
+| `Spline Radius` | Radius of the coarse clearance sweep run along the center spline before the exact socket-corner test. | `200.f` |
+| `Sample Step` | Spacing between samples when a spline is flattened to a polyline for length and collision testing. Smaller is more accurate and slower. | `50.f` |
+| `Tangent Scale` | Spline tangent magnitude at each socket, as a fraction of the straight-line distance between the two junctions. Larger values leave each socket more perpendicular before curving, at the cost of a longer path. | `0.5f` |
+| `Minimum Turn Radius Scale` | Tightest turn a route may make, as a multiple of the socket's half-extent **in the direction of the turn**. See [Turn Radius](#turn-radius). | `2.f` |
+| `Maximum Straightening Attempts` | Number of progressively straighter variants tried when a route turns too tightly, before the pair is abandoned. | `4` |
+| `Maximum Avoidance Attempts` | Number of detour variants tried when the natural path collides, before the pair is abandoned. | `16` |
+| `Avoidance Offset Step` | Distance each successive detour variant pushes its midpoint away from the direct path. | `200.f` |
+| `Endpoint Exclusion` | Distance from each socket over which the owning cell's own hull is excluded from collision testing. See [Endpoint Exclusion](#endpoint-exclusion). | `100.f` |
+| `Allow Multiple Cell Connections` | When false, two cells may hold at most **one** connection between them. See [One Connection Per Cell Pair](#one-connection-per-cell-pair). | `false` |
+
+Distances are in centimetres; angles in degrees.
+
+#### Orientation Gating
+
+Candidate pairs are gated on how the two openings are **oriented**, not just how far apart they are. By the time the pass runs nothing is being rotated, so what is left to judge is the world-space relationship between two fixed openings.
+
+A pair must clear **all three** angles:
+
+| Angle | Measured Between | Notes |
+| --- | :-- | :-- |
+| `Maximum Facing Angle` | One socket's outward direction and the other's inward. | `0` is the head-on pairing the graph builder makes itself; `90` is perpendicular; `180` is two sockets opening *away* from one another. |
+| `Maximum Approach Angle` | Each socket's outward direction and the straight line to its partner, tested at **both** ends. | Past `90` the partner sits behind the socket plane, so the route would have to leave the opening and double back around its own cell. |
+| `Maximum Elevation Difference` | How steeply the two face up or down. | A ceiling hatch is `90`, a floor hatch `-90`, and every wall opening `0` regardless of which way it points. |
+
+:::tip[Why Elevation Difference Carries the Load]
+
+`Maximum Facing Angle` alone cannot separate the two cases you most need separated. A **ceiling hatch joined to a wall door** and a **right-angle corridor bend** are both exactly 90 degrees of facing.
+
+Elevation difference tells them apart: the corridor bend is two wall openings, so its difference is `0`, while the hatch and the wall door differ by the full `90` and are rejected.
+
+That is why facing and approach both default to a loose `180` — the elevation limit does the work. Tightening approach much below `90` also rejects the jog between two parallel corridors, where the partner sits almost side-on despite the two openings facing each other perfectly well.
+
+:::
+
+Evaluated **before any routing**, so the pass gets cheaper rather than more expensive. Rejections are reported as `Rejected (Angle)`.
+
+Individual junctions can replace all three limits with their own via [Connection Constraints](types/cell-junction-connection-constraints.md); both ends are consulted and the stricter wins.
+
+#### Turn Radius
+
+`Minimum Turn Radius Scale` is a **multiple of the socket's half-extent in the direction of the turn**, not a world distance. With the default 2×4 socket, a sideways turn clears 50cm where the same turn taken vertically clears 100cm.
+
+| Value | Reads As |
+| --- | :-- |
+| `1.0` | Exactly the fold point — below it the connector's inner wall folds through itself. |
+| `2.0` | A corridor-width turn. The default. |
+| `0` | Disables the floor, leaving only the always-on fold rejection. |
+
+A route whose inner wall folds back through itself **always** fails, regardless of this value, because its own geometry would self-intersect. Above that, this sets a navigability floor.
+
+A route rejected as too tight is retried with progressively longer spline tangents, bounded by `Maximum Straightening Attempts`. Reported as `Rejected (Turn Radius)`, `Rejected (Folded)` and `Straightening Successes`.
+
+:::note[More Than One or Two Straightening Steps Is Worth It]
+
+Longer tangents open a turn up **to a point** and then overshoot into a tighter one again, so the value that works often sits in the middle of the range rather than at its top.
+
+Each step also lengthens the route, so `Maximum Spline Length` is what ultimately bounds the escalation — it stops as soon as a variant blows that budget, since every later one is longer still.
+
+:::
+
+#### Endpoint Exclusion
+
+A socket sits **on** its cell's hull surface, so without an exclusion every path would collide at both endpoints.
+
+`Endpoint Exclusion` is the distance from each socket over which the owning cell's own hull is ignored. Beyond that distance the hull is tested again — which is what rejects a path that curls back into its own cell.
+
+Note the exclusion is limited to the hulls near each socket rather than exempting the two cells outright, precisely so a route cannot tunnel back through its own cell unnoticed.
+
+#### One Connection Per Cell Pair
+
+With `Allow Multiple Cell Connections` off (the default), a candidate pair whose two cells are **already linked** is rejected. Several openings facing each other across two cells then produce **one** connector rather than a bundle.
+
+"Already linked" covers both a doorway the graph builders mated and a connector this same pass accepted earlier. Only a **direct** link between the two cells blocks — cells joined indirectly through others are still free to connect, which is usually the interesting case.
+
+Reported as `Rejected (Existing Connection)`, and counted before any routing is attempted, so these cost nothing beyond the lookup.
 
 ### Debug
 
@@ -63,7 +178,7 @@ Backed by `UNWorldAssemblySettings`; from C++, read it with `UNWorldAssemblySett
 
 :::warning Packaging
 
-Assigning a `Junction Default Filler` or a `Proxy Material` here does **not** guarantee the asset is pulled into a packaged build. Because both are referenced indirectly, they can be dropped by the cooker — add them to your project's **Additional Asset Directories to Cook** (or otherwise force a hard reference) so they are included.
+Assigning a `Junction Default Filler`, a `Junction Default Connector`, or a `Proxy Material` here does **not** guarantee the asset is pulled into a packaged build. Because all three are referenced indirectly, they can be dropped by the cooker — add them to your project's **Additional Asset Directories to Cook** (or otherwise force a hard reference) so they are included.
 
 :::
 

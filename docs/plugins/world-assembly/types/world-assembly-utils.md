@@ -90,3 +90,83 @@ static void GetVoxelQueryLevelBoundsEndPoints(const FVector& WorldCenter, const 
 `GetVoxelQueryPoints` emits the 26 neighbours surrounding a point — 6 faces, 12 edges, 8 corners — which is the full Moore neighbourhood of a voxel excluding the voxel itself. `VoxelQueryPointCount` is exposed so a caller can size its array up front instead of letting `TArray` grow.
 
 `GetVoxelQueryLevelBoundsEndPoints` produces rays outward from a point to the faces of the level bounds, which is how voxelization decides whether a sample sits inside enclosed geometry.
+
+## Junction Conventions
+
+Two helpers that exist to state a convention **in exactly one place** rather than have every call site re-derive it.
+
+### Outward Direction
+
+```cpp
+FORCEINLINE static FVector GetJunctionOutwardDirection(const FRotator& Rotation);
+FORCEINLINE static FVector GetJunctionOutwardDirection(const FNCellJunctionDetails& Details);
+```
+
+The direction a junction **opens onto** — away from the cell that owns it, into the space a mating cell would fill.
+
+A junction's rotation faces *into* its own cell (the socket gizmo's arrow, drawn along the rotation's forward vector, points [inward](junction-component.md#directionality)), so this is simply the **negated forward**. Every consumer that needs "which way is out" goes through here rather than negating at the call site.
+
+### Socket Corner Points
+
+```cpp
+static TArray<FVector> GetJunctionWorldCornerPoints(const FVector& Location, const FRotator& Rotation,
+	const FIntVector2& Units, const FVector2D& UnitSize);
+
+static TArray<FVector> GetJunctionWorldCornerPoints(const FNCellJunctionDetails& Details, const FVector2D& UnitSize);
+```
+
+The four world-space corners of a junction's socket rectangle, in **top-left, bottom-left, bottom-right, top-right** order. `UnitSize` is normally `UNWorldAssemblySettings::SocketSize`.
+
+The rectangle is built in the local XZ plane then yaw-composed into the YZ plane, which leaves the socket normal on the junction's local **+X**. Both [`UNCellJunctionComponent::GetWorldCornerPoints`](junction-component.md) and [`FNWorldAssemblyDebugDraw::DrawSocket`](world-assembly-debug-draw.md) now derive from this rather than each rebuilding it, so the three cannot drift apart.
+
+## Junction Pairing Predicates
+
+Two predicates the [connector pass](../architecture/tasks.md#junction-connecting) gates candidate pairings on. Both operate purely on world-space junction details — no world, no objects, no randomness.
+
+### Inverse Coincidence
+
+```cpp
+static bool AreJunctionsInverseCoincident(const FNCellJunctionDetails& A, const FNCellJunctionDetails& B,
+	const FVector2D& UnitSize, float Tolerance);
+```
+
+Do these two junctions already occupy the **same opening, facing opposite ways**?
+
+This is exactly the geometry the graph builder produces when it mates two cells: it flips the target 180 degrees about the junction's local up axis and places it so the two junction world locations coincide, leaving the two socket rectangles exactly on top of each other with opposed normals.
+
+Two junctions that satisfy this **without being linked** are a mating the builder never made — it only ever grows a *new* cell off an open junction, so a graph that loops back on itself leaves both ends open. That is what [Connect Coincidences](../project-settings.md#coincident-mating) picks up.
+
+:::tip[Why the Test Is on the Rectangles]
+
+Testing the socket **rectangles** rather than the centers and normals alone settles position, facing, roll and socket dimensions in one go.
+
+A rectangle that maps onto another has to share its plane — so a **non-square** socket rolled against its partner is correctly rejected, while a **square** one rolled 90 degrees (a real mating) is not.
+
+:::
+
+`Tolerance` is the maximum world-space distance between two corners that still counts as the same point.
+
+### Connection Angles
+
+```cpp
+static bool AreJunctionsWithinConnectionAngles(const FNCellJunctionDetails& A, const FNCellJunctionDetails& B,
+	float DefaultMaximumFacingAngle, float DefaultMaximumApproachAngle, float DefaultMaximumElevationDifference);
+```
+
+Are these two junctions oriented sensibly enough with respect to each other to be worth connecting?
+
+The graph builder gates the cells it places on `FNRotationConstraints`, but the connector pass runs over cells that are **already down**: nothing is being rotated, so what is left to judge is the world-space relationship between two fixed openings. A pair must clear all three angles:
+
+| Angle | Measured Between |
+| :-- | :-- |
+| **Facing** | One socket's outward direction and the other's inward. Zero is the head-on pairing the builder makes itself; 180 is two sockets opening away from one another. |
+| **Approach** | Each socket's outward direction and the line to its partner, tested at **both** ends. Past 90 degrees the partner sits behind the socket plane, so the route would have to leave the opening and double back around its own cell. |
+| **Elevation difference** | How steeply the two face up or down. This is what separates a right-angle corridor bend from a ceiling hatch joined to a wall door — both are 90 degrees of *facing*, but two wall openings differ in elevation by nothing while a hatch and a wall door differ by the full 90. |
+
+The three `Default*` parameters supply the limit for either end that carries no override of its own. Either junction may carry its own via [`FNCellJunctionConnectionConstraints`](cell-junction-connection-constraints.md); where both ends supply one, the **stricter wins**, so an override never loosens what its partner will accept. A limit of `180` opts that test out.
+
+:::note[Coincident Pairs Skip the Approach Test]
+
+Two junctions in the same place have no line between them to measure an approach against, so that test is skipped for them. The pair is then left to be rejected as `Degenerate` by the [solver](junction-connector-solver.md#route-results) — or picked up ahead of it by [inverse matching](#inverse-coincidence), which does not consult this predicate at all.
+
+:::

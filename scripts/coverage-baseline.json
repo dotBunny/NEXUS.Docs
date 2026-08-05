@@ -21,7 +21,8 @@
     "missing-page|NexusWorldAssemblyEditor/Public/Customizations/NOrganComponentCustomization.h|nopage": "Policy (CLAUDE.md): IDetailCustomization types shape the details panel for a type already documented on its own page; they add no public surface.",
     "missing-page|NexusWorldAssemblyEditor/Public/Customizations/NWorldAssemblyEditorUserSettingsCustomization.h|nopage": "Policy (CLAUDE.md): IDetailCustomization types shape the details panel for a type already documented on its own page; they add no public surface.",
     "missing-page|NexusWorldAssemblyEditor/Public/NWorldAssemblyEditorCommands.h|nopage": "Policy (CLAUDE.md): *Commands.h is near-identical per-plugin boilerplate. Core documents its own as the reference pattern; the other plugins are skipped.",
-    "missing-page|NexusWorldAssemblyEditor/Public/NWorldAssemblyEditorStyle.h|nopage": "Policy (CLAUDE.md): *Style.h is near-identical per-plugin boilerplate. Core documents its own as the reference pattern; the other plugins are skipped."
+    "missing-page|NexusWorldAssemblyEditor/Public/NWorldAssemblyEditorStyle.h|nopage": "Policy (CLAUDE.md): *Style.h is near-identical per-plugin boilerplate. Core documents its own as the reference pattern; the other plugins are skipped.",
+    "stale-param|WorldAssembly/Source/NexusWorldAssembly/Public/Assembly/Tasks/NConnectJunctionsTask.h|FNConnectJunctionsTask:SocketUnitSize": "False positive (parser pitfall 4): SocketUnitSize IS a constructor parameter. The parameter list is terminated by the N_ASSEMBLY_ANALYTICS_CONSTRUCTOR macro rather than a plain `)`, so the signature parser stops early and never sees the third parameter. The same shape appears on every FN*Task constructor that takes analytics."
   },
   "accepted": {
     "missing-page|NexusToolingEditor/Public/Menus/NFixersMenu.h|nopage": "no page documents NexusToolingEditor/Public/Menus/NFixersMenu.h (FNFixersMenu)",
