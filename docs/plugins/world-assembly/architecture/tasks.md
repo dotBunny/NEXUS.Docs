@@ -29,7 +29,19 @@ Only four are pinned to the game thread, and each for a concrete engine reason r
 
 **`FNCreateVirtualWorldTask`** walks live `AActor`s to gather their simple-collision meshes and transforms. Those queries are not safe from a worker thread, so the snapshot must be taken on the game thread — which is precisely why it is a *snapshot*. Everything downstream reads the copy.
 
-It also filters as it gathers: organ volumes are excluded, because they are *inputs* to generation rather than collision to avoid, as are actors with no collision.
+It also filters as it gathers, and the filter is part structural and part authored:
+
+| Excluded | By |
+| :-- | :-- |
+| Every `AVolume` | Structural. Volumes are *inputs* to generation — organ bounds, exclusions — not collision to avoid. |
+| Every `ANDebugActor` | Structural. Debug visualisation is not world geometry. |
+| Actors tagged [`NWorldCollision_Ignore`](../tagging.md#world-collision-markup-tags) | Structural. The per-actor opt-out. |
+| Actors carrying any configured [`Actor Ignore Tags`](../project-settings.md#assembly) entry | Project setting; empty by default. |
+| Actors with collision disabled | [`Exclude Non-Collision Enabled Actors`](../project-settings.md#assembly); `true` by default. |
+
+The distinction matters because the structural exclusions cannot be overridden — a level designer cannot make an organ volume act as collision by tagging it — while the settings-driven ones are the knobs for tuning what a given project treats as an obstacle.
+
+Player starts run the other way: [`Include Player Starts`](../project-settings.md#assembly) is `true` by default, so they are captured *as* collision and generation places cells around them rather than on top of them.
 
 **`FNSpawnCellProxiesTask`** spawns actors, which the engine only permits on the game thread. It drains a **time-sliced batch** per invocation rather than all pending nodes, and signals its completion event once the spawn context's cursor reaches the end of the list. That is what keeps a large generation from stalling a frame.
 
@@ -43,13 +55,28 @@ It also filters as it gathers: organ volumes are excluded, because they are *inp
 
 A builder is only created for components whose `SourceComponent->bActivated` is true — an inactive organ is skipped entirely rather than built and discarded. A pass containing nothing but inactive components still increments the pass counter but adds no tasks to the graph.
 
-`FNProcessPassTask` runs between passes: it moves the graphs a pass produced up to the top-level context and adds their cell hulls to the world context, so the *next* pass treats already-placed cells as collision. That is what makes phased organs compose rather than overlap.
+A build that succeeds also writes two things back into the [task-graph context](task-graph.md#task-graph-context) keyed by its organ's identifier: the cell count it produced, and the **random-stream state its successful attempt started from**. Both are drained back onto the source [Organ Component](../types/organ-component.md) on the game thread once the graph completes, which is what lets an organ report what it generated without the game thread ever reaching into the build.
+
+The saved state is the *winning attempt's* starting point, not the stream's final position — the stream runs continuously across retries, so replaying from there reproduces the graph that shipped without re-running the attempts that failed.
+
+`FNProcessPassTask` runs between passes: it moves the graphs a pass produced up to the top-level context and adds their cell hulls to the world context, so the *next* pass treats already-placed cells as collision. That is what makes phased organs compose rather than overlap. It also merges the pass's accumulated [context tags and tag counters](../tagging.md) upward, so a later pass's `CheckGraph` sees what earlier passes contributed.
 
 :::warning[Concurrency contract]
 
 `FNCreateSpawnsTask` runs on any worker, and **multiple operations may run their own instance concurrently**. Anything shared it touches must be thread-safe. If you extend this stage, assume another operation is executing the same code beside you — the per-operation state it writes is safe precisely because it is per-operation.
 
 :::
+
+### Cancellation
+
+Cancellation is **cooperative**. Nothing kills a task in flight; two flags are set and the stages notice them at safe points:
+
+| Flag | Set by | Noticed by |
+| :-- | :-- | :-- |
+| The task-graph context's cancel flag | `FNAssemblyTaskGraph::Cancel()` | Worker stages — organ builders and pass collectors — polling `IsCancelled()` at their loop boundaries. |
+| The spawn context's `bCancelled` | The same call | `FNSpawnCellProxiesTask`, at its next **time-slice boundary**. |
+
+The consequence worth internalising: a cancelled operation still runs its remaining tasks to completion, they simply do very little. **Cancelling is not a rollback** — cells already spawned stay in the world, and the cancel call drops the context's references to them rather than destroying them.
 
 ## Junction Connecting
 
@@ -61,7 +88,7 @@ The graph builders only ever grow a **new** cell off an open junction. Anything 
 
 1. **Gathers** every unmatched junction across every graph, in a stable order, counting those carrying [`Disable Connecting`](../types/junction-component.md#disable-connecting).
 2. **Mates coincidences** — pairs already sitting in the same opening facing opposite ways, if [`Connect Coincidences`](../project-settings.md#coincident-mating) is on. These link as a plain cell mating: nothing is routed and nothing is spawned.
-3. **Builds candidate pairs** from what remains, gated on socket size, distinct cells, the opt-out flag, range, and [orientation](../project-settings.md#orientation-gating) — emitted nearest-first.
+3. **Builds candidate pairs** from what remains, gated on socket size, distinct cells, the opt-out flag, range, and [orientation](../project-settings.md#orientation-gating) — emitted nearest-first. Either end may replace the operation's angle limits with its own [Connection Constraints](../types/cell-junction-connection-constraints.md); where both do, the **stricter wins**, so an override can only ever narrow what a junction accepts.
 4. **Routes** each candidate via [`FNJunctionConnectorSolver`](../types/junction-connector-solver.md), retrying against straighter tangents when a route turns too tightly and against a bounded set of detours when it collides.
 5. **Accepts greedily**, retaining every accepted route's swept hulls as collision so later pairs route around it.
 
@@ -106,7 +133,7 @@ flowchart TD
   CreateVW["FNCreateVirtualWorldTask<br/><i>Step 0 · Capture World</i>"]:::gameThread
   ProcessVW["FNProcessVirtualWorldTask<br/><i>Step 1 · Process Capture</i>"]:::anyThread
 
-  subgraph Pass0["Pass 0"]
+  subgraph Pass0["Pass 0 — <i>Step 2 · Build Cell Graphs</i>"]
     direction TB
     Organ0["FNOrganGraphBuilderTask × N<br/>(one per activated organ component)"]:::anyThread
     ProcPass0["FNProcessPassTask<br/>(collects pass results, propagates collision)"]:::anyThread
@@ -120,12 +147,12 @@ flowchart TD
     OrganN --> ProcPassN
   end
 
-  ConnectJunctions["FNConnectJunctionsTask<br/><i>Step 2 · Pair &amp; route unmatched junctions</i>"]:::anyThread
-  CreateSpawns["FNCreateSpawnsTask<br/><i>Step 3 · Flatten graphs into spawn context</i>"]:::anyThread
-  SpawnProxies["FNSpawnCellProxiesTask<br/><i>Step 4 · Time-sliced proxy spawning</i>"]:::gameThread
-  SpawnConnectors["FNSpawnJunctionConnectorsTask<br/><i>Step 4 · Register pairings with subsystem</i>"]:::gameThread
+  ConnectJunctions["FNConnectJunctionsTask<br/><i>Step 3 · Pair &amp; route unmatched junctions</i>"]:::anyThread
+  CreateSpawns["FNCreateSpawnsTask<br/><i>Step 4 · Flatten graphs into spawn context</i>"]:::anyThread
+  SpawnProxies["FNSpawnCellProxiesTask<br/><i>Step 5 · Time-sliced proxy spawning</i>"]:::gameThread
+  SpawnConnectors["FNSpawnJunctionConnectorsTask<br/><i>Step 5 · Register pairings with subsystem</i>"]:::gameThread
   SpawnGate(["SpawnCellProxiesTaskCompleted<br/><i>graph-event gate</i>"]):::gate
-  Finalize["FNAssemblyFinalizeTask<br/><i>Step 5 · Finalize &amp; analytics</i>"]:::gameThread
+  Finalize["FNAssemblyFinalizeTask<br/><i>Step 6 · Finalize &amp; analytics</i>"]:::gameThread
 
   CreateVW --> ProcessVW
   ProcessVW --> Organ0

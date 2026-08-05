@@ -11,12 +11,25 @@ The data structure generation actually produces. One `FNAssemblyGraph` per organ
 
 Owns the node set the builder produces, plus the spatial extents the nodes must stay within. Nodes are registered as they are expanded, so the graph grows during the build rather than being assembled at the end.
 
-Two members matter to anyone extending the builder:
+Three members matter to anyone extending the builder:
 
-- **`RegisterNode`** transfers ownership. A node created by the factory is not owned until it is registered, and from then on the graph frees it.
+- **`RegisterNode`** transfers ownership. A node created by the factory is not owned until it is registered, and from then on the graph frees it. `UnregisterNode` is its inverse — it drops the graph's ownership without deleting, handing the node back to the caller.
+- **`FlagHotPath`** resolves the graph's [hot path](../tagging.md#nexusworldassemblyflaghotpath) and flags the cell nodes on it. It **must run before link details are generated**, because those flags are read across neighbours.
 - **`CleanupBuilderReferences`** is called once the graph is handed to the next stage, dropping the scratch state expansion needed but consumers do not.
 
-It also serves bounds queries from a spatial index rather than walking every node — `QueryCellNodesByBounds` is what the builder's placement checks go through, and the reason a large organ does not degrade quadratically.
+### The Cell Node Index
+
+Bounds queries are served from a spatial index rather than by walking every node — `QueryCellNodesByBounds` is what the builder's placement checks go through, and the reason a large organ does not degrade quadratically. That linear scan was the builder's single largest per-candidate cost: it ran once per candidate placement and grew with the graph.
+
+Three details make the index work against a structure that is still growing:
+
+- **Cell nodes are kept in their own array**, separate from the full node set, so a bounds query neither walks bone and null nodes nor pays a virtual call per entry to skip them.
+- **The tree covers a prefix, not the whole array.** Rebuilding on every insertion would undo the saving, so the remainder is scanned linearly and the tree is rebuilt once that tail passes 64 nodes — each rebuild costs `O(N log N)` and buys another threshold's worth of insertions.
+- **Unregistering drops the index entirely.** A removal would leave a dangling entry, and patching one out is not worth the bookkeeping when removals are rare next to insertions, so the whole thing is rebuilt on the next query.
+
+Query order is therefore unspecified — indexed nodes arrive in traversal order, ahead of any unindexed tail — but **deterministic for a given graph state**. The builder filters the set and tests it for emptiness, so order never reaches a placement decision.
+
+`GetCellCentroid` is O(1) for the same reason: a running sum of cell centres is kept in step with register and unregister. It is stored as a sum rather than a pre-divided mean so a removal subtracts exactly what its placement added, which is what stops drift compounding across the builder's add/remove churn.
 
 ## Node Types
 
@@ -70,3 +83,22 @@ A node allocated by the factory and **not** registered is a leak — the factory
 The builder uses a **Frontier** model: start at each bone, and repeatedly take an open junction and try to attach a cell to it, until no open junctions remain or the organ's bounds or cell limits are hit.
 
 Because candidates are drawn from a seeded stream, the *order* junctions are consumed in is part of the result — which is why determinism depends on sorted input all the way up at [operation creation](../types/assembly-operation.md#creation).
+
+### Closing Out A Build
+
+Two things happen after normal expansion has run out of frontier, and their order is what makes minimum counts honourable:
+
+1. **Finisher minimums are forced.** A `FinisherOnly` cell is gated out of normal expansion and can only ever land at cap time, so a cell with a `Minimum Count` above zero has no guaranteed placement. These are placed onto the remaining open junctions first, before the opportunistic capping pass can consume those slots.
+2. **Remaining branches are capped** with whatever finisher is eligible, opportunistically.
+
+The forcing step is a **no-op when no finisher-eligible cell has an unmet, enforceable minimum** — no draws from the stream, no changes to the graph. That is deliberate: a tissue that does not use the feature generates byte-identically to one built before the step existed.
+
+### Retry
+
+A graph that fails `CheckGraph` — cell counts outside its bounds, required context tags absent, a tag-counter constraint unsatisfied — is **thrown away and rebuilt**, up to the organ's retry budget. The stream is *not* reset between attempts; each one continues from where the last left off, so retries explore new layouts instead of repeating the failed one.
+
+The builder snapshots the stream state at the **start of each attempt**, and it is the winning attempt's snapshot that is handed back to the organ. Replaying from there reproduces the graph that shipped without re-running the attempts that failed.
+
+A cancel request is noticed here too — the retry loop checks it at the top of each attempt and falls through to the unsuccessful path rather than starting another build.
+
+That is why the [analytics](analytics.md) record's iteration count is the first number to read on a slow build: a high count means generation is failing and re-rolling, not doing more work.
