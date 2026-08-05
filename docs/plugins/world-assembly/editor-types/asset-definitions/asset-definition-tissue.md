@@ -1,11 +1,12 @@
 ---
 sidebar_class_name: type ue-data-asset
+sidebar_label: Tissue
 description: Asset definition registering UNTissue with the Content Browser, plus the factory that creates new tissue assets.
 ---
 
 import TypeDetails from '@site/src/components/TypeDetails';
 
-# Asset Definition (Tissue)
+# Tissue (Asset Definition)
 
 <TypeDetails icon="ue-data-asset" base="UAssetDefinitionDefault" type="UAssetDefinition_NTissue" typeExtra=" + UNCellSetFactory" headerFile="NexusWorldAssemblyEditor/Public/AssetDefinitions/AssetDefinition_NTissue.h" />
 

@@ -130,10 +130,20 @@ npm run build                             # verify
 
 ## Documentation Skills
 
-Three skills cover doc work — invoke them by user prompt rather than working from scratch:
+Six skills cover doc work — invoke them by user prompt rather than working from scratch.
+
+**Writing pages:**
 
 - `doc-new-plugin` — scaffolds the `docs/plugins/<slug>/` folder, `index.mdx`, `types/index.mdx`, optional `editor-types/index.mdx`, optional `developer-overlay.md`, and the `Plugins` map entry in `PluginDetails/index.tsx`.
 - `doc-new-type` — scaffolds a single type page from a header file, choosing the appropriate body shape (default / wrapper UObject / list-view entry / async action / subsystem) based on the engine base class.
 - `doc-audit` — verifies existing pages against the source and repairs drift. Read it before trusting `npm run audit:coverage` output, and for the housekeeping every doc edit needs (versioned-snapshot sync, `@see` backlink, `DocsURL` meta, baseline update).
+
+**Driving the editor** (screenshots and live verification — none of this is needed to write a type page, which is done from headers):
+
+- `unreal-environment` — resolves the framework source, the TestProject, and the installed engine (cached in `.claude/local-memory/ueroot`), and launches the editor.
+- `unreal-mcp` — the transport: Unreal's in-editor MCP server, wired in `.mcp.json` at `127.0.0.1:8010`. Discovery-first; the editor must already be running.
+- `doc-screenshot` — capture, convert, place, and reference a screenshot, plus re-capturing after a UI change and the archive-vs-overwrite decision.
+
+Supporting scripts: `npm run mcp -- <tool> [args-json]` talks to the editor (exit 1 when it is not up), and `npm run screenshot -- --in <file> --out <path.webp>` converts a capture to a docs-ready image.
 
 **Writing or fixing a page is not finished when the file is saved.** `docs/` only serves `/docs/dev/`; `versioned_docs/version-<x>/` is a separate copy that does not inherit fixes, so a correction usually means editing both. A header that gains a page needs its `@see` backlink, and a `UFUNCTION` whose page gains a section can take a `DocsURL`. `doc-audit` has the full checklist.

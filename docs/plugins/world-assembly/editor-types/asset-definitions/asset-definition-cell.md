@@ -1,11 +1,12 @@
 ---
 sidebar_class_name: type ue-data-asset
+sidebar_label: Cell
 description: Asset definition for UNCell — Content Browser presentation plus the package-lifecycle hooks that keep a cell side-car in sync with its host world.
 ---
 
 import TypeDetails from '@site/src/components/TypeDetails';
 
-# Asset Definition (Cell)
+# Cell (Asset Definition)
 
 <TypeDetails icon="ue-data-asset" base="UAssetDefinitionDefault" type="UAssetDefinition_NCell" typeExtra="" headerFile="NexusWorldAssemblyEditor/Public/AssetDefinitions/AssetDefinition_NCell.h" />
 
