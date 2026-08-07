@@ -12,14 +12,47 @@ fastest way to see where you stand.
 
 ```bash
 npm run audit:coverage              # report; exits non-zero on findings new since the baseline
-npm run audit:coverage -- --all     # include baselined findings
-npm run audit:coverage -- --update  # re-snapshot the baseline after clearing work
+npm run audit:coverage -- --all     # include baselined findings (and the full source-drift list)
+npm run audit:coverage -- --update  # re-snapshot the baseline, and record the source commit
 ```
 
 The script lives at [scripts/audit-coverage.mjs](../../../scripts/audit-coverage.mjs) with its
 accepted-state file at `scripts/coverage-baseline.json`. Plain Node ESM, zero dependencies. It needs
 no build exclusion — Docusaurus only scans `docs/`, `community/`, and `versioned_docs/`, and `tsc`
 ignores `.mjs`.
+
+## Where the docs stand against the source
+
+Start here — before reading a single finding. The baseline records the NEXUS commit it was taken
+against (`source` in `scripts/coverage-baseline.json`), so the summary block opens with the distance
+travelled since:
+
+```
+  source            audited e4bdbdab (2026-07-30) → HEAD 2150ca76 (2026-08-06), 22 commits ahead
+```
+
+and the run ends with the public headers that moved in between, each marked with its page or `no
+page`:
+
+```
+=== source moved since the audited commit (22 commits, 62 in-scope headers)
+  M NexusWorldAssembly/Public/Cell/NCellJunctionComponent.h
+      plugins/world-assembly/types/junction-component.md
+  A NexusWorldAssembly/Public/Cell/NCellJunctionConnection.h
+      no page
+```
+
+**That list is the work queue, and it is the thing the other checks cannot give you.** A modified
+header with a page is a page to re-read against its header; an added header with none is a page to
+scaffold. The audit's own checks only catch drift they can see mechanically — a header whose
+behaviour changed while its names stayed put produces no finding at all, and only shows up here.
+
+`M` on a page you did not expect to change is the highest-value signal in the whole run.
+
+Informational only: it never affects the exit code, since a changed header is work to triage rather
+than a defect. Policy-excluded headers (`*Style.h`, `*Commands.h`, customizations) are filtered out.
+The list caps at 40 without `--all`. If the source is not a git checkout, or the recorded commit is
+gone after a rebase, the line says so and the rest of the audit runs unaffected.
 
 ## The central lesson
 
@@ -146,6 +179,12 @@ Miss any of these and the audit will tell you, but it is faster to just do them:
 2. **Add the `@see` backlink** for any header that gains a page.
 3. **Add `DocsURL`** for any `UFUNCTION` whose page gained a matching section.
 4. **Re-run the audit, then `--update` the baseline** once findings are genuinely cleared.
+   - `--update` also stamps the source commit, so it asserts "the docs are reconciled with the source
+     as of here" for the *whole* tree, not just the pages you touched. Running it to quiet a noisy
+     report both accepts the backlog and backdates a reconciliation that never happened — the next
+     person then has no way to tell which headers were actually read.
+   - If you cleared one plugin out of several, say so in the commit message rather than reaching for
+     `--update`; leaving the marker where it is keeps the remaining drift visible.
 
 ## Verifying a behavioural claim
 

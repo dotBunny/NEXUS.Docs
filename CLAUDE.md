@@ -88,6 +88,12 @@ The actual plugin source code can be found locally in `../NEXUS/Plugins` or remo
 
   It exists because name-level checks are not enough: a page can cite a real type and a real header and still describe neither correctly. Treat its raw counts as a triage queue, not a findings list — roughly two-thirds of "missing function" hits are false positives (locals in inline bodies, cross-class calls, display-name headings, engine overrides). The `doc-audit` skill documents each class.
 
+- **How far behind the source are we?** `--update` also records the NEXUS commit the snapshot was taken against, as `source` in `scripts/coverage-baseline.json`. Every later run prints that commit against the source tree's current HEAD, then lists the in-scope public headers that changed in between and whether each has a page — the catch-up queue. It answers "where have we addressed up to?", which no per-page marker can, because the baseline is the only thing that moves once per reconciliation rather than once per edit.
+
+  This is **informational and never affects the exit code** — a changed header is work to triage, not a defect. Headers excluded by policy (above) and by the baseline's `exclusions` are filtered out of the list. Everything about it degrades to a printed note rather than failing: no git, a source tree that is not a checkout, or a recorded commit that no longer exists after a rebase or in a shallow clone.
+
+  **So `--update` is a claim, not bookkeeping.** It says "the docs are reconciled with the source as of this commit", and it moves the marker forward for everything at once. Run it when findings are genuinely cleared — not to quiet a noisy run, which silently accepts the backlog *and* asserts a reconciliation that never happened.
+
 ### Type-folder layout
 
 `types/` and `editor-types/` mirror the source's `Public/` layout. When the source organizes headers into subfolders (`Public/Math/`, `Public/Components/`, `Public/Widgets/`, `Public/Developer/`, `Public/Collections/`, `Public/Types/`, `Public/ComponentVisProxies/`, `Public/DelayedEditorTasks/`, …), the docs mirror that structure under `types/<subfolder>/` or `editor-types/<subfolder>/`. Top-level headers (those directly under `Public/`) keep their pages at the root of `types/` or `editor-types/`.

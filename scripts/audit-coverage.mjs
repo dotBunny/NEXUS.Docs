@@ -8,6 +8,10 @@
  *
  * The source tree defaults to ../NEXUS/Plugins; override with NEXUS_PLUGINS=<path>.
  *
+ * --update also records the source commit the baseline was taken against (`source` in the baseline
+ * file). Later runs print how far the source has moved since and list the public headers that
+ * changed -- the catch-up queue. It is informational and never affects the exit code.
+ *
  * Checks, most valuable first:
  *   doc-code-mismatch  code quoted in a page vs the header it cites (enumerators, enum kind,
  *                      underlying type, function names). This is the class of error that
@@ -49,6 +53,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { execFileSync } from 'node:child_process';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const DOCS = path.join(ROOT, 'docs');
@@ -65,6 +70,41 @@ if (!fs.existsSync(SRC)) {
   console.error(`Plugin source not found at ${SRC}\nSet NEXUS_PLUGINS to the Plugins folder.`);
   process.exit(2);
 }
+
+/* ------------------------------------------------------------ source commit
+ * The docs describe a moving target, so the baseline is only meaningful next to the commit of the
+ * plugin source it was taken against. `--update` records that commit; every later run reports the
+ * headers that moved since — which is the "what have we not caught up on yet?" work queue.
+ *
+ * Every call here is best-effort. No git on PATH, a source tree that is not a checkout, or a
+ * recorded commit that no longer exists (rebase, shallow clone) must degrade to a printed note,
+ * never a crash — the audit's real checks do not depend on any of it. */
+function git(...a) {
+  try {
+    return execFileSync('git', a, { cwd: SRC, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim();
+  } catch { return null; }
+}
+
+/** HEAD of the source tree right now, or null when SRC is not a usable checkout. */
+function sourceHead() {
+  const sha = git('rev-parse', 'HEAD');
+  if (!sha) return null;
+  return {
+    sha,
+    committed: git('log', '-1', '--format=%cI', sha) || null,
+    branch: git('rev-parse', '--abbrev-ref', 'HEAD') || null,
+    remote: git('config', '--get', 'remote.origin.url') || null,
+    // Uncommitted work under Plugins/ means the sha under-describes what was actually audited.
+    dirty: !!git('status', '--porcelain', '--', '.'),
+  };
+}
+
+const shortSha = s => (s ? s.slice(0, 8) : '');
+const day = iso => (iso ? iso.slice(0, 10) : 'unknown date');
+const head = sourceHead();
+
+/** One-line description of a commit for the summary block. */
+const describe = c => `${shortSha(c.sha)} (${day(c.committed)})${c.dirty ? ', tree dirty' : ''}`;
 
 /* ---------------------------------------------------------------- helpers */
 
@@ -586,6 +626,59 @@ const ORDER = ['doc-code-mismatch', 'base-mismatch', 'broken-link', 'missing-ass
   'void-return', 'unknown-symbol', 'stale-typedetails', 'missing-page', 'missing-typedoc', 'missing-backlink'];
 const sortChecks = g => ORDER.filter(c => g.has(c)).concat([...g.keys()].filter(c => !ORDER.includes(c)));
 
+/* Public headers that moved in the source since the commit the baseline was taken against.
+ * Informational only — a changed header is work to triage, not a defect, so this never affects the
+ * exit code. Headers excluded by policy (see CLAUDE.md) are dropped: they are not a doc gap. */
+function sourceDrift() {
+  const rec = baseline.source;
+  if (!head || !rec?.sha) return null;
+  if (rec.sha === head.sha) return { inSync: true };
+  if (git('cat-file', '-e', `${rec.sha}^{commit}`) === null) return { unknownCommit: true };
+
+  const range = `${rec.sha}..${head.sha}`;
+  const commits = Number(git('rev-list', '--count', range, '--', '.') || 0);
+  const changed = [];
+  for (const line of (git('diff', '--name-status', '--relative', range, '--', '.') || '').split('\n')) {
+    if (!line) continue;
+    const parts = line.split('\t');
+    const status = parts[0][0];                // R100/C75 carry a score; the new path is always last
+    const r = parts[parts.length - 1];
+    if (!r.endsWith('.h') || !r.includes('/Public/')) continue;
+    const modulePath = r.replace(/^[^/]+\/Source\//, '');
+    const h = headerByModulePath.get(modulePath);
+    // Skipped by the script, or hand-excluded as "will never have a page" (*Style.h, *Commands.h,
+    // customizations). Such a header changing is not catch-up work. A header in `accepted` is the
+    // opposite — outstanding backlog — so those stay in the queue.
+    if (h?.skip || exclusions[`missing-page|${modulePath}|nopage`]) continue;
+    const pgs = pagesForHeader.get(modulePath);
+    const pageList = pgs ? pgs.map(pg => pg.p).join(', ') : null;
+    changed.push({
+      status,
+      modulePath,
+      note: status === 'D'
+        ? (pageList ? `deleted in source — still cited by ${pageList}` : 'deleted in source')
+        : (pageList || 'no page'),
+    });
+  }
+  changed.sort((a, b) => a.modulePath.localeCompare(b.modulePath));
+  return { commits, changed };
+}
+
+const drift = UPDATE ? null : sourceDrift();
+
+/** The `source` line of the summary block — where the docs stand against the source tree. */
+function sourceSummary() {
+  if (!head) return 'unavailable — the plugin source is not a git checkout';
+  const rec = baseline.source;
+  if (!rec?.sha) return `HEAD ${describe(head)} — no audited commit recorded (run --update)`;
+  if (drift?.inSync) return `HEAD ${describe(head)} — matches the audited commit`;
+  if (drift?.unknownCommit) {
+    return `HEAD ${describe(head)} — audited commit ${shortSha(rec.sha)} is not in this checkout (rebased or shallow?)`;
+  }
+  return `audited ${shortSha(rec.sha)} (${day(rec.committed)}) → HEAD ${describe(head)}, ` +
+         `${drift.commits} commit${drift.commits === 1 ? '' : 's'} ahead`;
+}
+
 if (UPDATE) {
   const accepted = {};
   for (const f of findings) if (!(f.key in exclusions)) accepted[f.key] = f.message;
@@ -594,8 +687,21 @@ if (UPDATE) {
           'unrelated edits do not invalidate them. "exclusions" are permanent and hand-written — ' +
           'the finding is a false positive or the source is correct as-is — and are never rewritten ' +
           'by --update; always give a reason. "accepted" is a snapshot of outstanding work and is ' +
-          'regenerated by --update, so entries disappear as the backlog is cleared.',
+          'regenerated by --update, so entries disappear as the backlog is cleared. "source" is the ' +
+          'plugin-source commit this state was taken against — later runs list the public headers ' +
+          'that moved since, which is the catch-up queue.',
     generated: new Date().toISOString().slice(0, 10),
+    // Keep whatever was recorded when the source tree is not a checkout — a missing git is no
+    // reason to throw away a known-good commit.
+    source: head
+      ? {
+          repo: head.remote,
+          branch: head.branch,
+          sha: head.sha,
+          committed: head.committed,
+          ...(head.dirty ? { dirty: true } : {}),
+        }
+      : baseline.source,
     counts: Object.fromEntries([...byCheck(findings)].map(([c, l]) => [c, l.length])),
     exclusions,
     accepted,
@@ -603,6 +709,8 @@ if (UPDATE) {
   console.log(`Baseline written -> ${rel(ROOT, BASELINE)}`);
   console.log(`  exclusions kept   ${Object.keys(exclusions).length}`);
   console.log(`  accepted (backlog) ${Object.keys(accepted).length}`);
+  console.log(`  source commit     ${head ? describe(head) : 'unchanged — source is not a git checkout'}`);
+  if (head?.dirty) console.log('  warning: source tree has uncommitted changes under Plugins/; the recorded sha under-describes it.');
   process.exit(0);
 }
 
@@ -613,6 +721,7 @@ console.log(`\nNEXUS docs coverage audit`);
 console.log(`  docs pages        ${pages.length}`);
 console.log(`  public headers    ${headers.filter(h => !h.skip).length} in scope (${headers.length} total)`);
 console.log(`  declared types    ${headers.filter(h => !h.skip).reduce((a, h) => a + h.decls.length, 0)}`);
+console.log(`  source            ${sourceSummary()}`);
 console.log(`  findings          ${findings.length} total, ${newFindings.length} new since baseline`);
 if (fixed.length) console.log(`  resolved          ${fixed.length} baselined findings no longer reproduce`);
 
@@ -629,6 +738,16 @@ if (!shown.length) console.log('\nNo new findings.');
 if (fixed.length) {
   console.log(`\n=== resolved since baseline (${fixed.length}) — run --update to drop them`);
   for (const k of fixed.slice(0, 40)) console.log(`  ${k}`);
+}
+
+if (drift?.changed?.length) {
+  const list = SHOW_ALL ? drift.changed : drift.changed.slice(0, 40);
+  console.log(`\n=== source moved since the audited commit ` +
+              `(${drift.commits} commits, ${drift.changed.length} in-scope headers)`);
+  for (const c of list) console.log(`  ${c.status} ${c.modulePath}\n      ${c.note}`);
+  if (list.length < drift.changed.length) {
+    console.log(`  … ${drift.changed.length - list.length} more (--all to list)`);
+  }
 }
 
 console.log('');
