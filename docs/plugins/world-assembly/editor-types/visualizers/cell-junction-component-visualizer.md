@@ -33,7 +33,7 @@ The practical consequence: junction gizmos you see with the mode closed and with
 
 :::
 
-Unlike the [Cell Root Component Visualizer](cell-root-component-visualizer.md), this one is **draw-only** — it handles no clicks or drags, so junctions are edited through the [Junction menu](../../editor-mode/cell-editor.md#junction-menu) and the details panel rather than in the viewport.
+Unlike the [Cell Root Component Visualizer](cell-root-component-visualizer.md), this one is **draw-only** — it handles no clicks or drags. Junctions are placed with the [Place tool](../../editor-mode/junction.md#place) and managed from the [Junction rail](../../editor-mode/junction.md#component) and the details panel rather than through this visualizer.
 
 ## See Also
 

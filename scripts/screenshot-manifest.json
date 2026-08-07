@@ -1,0 +1,104 @@
+{
+  "note": "Provenance for documentation screenshots, written by `npm run screenshot` when it is given --subject. Deliberately partial: images captured before this file existed have no entry, and gain one when they are next retaken rather than being backfilled from guesswork. \"watch\" lists the source paths whose change invalidates the image; `npm run audit:coverage` diffs them since \"captured.sha\" and reports possible staleness.",
+  "images": {
+    "/assets/images/docs/plugins/world-assembly/editor-mode/mode-button.webp": {
+      "subject": "The World Assembly mode button on the level-editor toolbar, in a cell-only level where Quick Assembly has collapsed",
+      "pages": [
+        "plugins/world-assembly/editor-mode/index"
+      ],
+      "level": "/NexusWorldAssemblySamples/Cells/CELL_Simple_00",
+      "setup": "Open a cell level with the mode INACTIVE; the button hides once the mode is active.",
+      "watch": [
+        "WorldAssembly/Source/NexusWorldAssemblyEditor/Private/NWorldAssemblyEditorToolMenu.cpp"
+      ],
+      "captured": {
+        "sha": "2150ca7633fd61ab81d0a7e49e23ac577fc41647",
+        "date": "2026-08-07"
+      }
+    },
+    "/assets/images/docs/plugins/world-assembly/editor-mode/quick-assembly-toolbar.webp": {
+      "subject": "Quick Assembly organ picker, start button and options dropdown on the level-editor toolbar",
+      "pages": [
+        "plugins/world-assembly/editor-mode/index"
+      ],
+      "level": "/NexusWorldAssemblySamples/DEMO_NWorldAssembly",
+      "setup": "Open a level containing an organ and activate the mode; the controls collapse without an organ, and the toolbar shifts left once the mode button hides. The cluster is the combo, the start button and the options dropdown.",
+      "watch": [
+        "WorldAssembly/Source/NexusWorldAssemblyEditor/Private/NWorldAssemblyEditorToolMenu.cpp",
+        "WorldAssembly/Source/NexusWorldAssemblyEditor/Private/Commands/NWorldAssemblyEditorQuickAssemblyCommands.cpp"
+      ],
+      "captured": {
+        "sha": "2150ca7633fd61ab81d0a7e49e23ac577fc41647",
+        "date": "2026-08-07"
+      }
+    },
+    "/assets/images/docs/plugins/world-assembly/editor-mode/rail-cell.webp": {
+      "subject": "Cell rail: Tools, Calculate, Tagging, Actions, Quick Options and Cell Data sections",
+      "pages": [
+        "plugins/world-assembly/editor-mode/cell",
+        "plugins/world-assembly/editor-mode/index"
+      ],
+      "level": "/NexusWorldAssemblySamples/Cells/CELL_Simple_00",
+      "setup": "Activate World Assembly mode; select the Cell rail.",
+      "watch": [
+        "WorldAssembly/Source/NexusWorldAssemblyEditor/Private/Rails/NWorldAssemblyEdModeCellRail.cpp",
+        "WorldAssembly/Source/NexusWorldAssemblyEditor/Private/Commands/NWorldAssemblyEditorCellCommands.cpp",
+        "WorldAssembly/Source/NexusWorldAssemblyEditor/Private/NWorldAssemblyEdModeToolCommands.cpp"
+      ],
+      "captured": {
+        "sha": "2150ca7633fd61ab81d0a7e49e23ac577fc41647",
+        "date": "2026-08-07"
+      }
+    },
+    "/assets/images/docs/plugins/world-assembly/editor-mode/rail-junction.webp": {
+      "subject": "Junction rail: the junction picker, the Place tool, and the Component commands",
+      "pages": [
+        "plugins/world-assembly/editor-mode/junction"
+      ],
+      "level": "/NexusWorldAssemblySamples/Cells/CELL_Simple_00",
+      "setup": "Activate World Assembly mode; select the Junction rail.",
+      "watch": [
+        "WorldAssembly/Source/NexusWorldAssemblyEditor/Private/Rails/NWorldAssemblyEdModeJunctionRail.cpp",
+        "WorldAssembly/Source/NexusWorldAssemblyEditor/Private/Commands/NWorldAssemblyEditorJunctionCommands.cpp",
+        "WorldAssembly/Source/NexusWorldAssemblyEditor/Private/NWorldAssemblyEdModeToolCommands.cpp"
+      ],
+      "captured": {
+        "sha": "2150ca7633fd61ab81d0a7e49e23ac577fc41647",
+        "date": "2026-08-07"
+      }
+    },
+    "/assets/images/docs/plugins/world-assembly/editor-mode/rail-organ.webp": {
+      "subject": "Organ rail: the organ picker, Selected Organ and World commands, and the idle Operations block",
+      "pages": [
+        "plugins/world-assembly/editor-mode/organ"
+      ],
+      "level": "/NexusWorldAssemblySamples/DEMO_NWorldAssembly",
+      "setup": "Activate World Assembly mode; select the Organ rail.",
+      "watch": [
+        "WorldAssembly/Source/NexusWorldAssemblyEditor/Private/Rails/NWorldAssemblyEdModeOrganRail.cpp",
+        "WorldAssembly/Source/NexusWorldAssemblyEditor/Private/Commands/NWorldAssemblyEditorOrganCommands.cpp",
+        "WorldAssembly/Source/NexusWorldAssemblyEditor/Private/Widgets/SNAssemblyOperations.cpp"
+      ],
+      "captured": {
+        "sha": "2150ca7633fd61ab81d0a7e49e23ac577fc41647",
+        "date": "2026-08-07"
+      }
+    },
+    "/assets/images/docs/plugins/world-assembly/editor-mode/rail-world.webp": {
+      "subject": "World rail: Visualizers, Create and Tagging sections, with Cell and Junction greyed out",
+      "pages": [
+        "plugins/world-assembly/editor-mode/world"
+      ],
+      "level": "/NexusWorldAssemblySamples/DEMO_NWorldAssembly",
+      "setup": "Activate World Assembly mode; the World rail is selected by default.",
+      "watch": [
+        "WorldAssembly/Source/NexusWorldAssemblyEditor/Private/Rails/NWorldAssemblyEdModeWorldRail.cpp",
+        "WorldAssembly/Source/NexusWorldAssemblyEditor/Private/Commands/NWorldAssemblyEditorWorldCommands.cpp"
+      ],
+      "captured": {
+        "sha": "2150ca7633fd61ab81d0a7e49e23ac577fc41647",
+        "date": "2026-08-07"
+      }
+    }
+  }
+}

@@ -13,10 +13,39 @@ Paths (`___UEROOT___`, `___PROJECTROOT___`) resolve per [unreal-environment](../
 
 ## Wiring in this repo
 
-- **Client config is committed.** `.mcp.json` points at `http://127.0.0.1:8010/mcp`.
-- **Port 8010, not the engine default 8000.** `TestProject` sets `ServerPortNumber=8010` and `bAutoStartServer=True` in its per-user `EditorPerProjectUserSettings`. Do not "fix" 8010 to 8000.
+- **Client config is committed.** `.mcp.json` points at `http://127.0.0.1:8000/mcp`, and `scripts/mcp.mjs` defaults to the same.
+- **The port is per-machine, so treat 8000 as a guess.** It comes from `ServerPortNumber` in `TestProject/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini`, which is **gitignored** — nobody inherits it, and it changes when that file is reset. It read `8010` when this skill was written and `8000` (the engine default) afterwards, which is exactly the failure mode to expect.
+
+  **The editor tells you the truth at startup.** Grep the project log rather than guessing:
+
+  ```bash
+  grep -i "Starting MCP server on port" ../NEXUS/TestProject/Saved/Logs/NEXUS.log | tail -1
+  ```
+
+  Then use `NEXUS_MCP_PORT=<n> npm run mcp -- …` for a one-off, or update `.mcp.json` and `scripts/mcp.mjs` if the machine has settled on a different port. A connection refused on a *running* editor is this, nearly every time.
 - **Plugins enabled in `TestProject/NEXUS.uproject`:** `ModelContextProtocol`, `EditorToolset`, `SlateInspectorToolset`. `ToolsetRegistry` arrives transitively as a dependency of `ModelContextProtocol`.
 - **Deliberately *not* `AllToolsets`.** This project enables the minimum that screenshots need. Anything else is a durable change to the framework repo — get the user's OK, do not enable a toolset on a hunch.
+
+### A minimized editor looks exactly like a broken one
+
+`Windows {action:"list"}` returns `[]`, `Snapshot {ref:""}` returns `""`, and `CaptureEditorImage` fails with *"Failed to capture any editor windows"* — all with no error to explain why. Slate only enumerates **visible** windows, and a minimized editor has none.
+
+The process is up and MCP is answering, so check the window state before concluding anything is wrong:
+
+```powershell
+Add-Type @"
+using System;using System.Runtime.InteropServices;
+public class Win {
+  [DllImport("user32.dll")] public static extern bool ShowWindow(IntPtr h, int c);
+  [DllImport("user32.dll")] public static extern bool IsIconic(IntPtr h);
+}
+"@
+$h = (Get-Process UnrealEditor).MainWindowHandle
+[Win]::IsIconic($h)          # True = minimized, and that is your answer
+[void][Win]::ShowWindow($h, 9)   # SW_RESTORE
+```
+
+An editor launched in the background may start minimized, so this is the *normal* first state, not an edge case.
 
 ### The server only responds while an editor is open
 
@@ -131,4 +160,4 @@ Rule of thumb: **if it would dirty the project, don't.** Take the picture and le
 
 - **Experimental** — every toolset here is `IsExperimentalVersion`; names and schemas change between engine builds.
 - **Editor-only** — toolsets do not exist in cooked builds.
-- **Loopback, no auth** — binds `127.0.0.1:8010` with no authentication. Fine locally; never expose it off the machine.
+- **Loopback, no auth** — binds `127.0.0.1` on the configured port with no authentication. Fine locally; never expose it off the machine.

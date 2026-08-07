@@ -11,8 +11,12 @@
  *   node scripts/mcp.mjs describe_toolset '{"toolset_name":"EditorToolset.EditorAppToolset"}'
  *   node scripts/mcp.mjs call_tool '{"toolset_name":"...","tool_name":"...","arguments":{}}'
  *
- * Port defaults to 8010 (this project's configured ServerPortNumber, not the
- * engine default of 8000). Override with NEXUS_MCP_PORT.
+ * Port defaults to 8000, the engine default. The effective port comes from
+ * ServerPortNumber in TestProject's EditorPerProjectUserSettings.ini, which is
+ * gitignored and therefore per-machine — so treat this default as a guess, not
+ * a fact. The editor logs the real one at startup:
+ *   LogModelContextProtocol: Starting MCP server on port N
+ * Override with NEXUS_MCP_PORT.
  *
  * Exits 1 when the editor is not reachable, so callers can branch on it.
  * Only ever talks to 127.0.0.1 — that constraint is what makes it safe to
@@ -20,7 +24,7 @@
  */
 import process from 'node:process';
 
-const PORT = process.env.NEXUS_MCP_PORT ?? '8010';
+const PORT = process.env.NEXUS_MCP_PORT ?? '8000';
 const ENDPOINT = `http://127.0.0.1:${PORT}/mcp`;
 const HEADERS = {
   'Content-Type': 'application/json',

@@ -31,7 +31,7 @@ Everything below documents the bundled organ component's settings.
 
 ## Actions
 
-When you have an Organ selected, its component has some action buttons available to **Generate** and **Clear**, similar to the [Organ Menu](../editor-mode/organ-editor.md#organ-menu) as part of the [World Assembly Editor Mode](../editor-mode/index.mdx).
+When you have an Organ selected, its component has some action buttons available to **Generate** and **Clear**, similar to [Selected Organ](../editor-mode/organ.md#selected-organ) as part of the [World Assembly Editor Mode](../editor-mode/index.mdx).
 
 ## Component Settings
 

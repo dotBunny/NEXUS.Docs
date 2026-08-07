@@ -67,7 +67,13 @@ The actual plugin source code can be found locally in `../NEXUS/Plugins` or remo
 
   **Why absolute:** the docs are versioned. `docusaurus docs:version` copies the whole `docs/` tree into `versioned_docs/version-<x>/`, so co-located images would be duplicated into every snapshot (~13 MB each) and relative paths would shift depth. Absolute paths into `static/` are stable across snapshots and shared by every version, which keeps a snapshot to ~1.1 MB of text. Docusaurus still webpack-processes these absolute refs, so images keep content-hashing, lazy-loading, and automatic `width`/`height`.
 
-  **Consequence — images are NOT versioned.** `static/` is a single pool shared by every version, so replacing a screenshot changes it retroactively in every archived version. When a period-accurate screenshot actually matters, archive-on-change: copy the outgoing file to `static/assets/images/docs/_archive/<version>/<same path>`, repoint that one reference inside `versioned_docs/version-<version>/`, then overwrite the live file.
+  **Consequence — images are NOT versioned, so replacement is what needs guarding.** `static/` is a single pool shared by every version; overwriting a screenshot changes it retroactively everywhere. Today 172 of the 189 images referenced by version 0.3.2 are also referenced by `docs/`, so that exposure is the norm rather than an edge case.
+
+  **`npm run screenshot -- --force` handles it automatically.** Before overwriting, it copies the outgoing image to `static/assets/images/docs/_archive/<version>/<same path>` for every archived version whose pages reference it, and repoints those pages at the copy. The live path never changes, so `docs/` is unaffected, and nothing is duplicated until the moment it would otherwise become wrong — an image that is never replaced is already correct for every version, which is why this happens on replacement rather than by copying the pool at each version cut.
+
+  `--no-archive` opts out, and is only correct when the *subject* is unchanged (same panel, sharper shot) so every version should get the better picture.
+
+  **Prefer new filenames when the UI genuinely changed.** If the pages are being rewritten anyway, name the new captures differently and leave the old files alone — the archived version keeps its images with no `_archive` indirection. The EdMode rework did this: `mode-toolbar-*.webp` still serves 0.3.2 untouched while dev uses `rail-*.webp`.
 
   **`onBrokenLinks: 'throw'` does not validate image sources** — a bad image path fails silently at build time and only shows up as a missing image in the browser. After bulk image work, verify refs resolve on disk rather than trusting a green build.
 - **Per-plugin Developer Overlay pages** live at the plugin root (e.g. `docs/plugins/actor-pools/developer-overlay.md`), not inside `types/`. They subclass `UNDeveloperOverlay` and follow a shared structure — see existing overlays under actor-pools, dynamic-references, and guardian. The **abstract base `UNDeveloperOverlay` itself** is the exception: it is documented as a type page at [docs/plugins/ui/types/widgets/developer-overlay.md](docs/plugins/ui/types/widgets/developer-overlay.md) (it lives in the UI plugin) and subclasses `UCommonUserWidget`, not a stock `UUserWidget` — the UI plugin is built on CommonUI.
@@ -93,6 +99,10 @@ The actual plugin source code can be found locally in `../NEXUS/Plugins` or remo
   This is **informational and never affects the exit code** — a changed header is work to triage, not a defect. Headers excluded by policy (above) and by the baseline's `exclusions` are filtered out of the list. Everything about it degrades to a printed note rather than failing: no git, a source tree that is not a checkout, or a recorded commit that no longer exists after a rebase or in a shallow clone.
 
   **So `--update` is a claim, not bookkeeping.** It says "the docs are reconciled with the source as of this commit", and it moves the marker forward for everything at once. Run it when findings are genuinely cleared — not to quiet a noisy run, which silently accepts the backlog *and* asserts a reconciliation that never happened.
+
+- **Screenshots carry the same marker.** `npm run screenshot -- … --subject "…" --watch "<source paths>"` records an entry in `scripts/screenshot-manifest.json`: what the image shows, the level and setup that reproduce it, and the source commit it was captured at. The audit then diffs the `watch` paths since that commit and reports the image as possibly stale.
+
+  **Watch the `.cpp`, not just the header** — a rail's sections and a command's label live in the implementation, so that is what invalidates a picture of them. Recording is a side effect of `--subject` rather than a separate step, because a provenance file nobody remembers to update is worse than none: it looks authoritative while being wrong. The manifest is deliberately partial — images predating it have no entry and gain one when next retaken, never backfilled from guesswork.
 
 ### Type-folder layout
 
@@ -147,7 +157,7 @@ Six skills cover doc work — invoke them by user prompt rather than working fro
 **Driving the editor** (screenshots and live verification — none of this is needed to write a type page, which is done from headers):
 
 - `unreal-environment` — resolves the framework source, the TestProject, and the installed engine (cached in `.claude/local-memory/ueroot`), and launches the editor.
-- `unreal-mcp` — the transport: Unreal's in-editor MCP server, wired in `.mcp.json` at `127.0.0.1:8010`. Discovery-first; the editor must already be running.
+- `unreal-mcp` — the transport: Unreal's in-editor MCP server, wired in `.mcp.json` at `127.0.0.1:8000`. The port is a gitignored per-user setting, so confirm it from the editor log rather than trusting the default. Discovery-first; the editor must already be running.
 - `doc-screenshot` — capture, convert, place, and reference a screenshot, plus re-capturing after a UI change and the archive-vs-overwrite decision.
 
 Supporting scripts: `npm run mcp -- <tool> [args-json]` talks to the editor (exit 1 when it is not up), and `npm run screenshot -- --in <file> --out <path.webp>` converts a capture to a docs-ready image.

@@ -24,7 +24,7 @@ This allows for an extremely efficient World Assembly operation, off of the Game
 
 :::tip
 
-Cell-level instances spawned at runtime/author-time are locked out from editing. Open the source level directly when you need to make changes. See the [Cell Editor](../editor-mode/cell-editor.md) as part of the [Editor Mode](../editor-mode/index.mdx).
+Cell-level instances spawned at runtime/author-time are locked out from editing. Open the source level directly when you need to make changes. See the [Cell Rail](../editor-mode/cell.md) as part of the [Editor Mode](../editor-mode/index.mdx).
 
 :::
 
@@ -98,7 +98,7 @@ The cell exposes a dual-interval `FNRotationConstraints` set. The _matching_ int
 
 Each cell is stored as a side-car asset (`<CellName>_NCell.uasset`) that lives next to the source level. The side-car holds the cached bounds, hull, voxel data, junction set, and a thumbnail snapshot of the level — none of which require the level itself to be loaded for the assembly task graph to schedule work against the cell.
 
-When a thumbnail is captured for the `ANCellActor` in the level editor (via the **Capture Thumbnail** menu option in [Cell Editor](../editor-mode/cell-editor.md)), it propagates (with gizmos) to the side-car automatically so the cell shows similar preview in the content browser as the source level.
+When a thumbnail is captured for the `ANCellActor` in the level editor (via the **Capture Thumbnails** command on the [Cell rail](../editor-mode/cell.md#actions)), it propagates (with gizmos) to the side-car automatically so the cell shows similar preview in the content browser as the source level.
 
 The side-car asset's content-browser context menu includes a **Select Level** action button that jumps to the source level in the content browser — handy when triaging a generation result and you need to open the source map for the cell that produced a particular proxy.
 

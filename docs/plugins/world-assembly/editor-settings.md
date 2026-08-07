@@ -17,7 +17,7 @@ Backed by `UNWorldAssemblyEditorSettings`; from C++, read it with `UNWorldAssemb
 
 ### Cell (Defaults)
 
-These values seed a newly-created `ANCellActor`'s [`UNCellRootComponent`](types/cell.md#cell-root-component) when it is placed via the [Cell Editor](editor-mode/cell-editor.md). They only affect cells created after they are set — existing cells keep whatever they were authored with. See [Cell](types/cell.md) for the meaning of each individual field within these groups.
+These values seed a newly-created `ANCellActor`'s [`UNCellRootComponent`](types/cell.md#cell-root-component) when it is placed via the [World rail](editor-mode/world.md#create). They only affect cells created after they are set — existing cells keep whatever they were authored with. See [Cell](types/cell.md) for the meaning of each individual field within these groups.
 
 | Setting | Type | Description | Default |
 | :-- | :-- | :-- | :-- |
@@ -31,7 +31,7 @@ These values seed a newly-created `ANCellActor`'s [`UNCellRootComponent`](types/
 
 | Setting | Type | Description | Default |
 | :-- | :-- | :-- | :-- |
-| `Collision Visualizer Material` | `TSoftObjectPtr<UMaterialInterface>` | Material applied to the debug geometry of the [world-collision visualizer](editor-mode/organ-editor.md#world-collision-visualizer) — the transient actor spawned from the Organ toolbar that previews what the current `UWorld`'s collision will look like to an assembly run. | `M_NCellProxy` |
+| `Collision Visualizer Material` | `TSoftObjectPtr<UMaterialInterface>` | Material applied to the debug geometry of the [world-collision visualizer](editor-mode/world.md#visualizers) — the transient actor spawned from the World rail that previews what the current `UWorld`'s collision will look like to an assembly run. | `M_NCellProxy` |
 
 ## See Also
 

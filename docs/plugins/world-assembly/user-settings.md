@@ -17,7 +17,7 @@ Backed by `UNWorldAssemblyEditorUserSettings`; from C++, read it with `UNWorldAs
 
 ### Color Palette
 
-The `Color Palette` groups drive the gizmos and debug markers drawn in the viewport while [editing](editor-mode/index.mdx) and during a [Quick Assembly](editor-mode/organ-editor.md#quick-assembly) operation — for example colouring junctions differently depending on whether they ended up valid, invalid, or unfilled. Defaults below are shown as their sRGB hex equivalents.
+The `Color Palette` groups drive the gizmos and debug markers drawn in the viewport while [editing](editor-mode/index.mdx) and during a [Quick Assembly](editor-mode/index.mdx#quick-assembly) operation — for example colouring junctions differently depending on whether they ended up valid, invalid, or unfilled. Defaults below are shown as their sRGB hex equivalents.
 
 #### Bones
 
@@ -62,13 +62,13 @@ What is drawn is the route's **stored samples** — the exact points that were s
 | Setting | Type | Description | Default |
 | :-- | :-- | :-- | :-- |
 | `Display Viewport Messages` | `bool` | Show relevant alerts and messages in the viewport's upper-left corner while editing cells. | `true` |
-| `Toast Editor Assembly Operations` | `bool` | Show a toast notification when an editor-triggered Assembly Operation completes, and summarize [Quick Assembly](editor-mode/organ-editor.md#quick-assembly) (including Auto Assembly) runs. | `true` |
+| `Toast Editor Assembly Operations` | `bool` | Show a toast notification when an editor-triggered Assembly Operation completes, and summarize [Quick Assembly](editor-mode/index.mdx#quick-assembly) (including Auto Assembly) runs. | `true` |
 
 ### Quick Assembly
 
 | Setting | Type | Description | Default |
 | :-- | :-- | :-- | :-- |
-| `Load Level Instances` | `bool` | Create and load the level instances from the `ANCellProxy`(s) produced by a [Quick Assembly](editor-mode/organ-editor.md#quick-assembly), carrying the result all the way through to actualized `ANCellLevelInstance`s. | `true` |
+| `Load Level Instances` | `bool` | Create and load the level instances from the `ANCellProxy`(s) produced by a [Quick Assembly](editor-mode/index.mdx#quick-assembly), carrying the result all the way through to actualized `ANCellLevelInstance`s. | `true` |
 | `Auto Assembly` | `bool` | Continuously re-trigger Assembly Operations for the target [Organ](types/organ-volume.md) on a timer until cancelled. | `false` |
 | `Auto Assembly Timer` | `float` | Seconds to wait after a run completes before the next Auto Assembly is triggered. Only used when `Auto Assembly` is enabled. Clamped to `2`–`180`. | `2` |
 

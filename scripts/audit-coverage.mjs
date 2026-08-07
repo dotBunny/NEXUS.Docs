@@ -666,6 +666,36 @@ function sourceDrift() {
 
 const drift = UPDATE ? null : sourceDrift();
 
+/**
+ * Screenshots whose watched source has moved since the image was captured.
+ *
+ * The manifest is written by `npm run screenshot --subject …`. Informational, like source drift: a
+ * changed rail definition is a prompt to look at the picture, not proof the picture is wrong.
+ * Entries with no `watch` are skipped — they record provenance without claiming to be checkable.
+ */
+function staleScreenshots() {
+  const manifestPath = path.join(ROOT, 'scripts', 'screenshot-manifest.json');
+  if (!head || !fs.existsSync(manifestPath)) return [];
+
+  const images = (JSON.parse(fs.readFileSync(manifestPath, 'utf8')).images) || {};
+  const out = [];
+  for (const [ref, entry] of Object.entries(images)) {
+    const sha = entry.captured && entry.captured.sha;
+    if (!sha || !(entry.watch || []).length) continue;
+
+    if (git('cat-file', '-e', `${sha}^{commit}`) === null) {
+      out.push({ ref, note: `captured at ${shortSha(sha)}, which is not in this checkout` });
+      continue;
+    }
+    const changed = (git('diff', '--name-only', `${sha}..${head.sha}`, '--', ...entry.watch) || '')
+      .split('\n').filter(Boolean);
+    if (changed.length) out.push({ ref, note: `changed since ${shortSha(sha)}: ${changed.join(', ')}` });
+  }
+  return out;
+}
+
+const staleShots = UPDATE ? [] : staleScreenshots();
+
 /** The `source` line of the summary block — where the docs stand against the source tree. */
 function sourceSummary() {
   if (!head) return 'unavailable — the plugin source is not a git checkout';
@@ -738,6 +768,11 @@ if (!shown.length) console.log('\nNo new findings.');
 if (fixed.length) {
   console.log(`\n=== resolved since baseline (${fixed.length}) — run --update to drop them`);
   for (const k of fixed.slice(0, 40)) console.log(`  ${k}`);
+}
+
+if (staleShots.length) {
+  console.log(`\n=== screenshots whose watched source moved (${staleShots.length}) — re-capture or confirm still accurate`);
+  for (const s of staleShots) console.log(`  ${s.ref}\n      ${s.note}`);
 }
 
 if (drift?.changed?.length) {
