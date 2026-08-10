@@ -35,11 +35,14 @@ It also filters as it gathers, and the filter is part structural and part author
 | :-- | :-- |
 | Every `AVolume` | Structural. Volumes are *inputs* to generation — organ bounds, exclusions — not collision to avoid. |
 | Every `ANDebugActor` | Structural. Debug visualisation is not world geometry. |
+| Terrain authoring apparatus | Structural. A terrain modifier describes *how* a terrain is built; its bounds are its region of influence, not a surface. |
 | Actors tagged [`NWorldCollision_Ignore`](../tagging.md#world-collision-markup-tags) | Structural. The per-actor opt-out. |
 | Actors carrying any configured [`Actor Ignore Tags`](../project-settings.md#assembly) entry | Project setting; empty by default. |
 | Actors with collision disabled | [`Exclude Non-Collision Enabled Actors`](../project-settings.md#assembly); `true` by default. |
 
 The distinction matters because the structural exclusions cannot be overridden — a level designer cannot make an organ volume act as collision by tagging it — while the settings-driven ones are the knobs for tuning what a given project treats as an obstacle.
+
+The terrain exclusion is the one worth understanding, because it excludes *apparatus* and not terrain. The editor's [collision visualizer](../editor-mode/world.md#visualizers) and the author-time penetration cache both gather through this same predicate, so a phantom obstacle here would be drawn as world collision *and* avoided during assembly — and a modifier's box has measured larger than every piece of real geometry in a level put together. Terrain **surface** still contributes; a landscape reaches this snapshot by [sampling](../project-settings.md#landscape-is-sampled-rather-than-read) rather than through its collision, which lives behind no body setup.
 
 Player starts run the other way: [`Include Player Starts`](../project-settings.md#assembly) is `true` by default, so they are captured *as* collision and generation places cells around them rather than on top of them.
 

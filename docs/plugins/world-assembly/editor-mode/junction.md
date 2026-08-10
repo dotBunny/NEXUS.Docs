@@ -1,19 +1,13 @@
 ---
-description: Placing and managing the focused cell's junctions — the placement tool, the junction picker, and the component commands.
-sidebar_position: 3
+description: Placing and managing the focused cell's junctions — the placement tool, the component commands, and the junction picker.
+sidebar_position: 4
 ---
 
 # Junction Rail
 
-Places and aligns the focused cell's [Junctions](../types/junction-component.md). Enabled whenever the level contains a `ANCellActor`.
+Places and aligns the focused cell's [Junctions](../types/junction-component.md). Shown whenever the level contains a `ANCellActor` — junctions hang off cells, so the category is relevant exactly when there is one to hang them off.
 
 ![Junction Rail](/assets/images/docs/plugins/world-assembly/editor-mode/rail-junction.webp)
-
-## Junction Picker
-
-The rail's header is a picker listing every [Junction](../types/junction-component.md) in the current level. Choosing one selects it in the level, and the button reads back whatever is currently selected — including selections made in the viewport or the outliner. It reads **No Junctions** when the level has none.
-
-Entries are named with the full `Actor > Parent > Component` breadcrumb, which is what tells near-identical junctions apart; the button shows just the component's own name.
 
 ## Tools
 
@@ -29,8 +23,16 @@ This supersedes the old **Add Component** flow, which attached a junction at the
 
 | Command | Description |
 | :-- | :-- |
-| **Add** | Adds a `UNCellJunctionComponent` to the current actor, at the identity transform. |
+| **Add** | Adds a `UNCellJunctionComponent` to the current actor, at the identity transform. Needs an actor selected. |
 | **Collect All** | Collects every [Junction](../types/junction-component.md) in the level and moves it onto the selected `AActor`, preserving each one's world transform — handy for consolidating scattered junctions under a single owner. |
+
+## Junction Picker
+
+Below the commands, a picker lists every [Junction](../types/junction-component.md) in the current level. Choosing one selects it in the level, and the button reads back whatever is currently selected — including selections made in the viewport or the outliner. It reads **Multiple Selected** for more than one, and **No Junctions** when the level has none.
+
+Entries are named with the full `Actor > Parent > Component` breadcrumb, which is what tells near-identical junctions apart; the button shows just the component's own name.
+
+Entries are drawn with check marks rather than radio buttons, because the selection they report back can hold several junctions at once. Picking one still *replaces* the selection — the mark says what is selected, not what a click will do.
 
 ## Editing Junctions
 

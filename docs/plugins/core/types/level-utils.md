@@ -61,15 +61,31 @@ Calculates an axis-aligned bounding box that encompasses all relevant actors in 
  * Calculates an axis-aligned bounding box that encompasses all relevant actors in a level.
  * @param InLevel The level whose contents should be considered.
  * @param OutBounds The calculated bounds; reset on entry and grown by each included actor.
- * @param OutIgnoredActors Populated with the actors that were skipped during the calculation.
- * @param ActorIgnoreTags Any actor carrying one of these tags is ignored.
- * @param bIncludeEditorOnly If true, editor-only actors contribute to the bounds.
- * @param bIncludeNonColliding If true, non-colliding actors also contribute to the bounds.
- * @param bIncludeTransientActors If true, transient actors also contribute to the bounds.
+ * @param OutIgnoredActors Populated with the actors that were skipped during the calculation. Prefill it to
+ *        exclude actors the caller has already ruled out.
+ * @param Filter Criteria deciding which actors contribute (see FNLevelBoundsFilter).
  */
 static void DetermineLevelBounds(ULevel* InLevel, FBox& OutBounds, TArray<const AActor*>& OutIgnoredActors,
-  const TArray<FName>& ActorIgnoreTags, bool bIncludeEditorOnly = false, bool bIncludeNonColliding = false,
-  bool bIncludeTransientActors = false);
+  const FNLevelBoundsFilter& Filter);
 ```
 
+`OutIgnoredActors` is an in/out parameter rather than purely a report: **prefill it** to exclude actors the caller has already ruled out for reasons this function knows nothing about.
+
+#### FNLevelBoundsFilter
+
+The criteria used to be four trailing parameters; they are now one struct, which is what let the terrain flag be added without another positional `bool`.
+
+| Field | Type | Description | Default |
+| :-- | :-- | :-- | :-- |
+| `ActorIgnoreTags` | `TArray<FName>` | Any actor carrying one of these tags is ignored. | *(empty)* |
+| `bIncludeEditorOnly` | `bool` | Editor-only actors contribute to the bounds. | `false` |
+| `bIncludeNonColliding` | `bool` | Actors without collision also contribute. | `false` |
+| `bIncludeTransientActors` | `bool` | Transient actors also contribute. | `false` |
+| `bIncludeLandscapes` | `bool` | Landscape actors contribute. | `false` |
+| `bIncludeMeshTerrains` | `bool` | Mesh Terrain sections contribute, **even though they are transient**. | `false` |
+
 Transient actors are excluded by default — flip `bIncludeTransientActors` to `true` only when you specifically need throwaway/runtime-only actors (e.g. debug markers) to influence the resulting bounds.
+
+The two terrain flags are separate because only one of them is about transience. A landscape is an **ordinary saved actor**, so `bIncludeLandscapes` buys no exemption — it is purely whether landscape geometry counts. `bIncludeMeshTerrains` is the one that is deliberately **narrower** than `bIncludeTransientActors`: Mesh Partition represents an authored terrain in the editor as transient `APreviewSection` actors, so a level whose floor is a Mesh Terrain produces bounds that omit it entirely unless something admits them — and admitting *every* transient actor to get the floor back is far too broad.
+
+Both are classified by [FNActorUtils](actor-utils.md#terrain-classification).

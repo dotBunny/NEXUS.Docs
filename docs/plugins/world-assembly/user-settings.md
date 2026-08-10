@@ -72,6 +72,19 @@ What is drawn is the route's **stored samples** — the exact points that were s
 | `Auto Assembly` | `bool` | Continuously re-trigger Assembly Operations for the target [Organ](types/organ-volume.md) on a timer until cancelled. | `false` |
 | `Auto Assembly Timer` | `float` | Seconds to wait after a run completes before the next Auto Assembly is triggered. Only used when `Auto Assembly` is enabled. Clamped to `2`–`180`. | `2` |
 
+### Editor Mode Panel
+
+Where you dragged the [editor mode's](editor-mode/index.mdx#the-strip-and-the-panel) panel and how wide you made it, remembered between sessions.
+
+| Setting | Type | Description | Default |
+| :-- | :-- | :-- | :-- |
+| `Ed Mode Panel Position` | `FToolWidget_DragBoxPosition` | Where the panel sits in the viewport, as an alignment plus a relative offset. | Top-left, offset `(78, 16)` |
+| `Ed Mode Panel Width` | `float` | Width the panel was last resized to, or `0` for its default of `200`. Dragging is clamped to `200`–`520`. | `0` |
+
+Both are `config` but **not** `EditAnywhere`, so neither appears in the settings panel. They are layout state you set by dragging the panel rather than preferences to be filled in, and a pair of raw coordinates in the settings list would read as something to configure.
+
+Only the panel is stored — the category strip beside it is pinned, so it has no position to remember. The default offset puts the panel level with the strip's top and one strip-inset clear of its right edge, so the gutter between the two boxes matches the one between the strip and the viewport.
+
 ## See Also
 
 - [Project Settings](project-settings.md) — shared, project-wide runtime configuration saved to project config.

@@ -66,3 +66,34 @@ FORCEINLINE static FVector GetFurthestGridIntersection(const FVector& Location, 
 /** Divides Value by Size and returns the "crunched" unit index, snapping on-grid values down and everything else up. */
 FORCEINLINE static int GetCrunchedGridUnit(const double& Value, const double& Size);
 ```
+
+### Grid Reduce Points
+
+Thin a point cloud onto a grid, keeping at most one point per cell and snapping each **away from a center**.
+
+```cpp
+/**
+ * Thin a point cloud onto a grid, keeping at most one point per cell and snapping each away from a center.
+ * @param Points Source points, in world space.
+ * @param Center Point to snap away from — the source geometry's own center.
+ * @param GridSize Edge length of a cell, in world units. Values at or below zero return the points unchanged.
+ * @param SeenCells Cells already represented; carried across calls so several meshes thin against one grid.
+ * @param OutPoints Destination, appended to.
+ */
+static void GridReducePoints(const TArray<FVector>& Points, const FVector& Center, double GridSize,
+  TSet<FIntVector>& SeenCells, TArray<FVector>& OutPoints);
+```
+
+Written for terrain, which hands a convex hull builder its entire surface — measured at a million points across four sections, into a build that is superlinear in them. A convex hull is decided by its **extreme points alone**, so nearly all of that is discarded anyway; this discards it first.
+
+`SeenCells` is caller-owned so several meshes can be thinned against **one** grid: pass the same set across calls and a point in a cell another mesh already covered is dropped rather than duplicating it.
+
+:::warning[The Outward Bias Is Not a Containment Proof]
+
+Snapping away from `Center` puts each kept point at or beyond the ones it replaces along each outward axis, so the error is bounded by roughly `GridSize` and biased outward.
+
+That bias **assumes a convex build downstream**. Coordinate-wise domination does not imply membership of an arbitrary hull, so were a consumer's build ever made concave, snapping outward would push a concave surface into the void it is meant to bound.
+
+:::
+
+The World Assembly cell hull is the caller this exists for — see [Terrain Simplification](../../../world-assembly/types/cell.md#terrain-simplification) for what the grid size reads as from the authoring side.

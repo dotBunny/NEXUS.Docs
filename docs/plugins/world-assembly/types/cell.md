@@ -55,6 +55,8 @@ The `UNCellRootComponent` represents the data which is going to get mirrored int
 | Calculate On Save | `bool` | Should the bounds of the cell be calculated / updated on save. | `true` |
 | Include Non Colliding | `bool` | Include non-colliding `AActors` in bounds calculations. | `false` |
 | Include Editor Only | `bool` | Include `AActors` flagged as `EditorOnly` in bounds calculations. | `false` |
+| Include Landscapes | `bool` | Landscapes contribute to the bounds. See [Terrain Is Two Flags](#terrain-is-two-flags). | `true` |
+| Include Mesh Terrains | `bool` | Mesh Terrain sections contribute to the bounds, **even though they are transient**. | `true` |
 | Actor Ignore Tags | `TArray<FName>` | `AActor`'s with these tags will be ignored during bounds calculations. | `NCell_Ignore`, `NCell_BoundsIgnore` |
 
 ### Rotation Constraints
@@ -78,8 +80,19 @@ The cell exposes a dual-interval `FNRotationConstraints` set. The _matching_ int
 | Allow Non Convex | `bool` | Allow the hull to be non-convex; creating a complex collision mesh. There is a **performance cost** to using non-convex meshes inside of an assembly operation, choose wisely. | `false` |
 | Include Non Colliding | `bool` | Include non-colliding `AActors` in hull calculations. | `false` |
 | Include Editor Only | `bool` | Include `AActors` flagged as `EditorOnly` in hull calculations. | `false` |
+| Include Landscapes | `bool` | Landscapes contribute to the hull. See [Terrain Is Two Flags](#terrain-is-two-flags). | `true` |
+| Include Mesh Terrains | `bool` | Mesh Terrain sections contribute to the hull, **even though they are transient**. Without it a cell whose floor is a Mesh Terrain gets a hull with no floor in it, and the assembly penetration tests that consume that hull let other cells sink through it. | `true` |
+| Terrain Simplification Grid Size | `float` | Grid size, in centimetres, that terrain vertices are thinned onto before the hull is built. `0` keeps every one. See [Terrain Simplification](#terrain-simplification). | `100.f` |
 | Build Method | `ENullBuildMethod` | This is the method/version used by Chaos to create the convex hull initially. It is currently locked out due to some of the newer versions of the system producing n-gons. | `Original` |
 | Actor Ignore Tags | `TArray<FName>` | `AActor`'s with these tags will be ignored during hull calculations. | `NCell_Ignore`, `NCell_HullIgnore` |
+
+#### Terrain Simplification
+
+`Terrain Simplification Grid Size` reads as **how much slack the envelope is allowed**, not how detailed it is. A convex hull is decided by its extreme points alone, so thinning barely moves the resulting shape — it shifts each supporting plane outward by at most about the grid size. At the default the hull sits within a metre of the one every vertex would give.
+
+Only terrain is thinned. Authored geometry arrives as a handful of collision primitives, but a terrain section hands over its entire surface — four sections have measured at 251,001 vertices each, which is a million points into a convex build that is superlinear in them.
+
+This applies to **generation only**, and assumes the convex build that follows it. A hull hand-edited into a concave shape afterwards is unaffected.
 
 ### Proxy Color
 
@@ -91,14 +104,34 @@ The cell exposes a dual-interval `FNRotationConstraints` set. The _matching_ int
 | Calculate On Save | `bool` | Should the voxel data of the cell be calculated / updated on save. | `true` |
 | Include Non Colliding | `bool` | Include non-colliding `AActors` in voxel data calculations. | `false` |
 | Include Editor Only | `bool` | Include `AActors` flagged as `EditorOnly` in voxel data calculations. | `false` |
+| Include Landscapes | `bool` | Landscapes contribute to voxel occupancy. See [Terrain Is Two Flags](#terrain-is-two-flags). | `true` |
+| Include Mesh Terrains | `bool` | Mesh Terrain sections contribute to voxel occupancy. | `true` |
+
+Both voxel flags govern **two halves at once**: whether the terrain grows the voxel grid's extents, and whether the occupancy sweep can hit it. Excluded terrain joins the ignored-actor list the sweep is issued with, so it cannot register as occupied even though the physics world would otherwise report it.
 | Actor Ignore Tags | `TArray<FName>` | `AActor`'s with these tags will be ignored during voxel data calculations. | `NCell_Ignore`, `NCell_VoxelIgnore` |
 | Collision Channel | `ECollisionChannel` | The collision channel used when tracing for collisions to determine occupancy. | `WorldStatic` |
+
+### Terrain Is Two Flags
+
+Each of the three calculations carries **both** `Include Landscapes` and `Include Mesh Terrains`, each on by default. They are separate because the two are different kinds of actor with different reasons to be refused.
+
+| | Landscape | Mesh Terrain |
+| :-- | :-- | :-- |
+| In the level | An ordinary **saved** actor. | **Transient** actors Mesh Partition spawns and rebuilds. |
+| Why the flag exists | Purely whether landscape geometry counts. | Buys a **transient exemption** the ordinary filters would otherwise deny it. |
+| How its surface is read | [Sampled](../../core/types/types/raw-mesh-factory.md#landscape) — its collision is a Chaos heightfield behind no body setup. | Read directly; it has a real body setup. |
+
+The Mesh Terrain half is the one that silently breaks things when off. The editor represents a Mesh Partition terrain as transient actors, which every ordinary actor filter skips — so without it a cell whose floor is a Mesh Terrain gets bounds that omit it and a hull with no floor in it, and the assembly penetration tests that consume that hull then let other cells sink straight through the ground.
+
+`Actor Ignore Tags` cannot substitute for it either. A Mesh Partition terrain's actors are regenerated on every build, so a tag placed on one does not survive; these flags are the only control over it.
+
+Terrain also gates *when* a calculation may run — see [Commands](../editor-mode/cell.md#commands) on the Cell rail.
 
 ## Side-Car Data
 
 Each cell is stored as a side-car asset (`<CellName>_NCell.uasset`) that lives next to the source level. The side-car holds the cached bounds, hull, voxel data, junction set, and a thumbnail snapshot of the level — none of which require the level itself to be loaded for the assembly task graph to schedule work against the cell.
 
-When a thumbnail is captured for the `ANCellActor` in the level editor (via the **Capture Thumbnails** command on the [Cell rail](../editor-mode/cell.md#actions)), it propagates (with gizmos) to the side-car automatically so the cell shows similar preview in the content browser as the source level.
+When a thumbnail is captured for the `ANCellActor` in the level editor (via the **Capture Thumbnails** command on the [Cell Data rail](../editor-mode/cell-data.md#actor)), it propagates (with gizmos) to the side-car automatically so the cell shows similar preview in the content browser as the source level.
 
 The side-car asset's content-browser context menu includes a **Select Level** action button that jumps to the source level in the content browser — handy when triaging a generation result and you need to open the source map for the cell that produced a particular proxy.
 

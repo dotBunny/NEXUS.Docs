@@ -1,11 +1,11 @@
 ---
-description: Authoring the focused cell — the bounds, hull and edge tools, the calculate commands, and the side-car asset actions.
+description: Authoring the focused cell — the bounds, hull and edge tools, the calculate commands, and the per-cell auto-calculate options.
 sidebar_position: 2
 ---
 
 # Cell Rail
 
-Everything that authors the level's [Cell](../types/cell.md). Enabled whenever the level contains a `ANCellActor`; the [World](world.md#create) rail's **Add Cell Actor** is what puts one there.
+Everything that authors the level's [Cell](../types/cell.md) geometry. Shown whenever the level contains a `ANCellActor`; the [World](world.md#create) rail's **Add Cell Actor** is what puts one there. Managing the side-car asset and the actor itself is the neighbouring [Cell Data](cell-data.md) rail's job.
 
 ![Cell Rail](/assets/images/docs/plugins/world-assembly/editor-mode/rail-cell.webp)
 
@@ -33,7 +33,7 @@ Each corner carries its own translate gizmo for as long as the tool runs. A drag
 
 Click a vertex to drag it; shift- or ctrl-click to drag several together. A handle is drawn on every vertex while the tool runs, with the selected ones highlighted — which matters once a selection holds more than one, because the gizmo sits at their midpoint rather than on any particular vertex.
 
-The convexity gate is the substantive part: a drag that would make the hull non-convex is **reverted**, and a multi-vertex move is judged as a whole and reverted together, since half of it applied is a shape you never asked for. Turn the gate off with [Allow Non-Convex Hull](#quick-options).
+The convexity gate is the substantive part: a drag that would make the hull non-convex is **reverted**, and a multi-vertex move is judged as a whole and reverted together, since half of it applied is a shape you never asked for. Turn the gate off with [Allow Non-Convex Hull](#options).
 
 ### Edges
 
@@ -51,19 +51,22 @@ Edge picking is back-face culled, so an edge on a face turned away from you is n
 
 :::warning
 
-Editing bounds or hull with these tools **switches the matching auto-calculate off** — the tool clears `bCalculateOnSave` so a save cannot overwrite what you just authored. Turn it back on from [Quick Options](#quick-options), or on the `ANCellActor > UNCellRootComponent > Details`.
+Editing bounds or hull with these tools **switches the matching auto-calculate off** — the tool clears `bCalculateOnSave` so a save cannot overwrite what you just authored. Turn it back on from [Options](#options), or on the `ANCellActor > UNCellRootComponent > Details`.
 
 :::
 
-## Calculate
-
-Recalculates data from the level's geometry, **overwriting any manual edits**.
+## Commands
 
 | Command | Description |
 | :-- | :-- |
-| **All** | Calculate all data related to the cell. |
-| **Bounds** | Calculate bounds for the cell. |
-| **Hull** | Calculate convex hull for the cell. |
+| **Select Actor** | Select the `ANCellActor` in the level. |
+| **Calculate Bounds** | Calculate bounds for the cell. |
+| **Calculate Hull** | Calculate convex hull for the cell. |
+| **Calculate All** | Calculate all data related to the cell. |
+
+The three calculate commands recalculate from the level's geometry, **overwriting any manual edits**.
+
+They also wait on the terrain. Where a level's floor is a Mesh Partition terrain, its sections land across several frames, and data calculated part-way through describes a half-built world — so all three go unavailable until the terrain geometry has stopped changing, rather than producing a result that quietly disagrees with the one the same button gives a moment later. Which terrain contributes at all is governed per calculation by [Include Landscapes / Include Mesh Terrains](../types/cell.md#terrain-is-two-flags).
 
 ## Tagging
 
@@ -71,16 +74,17 @@ Recalculates data from the level's geometry, **overwriting any manual edits**.
 | :-- | :-- |
 | **Ignore Cell Collision** | Toggles the [`NCell_Ignore`](../tagging.md#cell-markup-tags) tag on the selected actors, excluding them when calculating this cell's bounds, hull and voxel data. |
 
+The button's icon reports what the next click will do: any tagged actor in the selection means the click strips the tag from all of them, and it swaps to the remove-tag icon to say so. Available with actors selected, provided the `ANCellActor` itself is not among them.
+
 This is about a cell's own geometry. To exclude an actor from the world collision an assembly run places cells *against*, use [Ignore World Collision](world.md#tagging).
 
-## Actions
+:::note[Tags Cannot Exclude a Terrain]
 
-| Command | Description |
-| :-- | :-- |
-| **Select Actor** | Select the `ANCellActor` in the level. |
-| **Capture Thumbnails** | Captures the active viewport (minus widgets) as the thumbnails for the level containing the cell, and for the [Cell](../types/cell.md) data asset. |
+A Mesh Partition terrain is represented by transient actors that are regenerated on every build, so a tag placed on one does not survive. Use the [Include Landscapes / Include Mesh Terrains](../types/cell.md#terrain-is-two-flags) flags instead — they are the only control over it.
 
-## Quick Options
+:::
+
+## Options
 
 Persistent settings rather than actions, rendered as checkboxes. Each maps to a field on the `ANCellActor`'s `UNCellRootComponent::Details`.
 
@@ -90,19 +94,13 @@ Persistent settings rather than actions, rendered as checkboxes. Each maps to a 
 | **Calculate Hull On Save** | Calculates the hull of the cell when the level is saved. Cleared automatically by the [Vertices](#vertices) and [Edges](#edges) tools. |
 | **Allow Non-Convex Hull** | Allows a more complex collision mesh instead of an optimized convex hull. This adds a performance cost when evaluating penetration, since it becomes a complex calculation — `false` by default, use sparingly. |
 
-## Cell Data
-
-| Command | Description |
-| :-- | :-- |
-| **Force Save** | Forcibly write the cell's data out to the side-car asset. |
-| **Reset** | Reset the cell data, recreating it at a default state. |
-| **Remove Actor** | Removes the cell actor, no longer making this a cell. |
+Each one switched off is reported in the panel's [warning footer](index.mdx#warnings) for as long as it stays off.
 
 ## Voxel Data
 
 :::info
 
-**The voxel tooling is currently hidden.** The voxel tool, its **Calculate → Voxel** command, and the **Use Voxel Data w/ Cell** and **Calculate Voxel Data On Save** options are all commented out of the rail — voxel data is not used in the World Assembly process today.
+**The voxel tooling is currently hidden.** The voxel tool, the **Calculate Voxel** command, and the **Use Voxel Data w/ Cell** and **Calculate Voxel Data On Save** options are all commented out of the rail — voxel data is not used in the World Assembly process today.
 
 The implementation still ships (`UNCellVoxelTool`, `FNCellVoxelGenerationSettings`) and the underlying settings remain on the `UNCellRootComponent::Details`, so nothing authored previously is lost. This section exists so the buttons' absence reads as deliberate rather than as something you failed to find.
 

@@ -97,3 +97,112 @@ The two share one implementation, so a `true` here guarantees the actor appears 
 
 - A null or pending-kill actor (anything failing `IsValid`) returns `false` rather than asserting.
 - An `APlayerStart` **short-circuits to `true`** when `bIncludePlayerStarts` is set, bypassing every other filter — including the editor-only and collision checks and any `ExclusionFunction`. That matches `GetWorldActors` exactly, but it does mean a player start can pass a filter that would otherwise reject it.
+
+## Terrain Classification
+
+A second, separate family: not "does this actor pass a filter", but "what *kind* of thing is this". Terrain needs asking about specially because the ordinary filters get it wrong in both directions — a terrain's geometry is dropped when it should be kept, and its authoring apparatus is kept when it should be dropped.
+
+### Terrain
+
+```cpp
+/**
+ * Identify a primitive that carries terrain geometry — a landscape component, or a Mesh Partition section's
+ * collision component.
+ */
+static bool IsTerrainPrimitive(const UPrimitiveComponent* Primitive);
+
+/**
+ * Identify an actor that carries terrain geometry, by inspecting the primitives it owns.
+ * @return true when any primitive the actor owns satisfies IsTerrainPrimitive.
+ */
+static bool IsTerrainActor(const AActor* Actor);
+```
+
+This exists so bounds and hull generation can **admit** terrain their ordinary filters would drop. Mesh Partition represents an authored terrain in the editor as transient `APreviewSection` actors, and a blanket transient skip would silently omit a cell's entire floor.
+
+### Terrain Authoring Apparatus
+
+```cpp
+/**
+ * Identify an actor that describes how a terrain is built rather than being terrain itself — a Mesh Partition
+ * definition, or one of the modifiers that sculpt it.
+ */
+static bool IsTerrainAuthoringActor(const AActor* Actor);
+```
+
+The opposite job: these must **never** contribute to a bounds or hull calculation, at any setting. A modifier's bounds are its *region of influence*, which reaches far past the surface it produces — measured against a real level, a single modifier's box was larger than every piece of geometry in it put together.
+
+### The Two Halves
+
+`IsTerrainActor` covers both representations. Callers that need to admit one **without** the other ask for it by name:
+
+```cpp
+/**
+ * Identify an actor whose terrain is a landscape.
+ * @return true when the actor owns a landscape primitive.
+ */
+static bool IsLandscapeActor(const AActor* Actor);
+
+/**
+ * Identify an actor whose terrain is a Mesh Terrain section.
+ * @return true when the actor is a built terrain section, or owns a Mesh Terrain collision primitive.
+ */
+static bool IsMeshTerrainActor(const AActor* Actor);
+```
+
+They are worth telling apart because the two are refused for **different reasons**:
+
+| | Landscape | Mesh Terrain |
+| :-- | :-- | :-- |
+| In the level | An ordinary **saved** actor. | **Transient** actors, respawned on every build. |
+| What admitting it buys | Only that its geometry counts. | A **transient exemption** the ordinary filters would otherwise deny. |
+| How its surface is read | Sampled — see below. | Read directly; it has a real `UBodySetup`. |
+
+Landscape geometry **cannot be extracted the way every other terrain can**: its collision is a Chaos heightfield reached through no `UBodySetup`, so there is nothing for [FNRawMeshFactory](types/raw-mesh-factory.md) to read and it skips landscape primitives outright. Callers that need the surface have to sample it — see [From Landscape](types/raw-mesh-factory.md#from-landscape).
+
+That split is why consumers carry a flag each rather than one "include terrain": [FNLevelBoundsFilter](level-utils.md#fnlevelboundsfilter), and the cell [bounds, hull and voxel settings](../../world-assembly/types/cell.md#terrain-is-two-flags).
+
+### Matched On Class Name
+
+Every classifier above resolves through a string-matching layer, exposed in its own right:
+
+```cpp
+static bool IsTerrainPrimitiveClassName(const FString& ClassName);
+static bool IsTerrainSectionClassName(const FString& ClassName);
+static bool IsTerrainAuthoringClassName(const FString& ClassName);
+static bool IsLandscapeClassName(const FString& ClassName);
+static bool IsMeshTerrainPrimitiveClassName(const FString& ClassName);
+```
+
+`IsTerrainPrimitiveClassName` is the union of the last two — the landscape half has always been separable, and `IsMeshTerrainPrimitiveClassName` is the other half.
+
+Class names rather than types, so `NexusCore` takes **no dependency on the Landscape module**, nor on MeshPartition — an experimental engine plugin that may not be enabled at all.
+
+The string form is public for two reasons. It lets the matching be tested without the plugins that define these types, and it makes an engine upgrade that renames one of them fail a test rather than silently classifying a level's entire floor as ordinary geometry. Epic has renamed this family once already — MegaMesh to MeshPartition — which is precisely the event this guards.
+
+`IsTerrainSectionClassName` matches **exactly**, and the interactive section is deliberately not one of its matches: it is a working copy of whatever is being sculpted, duplicating geometry a preview section already describes.
+
+## Built Geometry
+
+Two helpers for the placeholder bounds the engine substitutes while a build is in flight.
+
+```cpp
+/**
+ * Test whether a primitive is reporting real geometry rather than the engine's placeholder bounds.
+ * @return false when the component's bounds are the near-zero box the engine substitutes for empty geometry.
+ */
+static bool HasBuiltGeometry(const UPrimitiveComponent* Primitive);
+
+/**
+ * Union of an actor's registered primitive bounds, skipping any primitive still reporting placeholder bounds.
+ * @param bIncludeNonColliding When true, primitives with collision disabled also contribute.
+ * @return The combined bounds, or an invalid box when nothing qualified.
+ */
+static FBox GetBuiltComponentsBoundingBox(const AActor* Actor, bool bIncludeNonColliding);
+```
+
+A Mesh Partition component returns a deliberately **tiny** box — not an invalid one — while a section has no geometry to describe, either because its build has not finished or because it covers nothing. Both `UMeshPartitionCollisionComponent::CalcBounds` and `UPreviewMeshComponent::CalcBounds` do this, each explaining that an empty box would spam other engine systems.
+
+That is exactly what makes it dangerous. `AActor::GetComponentsBoundingBox` treats the tiny box as a valid point and folds it in, pulling the result out to wherever the empty component happens to sit. `GetBuiltComponentsBoundingBox` differs from it in that one respect and no other.
+
+This pair is what [FNTerrainUtils::ComputeFingerprint](../editor-types/terrain-utils.md#compute-fingerprint) is built on, which is how a terrain build still landing sections is told from a finished one.

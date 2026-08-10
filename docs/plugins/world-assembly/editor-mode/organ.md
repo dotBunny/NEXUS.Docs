@@ -1,11 +1,11 @@
 ---
 description: Generating and clearing organ proxies, managing their level instances, and watching assembly operations run.
-sidebar_position: 4
+sidebar_position: 5
 ---
 
 # Organ Rail
 
-Drives editor-time assembly for the level's [Organs](../types/organ-volume.md). Enabled whenever a `UNOrganComponent` is present in the current world; the [World](world.md#create) rail's **Add Organ Volume** is what puts one there.
+Drives editor-time assembly for the level's [Organs](../types/organ-volume.md). Shown whenever a `UNOrganComponent` is present in the current world; the [World](world.md#create) rail's **Add Organ Volume** is what puts one there.
 
 ![Organ Rail](/assets/images/docs/plugins/world-assembly/editor-mode/rail-organ.webp)
 
@@ -17,32 +17,15 @@ When an [Organ](../types/organ-volume.md) is selected, a quick process runs to d
 
 The ordering is determined by first deterministically sorting the [Organs](../types/organ-volume.md) by their internal `FGuid`. Then detecting which volumes fully encompass and intersect one another, and finally appending independent phases/passes for `Unbound` volumes (as they could have world-wide impact).
 
-## Organ Picker
-
-The rail's header lists every [Organ](../types/organ-volume.md) in the current level. Choosing one selects it, and the button reads back the current selection — including selections made in the viewport or outliner. It reads **No Organs** when the level has none.
-
-Selecting an organ here is what the [Selected Organ](#selected-organ) commands act on.
-
-## Selected Organ
-
-Acts on the organ currently selected.
-
-| Command | Description |
-| :-- | :-- |
-| **Generate** | Dispatches an assembly operation via the `UNWorldAssemblyEditorSubsystem` to generate the selected organ's output `ANCellProxy` actors. |
-| **Clear** | Removes the generated `ANCellProxy` actors produced by that organ's operations. |
-| **Create** | Loads the level instances from the selected proxies. |
-| **Unload** | Unloads the level instances from the selected proxies. |
-
 ## World
 
-Acts on every organ in the world at once.
+The first group acts on every organ in the world at once, so it needs nothing selected.
 
 | Command | Chord | Description |
 | :-- | :-- | :-- |
 | **Generate All Proxies** | `CTRL+SHIFT+HOME` | Runs an editor-time assembly operation for all organs in the world, placing transient `ANCellProxy` actors representing the generated cell graph. |
-| **Clear All Proxies** | | Removes all generated `ANCellProxy` actors. This also clears any `ANCellLevelInstance` produced by a create or load operation. |
-| **Create & Load All Level Instances** | `CTRL+SHIFT+END` | Creates and loads all level instances derived from the proxies, spawning associated `ANCellLevelInstance`s and applying the `INCellInitialized` interface callback. |
+| **Clear All Proxies** | | Removes all generated `ANCellProxy` actors. This also clears any `ANCellLevelInstance` produced by a load operation. |
+| **Load All Level Instances** | `CTRL+SHIFT+END` | Creates and loads all level instances derived from the proxies, spawning associated `ANCellLevelInstance`s and applying the `INCellInitialized` interface callback. |
 | **Unload All Level Instances** | | Unloads all created `ANCellLevelInstance`s, leaving their base `AActor` in place. |
 
 ![Generate Proxies](/assets/images/docs/plugins/world-assembly/editor-mode/organ-generate-proxies.webp)
@@ -56,6 +39,27 @@ Added elements are tracked so that repeated generation removes the last set. Thi
 Both chords are registered on the edit mode's own command list, so they fire **only while the mode is open**. They are no longer part of the level editor's global actions.
 
 :::
+
+## Organ Picker
+
+The second group is headed by a picker listing every [Organ](../types/organ-volume.md) in the current level — it names what the buttons under it act on, which is why it sits inside that group rather than above the whole category.
+
+Choosing one selects it, and the button reads back the current selection — including selections made in the viewport or outliner. It reads **Multiple Selected** for more than one, and **No Organs** when the level has none.
+
+An organ can be reached two ways — the picker selects the `UNOrganComponent`, while clicking in the viewport or outliner selects the owning `ANOrganVolume` — so the button consults both selections and reports the organ either way.
+
+## Selected Organ
+
+Acts on the organ or organs currently selected.
+
+| Command | Description |
+| :-- | :-- |
+| **Generate Proxies** | Dispatches an assembly operation via the `UNWorldAssemblyEditorSubsystem` to generate the selected organ's output `ANCellProxy` actors. |
+| **Clear Proxies** | Removes the generated `ANCellProxy` actors produced by that organ's operations. |
+| **Load Level Instances** | Creates and/or loads the level instances from the selected proxies. |
+| **Unload Level Instances** | Unloads the level instances from the selected proxies. |
+
+The three that act on proxies need generated proxies to be selected, not just an organ — so they stay unavailable until a **Generate** has produced some.
 
 ## Operations
 

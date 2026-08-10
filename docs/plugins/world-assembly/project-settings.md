@@ -45,6 +45,7 @@ Backed by `UNWorldAssemblySettings`; from C++, read it with `UNWorldAssemblySett
 | `World Collisions > Actor Ignore Tags` | Additional `FName` tags to query for when ignoring actors from world collision detection. Supplements the [`NWorldCollision_Ignore` markup tag](tagging.md#world-collision-markup-tags). | `(empty)` |
 | `World Collisions > Exclude Non-Collision Enabled Actors` | Do not include actors that have their collision turned off when capturing world collision. | `true` |
 | `World Collisions > Include Player Starts` | Player start positions should be considered (avoided) when capturing world collision. | `true` |
+| `World Collisions > Landscape Sample Spacing` | How far apart to sample a landscape when reconstructing it as world collision, in centimetres. `0` excludes landscape from world collision entirely. See [Landscape Is Sampled Rather Than Read](#landscape-is-sampled-rather-than-read). | `100.f` |
 | `Tagging > Context Tags` | Default `Context Tags` provided to every Assembly Operation. | `(empty)` |
 | `Tagging > Starting Counters` | Default `Tag Counters` provided to every Assembly Operation. | `(empty)` |
 | `Direction Tolerance` | How close the placement bearing must be to a cell's `Direction Constraint` heading (within this many degrees +/-) for the cell to remain a valid candidate. | `15.f` |
@@ -52,6 +53,16 @@ Backed by `UNWorldAssemblySettings`; from C++, read it with `UNWorldAssemblySett
 | `Spawning > Junction Default Filler` | The default filler to spawn when no authored filler is eligible — a soft (`TSoftClassPtr`) reference to an `AActor` that must implement [`INCellJunctionFiller`](types/cell-junction-filler.md). Resolved lazily so the class is only loaded when actually needed. | `(empty)` |
 | `Spawning > Delayed Junction Spawning` | Should time-slicing be used when spawning junction fillers. | `true` |
 | `Spawning > Junction Time Slice` | Frame-time goal limit when to split spawning junctions to the next frame task (in milliseconds). | `0.5f` |
+
+#### Landscape Is Sampled Rather Than Read
+
+Every other actor contributes its **simple collision** to world collision, read straight off its body setup. A landscape has none — its collision is a Chaos heightfield behind no `UBodySetup` — so the geometry gather emits nothing for it, and an assembly would happily route cells straight through the ground.
+
+`Landscape Sample Spacing` is how that gap is closed: the surface is reconstructed by tracing downward on a grid of that spacing. Smaller reproduces the ground more closely and costs one downward trace per sample, which is why this is the one part of world collision whose cost scales with the size of the level rather than with the number of actors in it. Setting it to `0` leaves landscape out.
+
+This is the only terrain that needs it. A Mesh Terrain arrives as ordinary actors with real collision and is read like anything else — what it needs instead is the [Include Mesh Terrains](types/cell.md#terrain-is-two-flags) flag on the cell calculations, which buys it a transient exemption rather than a sampling pass.
+
+Terrain *authoring apparatus* — modifiers and helpers describing how a terrain is built — is filtered out of world collision entirely. A modifier's bounds are its region of influence, not a surface, so treating one as an obstacle would have assembly avoiding empty space.
 
 ### Junction Matching
 
