@@ -100,7 +100,7 @@ Three capture routes, and picking the wrong one wastes a round trip:
 | Want | Call | Returns |
 |---|---|---|
 | A panel, toolbar, menu, tooltip | `SlateInspectorToolset.Screenshot {ref}` | Exactly that widget, pixel-tight |
-| The whole editor as the user sees it | `EditorAppToolset.CaptureEditorImage {}` | All visible windows composited by screen position |
+| The whole editor as the user sees it | `EditorAppToolset.CaptureEditorImage {}` | All visible windows composited by screen position, at **0.75× logical** — state-checking only, never a docs image (`Screenshot {ref}` gives 1.5×) |
 | The 3D viewport | `EditorAppToolset.CaptureViewport {CaptureTransform, Annotations, bShowUI}` | Viewport; `bShowUI:false` (default) hides gizmos and selection outlines |
 | An asset thumbnail | `EditorAppToolset.CaptureAssetImage {AssetPath}` | Rendered thumbnail |
 
@@ -124,6 +124,9 @@ Unobserve {identifier:"observer_2"} → when finished
 Gotchas, all hit in practice:
 
 - **`Snapshot` right after `Observe` returns a shallow tree.** Observers walk their subtree on a ~100ms tick, so the refs are not there yet. Snapshot a child ref (the splitter, the panel) rather than re-snapshotting the window, or simply call again.
+- **Observe the subtree you actually want, not just the window.** `Observe {ref:"w1"}` leaves whole regions unenumerated — the level-editor toolbar and viewport come back empty until you `Observe {ref:"sp4"}` (or re-observe `w1`) directly. An empty result means "not walked yet" far more often than "no refs exist".
+- **A popup menu is a separate top-level window.** Opening a combobox adds an entry to `Windows {action:"list"}`, but its ref is not `w2` — only `Observe {ref:""}` (all visible windows) assigns refs to its items.
+- **Widgets that do not exist yet cannot be observed.** Anything created by a state change — an editor mode's overlay, a modal — needs a fresh observe *after* the change; a walk taken before it will never contain them.
 - **`ref:""` means "active window", and returns an *empty* image when the editor is not focused** — `{"mimeType":"","data":""}` with no error. If a capture comes back empty, that is why: pass an explicit ref instead of relying on focus.
 - **Screenshotting by ref does not require focus**, which is what makes this usable while you work in another window.
 - Refs stay valid across calls. You do not need to re-snapshot before every action.

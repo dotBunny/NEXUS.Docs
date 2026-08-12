@@ -12,6 +12,10 @@ import TypeDetails from '@site/src/components/TypeDetails';
 
 One command drawn as a palette tile: its icon above a label that wraps and centers inside a fixed tile width.
 
+![The Collision Visualizer command drawn as a tile, its two-word label wrapped onto two centered lines beneath the icon](/assets/images/docs/plugins/ui/editor-types/widgets/command-tile.webp)
+
+Above is the [World Assembly edit mode's](../../../world-assembly/editor-mode/world.md#visualizers) visualizer group — a single tile in an `SWrapBox`, with `Collision Visualizer` broken across the two label lines the tile reserves by default.
+
 It exists because the engine's palette button cannot show a label of more than about a word, which makes any editor palette whose commands are named as phrases unreadable. NEXUS' own palettes — the [World Assembly editor mode's](../../../world-assembly/editor-mode/index.mdx) tile groups among them — are built from these instead.
 
 ## Why Not a Toolbar Button

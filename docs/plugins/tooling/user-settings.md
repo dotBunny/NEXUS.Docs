@@ -13,6 +13,10 @@ Most values here **apply the moment you change them** — `UNToolingEditorUserSe
 
 ## Configuration Options
 
+![Editor Preferences showing the Tooling (User) section, with the Graph Navigation, Editor Performance, Leak Check and Visualizers groups expanded](/assets/images/docs/plugins/tooling/tooling-user-settings.webp)
+
+The [Multiplayer Test](#multiplayer-test) group is deep enough to need its own capture, below.
+
 ### Graph Navigation
 
 Ergonomics for Blueprint and material graphs, described in full under [Graph Navigation](enhancements/graph-navigation.md).
@@ -57,6 +61,10 @@ Inner and outer are the two ends of a range: a spawner with a radius range draws
 ### Multiplayer Test
 
 The per-developer half of [Multiplayer Test](enhancements/multiplayer-test.md) — how *your* test session is laid out. Whether the feature exists at all, and how it authenticates, is project-level: see [Editor Settings](editor-settings.md#multiplayer-test).
+
+![The Multiplayer Test group expanded, showing the Setup, Clients, Network Simulation and Server sub-groups](/assets/images/docs/plugins/tooling/tooling-user-settings-multiplayer-test.webp)
+
+The four groups above this one are collapsed in the capture so the whole tree fits without scrolling; they open by default.
 
 #### Setup
 

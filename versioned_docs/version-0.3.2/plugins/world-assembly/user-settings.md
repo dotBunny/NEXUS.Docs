@@ -9,7 +9,7 @@ Per-user editor preferences for World Assembly. Unlike the shared [Project Setti
 
 From the `Edit > Editor Preferences` window, find the **World Assembly (User)** section.
 
-![World Assembly Editor Preferences User](/assets/images/docs/plugins/world-assembly/world-assembly-editor-preferences-user.webp)
+![World Assembly Editor Preferences User](/assets/images/docs/_archive/0.3.2/plugins/world-assembly/world-assembly-editor-preferences-user.webp)
 
 Backed by `UNWorldAssemblyEditorUserSettings`; from C++, read it with `UNWorldAssemblyEditorUserSettings::Get()`.
 

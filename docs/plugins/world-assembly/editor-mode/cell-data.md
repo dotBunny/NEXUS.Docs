@@ -7,6 +7,10 @@ sidebar_position: 3
 
 The focused cell's **side-car asset** and the actor that owns it. Shown under the same condition as the [Cell](cell.md) rail — whenever the level contains a `ANCellActor` — and split off from it because these act on the [Cell](../types/cell.md) *asset* and the actor's existence, not on the geometry the Cell rail authors.
 
+![Cell Data Rail](/assets/images/docs/plugins/world-assembly/editor-mode/rail-cell-data.webp)
+
+The four commands arrive as one list — the **Actor** and **Data** headings below are this page's, not the rail's.
+
 Everything here is gated the same way: a cell actor in the focused level, and not in PIE. These mutate and save authored data, which has no meaning against a play world.
 
 ## Actor

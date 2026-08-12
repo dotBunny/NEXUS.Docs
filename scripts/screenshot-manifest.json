@@ -1,6 +1,136 @@
 {
   "note": "Provenance for documentation screenshots, written by `npm run screenshot` when it is given --subject. Deliberately partial: images captured before this file existed have no entry, and gain one when they are next retaken rather than being backfilled from guesswork. \"watch\" lists the source paths whose change invalidates the image; `npm run audit:coverage` diffs them since \"captured.sha\" and reports possible staleness.",
   "images": {
+    "/assets/images/docs/plugins/actor-pools/actor-pools-settings.webp": {
+      "subject": "Project Settings > NEXUS > Actor Pools: Default Settings with both transforms expanded, plus Initialization and Behavior",
+      "pages": [
+        "plugins/actor-pools/project-settings"
+      ],
+      "setup": "Edit > Project Settings > NEXUS > Actor Pools. The Project Settings pane lists every NEXUS category in one scroll, so crop to the section before the next category header.",
+      "watch": [
+        "ActorPools/Source/NexusActorPools/Public/NActorPoolsSettings.h",
+        "ActorPools/Source/NexusActorPools/Public/NActorPoolSettings.h"
+      ],
+      "captured": {
+        "sha": "bd4e345d1bac1b43929d4f3f2aa417aaf2cc10d9",
+        "date": "2026-08-12"
+      }
+    },
+    "/assets/images/docs/plugins/actor-pools/editor-types/visualizers/actor-pool-spawner-component-visualizer.webp": {
+      "subject": "The spawner visualizer drawing two distribution shapes in a level viewport: the Radius distribution as concentric circles, and the Sphere distribution as a three-axis wireframe",
+      "pages": [
+        "plugins/actor-pools/editor-types/visualizers/actor-pool-spawner-component-visualizer"
+      ],
+      "level": "/NexusActorPoolsSamples/DEMO_NActorPools",
+      "setup": "Select the BP_NActorPoolSpawner_* actors; the visualizer only draws for a selected component. Captured with EditorAppToolset.CaptureViewport at bShowUI:false, which hides gizmos and selection outlines but leaves component visualizers drawing.",
+      "watch": [
+        "ActorPools/Source/NexusActorPoolsEditor/Private/Visualizers/NActorPoolSpawnerComponentVisualizer.cpp"
+      ],
+      "captured": {
+        "sha": "bd4e345d1bac1b43929d4f3f2aa417aaf2cc10d9",
+        "date": "2026-08-12"
+      }
+    },
+    "/assets/images/docs/plugins/core/editor-types/editor-settings.webp": {
+      "subject": "Editor Preferences > NEXUS > Core: the Updates group with the four properties visible on a non-Custom channel",
+      "pages": [
+        "plugins/core/editor-types/editor-settings"
+      ],
+      "setup": "Edit > Editor Preferences > NEXUS > Core. Custom Query URI and Custom Update URI are EditConditionHides and only appear when Channel is Custom, so four of the six properties show by default.",
+      "watch": [
+        "Core/Source/NexusCoreEditor/Public/NEditorSettings.h"
+      ],
+      "captured": {
+        "sha": "bd4e345d1bac1b43929d4f3f2aa417aaf2cc10d9",
+        "date": "2026-08-12"
+      }
+    },
+    "/assets/images/docs/plugins/guardian/guardian-settings.webp": {
+      "subject": "Project Settings > NEXUS > Guardian: the Subsystem, Baseline and Thresholds groups",
+      "pages": [
+        "plugins/guardian/project-settings"
+      ],
+      "setup": "Edit > Project Settings > NEXUS > Guardian. Selecting the category scrolls the shared NEXUS pane to it; crop to the section before the next category header.",
+      "watch": [
+        "Guardian/Source/NexusGuardian/Public/NGuardianSettings.h"
+      ],
+      "captured": {
+        "sha": "bd4e345d1bac1b43929d4f3f2aa417aaf2cc10d9",
+        "date": "2026-08-12"
+      }
+    },
+    "/assets/images/docs/plugins/picker/picker-settings.webp": {
+      "subject": "Project Settings > NEXUS > Picker: the Projection group with its Trace and Nav Mesh sub-groups",
+      "pages": [
+        "plugins/picker/project-settings"
+      ],
+      "setup": "Edit > Project Settings > NEXUS > Picker. Selecting the category scrolls the shared NEXUS pane to it; crop to the section before the next category header.",
+      "watch": [
+        "Picker/Source/NexusPicker/Public/NPickerSettings.h"
+      ],
+      "captured": {
+        "sha": "bd4e345d1bac1b43929d4f3f2aa417aaf2cc10d9",
+        "date": "2026-08-12"
+      }
+    },
+    "/assets/images/docs/plugins/tooling/tooling-editor-settings.webp": {
+      "subject": "Editor Preferences > Tooling: Editor Icon, Project, Validators (Severity and Ignored) and Multiplayer Test, all expanded",
+      "pages": [
+        "plugins/tooling/editor-settings"
+      ],
+      "setup": "Edit > Editor Preferences > NEXUS > Tooling. Expand Editor Icon, Project, Severity and Ignored; the Levels and Ignored arrays stay collapsed.",
+      "watch": [
+        "Tooling/Source/NexusToolingEditor/Public/NToolingEditorSettings.h"
+      ],
+      "captured": {
+        "sha": "bd4e345d1bac1b43929d4f3f2aa417aaf2cc10d9",
+        "date": "2026-08-12"
+      }
+    },
+    "/assets/images/docs/plugins/tooling/tooling-user-settings-multiplayer-test.webp": {
+      "subject": "Editor Preferences > Tooling (User) > Multiplayer Test: Setup, Clients, Network Simulation and Server, all expanded",
+      "pages": [
+        "plugins/tooling/user-settings"
+      ],
+      "setup": "Edit > Editor Preferences > NEXUS > Tooling (User). Collapse the four groups above Multiplayer Test so the whole tree fits the pane without scrolling, then expand Setup, Network Simulation and Server.",
+      "watch": [
+        "Tooling/Source/NexusToolingEditor/Public/NToolingEditorUserSettings.h"
+      ],
+      "captured": {
+        "sha": "bd4e345d1bac1b43929d4f3f2aa417aaf2cc10d9",
+        "date": "2026-08-12"
+      }
+    },
+    "/assets/images/docs/plugins/tooling/tooling-user-settings.webp": {
+      "subject": "Editor Preferences > Tooling (User): the Graph Navigation, Editor Performance, Leak Check and Visualizers groups, all expanded",
+      "pages": [
+        "plugins/tooling/user-settings"
+      ],
+      "setup": "Edit > Editor Preferences > NEXUS > Tooling (User). Expand every group; the Multiplayer Test tree is captured separately.",
+      "watch": [
+        "Tooling/Source/NexusToolingEditor/Public/NToolingEditorUserSettings.h"
+      ],
+      "captured": {
+        "sha": "bd4e345d1bac1b43929d4f3f2aa417aaf2cc10d9",
+        "date": "2026-08-12"
+      }
+    },
+    "/assets/images/docs/plugins/ui/editor-types/widgets/command-tile.webp": {
+      "subject": "A single SNCommandTile in a wrap box: the Collision Visualizer command drawn as an icon above a two-line centered label on the recessed tile backing",
+      "pages": [
+        "plugins/ui/editor-types/widgets/command-tile"
+      ],
+      "level": "/NexusWorldAssemblySamples/DEMO_NWorldAssembly",
+      "setup": "Activate World Assembly mode; select the World category. The tile group is the recessed block at the top of the panel.",
+      "watch": [
+        "UI/Source/NexusUIEditor/Private/Widgets/SNCommandTile.cpp",
+        "UI/Source/NexusUIEditor/Private/NUIEditorStyle.cpp"
+      ],
+      "captured": {
+        "sha": "bd4e345d1bac1b43929d4f3f2aa417aaf2cc10d9",
+        "date": "2026-08-12"
+      }
+    },
     "/assets/images/docs/plugins/world-assembly/editor-mode/mode-button.webp": {
       "subject": "The World Assembly mode button on the level-editor toolbar, in a cell-only level where Quick Assembly has collapsed",
       "pages": [
@@ -12,12 +142,12 @@
         "WorldAssembly/Source/NexusWorldAssemblyEditor/Private/NWorldAssemblyEditorToolMenu.cpp"
       ],
       "captured": {
-        "sha": "2150ca7633fd61ab81d0a7e49e23ac577fc41647",
-        "date": "2026-08-07"
+        "sha": "bd4e345d1bac1b43929d4f3f2aa417aaf2cc10d9",
+        "date": "2026-08-12"
       }
     },
     "/assets/images/docs/plugins/world-assembly/editor-mode/quick-assembly-toolbar.webp": {
-      "subject": "Quick Assembly organ picker, start button and options dropdown on the level-editor toolbar",
+      "subject": "Quick Assembly organ picker, start button and options dropdown on the level-editor toolbar, with Organ_Main selected",
       "pages": [
         "plugins/world-assembly/editor-mode/index"
       ],
@@ -25,79 +155,179 @@
       "setup": "Open a level containing an organ and activate the mode; the controls collapse without an organ, and the toolbar shifts left once the mode button hides. The cluster is the combo, the start button and the options dropdown.",
       "watch": [
         "WorldAssembly/Source/NexusWorldAssemblyEditor/Private/NWorldAssemblyEditorToolMenu.cpp",
-        "WorldAssembly/Source/NexusWorldAssemblyEditor/Private/Commands/NWorldAssemblyEditorQuickAssemblyCommands.cpp"
+        "WorldAssembly/Source/NexusWorldAssemblyEditor/Private/NWorldAssemblyEditorQuickAssembly.cpp"
       ],
       "captured": {
-        "sha": "2150ca7633fd61ab81d0a7e49e23ac577fc41647",
-        "date": "2026-08-07"
+        "sha": "bd4e345d1bac1b43929d4f3f2aa417aaf2cc10d9",
+        "date": "2026-08-12"
+      }
+    },
+    "/assets/images/docs/plugins/world-assembly/editor-mode/rail-cell-data.webp": {
+      "subject": "Cell Data category: Remove Actor, Capture Thumbnails, Force Save and Reset as one list",
+      "pages": [
+        "plugins/world-assembly/editor-mode/cell-data"
+      ],
+      "level": "/NexusWorldAssemblySamples/Cells/CELL_Simple_00",
+      "setup": "Activate World Assembly mode; select the Cell Data category from the strip.",
+      "watch": [
+        "WorldAssembly/Source/NexusWorldAssemblyEditor/Private/EdMode/NCellDataEdModeRail.cpp",
+        "WorldAssembly/Source/NexusWorldAssemblyEditor/Private/NWorldAssemblyEditorCommands.cpp"
+      ],
+      "captured": {
+        "sha": "bd4e345d1bac1b43929d4f3f2aa417aaf2cc10d9",
+        "date": "2026-08-12"
       }
     },
     "/assets/images/docs/plugins/world-assembly/editor-mode/rail-cell.webp": {
-      "subject": "Cell rail: Tools, Calculate, Tagging, Actions, Quick Options and Cell Data sections",
+      "subject": "Cell category: the strip with Organ hidden, and the panel's tile, list, SELECTED ACTOR and QUICK OPTIONS groups",
       "pages": [
         "plugins/world-assembly/editor-mode/cell",
         "plugins/world-assembly/editor-mode/index"
       ],
       "level": "/NexusWorldAssemblySamples/Cells/CELL_Simple_00",
-      "setup": "Activate World Assembly mode; select the Cell rail.",
+      "setup": "Activate World Assembly mode from the level-editor mode dropdown; the Cell category is auto-selected in a cell level.",
       "watch": [
-        "WorldAssembly/Source/NexusWorldAssemblyEditor/Private/Rails/NWorldAssemblyEdModeCellRail.cpp",
-        "WorldAssembly/Source/NexusWorldAssemblyEditor/Private/Commands/NWorldAssemblyEditorCellCommands.cpp",
-        "WorldAssembly/Source/NexusWorldAssemblyEditor/Private/NWorldAssemblyEdModeToolCommands.cpp"
+        "WorldAssembly/Source/NexusWorldAssemblyEditor/Private/EdMode/NCellEdModeRail.cpp",
+        "WorldAssembly/Source/NexusWorldAssemblyEditor/Private/NWorldAssemblyEditorCommands.cpp",
+        "WorldAssembly/Source/NexusWorldAssemblyEditor/Private/Widgets/SNWorldAssemblyRail.cpp",
+        "WorldAssembly/Source/NexusWorldAssemblyEditor/Private/Widgets/SNWorldAssemblyRailPanel.cpp"
       ],
       "captured": {
-        "sha": "2150ca7633fd61ab81d0a7e49e23ac577fc41647",
-        "date": "2026-08-07"
+        "sha": "bd4e345d1bac1b43929d4f3f2aa417aaf2cc10d9",
+        "date": "2026-08-12"
       }
     },
     "/assets/images/docs/plugins/world-assembly/editor-mode/rail-junction.webp": {
-      "subject": "Junction rail: the junction picker, the Place tool, and the Component commands",
+      "subject": "Junction category: the Place tool, the disabled Add Component and Collect All commands, and the junction picker at the bottom",
       "pages": [
         "plugins/world-assembly/editor-mode/junction"
       ],
       "level": "/NexusWorldAssemblySamples/Cells/CELL_Simple_00",
-      "setup": "Activate World Assembly mode; select the Junction rail.",
+      "setup": "Activate World Assembly mode; select the Junction category. Add Component and Collect All stay disabled with no actor selected.",
       "watch": [
-        "WorldAssembly/Source/NexusWorldAssemblyEditor/Private/Rails/NWorldAssemblyEdModeJunctionRail.cpp",
-        "WorldAssembly/Source/NexusWorldAssemblyEditor/Private/Commands/NWorldAssemblyEditorJunctionCommands.cpp",
-        "WorldAssembly/Source/NexusWorldAssemblyEditor/Private/NWorldAssemblyEdModeToolCommands.cpp"
+        "WorldAssembly/Source/NexusWorldAssemblyEditor/Private/EdMode/NJunctionEdModeRail.cpp",
+        "WorldAssembly/Source/NexusWorldAssemblyEditor/Private/NWorldAssemblyEditorCommands.cpp"
       ],
       "captured": {
-        "sha": "2150ca7633fd61ab81d0a7e49e23ac577fc41647",
-        "date": "2026-08-07"
+        "sha": "bd4e345d1bac1b43929d4f3f2aa417aaf2cc10d9",
+        "date": "2026-08-12"
       }
     },
     "/assets/images/docs/plugins/world-assembly/editor-mode/rail-organ.webp": {
-      "subject": "Organ rail: the organ picker, Selected Organ and World commands, and the idle Operations block",
+      "subject": "Organ category: the world-wide proxy commands, the SELECTED ORGAN group headed by the organ picker with Organ_Main chosen, and the idle Operations block",
       "pages": [
         "plugins/world-assembly/editor-mode/organ"
       ],
       "level": "/NexusWorldAssemblySamples/DEMO_NWorldAssembly",
-      "setup": "Activate World Assembly mode; select the Organ rail.",
+      "setup": "Activate World Assembly mode; the Organ category is auto-selected in an organ level. Pick Organ_Main from the picker so the Selected Organ commands enable.",
       "watch": [
-        "WorldAssembly/Source/NexusWorldAssemblyEditor/Private/Rails/NWorldAssemblyEdModeOrganRail.cpp",
-        "WorldAssembly/Source/NexusWorldAssemblyEditor/Private/Commands/NWorldAssemblyEditorOrganCommands.cpp",
-        "WorldAssembly/Source/NexusWorldAssemblyEditor/Private/Widgets/SNAssemblyOperations.cpp"
+        "WorldAssembly/Source/NexusWorldAssemblyEditor/Private/EdMode/NOrganEdModeRail.cpp",
+        "WorldAssembly/Source/NexusWorldAssemblyEditor/Private/NWorldAssemblyEditorCommands.cpp",
+        "WorldAssembly/Source/NexusWorldAssemblyEditor/Private/Widgets/SNWorldAssemblyOperations.cpp"
       ],
       "captured": {
-        "sha": "2150ca7633fd61ab81d0a7e49e23ac577fc41647",
-        "date": "2026-08-07"
+        "sha": "bd4e345d1bac1b43929d4f3f2aa417aaf2cc10d9",
+        "date": "2026-08-12"
       }
     },
     "/assets/images/docs/plugins/world-assembly/editor-mode/rail-world.webp": {
-      "subject": "World rail: Visualizers, Create and Tagging sections, with Cell and Junction greyed out",
+      "subject": "World category: the Collision Visualizer tile, the Create commands with Add Cell Actor refused in an organ level, and the SELECTED ACTOR tagging toggle",
       "pages": [
         "plugins/world-assembly/editor-mode/world"
       ],
       "level": "/NexusWorldAssemblySamples/DEMO_NWorldAssembly",
-      "setup": "Activate World Assembly mode; the World rail is selected by default.",
+      "setup": "Activate World Assembly mode; select the World category. An actor must be selected for the tagging toggle to enable.",
       "watch": [
-        "WorldAssembly/Source/NexusWorldAssemblyEditor/Private/Rails/NWorldAssemblyEdModeWorldRail.cpp",
-        "WorldAssembly/Source/NexusWorldAssemblyEditor/Private/Commands/NWorldAssemblyEditorWorldCommands.cpp"
+        "WorldAssembly/Source/NexusWorldAssemblyEditor/Private/EdMode/NWorldEdModeRail.cpp",
+        "WorldAssembly/Source/NexusWorldAssemblyEditor/Private/NWorldAssemblyEditorCommands.cpp"
       ],
       "captured": {
-        "sha": "2150ca7633fd61ab81d0a7e49e23ac577fc41647",
-        "date": "2026-08-07"
+        "sha": "bd4e345d1bac1b43929d4f3f2aa417aaf2cc10d9",
+        "date": "2026-08-12"
+      }
+    },
+    "/assets/images/docs/plugins/world-assembly/world-assembly-editor-preferences-user.webp": {
+      "subject": "Editor Preferences > World Assembly (User): the Color Palette swatches under Bones, Cell and Junctions, plus Debug, Notifications and Quick Assembly",
+      "pages": [
+        "plugins/world-assembly/user-settings"
+      ],
+      "setup": "Edit > Editor Preferences > NEXUS > World Assembly (User). Expand every group including the three Color Palette sub-groups. Ed Mode Panel Position/Width are Config-only and never appear here.",
+      "watch": [
+        "WorldAssembly/Source/NexusWorldAssemblyEditor/Public/NWorldAssemblyEditorUserSettings.h"
+      ],
+      "captured": {
+        "sha": "bd4e345d1bac1b43929d4f3f2aa417aaf2cc10d9",
+        "date": "2026-08-12"
+      }
+    },
+    "/assets/images/docs/plugins/world-assembly/world-assembly-editor-preferences.webp": {
+      "subject": "Editor Preferences > World Assembly: the Cell (Defaults) and World Context groups",
+      "pages": [
+        "plugins/world-assembly/editor-settings"
+      ],
+      "setup": "Edit > Editor Preferences > NEXUS > World Assembly. Expand both groups; the nested generation-settings structs stay collapsed because the page documents them at group level.",
+      "watch": [
+        "WorldAssembly/Source/NexusWorldAssemblyEditor/Public/NWorldAssemblyEditorSettings.h"
+      ],
+      "captured": {
+        "sha": "bd4e345d1bac1b43929d4f3f2aa417aaf2cc10d9",
+        "date": "2026-08-12"
+      }
+    },
+    "/assets/images/docs/plugins/world-assembly/world-assembly-settings-assembly.webp": {
+      "subject": "Project Settings > NEXUS > World Assembly > Assembly: World Collisions expanded, plus Junction Matching, Tagging and Spawning",
+      "pages": [
+        "plugins/world-assembly/project-settings"
+      ],
+      "setup": "Collapse General, Network and Organ so Assembly reaches the top of the pane; double-click the World Collisions struct row to expand it.",
+      "watch": [
+        "WorldAssembly/Source/NexusWorldAssembly/Public/NWorldAssemblySettings.h"
+      ],
+      "captured": {
+        "sha": "bd4e345d1bac1b43929d4f3f2aa417aaf2cc10d9",
+        "date": "2026-08-12"
+      }
+    },
+    "/assets/images/docs/plugins/world-assembly/world-assembly-settings-debug.webp": {
+      "subject": "Project Settings > NEXUS > World Assembly > Debug: the Proxy Material property",
+      "pages": [
+        "plugins/world-assembly/project-settings"
+      ],
+      "setup": "Collapse Junction Connecting so Debug sits just below it.",
+      "watch": [
+        "WorldAssembly/Source/NexusWorldAssembly/Public/NWorldAssemblySettings.h"
+      ],
+      "captured": {
+        "sha": "bd4e345d1bac1b43929d4f3f2aa417aaf2cc10d9",
+        "date": "2026-08-12"
+      }
+    },
+    "/assets/images/docs/plugins/world-assembly/world-assembly-settings-junction-connecting.webp": {
+      "subject": "Project Settings > NEXUS > World Assembly > Junction Connecting: the default connector and the full connector-settings struct",
+      "pages": [
+        "plugins/world-assembly/project-settings"
+      ],
+      "setup": "Junction Connecting is nested inside Assembly. Collapse World Collisions, Junction Matching, Tagging and Spawning to lift it to the top of the pane.",
+      "watch": [
+        "WorldAssembly/Source/NexusWorldAssembly/Public/NWorldAssemblySettings.h"
+      ],
+      "captured": {
+        "sha": "bd4e345d1bac1b43929d4f3f2aa417aaf2cc10d9",
+        "date": "2026-08-12"
+      }
+    },
+    "/assets/images/docs/plugins/world-assembly/world-assembly-settings.webp": {
+      "subject": "Project Settings > NEXUS > World Assembly: the General, Network and Organ groups",
+      "pages": [
+        "plugins/world-assembly/project-settings"
+      ],
+      "setup": "Edit > Project Settings > NEXUS > World Assembly. Expand every group; capture the section before Assembly.",
+      "watch": [
+        "WorldAssembly/Source/NexusWorldAssembly/Public/NWorldAssemblySettings.h"
+      ],
+      "captured": {
+        "sha": "bd4e345d1bac1b43929d4f3f2aa417aaf2cc10d9",
+        "date": "2026-08-12"
       }
     }
   }

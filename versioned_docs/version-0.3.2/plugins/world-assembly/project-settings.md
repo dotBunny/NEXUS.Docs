@@ -9,7 +9,7 @@ From the `Edit > Project Settings` window, find the **World Assembly** section.
 
 Backed by `UNWorldAssemblySettings`; from C++, read it with `UNWorldAssemblySettings::Get()`. Because these are project settings, every value here is shared by the whole team and applies to every generated world. The world-collision group is a nested `FNWorldAssemblyWorldCollisionSettings`.
 
-![World Assembly Project Settings](/assets/images/docs/plugins/world-assembly/world-assembly-settings.webp)
+![World Assembly Project Settings](/assets/images/docs/_archive/0.3.2/plugins/world-assembly/world-assembly-settings.webp)
 
 ## Configuration Options
 

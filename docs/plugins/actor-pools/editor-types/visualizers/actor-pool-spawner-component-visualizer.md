@@ -11,6 +11,10 @@ import TypeDetails from '@site/src/components/TypeDetails';
 
 Editor-only component visualizer that draws the distribution shape of an [Actor Pool Spawner Component](../../types/actor-pool-spawner-component.md) into level viewports. Registered with the editor's `ComponentVisualizers` module so the gizmo appears automatically whenever a selected actor carries a spawner component.
 
+![Two spawners selected in a level viewport, one drawing a Radius distribution as concentric circles and the other a Sphere distribution as a three-axis wireframe](/assets/images/docs/plugins/actor-pools/editor-types/visualizers/actor-pool-spawner-component-visualizer.webp)
+
+Above, two of the sample spawners in `DEMO_NActorPools`: the **Radius** distribution on the left, the **Sphere** on the right. Nothing is drawn for an unselected spawner — the shape appears on selection and disappears with it.
+
 ## Methods
 
 ### Draw Visualization

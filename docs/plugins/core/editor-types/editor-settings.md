@@ -9,7 +9,11 @@ import TypeDetails from '@site/src/components/TypeDetails';
 
 <TypeDetails icon="ue-settings" base="UDeveloperSettings" type="UNEditorSettings" typeExtra="" headerFile="NexusCoreEditor/Public/NEditorSettings.h" />
 
-Project-level NEXUS editor settings (updates channel, update-check cadence). Saved to the `NexusEditor` config hierarchy and surfaced under **Project Settings → NEXUS → Core**.
+Project-level NEXUS editor settings (updates channel, update-check cadence). Saved to the `NexusEditor` config hierarchy (`DefaultNexusEditor.ini`) and surfaced under **Editor Preferences → NEXUS → Core**.
+
+![Editor Preferences showing the NEXUS Core section and its Updates group](/assets/images/docs/plugins/core/editor-types/editor-settings.webp)
+
+Only four of the six properties appear above: `UpdatesCustomQueryURI` and `UpdatesCustomUpdateURI` are `EditConditionHides`, so the panel shows them only once `Channel` is set to `Custom`.
 
 ## Properties
 

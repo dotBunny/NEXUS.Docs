@@ -19,6 +19,8 @@ These are in `Edit > Editor Preferences` rather than `Project Settings`, because
 
 ## Configuration Options
 
+![Editor Preferences showing the Tooling section, with the Editor Icon, Project, Validators and Multiplayer Test groups expanded](/assets/images/docs/plugins/tooling/tooling-editor-settings.webp)
+
 ### Editor Icon
 
 Overrides for the editor's branding, so a project can put its own mark on the window it is developed in. Both are consumed by the [Editor Window Icon](enhancements/editor-window-icon.md) enhancement.

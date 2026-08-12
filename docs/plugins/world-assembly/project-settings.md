@@ -9,7 +9,9 @@ From the `Edit > Project Settings` window, find the **World Assembly** section.
 
 Backed by `UNWorldAssemblySettings`; from C++, read it with `UNWorldAssemblySettings::Get()`. Because these are project settings, every value here is shared by the whole team and applies to every generated world. The world-collision group is a nested `FNWorldAssemblyWorldCollisionSettings`.
 
-![World Assembly Project Settings](/assets/images/docs/plugins/world-assembly/world-assembly-settings.webp)
+![The World Assembly project settings showing the General, Network and Organ groups](/assets/images/docs/plugins/world-assembly/world-assembly-settings.webp)
+
+The panel is taller than one screen, so the remaining groups are captured under their own headings below.
 
 ## Configuration Options
 
@@ -38,6 +40,8 @@ Backed by `UNWorldAssemblySettings`; from C++, read it with `UNWorldAssemblySett
 | `Automatic Bone Direction Offset` | Offset value applied to the direction provided by the enumeration. | `(0,0,0)` |
 
 ### Assembly
+
+![The Assembly group with World Collisions expanded, alongside Junction Matching, Tagging and Spawning](/assets/images/docs/plugins/world-assembly/world-assembly-settings-assembly.webp)
 
 | Setting | Description | Default |
 | --- | :-- | :-- |
@@ -88,6 +92,8 @@ The graph builders only ever grow a **new** cell off an open junction. So a grap
 Reported in analytics as `Inverse Matched` (see [Analytics](architecture/analytics.md)).
 
 ### Junction Connecting
+
+![The Junction Connecting group: the default connector and the full connector-settings struct](/assets/images/docs/plugins/world-assembly/world-assembly-settings-junction-connecting.webp)
 
 Found under `Assembly > Junction Connecting`. These tune the [connector pass](architecture/tasks.md#junction-connecting), which pairs junctions the graph builders left **unmatched** and proves a collision-free swept path between each pair — so two cells whose openings face each other across clear space are bridged by geometry instead of both being capped off.
 
@@ -182,6 +188,8 @@ With `Allow Multiple Cell Connections` off (the default), a candidate pair whose
 Reported as `Rejected (Existing Connection)`, and counted before any routing is attempted, so these cost nothing beyond the lookup.
 
 ### Debug
+
+![The Debug group with its single Proxy Material property](/assets/images/docs/plugins/world-assembly/world-assembly-settings-debug.webp)
 
 | Setting | Description | Default |
 | --- | :-- | :-- |

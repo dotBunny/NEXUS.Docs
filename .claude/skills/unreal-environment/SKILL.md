@@ -72,3 +72,22 @@ Startup takes a while. Do not conclude the server is broken until the editor win
 Building the framework is the **framework repo's** job, and it has its own `build` skill at `___NEXUSROOT___/TestProject/.claude/skills/build/`. Compiling plugins in service of a docs change is almost always the wrong move: type pages are written from headers, which are read, not built.
 
 The exception is a screenshot of behaviour that only exists in unbuilt source. If you hit that, say so and let the user build — do not kick off a compile from the docs repo.
+
+### Check the binaries before capturing, not after
+
+That exception is common enough to test for rather than discover in a finished screenshot. Compare the built editor DLL's timestamp against the commits that should be in it:
+
+```bash
+stat -c '%y' ../NEXUS/TestProject/Binaries/Win64/UnrealEditor-<Plugin>Editor.dll
+cd ../NEXUS && git log --format='%h %ci %s' -10
+```
+
+A DLL older than the newest commit touching that module means the editor renders the *previous* UI, and every screenshot taken from it is wrong the moment the user next builds — the expensive kind of wrong, because it looks right.
+
+Three things make this easy to get wrong:
+
+- **Plugin DLLs live in `TestProject/Binaries/Win64/`**, not under the plugin's own folder.
+- **An editor-UI change usually spans two modules** — the plugin's own editor module and shared widgets in `NexusUIEditor` — so check both; they are often built at different times.
+- **Source file mtimes are worthless here.** They reflect checkout time, not edit time. Compare against commit dates.
+
+Report the gap and name the commits the build is missing. Building is the user's call, and if they ask for it, the recipe is `Build.bat NEXUSEditor Win64 Development` from the framework's `build` skill — invoked through PowerShell, since `cmd //c` from Git Bash mangles the quoting and `| tee` will then hide the failure behind exit code 0.
