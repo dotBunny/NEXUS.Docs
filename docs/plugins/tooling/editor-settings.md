@@ -92,3 +92,19 @@ The project-level half of [Multiplayer Test](enhancements/multiplayer-test.md). 
 Unlike the icon paths, toggling `Enabled` installs or removes the toolbar section **live** — no restart. The class watches for that specific property changing and adds or removes the section to match.
 
 :::
+
+### Selection Lock
+
+Controls whether [Selection Lock](enhancements/selection-lock.md) is available at all.
+
+| Setting | Type | Description | Default |
+| :-- | :-- | :-- | :-- |
+| `Enabled` | `bool` | Whether the Selection Lock column and its context-menu toggle are installed, and whether recorded locks are applied. Requires an editor restart. | `true` |
+
+:::tip[Disabling does not unlock anything]
+
+Unlike Multiplayer Test, this one is read once at startup and needs a restart — the Outliner resolves its columns when it is built, so a live toggle would not reach one that is already open.
+
+Turning it off leaves every recorded lock on disk; nothing is cleared and no package is dirtied. Turn it back on, restart, and the locks return exactly as they were.
+
+:::
