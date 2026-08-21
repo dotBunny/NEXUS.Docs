@@ -47,7 +47,7 @@ See [Performance](enhancements/performance.md).
 
 ### Quick HighRes Screenshot
 
-One keypress captures the active viewport at a multiple of its own size and writes it to `Saved/Screenshots`. See [Quick HighRes Screenshot](enhancements/quick-highres-screenshot.md) for the workflow.
+Listed in the panel as **Quick High Res Screenshot**. One keypress captures the active viewport at a multiple of its own size and writes it to `Saved/Screenshots`. See [Quick HighRes Screenshot](enhancements/quick-highres-screenshot.md) for the workflow.
 
 | Setting | Type | Description | Default |
 | :-- | :-- | :-- | :-- |

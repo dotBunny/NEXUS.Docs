@@ -67,7 +67,7 @@ Once PIE has focus, key events go to the game viewport and are forwarded to `UEd
 
 ## Registration Is Gated
 
-The whole context is registered only when [`Tooling (User) > Quick HighRes Screenshot > Enabled`](../user-settings.md#quick-highres-screenshot) is on. That setting is marked `ConfigRestartRequired` because registration happens once at post-engine-init.
+The whole context is registered only when [`Tooling (User) > Quick High Res Screenshot > Enabled`](../user-settings.md#quick-highres-screenshot) is on. That setting is marked `ConfigRestartRequired` because registration happens once at post-engine-init.
 
 Leaving it unregistered is the point: an unregistered command does not appear in `Editor Preferences > Keyboard Shortcuts` at all, which leaves <kbd>Alt</kbd>+<kbd>F9</kbd> genuinely free for something else rather than merely inert.
 

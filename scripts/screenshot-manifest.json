@@ -74,7 +74,7 @@
       }
     },
     "/assets/images/docs/plugins/tooling/tooling-editor-settings.webp": {
-      "subject": "Editor Preferences > Tooling: Editor Icon, Project, Validators (Severity and Ignored) and Multiplayer Test, all expanded",
+      "subject": "Editor Preferences > Tooling: Editor Icon, Project, Validators (Severity and Ignored), Multiplayer Test and Selection Lock, all expanded",
       "pages": [
         "plugins/tooling/editor-settings"
       ],
@@ -83,8 +83,8 @@
         "Tooling/Source/NexusToolingEditor/Public/NToolingEditorSettings.h"
       ],
       "captured": {
-        "sha": "bd4e345d1bac1b43929d4f3f2aa417aaf2cc10d9",
-        "date": "2026-08-12"
+        "sha": "cffb7885e21bb3285c6b5449e2d52075d71f4aa7",
+        "date": "2026-08-21"
       }
     },
     "/assets/images/docs/plugins/tooling/tooling-user-settings-multiplayer-test.webp": {
@@ -92,27 +92,27 @@
       "pages": [
         "plugins/tooling/user-settings"
       ],
-      "setup": "Edit > Editor Preferences > NEXUS > Tooling (User). Collapse the four groups above Multiplayer Test so the whole tree fits the pane without scrolling, then expand Setup, Network Simulation and Server.",
+      "setup": "Edit > Editor Preferences > NEXUS > Tooling (User). Collapse the five groups above Multiplayer Test so the whole tree fits the pane without scrolling, then expand Setup, Clients, Network Simulation and Server.",
       "watch": [
         "Tooling/Source/NexusToolingEditor/Public/NToolingEditorUserSettings.h"
       ],
       "captured": {
-        "sha": "bd4e345d1bac1b43929d4f3f2aa417aaf2cc10d9",
-        "date": "2026-08-12"
+        "sha": "cffb7885e21bb3285c6b5449e2d52075d71f4aa7",
+        "date": "2026-08-21"
       }
     },
     "/assets/images/docs/plugins/tooling/tooling-user-settings.webp": {
-      "subject": "Editor Preferences > Tooling (User): the Graph Navigation, Editor Performance, Leak Check and Visualizers groups, all expanded",
+      "subject": "Editor Preferences > Tooling (User): Graph Navigation, Editor Performance, Leak Check, Quick High Res Screenshot and Visualizers > Distribution, all expanded",
       "pages": [
         "plugins/tooling/user-settings"
       ],
-      "setup": "Edit > Editor Preferences > NEXUS > Tooling (User). Expand every group; the Multiplayer Test tree is captured separately.",
+      "setup": "Edit > Editor Preferences > NEXUS > Tooling (User). Expand every group including Visualizers > Distribution; collapse Multiplayer Test, which is captured separately.",
       "watch": [
         "Tooling/Source/NexusToolingEditor/Public/NToolingEditorUserSettings.h"
       ],
       "captured": {
-        "sha": "bd4e345d1bac1b43929d4f3f2aa417aaf2cc10d9",
-        "date": "2026-08-12"
+        "sha": "cffb7885e21bb3285c6b5449e2d52075d71f4aa7",
+        "date": "2026-08-21"
       }
     },
     "/assets/images/docs/plugins/ui/editor-types/widgets/command-tile.webp": {

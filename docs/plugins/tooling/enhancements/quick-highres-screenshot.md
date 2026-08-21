@@ -11,7 +11,7 @@ It is deliberately a *modified* <kbd>F9</kbd> — bare <kbd>F9</kbd> is the engi
 
 :::info[Off by default]
 
-Turn it on at `Edit > Editor Preferences > NEXUS > Tooling (User) > Quick HighRes Screenshot > Enabled`, then **restart the editor**. See [User Settings](../user-settings.md#quick-highres-screenshot).
+Turn it on at `Edit > Editor Preferences > NEXUS > Tooling (User) > Quick High Res Screenshot > Enabled`, then **restart the editor**. See [User Settings](../user-settings.md#quick-highres-screenshot).
 
 It ships off because it claims <kbd>Alt</kbd>+<kbd>F9</kbd> for as long as it is on. Leaving it off keeps the entry out of `Editor Preferences > Keyboard Shortcuts` entirely, so the chord stays free for something else. It is a per-user rather than per-project setting for the same reason: what it costs a developer who does not want it is a keybinding, and keybindings are a personal matter.
 
@@ -38,7 +38,7 @@ The engine raises its own toast naming the written file, with an **Open Folder**
 
 ## The Multiplier
 
-`Tooling (User) > Quick HighRes Screenshot > Multiplier`, default `2.0`, clamped `0.5`–`5.0`.
+`Tooling (User) > Quick High Res Screenshot > Multiplier`, default `2.0`, clamped `0.5`–`5.0`.
 
 It is read **at capture time** rather than cached, so an edit takes effect on the very next keypress — set it, shoot, adjust, shoot again without restarting anything.
 
