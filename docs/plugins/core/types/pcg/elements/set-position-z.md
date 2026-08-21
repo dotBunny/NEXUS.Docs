@@ -7,7 +7,7 @@ import TypeDetails from '@site/src/components/TypeDetails';
 
 # Set Position Z
 
-<TypeDetails icon="ue-object" base="UPCGSettings" type="UNSetPositionZSettings" typeExtra=" + FNSetPositionZParams" headerFile="NexusWorldAssembly/Public/Elements/NSetPositionZElement.h" />
+<TypeDetails icon="ue-object" base="UPCGSettings" type="UNSetPositionZSettings" typeExtra=" + FNSetPositionZParams" headerFile="NexusCore/Public/PCG/Elements/NSetPositionZElement.h" />
 
 **`NEXUS | Set Position Z`** — the simplest node in the [Elements](index.mdx) set. It takes points and snaps every one of them to the same world Z.
 

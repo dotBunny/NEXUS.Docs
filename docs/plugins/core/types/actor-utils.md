@@ -28,10 +28,41 @@ struct NEXUSCORE_API FNWorldActorFilterSettings
   bool bExcludeNonCollisionEnabledActors = false;
 
   /**
+   * When true, Mesh Terrain sections are skipped.
+   * @note Matched on the actor rather than only its primitives, so a section still awaiting the collision component
+   *       Mesh Partition attaches in a later pass is excluded too — see FNActorUtils::IsMeshTerrainActor.
+   */
+  bool bExcludeMeshTerrains = false;
+
+  /**
+   * When true, landscape actors are skipped.
+   * @remark Callers that sample a landscape rather than read it (FNRawMeshFactory::FromLandscapesInBounds) need the
+   *         actor to survive this filter in order to find it at all, so leave this false whenever that pass will run.
+   */
+  bool bExcludeLandscapes = false;
+
+  /**
+   * When true, terrain authoring apparatus is skipped — the definitions and modifiers describing how a terrain is
+   * built, rather than the terrain itself.
+   * @note Deliberately independent of bExcludeMeshTerrains. A modifier's bounds are its region of influence, which
+   *       reaches far past the surface it produces, so it is not geometry under either answer to that flag.
+   */
+  bool bExcludeTerrainAuthoring = false;
+
+  /** When true, AVolume actors are skipped. */
+  bool bExcludeVolumes = false;
+
+  /** When true, ANDebugActor actors are skipped. */
+  bool bExcludeDebugActors = false;
+
+  /**
    * When true, APlayerStart actors are unconditionally included — they bypass the editor-only, collision, and predicate
    * filters. Useful when callers need spawn locations even though the player-start actor would otherwise be filtered out.
    */
   bool bIncludePlayerStarts = false;
+
+  /** Any actor carrying one of these tags is skipped. */
+  TArray<FName> WorldCollisionActorIgnoreTags;
 
   /**
    * Optional caller-supplied predicate evaluated per actor. Return true to keep the actor, false to exclude it.
@@ -40,6 +71,18 @@ struct NEXUSCORE_API FNWorldActorFilterSettings
   TFunction<bool(const AActor*)> ExclusionFunction;
 };
 ```
+
+### The Exclusion Flags
+
+Every `bExclude…` flag is a plain skip, and they compose — an actor has to survive all of them. Two are less obvious than they look.
+
+**`bExcludeLandscapes` is not "should landscape count".** It removes the actor from the result, and a caller that *samples* a landscape rather than reading it — [`FNRawMeshFactory::FromLandscapesInBounds`](types/raw-mesh-factory.md#from-landscape) — has to find the actor in order to sample it. Leave it `false` whenever a sampling pass will run, and refuse the geometry at the gather site instead. This is exactly what World Assembly's [`Include Landscapes`](../../world-assembly/project-settings.md#terrain-is-opt-in) does, and it is why that flag behaves differently from its Mesh Terrain neighbour, which *is* enforced here.
+
+**`bExcludeTerrainAuthoring` is independent of `bExcludeMeshTerrains`,** deliberately. Authoring apparatus is not geometry under either answer to that flag — see [Terrain Authoring Apparatus](#terrain-authoring-apparatus) for why a modifier's bounds make it actively harmful to include.
+
+`bExcludeMeshTerrains` matches on the **actor**, not merely its primitives, so a section still waiting on the collision component Mesh Partition attaches in a later pass is excluded too. Matching on primitives alone would let a half-built section through.
+
+`WorldCollisionActorIgnoreTags` is a tag denylist applied on top of everything above; an actor carrying any of them is skipped.
 
 ## Methods
 
@@ -76,7 +119,7 @@ Collect every actor in a world that satisfies the supplied filter settings. Null
  * @return The set of actors that survived all filtering checks, in iteration order.
  * @note Null and pending-kill actors are always skipped. APlayerStart actors are short-circuited into the result when
  *       bIncludePlayerStarts is set, bypassing every other filter. Otherwise, an actor is kept only when it passes
- *       the editor-only and collision-enabled checks and (when set) the ExclusionFunction predicate.
+ *       every bExclude flag the settings raise and (when set) the ExclusionFunction predicate.
  */
 static TArray<AActor*> GetWorldActors(const UWorld* World, const FNWorldActorFilterSettings& Settings);
 ```

@@ -9,7 +9,7 @@ import TypeDetails from '@site/src/components/TypeDetails';
 
 <TypeDetails icon="native-class" base="class" type="FNSelectionLockMenu" typeExtra="" headerFile="NexusToolingEditor/Public/SelectionLock/NSelectionLockMenu.h" />
 
-Static class that registers and unregisters the **Lock Selection** entry on the actor context menu via `UToolMenus`, driving [FNSelectionLock](selection-lock.md) across the current level editor selection.
+Static class that registers and unregisters the **Lock Selection** entry on the actor context menu via `UToolMenus`, driving [FNSelectionLock](selection-lock-state.md) across the current level editor selection.
 
 It extends `LevelEditor.ActorContextMenu`. The Outliner's own context menu is registered as a menu derived from that one, so a single extension puts the entry on both an Outliner row right-click and a viewport right-click. The entry is a check item: it reads back the current lock state as well as setting it, and greys out when nothing in the selection can hold a lock.
 

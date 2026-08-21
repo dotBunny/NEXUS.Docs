@@ -45,6 +45,19 @@ See [Performance](enhancements/performance.md).
 | :-- | :-- | :-- | :-- |
 | `Duration` | `float` | How long the [Leak Check](debuggers/leak-check.md) runs, in seconds. | `30.0` |
 
+### Quick HighRes Screenshot
+
+One keypress captures the active viewport at a multiple of its own size and writes it to `Saved/Screenshots`. See [Quick HighRes Screenshot](enhancements/quick-highres-screenshot.md) for the workflow.
+
+| Setting | Type | Description | Default |
+| :-- | :-- | :-- | :-- |
+| `Enabled` | `bool` | Whether the command and its <kbd>Alt</kbd>+<kbd>F9</kbd> chord are registered. **Requires an editor restart.** | `false` |
+| `Multiplier` | `float` | How much larger than the viewport the capture is taken. Clamped to `0.5`–`5.0`; the slider offers `1.0`–`5.0`. | `2.0` |
+
+`Multiplier` is read at capture time rather than cached, so an edit takes effect on the very next keypress. Below `1.0` downscales instead of enlarging. A multiplier producing an image wider than the GPU's maximum texture dimension is rejected by the engine with a warning rather than crashing.
+
+`Enabled` is marked `ConfigRestartRequired` because registration happens once at post-engine-init. Leaving the command unregistered is the point: it keeps the entry out of `Editor Preferences > Keyboard Shortcuts` and leaves <kbd>Alt</kbd>+<kbd>F9</kbd> free for something else. It is per-user rather than per-project because what it costs a developer who does not want it is a keybinding, and keybindings are a personal matter.
+
 ### Visualizers — Distribution
 
 Colors and line quality for the distribution visualizers drawn in the viewport — in practice the [Actor Pool Spawner Component](../actor-pools/types/actor-pool-spawner-component.md)'s radius, sphere, and box gizmos, which are the only consumers today. Defaults shown as sRGB.

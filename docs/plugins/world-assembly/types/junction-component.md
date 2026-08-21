@@ -319,7 +319,7 @@ Junction data is exposed to PCG through two nodes, both under the **NEXUS** cate
 | `NEXUS \| Get Junction Data` | `UNGetJunctionDataSettings` | A param set carrying a `ComponentReference` attribute (soft object paths to junction components). Shaped by `FNGetJunctionDataParams`. | One point per successfully resolved junction. |
 | `NEXUS \| Get All Junction Data` | `UNGetAllJunctionDataSettings` | None. | One point per junction currently registered with the World Assembly registry. |
 
-Both follow the same settings/element split as the other [Elements](elements/index.mdx) — `FNGetJunctionDataElement` and `FNGetAllJunctionDataElement` are the executors. They are documented here rather than alongside the others because what they emit is a property of the junction, not of the node.
+Both follow the same settings/element split as the framework's other [PCG Elements](../../core/types/pcg/elements/index.mdx) — `FNGetJunctionDataElement` and `FNGetAllJunctionDataElement` are the executors. They stay in World Assembly, and are documented here rather than alongside the others, because what they emit is a property of the junction rather than of the node.
 
 Both output on a **Junctions** pin, and both emit points in the same shape:
 

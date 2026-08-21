@@ -72,11 +72,11 @@ static UBlueprint* CreateBlueprint(const FString& InPath, const TSubclassOf<UObj
 /** Returns the active editor viewport's client. */
 FORCEINLINE static FEditorViewportClient* GetActiveViewportClient();
 
-/** Returns the current editor level (nullptr while PIE is active). */
-FORCEINLINE static ULevel* GetCurrentLevel();
+/** Returns the world the user is editing (nullptr while PIE is active or no map is loaded). */
+static UWorld* GetCurrentWorld();
 
-/** Returns the world that owns the current editor level. */
-FORCEINLINE static UWorld* GetCurrentWorld();
+/** Returns the current level of the world the user is editing (same nullptr cases). */
+static ULevel* GetCurrentLevel();
 
 /** Tests whether World has never been saved (new map or in-memory only). */
 FORCEINLINE static bool IsUnsavedWorld(const UWorld* World);

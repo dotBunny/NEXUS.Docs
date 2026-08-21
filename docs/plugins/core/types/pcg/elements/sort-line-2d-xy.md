@@ -7,7 +7,7 @@ import TypeDetails from '@site/src/components/TypeDetails';
 
 # Sort Line 2D (XY)
 
-<TypeDetails icon="ue-object" base="UPCGSettings" type="UNSortLine2DXYSettings" typeExtra=" + FNSortLine2DXYElement" headerFile="NexusWorldAssembly/Public/Elements/NSortLine2DXYElement.h" />
+<TypeDetails icon="ue-object" base="UPCGSettings" type="UNSortLine2DXYSettings" typeExtra=" + FNSortLine2DXYElement" headerFile="NexusCore/Public/PCG/Elements/NSortLine2DXYElement.h" />
 
 **`NEXUS | Sort Line 2D (XY)`** — the substantial node in the [Elements](index.mdx) set. It takes an unordered point cloud that *forms* a line and turns it into a line: points in traversal order, each one labelled with which way the line turns there, which way it faces, and which run of wall it belongs to.
 

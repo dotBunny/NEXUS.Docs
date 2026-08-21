@@ -1,0 +1,20 @@
+---
+description: NEXUS' PCG surface — the graph nodes it adds, and the marker component one of them reads.
+sidebar_position: 5
+---
+
+import DocCardList from '@theme/DocCardList';
+
+# PCG
+
+Core's [PCG](https://dev.epicgames.com/documentation/en-us/unreal-engine/procedural-content-generation-framework-in-unreal-engine) surface: a set of graph [Elements](elements/index.mdx) under the **NEXUS** category, and the [Target Point Component](target-point-component.md) marker that one of them reads back out of a level.
+
+These live in Core rather than in the plugin that first needed them. Point-shaping is not a World Assembly concern — a node that finds the border of a grid is as useful to a blockout pass or a prop scatter as it is to a floorplan — so `NexusCore` takes the `PCG` plugin dependency and every NEXUS plugin gets the nodes for free.
+
+:::note
+
+`NexusCore.uplugin` enables Epic's `PCG` plugin, so these nodes are present in any project with NEXUS installed. Mirrors `NexusCore/Public/PCG/`.
+
+:::
+
+<DocCardList />

@@ -31,6 +31,12 @@ A locked actor:
 
 Those last three are deliberate consequences of how the lock works: it removes the actor from the viewport's hit-proxy pass, which is the same information the renderer uses to draw selection and hover highlights. Marquee selection is geometry-based and never consults hit proxies, so it is unaffected.
 
+:::warning Nanite meshes cannot be locked
+
+Nanite resolves hit proxies through its own pass, reading a per-material hit-proxy table rather than the mesh batches the lock's flag gates — so a locked Nanite mesh still resolves a hit proxy and still selects on click. The column and menu tooltips say so, rather than letting the padlock imply otherwise.
+
+:::
+
 :::note
 
 Selection Lock is unrelated to the **Lock Actor Movement** toggle in the Details panel's transform section. That one prevents an actor from being moved; this one prevents it from being picked. They can be used together.
@@ -54,5 +60,6 @@ Locking or unlocking an actor dirties its package, which under **World Partition
 A few things worth knowing:
 
 - **Duplicating a locked actor produces an unlocked one.** The metadata is keyed to the original.
-- **The toggle is not undoable.** Package metadata is not part of the transaction system, so <kbd>Ctrl</kbd>+<kbd>Z</kbd> will not restore a lock you just cleared.
+- **The toggle is not undoable.** Package metadata is not part of the transaction system, so <kbd>Ctrl</kbd>+<kbd>Z</kbd> will not restore a lock you just cleared. Undo will not *strip* a lock either — it is re-asserted from metadata afterwards.
+- **Locks survive a construction-script rerun.** Moving a Blueprint actor or editing one of its properties rebuilds its components; the lock is put back. See [Re-Application](../editor-types/selection-lock/selection-lock-state.md#re-application).
 - Actors with no primitive components cannot be locked — there is no geometry to click in the first place, so the column leaves those rows blank.

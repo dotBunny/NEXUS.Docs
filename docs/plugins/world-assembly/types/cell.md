@@ -55,8 +55,8 @@ The `UNCellRootComponent` represents the data which is going to get mirrored int
 | Calculate On Save | `bool` | Should the bounds of the cell be calculated / updated on save. | `true` |
 | Include Non Colliding | `bool` | Include non-colliding `AActors` in bounds calculations. | `false` |
 | Include Editor Only | `bool` | Include `AActors` flagged as `EditorOnly` in bounds calculations. | `false` |
-| Include Landscapes | `bool` | Landscapes contribute to the bounds. See [Terrain Is Two Flags](#terrain-is-two-flags). | `true` |
-| Include Mesh Terrains | `bool` | Mesh Terrain sections contribute to the bounds, **even though they are transient**. | `true` |
+| Include Landscapes (EXPERIMENTAL) | `bool` | Landscapes contribute to the bounds. See [Terrain Is Two Flags](#terrain-is-two-flags). | `false` |
+| Include Mesh Terrains (EXPERIMENTAL) | `bool` | Mesh Terrain sections contribute to the bounds, **even though they are transient**. | `false` |
 | Actor Ignore Tags | `TArray<FName>` | `AActor`'s with these tags will be ignored during bounds calculations. | `NCell_Ignore`, `NCell_BoundsIgnore` |
 
 ### Rotation Constraints
@@ -80,8 +80,8 @@ The cell exposes a dual-interval `FNRotationConstraints` set. The _matching_ int
 | Allow Non Convex | `bool` | Allow the hull to be non-convex; creating a complex collision mesh. There is a **performance cost** to using non-convex meshes inside of an assembly operation, choose wisely. | `false` |
 | Include Non Colliding | `bool` | Include non-colliding `AActors` in hull calculations. | `false` |
 | Include Editor Only | `bool` | Include `AActors` flagged as `EditorOnly` in hull calculations. | `false` |
-| Include Landscapes | `bool` | Landscapes contribute to the hull. See [Terrain Is Two Flags](#terrain-is-two-flags). | `true` |
-| Include Mesh Terrains | `bool` | Mesh Terrain sections contribute to the hull, **even though they are transient**. Without it a cell whose floor is a Mesh Terrain gets a hull with no floor in it, and the assembly penetration tests that consume that hull let other cells sink through it. | `true` |
+| Include Landscapes (EXPERIMENTAL) | `bool` | Landscapes contribute to the hull. See [Terrain Is Two Flags](#terrain-is-two-flags). | `false` |
+| Include Mesh Terrains (EXPERIMENTAL) | `bool` | Mesh Terrain sections contribute to the hull, **even though they are transient**. Without it a cell whose floor is a Mesh Terrain gets a hull with no floor in it, and the assembly penetration tests that consume that hull let other cells sink through it. | `false` |
 | Terrain Simplification Grid Size | `float` | Grid size, in centimetres, that terrain vertices are thinned onto before the hull is built. `0` keeps every one. See [Terrain Simplification](#terrain-simplification). | `100.f` |
 | Build Method | `ENullBuildMethod` | This is the method/version used by Chaos to create the convex hull initially. It is currently locked out due to some of the newer versions of the system producing n-gons. | `Original` |
 | Actor Ignore Tags | `TArray<FName>` | `AActor`'s with these tags will be ignored during hull calculations. | `NCell_Ignore`, `NCell_HullIgnore` |
@@ -104,16 +104,22 @@ This applies to **generation only**, and assumes the convex build that follows i
 | Calculate On Save | `bool` | Should the voxel data of the cell be calculated / updated on save. | `true` |
 | Include Non Colliding | `bool` | Include non-colliding `AActors` in voxel data calculations. | `false` |
 | Include Editor Only | `bool` | Include `AActors` flagged as `EditorOnly` in voxel data calculations. | `false` |
-| Include Landscapes | `bool` | Landscapes contribute to voxel occupancy. See [Terrain Is Two Flags](#terrain-is-two-flags). | `true` |
-| Include Mesh Terrains | `bool` | Mesh Terrain sections contribute to voxel occupancy. | `true` |
-
-Both voxel flags govern **two halves at once**: whether the terrain grows the voxel grid's extents, and whether the occupancy sweep can hit it. Excluded terrain joins the ignored-actor list the sweep is issued with, so it cannot register as occupied even though the physics world would otherwise report it.
+| Include Landscapes (EXPERIMENTAL) | `bool` | Landscapes contribute to voxel occupancy. See [Terrain Is Two Flags](#terrain-is-two-flags). | `false` |
+| Include Mesh Terrains (EXPERIMENTAL) | `bool` | Mesh Terrain sections contribute to voxel occupancy. | `false` |
 | Actor Ignore Tags | `TArray<FName>` | `AActor`'s with these tags will be ignored during voxel data calculations. | `NCell_Ignore`, `NCell_VoxelIgnore` |
 | Collision Channel | `ECollisionChannel` | The collision channel used when tracing for collisions to determine occupancy. | `WorldStatic` |
 
+Both voxel flags govern **two halves at once**: whether the terrain grows the voxel grid's extents, and whether the occupancy sweep can hit it. Excluded terrain joins the ignored-actor list the sweep is issued with, so it cannot register as occupied even though the physics world would otherwise report it.
+
 ### Terrain Is Two Flags
 
-Each of the three calculations carries **both** `Include Landscapes` and `Include Mesh Terrains`, each on by default. They are separate because the two are different kinds of actor with different reasons to be refused.
+Each of the three calculations carries **both** `Include Landscapes` and `Include Mesh Terrains`. They are separate because the two are different kinds of actor with different reasons to be refused.
+
+:::warning Experimental, and off by default
+
+Terrain support is early. Both flags default to **off** on all three calculations, and turning one on here is only half of it — the [World Collisions](../project-settings.md#terrain-is-opt-in) project settings carry their own `Include Landscapes` and `Include Mesh Terrains`, also off by default. The cell flags decide whether terrain shapes *this cell*; the project flags decide whether terrain exists in the world representation an assembly routes around. Enable the pair that matches what you are trying to affect.
+
+:::
 
 | | Landscape | Mesh Terrain |
 | :-- | :-- | :-- |

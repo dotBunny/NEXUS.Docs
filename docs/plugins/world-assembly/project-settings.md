@@ -49,6 +49,8 @@ The panel is taller than one screen, so the remaining groups are captured under 
 | `World Collisions > Actor Ignore Tags` | Additional `FName` tags to query for when ignoring actors from world collision detection. Supplements the [`NWorldCollision_Ignore` markup tag](tagging.md#world-collision-markup-tags). | `(empty)` |
 | `World Collisions > Exclude Non-Collision Enabled Actors` | Do not include actors that have their collision turned off when capturing world collision. | `true` |
 | `World Collisions > Include Player Starts` | Player start positions should be considered (avoided) when capturing world collision. | `true` |
+| `World Collisions > Include Landscapes (EXPERIMENTAL)` | Landscapes are sampled into the world collision representation. See [Terrain Is Opt-In](#terrain-is-opt-in). | `false` |
+| `World Collisions > Include Mesh Terrains (EXPERIMENTAL)` | Mesh Terrain sections contribute to the world collision representation. See [Terrain Is Opt-In](#terrain-is-opt-in). | `false` |
 | `World Collisions > Landscape Sample Spacing` | How far apart to sample a landscape when reconstructing it as world collision, in centimetres. `0` excludes landscape from world collision entirely. See [Landscape Is Sampled Rather Than Read](#landscape-is-sampled-rather-than-read). | `100.f` |
 | `Tagging > Context Tags` | Default `Context Tags` provided to every Assembly Operation. | `(empty)` |
 | `Tagging > Starting Counters` | Default `Tag Counters` provided to every Assembly Operation. | `(empty)` |
@@ -58,13 +60,27 @@ The panel is taller than one screen, so the remaining groups are captured under 
 | `Spawning > Delayed Junction Spawning` | Should time-slicing be used when spawning junction fillers. | `true` |
 | `Spawning > Junction Time Slice` | Frame-time goal limit when to split spawning junctions to the next frame task (in milliseconds). | `0.5f` |
 
+#### Terrain Is Opt-In
+
+Both terrain flags default to **off**, and terrain support is early enough to be labelled experimental in the editor. `Landscape Sample Spacing` below is how *finely* a landscape is sampled once `Include Landscapes` has let it in — it is not the switch.
+
+These are also not the only flags involved. The [cell generation settings](types/cell.md#terrain-is-two-flags) carry their own `Include Landscapes` and `Include Mesh Terrains` per calculation, likewise off by default. The two layers answer different questions: the settings here decide whether terrain exists in the **world representation an assembly routes around**, and the cell flags decide whether terrain shapes **the cell being authored**.
+
+The two are enforced at different points, which shows up in the editor:
+
+| | Landscape | Mesh Terrain |
+| :-- | :-- | :-- |
+| Where the flag is applied | At each gather site, **after** the actor filter — a landscape has to survive that filter for the sampling pass to find it at all. | By the **actor filter** itself. |
+| What a refusal means | The actor is still gathered; nothing is sampled from it. | The section is absent from the source actors entirely. |
+| Side effects of refusing | None beyond the missing geometry. | The section also stops highlighting in the [editor mode](editor-mode/world.md) and no longer triggers a collision-cache rebuild when edited. |
+
 #### Landscape Is Sampled Rather Than Read
 
 Every other actor contributes its **simple collision** to world collision, read straight off its body setup. A landscape has none — its collision is a Chaos heightfield behind no `UBodySetup` — so the geometry gather emits nothing for it, and an assembly would happily route cells straight through the ground.
 
 `Landscape Sample Spacing` is how that gap is closed: the surface is reconstructed by tracing downward on a grid of that spacing. Smaller reproduces the ground more closely and costs one downward trace per sample, which is why this is the one part of world collision whose cost scales with the size of the level rather than with the number of actors in it. Setting it to `0` leaves landscape out.
 
-This is the only terrain that needs it. A Mesh Terrain arrives as ordinary actors with real collision and is read like anything else — what it needs instead is the [Include Mesh Terrains](types/cell.md#terrain-is-two-flags) flag on the cell calculations, which buys it a transient exemption rather than a sampling pass.
+This is the only terrain that needs sampling. A Mesh Terrain arrives as ordinary actors with real collision and is read like anything else — what its own `Include Mesh Terrains` flags buy it, here and on the [cell calculations](types/cell.md#terrain-is-two-flags), is a transient exemption rather than a sampling pass.
 
 Terrain *authoring apparatus* — modifiers and helpers describing how a terrain is built — is filtered out of world collision entirely. A modifier's bounds are its region of influence, not a surface, so treating one as an obstacle would have assembly avoiding empty space.
 

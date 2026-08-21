@@ -81,4 +81,4 @@ Strongly-typed `constexpr FLinearColor` constants for the curated NEXUS palette 
 | `NexusDarkBlue`, `NexusLightBlue`, `NexusBlack`, `NexusPink` | Logo / brand colors |
 | `HalfBlack`, `QuarterBlack` | Translucent overlays |
 | `Transparent` | Fully transparent |
-| `SortElement`, `FilterElement`, `GetElement` | Tooling-specific accents |
+| `SortElement`, `FilterElement`, `GetElement` | Node title colors for the [PCG elements](pcg/index.mdx), grouped by what the node does |
