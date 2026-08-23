@@ -48,6 +48,9 @@ The `Color Palette` groups drive the gizmos and debug markers drawn in the viewp
 | :-- | :-- | :-- | :-- |
 | `Draw Unfilled Junctions` | `bool` | Draw debug markers for unfilled (unconnected) [junctions](types/junction-component.md) in the world preview. | `true` |
 | `Draw Junction Connectors` | `bool` | Draw the [routes](types/cell-junction-connection.md#path) the connector pass proved clear during the last operation — the center curve in the `Valid` junction color, the four socket-corner curves in `Connector Corners`. See [Drawing Connector Routes](#drawing-connector-routes). | `true` |
+| `Draw Bounds` | `bool` | Draw the wire box of a [cell](types/cell.md)'s bounds, in the `Bounds` palette color. Applies wherever a cell draws, not only while the [editor mode](editor-mode/index.mdx) is active. Also on the [Cell rail](editor-mode/cell.md#display). | `true` |
+| `Draw Hull` | `bool` | Draw a [cell](types/cell.md)'s convex hull — its collision mesh — in the `Hull` palette color. Same terms as `Draw Bounds`. | `true` |
+| `Draw Fill Bounds` | `bool` | Draw the grey box extruded from each [junction](types/junction-component.md) socket previewing the volume its [filler](types/cell-junction-filler.md) would occupy, sized and anchored by the junction's own `Fill Depth` and `Fill Depth Mode`. Same terms as `Draw Bounds`. | `true` |
 
 #### Drawing Connector Routes
 

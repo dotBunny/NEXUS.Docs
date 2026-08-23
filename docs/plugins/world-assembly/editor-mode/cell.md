@@ -1,5 +1,5 @@
 ---
-description: Authoring the focused cell — the bounds, hull and edge tools, the calculate commands, and the per-cell auto-calculate options.
+description: Authoring the focused cell — the bounds, hull and edge tools, the calculate commands, the per-cell auto-calculate options, and what the overlay draws.
 sidebar_position: 2
 ---
 
@@ -15,7 +15,7 @@ In the viewport:
 
 - The red wireframe cube is the cell bounds.
 - The blue wireframe is the collision/convex mesh.
-- The lego-like rectangles are the junctions, where this cell can connect to other [Cells](../types/cell.md) and [Bones](../types/bone-component.md).
+- The lego-like rectangles are the junctions, where this cell can connect to other [Cells](../types/cell.md) and [Bones](../types/bone-component.md); the grey box extruded from each one is the volume its filler would occupy.
 
 ## Tools
 
@@ -95,6 +95,26 @@ Persistent settings rather than actions, rendered as checkboxes. Each maps to a 
 | **Allow Non-Convex Hull** | Allows a more complex collision mesh instead of an optimized convex hull. This adds a performance cost when evaluating penetration, since it becomes a complex calculation — `false` by default, use sparingly. |
 
 Each one switched off is reported in the panel's [warning footer](index.mdx#warnings) for as long as it stays off.
+
+## Display
+
+Which parts of the cell overlay get drawn — everything in the viewport list [above](#cell-rail), other than the junction rectangles themselves — as checkboxes below [Options](#options).
+
+| Option | Description |
+| :-- | :-- |
+| **Draw Bounds** | Draw the red wireframe cube of the cell's bounds. |
+| **Draw Hull** | Draw the blue wireframe of the collision/convex mesh. |
+| **Draw Fill Bounds** | Draw the grey box at each junction previewing the volume its filler would occupy. |
+
+They are ruled off from the Options above them because they persist somewhere else entirely. An Option is authored onto the `ANCellActor` and ships with the cell; these two are **per-user**, stored in `NexusUserSettings.ini` and mirrored in `Edit > Editor Preferences` under [World Assembly (User) > Debug](../user-settings.md#debug), so switching one off changes what you see and nothing that anyone else gets.
+
+They also hold wherever a cell draws, rather than only while this mode is open — a cell viewed with the World Assembly mode closed honours them too.
+
+:::note[Tool Handles Are Not Affected]
+
+Switching the hull off does not disarm the [Vertices](#vertices) or [Edges](#edges) tools, and switching bounds off does not disarm [Bounds](#bounds). A running tool draws its own handles, so it stays usable with the overlay geometry hidden.
+
+:::
 
 ## Voxel Data
 
