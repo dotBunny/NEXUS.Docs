@@ -87,6 +87,20 @@ A cell is considered "on the hot path" if it lies on *either* variant, and any j
 
 :::
 
+Every cell is additionally scored by how far it sits *from* the route, per variant, as `HotPathShortestScore` and `HotPathSequentialScore` on [Cell Assembly Data](types/cell-assembly-data.md#proximity) — `0` on the route, `1` one cell off it, and so on. That turns hot path membership into a falloff rather than a boolean, which is what you want for thinning decoration or encounters as the player strays from the critical path.
+
+#### `NEXUS.WorldAssembly.Flag.Important`
+
+Tagged cells seed the `ImportanceScore` on [Cell Assembly Data](types/cell-assembly-data.md#proximity): a flagged cell scores `0`, any cell directly connected to one scores `1`, cells connected to those score `2`, and so on outward. It is the same distance calculation the hot path scores use, taken from a different set of seeds.
+
+Unlike `Hotpath`, this tag does **not** influence routing at all — nothing about the graph changes because a cell carries it. It only marks a cell as a landmark worth measuring distance from, so cells nearby can react: raising encounter difficulty as a boss arena is approached, escalating ambient audio toward a landmark, or budgeting decoration around the places that matter.
+
+:::note
+
+Distance is counted in cells, and it crosses organ boundaries — a cell one [junction connector](types/cell-junction-connector.md) away from another organ's important cell scores `1`. With no cell anywhere in the assembly carrying the tag, every `ImportanceScore` stays at `UnreachableScore`.
+
+:::
+
 ### Pre-Made Groups
 
 These tags are here as example content, or first-usage type tags. They are automatically added to their respective `Tag Groups`, so you don't have to worry about adding them — they are just here to get you started.

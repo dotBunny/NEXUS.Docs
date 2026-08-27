@@ -36,7 +36,7 @@ The lifecycle is deliberately **two-phase**: construction *builds* the graph but
 
 `Cancel()` does not stop anything. It raises two flags and lets the stages find them:
 
-- The **task-graph context's** flag, polled by worker stages at their loop boundaries via `IsCancelled()`.
+- The **task-graph context's** flag, polled by worker stages at their loop boundaries via `IsCancelled()`. [`FNEvaluateGraphsTask`](tasks.md#graph-evaluation) polls it between its three passes as well as at entry, so a cancel arriving during a long hot path resolution stops the work before the passes after it are attempted.
 - The **spawn context's** `bCancelled`, which stops proxy spawning at the next time-slice boundary.
 
 Every task in the graph still runs and still completes; a cancelled one just returns early. That is what keeps the dependency chain intact — a task graph whose prerequisites never complete would leave `FNAssemblyFinalizeTask` waiting forever.
@@ -91,6 +91,8 @@ What it accumulates, and how each entry is made safe, is the useful thing to kno
 | `CreatedProxies` | The spawn pass only | **Nothing** — it is a game-thread stage. |
 
 `JunctionConnections` is the one that looks wrong and is not. It is written by `FNConnectJunctionsTask` and read by `FNSpawnJunctionConnectorsTask`; both are single tasks, and the graph orders the second strictly after the first, so there is no concurrent access to guard. Contrast `Graphs`, which many organ builders write at once and which therefore takes a lock.
+
+The same reasoning covers the flags, scores and link details [`FNEvaluateGraphsTask`](tasks.md#graph-evaluation) writes onto the nodes inside `Graphs`. It is a single task, ordered strictly after every builder has finished and strictly before anything reads its output, so it is the only writer while it runs and needs no guard of its own — the lock on `TakeGraph` protects the array's growth, not the nodes it already holds.
 
 The context also carries the operation's settings and ticket — so no task has to reach back into the operation — and the path the run's report was written to.
 

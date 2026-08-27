@@ -245,6 +245,9 @@ The project-wide `Junction Default Filler` is a **soft** reference. On the first
 | bHotPathSequential | `bool` | Whether this junction joins two cells that *both* sit on the sequential hot path. |
 | bConnector | `bool` | Whether this junction was paired by the [connector pass](#connectors) rather than by two cells mating directly. `bConnected` is **also** true for these. |
 | Connector Identifier | `int32` | Identifier of the connector pairing this junction belongs to; `-1` when it is not connector-paired. |
+| Connected HotPath Shortest Score | `uint8` | The [proximity score](cell-assembly-data.md#proximity) of the cell on the **other** side, against the shortest-path hot path. |
+| Connected HotPath Sequential Score | `uint8` | The same, against the sequential hot path. |
+| Connected Importance Score | `uint8` | The same, against the nearest `Important`-flagged cell. |
 
 Both connector fields replicate with the cell.
 
@@ -257,6 +260,20 @@ Node identifiers are only unique **within a single assembly graph**, and a conne
 :::
 
 The two hot-path flags describe the **link**, not the cells — a junction is only flagged when the connection it forms is itself part of the hot path, which is what lets you decorate the route through a level rather than every room adjacent to it. See [Tagging](../tagging.md#nexusworldassemblyflaghotpath) for how the hot path is resolved, and [Is HotPath](world-assembly-library.md#is-hotpath) for the per-cell equivalents.
+
+### Which Way Does This Doorway Lead
+
+The three `Connected …Score` fields carry the far cell's scores across the junction, and they are the one thing a junction cannot work out for itself. Its own cell's scores are already reachable through the owning [Cell Level Instance](cell-level-instance.md), but they say nothing about *which* of that cell's doorways leads inward — and the far cell frequently has not streamed in when `INCellJunctionBeginPlay` fires, so resolving it live is not an option.
+
+Compare against the owning cell's score to get direction: **lower leads toward** the route or the landmark, higher leads away. [`Does Junction Lead Toward HotPath`](world-assembly-library.md#does-junction-lead-toward-hotpath) and `Does Junction Lead Toward Important` do exactly that comparison, and are what wayfinding — signage, directional lighting, breadcrumbs, AI hints — should read.
+
+:::note[`Connected …Score == 0` is a different question to `bHotPathShortest`]
+
+`IsConnectedOnHotPathShortest()` asks whether the cell **across** the junction is on the route. `bHotPathShortest` asks whether **both** cells are, so the junction is a link *along* it. The first being true while the second is false is precisely a doorway leading **onto** the route from off it.
+
+The accessors are derived rather than stored: proximity scoring seeds `0` from exactly the cells carrying each flag, and nothing else can reach `0`, so the equality holds by construction. An unconnected junction, or one reaching a bone, keeps `UnreachableScore` and so reports false.
+
+:::
 
 Alongside `LinkDetails`, two more runtime values are exposed read-only under **Assembly Operation**:
 

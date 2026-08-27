@@ -36,6 +36,28 @@ These flags describe the **cell**. The equivalent flags on [Cell Link Details](#
 
 :::
 
+## Proximity
+
+| Field | Type | Meaning |
+| :-- | :-- | :-- |
+| `HotPathShortestScore` | `uint8` | Cells between this one and the nearest cell on the shortest-path hot path. |
+| `HotPathSequentialScore` | `uint8` | The same, measured against the sequential hot path. |
+| `ImportanceScore` | `uint8` | Cells between this one and the nearest cell tagged `NEXUS.WorldAssembly.Flag.Important`. |
+
+Where the flags above answer *whether*, these answer *how far*. A cell that is itself a seed scores `0`, one directly connected to a seed scores `1`, one connected to that scores `2`, and so on outward. So a hot path score of `0` is exactly the corresponding flag being `true`, and the scores turn a binary "on the route or not" into a falloff you can drive decoration, encounter density, or lighting intensity with.
+
+Distance is counted in **cells**, not in graph nodes: Bones and null terminators sit in the graph too, and are stepped through without adding to the count. It is also counted across the whole operation rather than one organ at a time, because the [junction connector](cell-junction-connector.md) pass links cells belonging to different graphs — a cell one connector away from a neighbouring organ's important cell scores `1`, the same as if they shared a wall.
+
+The two hot path variants are scored separately rather than against the union of the flags, because they disagree: wherever the sequential chain takes a shortcut the shortest spokes do not, a cell can sit on one variant and one hop off the other.
+
+:::note
+
+`UnreachableScore` (`255`) means no seed of that kind reaches the cell — which is *every* cell when nothing in the assembly carries the tag in question, mirroring how the flags all stay `false` with no hot path. It doubles as the saturation point: a cell further than 254 away is reported at `255` rather than wrapping. The scores are bytes because they ride replication on every generated cell, and the difference between "very far" and "disconnected" does not survive contact with anything that consumes a proximity falloff.
+
+:::
+
+Read them through [Cell Level Instance](cell-level-instance.md) or the [World Assembly Library](world-assembly-library.md), which widens them to `int32` for Blueprint and adds `Is Near HotPath` / `Is Near Important` predicates over the same values.
+
 ## Tag State
 
 | Field | Type | Purpose |

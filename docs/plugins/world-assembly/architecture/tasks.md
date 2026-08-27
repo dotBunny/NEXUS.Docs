@@ -18,6 +18,7 @@ The single most important property of this set is **which thread each job runs o
 | `FNOrganGraphBuilderTask` | Background worker | Builds the assembly graph for one organ. |
 | `FNProcessPassTask` | Any worker | Promotes a pass's graphs to the top-level context and publishes their hulls. |
 | `FNConnectJunctionsTask` | Any worker | Pairs unmatched junctions and routes a collision-free path between each pair. |
+| `FNEvaluateGraphsTask` | Any worker | Resolves hot paths, scores cell proximity, and generates per-junction link details. |
 | `FNCreateSpawnsTask` | Any worker | Flattens per-organ graphs into a single cell-node spawn list. |
 | `FNSpawnCellProxiesTask` | **Game thread** | Spawns [Cell Proxy](../types/cell-proxy.md) actors, time-sliced. |
 | `FNSpawnJunctionConnectorsTask` | **Game thread** | Hands accepted junction pairings to the [subsystem](../types/world-assembly-subsystem.md#junction-connectors). |
@@ -85,7 +86,7 @@ The consequence worth internalising: a cancelled operation still runs its remain
 
 The graph builders only ever grow a **new** cell off an open junction. Anything left unmatched when they finish is capped with a [filler](../types/cell-junction-filler.md) — even when another cell's opening is sitting a few metres away facing straight at it.
 
-`FNConnectJunctionsTask` is what closes that gap. It runs **once**, after every pass has collected its graphs and *before* `FNCreateSpawnsTask` generates link details — which is precisely what lets an accepted pairing simply **link the two junctions** and have the existing link-detail generation carry the result to runtime.
+`FNConnectJunctionsTask` is what closes that gap. It runs **once**, after every pass has collected its graphs and *before* `FNEvaluateGraphsTask` generates link details — which is precisely what lets an accepted pairing simply **link the two junctions** and have the existing link-detail generation carry the result to runtime.
 
 ### What It Does
 
@@ -123,6 +124,26 @@ A socket sits **on** its cell's hull surface, so a probe there always intersects
 
 It hands each pairing to the [World Assembly Subsystem](../types/world-assembly-subsystem.md#junction-connectors) and warms the project-wide default connector class so it is resident when the pairings are built. The junctions then report in as they begin play, and the subsystem builds each pairing once both ends have arrived.
 
+## Graph Evaluation
+
+`FNEvaluateGraphsTask` derives everything a cell carries to runtime that is a property of the **graph** rather than of the spawn. It sits between connecting and flattening, and runs three passes in a fixed order:
+
+| Pass | Produces | Cost |
+| :-- | :-- | :-- |
+| Hot path | `bHotPathShortest` / `bHotPathSequential` on each cell | A search per goal, per variant — grows with goal count as well as graph size |
+| Proximity scoring | `HotPathShortestScore`, `HotPathSequentialScore`, `ImportanceScore` | Three sweeps for the whole operation, regardless of goal count |
+| Link details | One [`FNCellLinkDetails`](../types/junction-component.md#link-details) per junction | A single linear walk |
+
+Each completes across **every** graph before the next begins — see [Ordering](#ordering) for why that is not optional — and each is timed separately in the [analytics](analytics.md), because hot path resolution is very nearly always what dominates and an aggregate hides that.
+
+The stage takes only the [task-graph context](task-graph.md#task-graph-context). It does not touch the spawn context at all, including for cancellation, which it reads from `IsCancelled()` on the context it already holds. It polls that between passes as well as at entry, so a cancel arriving during a long hot path resolution stops the work before scoring and link details are attempted.
+
+:::note[Why this is its own stage]
+
+These three passes lived inside `FNCreateSpawnsTask` until the proximity scores were added. Two things were wrong with that. The ordering constraint above was enforced only by two loops happening to sit in a particular order inside one function, rather than by the graph. And the stage's timer covered both the evaluation and the flattening, so the cost of hot path resolution — by far the most expensive thing in the pair — was invisible.
+
+:::
+
 ## Ordering
 
 The dependency chain is linear at the level of stages, even though organ builds fan out within one and passes repeat:
@@ -151,17 +172,19 @@ flowchart TD
   end
 
   ConnectJunctions["FNConnectJunctionsTask<br/><i>Step 3 · Pair &amp; route unmatched junctions</i>"]:::anyThread
-  CreateSpawns["FNCreateSpawnsTask<br/><i>Step 4 · Flatten graphs into spawn context</i>"]:::anyThread
-  SpawnProxies["FNSpawnCellProxiesTask<br/><i>Step 5 · Time-sliced proxy spawning</i>"]:::gameThread
-  SpawnConnectors["FNSpawnJunctionConnectorsTask<br/><i>Step 5 · Register pairings with subsystem</i>"]:::gameThread
+  EvaluateGraphs["FNEvaluateGraphsTask<br/><i>Step 4 · Hot paths, proximity scores, link details</i>"]:::anyThread
+  CreateSpawns["FNCreateSpawnsTask<br/><i>Step 5 · Flatten graphs into spawn context</i>"]:::anyThread
+  SpawnProxies["FNSpawnCellProxiesTask<br/><i>Step 6 · Time-sliced proxy spawning</i>"]:::gameThread
+  SpawnConnectors["FNSpawnJunctionConnectorsTask<br/><i>Step 6 · Register pairings with subsystem</i>"]:::gameThread
   SpawnGate(["SpawnCellProxiesTaskCompleted<br/><i>graph-event gate</i>"]):::gate
-  Finalize["FNAssemblyFinalizeTask<br/><i>Step 6 · Finalize &amp; analytics</i>"]:::gameThread
+  Finalize["FNAssemblyFinalizeTask<br/><i>Step 7 · Finalize &amp; analytics</i>"]:::gameThread
 
   CreateVW --> ProcessVW
   ProcessVW --> Organ0
   ProcPass0 --> OrganN
   ProcPassN --> ConnectJunctions
-  ConnectJunctions --> CreateSpawns
+  ConnectJunctions --> EvaluateGraphs
+  EvaluateGraphs --> CreateSpawns
   CreateSpawns --> SpawnProxies
   CreateSpawns --> SpawnConnectors
   SpawnProxies --> SpawnGate
@@ -173,7 +196,7 @@ Node colour follows the thread column above — <span style={{color:'#3b6ea5',fo
 
 Three details the shape alone does not show:
 
-- **Hot paths are resolved before any link details are generated.** `FNCreateSpawnsTask` now resolves *every* graph's hot path before generating link details for any of them, rather than interleaving the two per graph. A connector link can reach a cell in **another graph**, and the previous ordering baked in that neighbour's hot-path flags before they had been computed.
+- **Each evaluation pass completes for every graph before the next begins.** `FNEvaluateGraphsTask` resolves *every* graph's hot path, then scores *every* cell's proximity, then generates link details — rather than interleaving the three per graph. A connector link can reach a cell in **another graph**, so interleaving would bake in a neighbour's hot-path flags before they had been computed, and would report a cell one connector from a neighbouring organ's landmark as unreachable. That whole-operation ordering is why the three sit in one task rather than being folded into the per-graph work upstream.
 - **Passes chain on the collector, not the builders.** Each pass's organ builders depend on the *previous* pass's `FNProcessPassTask` rather than on its builders, so that pass's collision data is fully propagated into the shared `FNVirtualWorldContext` before any builder reads `NodeCollisionMeshes`.
 - **A graph event gates finalize, not the spawn task.** `SpawnCellProxiesTaskCompleted` is a manually-fired `FGraphEvent` that `FNSpawnCellProxiesTask` triggers once its time-sliced work drains. That event is what releases `FNAssemblyFinalizeTask` — the dispatcher task completing is not sufficient on its own. `FNCreateSpawnsTask` is separately a finalizer prerequisite.
 

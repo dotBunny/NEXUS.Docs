@@ -65,6 +65,18 @@ Strips known-leak entries from a diff in place so only real churn remains.
 static void RemoveKnownLeaks(FNObjectSnapshotDiff& Diff);
 ```
 
+Two kinds of entry are dropped. The first is a short list of named engine singletons that appear once and never go away — `/Script/Engine`, `/Script/InputCore`, `ChaosEventRelay`, `NiagaraComponentPool`, and the `UBodySetup` a `UBoxComponent` lazily creates in the transient package the first time one registers with physics.
+
+The second is anything carrying `RF_WasLoaded` — an object the engine serialised off disk. A test that touches an asset for the first time pays to load it, and the asset then stays resident for the rest of the editor session by design: `RF_Standalone` is exactly the flag that survives the garbage collection pass [`WorldTestChecked`](test-utils.md) runs before it compares snapshots. The most common source is a component whose `OnRegister` pulls in its editor icon via `N_WORLD_ICON_ON_REGISTER`, which drags in the texture, its package, and the texture's import metadata.
+
+:::note[Loaded assets give themselves away by being order-dependent]
+
+If an asset really were leaking, every test that touched it would report it. Instead only the *first* one does — every test after it passes, because the package is already resident. That asymmetry is the signature of a first-touch load, and no real leak has it.
+
+The rule only ever covers the asset and its package. Objects a test allocates — spawned actors, `NewObject`'d components, the body setups above — are never loaded, so they never carry the flag and stay reportable.
+
+:::
+
 ### Persistence Helpers
 
 Coarse helpers that mirror the [`N.Developer.*` console commands](../../console-commands.md) — the on-disk snapshot is shared with that workflow.

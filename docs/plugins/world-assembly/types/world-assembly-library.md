@@ -159,6 +159,94 @@ static bool IsHotPathSequential(ANCellLevelInstance* LevelInstance);
 
 Likewise, an `Is HotPath (Sequential) ?` exec-pin variant (`IsHotPathSequentialExec`) is provided for branching directly in Blueprint.
 
+### Get HotPath Score
+
+How many cells separate the supplied cell from the hot path, taking whichever variant runs nearer. `0` means the cell is on the hot path — this is the numeric counterpart of `Is HotPath`, true exactly when this returns `0`. See [Cell Assembly Data](cell-assembly-data.md#proximity) for how the distance is counted.
+
+```cpp
+/**
+ * @param LevelInstance The cell level instance to query.
+ * @return How many cells separate this one from the hot path, taking whichever variant runs nearer.
+ */
+UFUNCTION(BlueprintCallable, Category = "NEXUS|WorldAssembly", DisplayName = "Get HotPath Score")
+static int32 GetHotPathScore(ANCellLevelInstance* LevelInstance);
+```
+
+`Get HotPath Score (Shortest)` and `Get HotPath Score (Sequential)` return the same measurement against one variant only, for when the two disagree and you care which.
+
+:::note
+
+The scores are stored as bytes but returned as `int32`, because Blueprint's `Byte` type wraps on arithmetic and these values are usually compared against a threshold or scaled into a falloff. An invalid `LevelInstance` returns `UnreachableScore` (`255`) rather than `0`, so a null cell reads as "nowhere near" instead of "on the route".
+
+:::
+
+### Get Importance Score
+
+How many cells separate the supplied cell from the nearest one tagged `NEXUS.WorldAssembly.Flag.Important`. `0` means the cell carries the tag itself. See [Tagging](../tagging.md#nexusworldassemblyflagimportant).
+
+```cpp
+/**
+ * @param LevelInstance The cell level instance to query.
+ * @return How many cells separate this one from the nearest Important-flagged cell.
+ */
+UFUNCTION(BlueprintCallable, Category = "NEXUS|WorldAssembly", DisplayName = "Get Importance Score")
+static int32 GetImportanceScore(ANCellLevelInstance* LevelInstance);
+```
+
+### Is Near HotPath
+
+Thresholded form of `Get HotPath Score`, for the common case of asking "am I within a couple of rooms of the route" without wiring up a comparison node. `MaximumScore` is how many cells away still counts as near; pass `0` and this is `Is HotPath`.
+
+```cpp
+/**
+ * @param LevelInstance The cell level instance to query.
+ * @param MaximumScore How many cells away still counts as near.
+ * @return true if this cell is within MaximumScore cells of the hot path.
+ */
+UFUNCTION(BlueprintCallable, Category = "NEXUS|WorldAssembly", DisplayName = "Is Near HotPath")
+static bool IsNearHotPath(ANCellLevelInstance* LevelInstance, const int32 MaximumScore = 1);
+```
+
+An `Is Near HotPath ?` exec-pin variant (`IsNearHotPathExec`) is provided for branching directly in Blueprint.
+
+### Is Near Important
+
+The same threshold applied to `Get Importance Score`. Pass `0` to ask whether the cell is itself flagged `Important`.
+
+```cpp
+/**
+ * @param LevelInstance The cell level instance to query.
+ * @param MaximumScore How many cells away still counts as near.
+ * @return true if this cell is within MaximumScore cells of an Important-flagged cell.
+ */
+UFUNCTION(BlueprintCallable, Category = "NEXUS|WorldAssembly", DisplayName = "Is Near Important")
+static bool IsNearImportant(ANCellLevelInstance* LevelInstance, const int32 MaximumScore = 1);
+```
+
+An `Is Near Important ?` exec-pin variant (`IsNearImportantExec`) is provided for branching directly in Blueprint.
+
+### Does Junction Lead Toward HotPath
+
+Whether the cell across a given junction sits **nearer** the hot path than the cell you are asking from — the doorway to take when heading for the route. Answered from the score baked onto the [link details](junction-component.md#link-details), so it works before the far cell has streamed in.
+
+```cpp
+/**
+ * @param LevelInstance The cell level instance to query.
+ * @param JunctionIdentifier The junction to test.
+ * @return true when the cell across that junction sits nearer the hot path than this one.
+ */
+UFUNCTION(BlueprintCallable, Category = "NEXUS|WorldAssembly", DisplayName = "Does Junction Lead Toward HotPath")
+static bool DoesJunctionLeadTowardHotPath(ANCellLevelInstance* LevelInstance, const int32 JunctionIdentifier);
+```
+
+`Does Junction Lead Toward Important` is the same test against the nearest `Important`-flagged cell. Both ship the usual exec-pin twins.
+
+:::note
+
+The comparison is strict, so a cell **already on** the route reports false in every direction rather than pointing at whichever neighbour happens to also be on it. An unconnected junction carries `UnreachableScore` and can only ever be false — which is what an opening onto nothing should report.
+
+:::
+
 ### Get Junction World Size
 
 Converts a [junction](junction-component.md)'s grid socket size into world units using the project's `Socket Size` / `Socket Depth` settings (see [Project Settings](../project-settings.md)).
@@ -366,6 +454,10 @@ Every boolean predicate in this library ships a twin node whose name gains a tra
 | `Is HotPath` | `Is HotPath ?` |
 | `Is HotPath (Shortest)` | `Is HotPath (Shortest) ?` |
 | `Is HotPath (Sequential)` | `Is HotPath (Sequential) ?` |
+| `Is Near HotPath` | `Is Near HotPath ?` |
+| `Is Near Important` | `Is Near Important ?` |
+| `Does Junction Lead Toward HotPath` | `Does Junction Lead Toward HotPath ?` |
+| `Does Junction Lead Toward Important` | `Does Junction Lead Toward Important ?` |
 | `Has Tag Counter` | `Has Tag Counter ?` |
 | `Has Context Tag(s)` | `Has Context Tag(s) ?` |
 | `Has Operation Context Cache` | `Has Operation Context Cache ?` |

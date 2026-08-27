@@ -44,6 +44,7 @@ Task-graph creation is the one that surprises people. It is measured because it 
 | `FNProcessPassAnalytics` | Which generation **phase** the task belonged to, plus how long the pass-collection step took to drain its inputs. |
 | `FNSpawnCellProxiesAnalytics` | Every cell template spawned during the pass, plus the wall-clock cost of the spawn step. |
 | `FNConnectJunctionsAnalytics` | What happened to every candidate pair the [junction-connector pass](tasks.md#junction-connecting) considered. See [Junction Connecting](#junction-connecting). |
+| `FNEvaluateGraphsAnalytics` | The [graph-evaluation stage](tasks.md#graph-evaluation), timed per pass rather than as a whole. See [Graph Evaluation](#graph-evaluation). |
 
 The organ record is the one worth reading first when a build is slow. Retry iterations are the signal that generation is *failing and re-rolling* rather than simply doing a lot of work — a graph that cannot satisfy its constraints regenerates, and the per-iteration add/reject counters show where candidates are dying.
 
@@ -69,6 +70,22 @@ Some builds bail out before a graph exists at all — no placeable starting cell
 The distinction is worth knowing when reading a report: "FAILED (got 0)" with a reason attached is a setup problem, while the same line without one is a constraint the generator genuinely could not satisfy.
 
 :::
+
+## Graph Evaluation
+
+`FNEvaluateGraphsAnalytics` times the [graph-evaluation stage's](tasks.md#graph-evaluation) three passes separately, because they do not scale alike and the aggregate hides which one is responsible.
+
+| Pass | Reported count | Scales with |
+| :-- | :-- | :-- |
+| Hot Path | Cells tagged `Hotpath` — the goals | Goal count **and** graph size |
+| Proximity Scoring | Cells tagged `Important` | Graph size only — three sweeps regardless of seed count |
+| Link Details | Cells walked | Graph size only |
+
+**Read the hot path duration against its goal count, not on its own.** It runs a breadth-first search per goal for the shortest variant plus a chained one per goal for the sequential variant, so it is very nearly always what dominates the stage, and a duration that looks alarming is often just a lot of goals.
+
+A goal count of zero means the assembly has no hot path at all, and every hot path score in it will read as unreachable — worth checking first when scores come back empty.
+
+Only the stage's own timer contributes to the operation total; the three sub-timers measure spans inside it and would double-count.
 
 ## Junction Connecting
 

@@ -32,6 +32,14 @@ The cell's [Cell Assembly Data](cell-assembly-data.md) is replicated on this act
 | `GetNodeIdentifier()` | The graph node this cell came from. |
 | `GetOperationTicket()` | The [operation](assembly-operation.md) ticket this instance belongs to. |
 | `GetCellLinkDetails(JunctionIdentifier)` | The connection state for one junction. |
+| `IsHotPath()` / `IsHotPathShortest()` / `IsHotPathSequential()` | Whether the cell lies on the hot path, on either variant or one specifically. |
+| `GetHotPathScore()` | How many cells separate this one from the hot path, taking whichever variant runs nearer — `0` exactly when `IsHotPath()` is true. |
+| `GetHotPathShortestScore()` / `GetHotPathSequentialScore()` | The same measurement against one variant only. |
+| `GetImportanceScore()` | How many cells separate this one from the nearest `Important`-flagged cell. |
+| `DoesJunctionLeadTowardHotPath(JunctionIdentifier)` | Whether the cell across that junction sits nearer the hot path than this one. |
+| `DoesJunctionLeadTowardImportant(JunctionIdentifier)` | The same, against the nearest `Important`-flagged cell. |
+
+The four score accessors return the stored `uint8` rather than widening it; see [Cell Assembly Data](cell-assembly-data.md#proximity) for how the distance is counted and what `UnreachableScore` means. The [World Assembly Library](world-assembly-library.md) wraps the same values for Blueprint as `int32`, and adds `Is Near HotPath` / `Is Near Important` threshold predicates.
 
 :::warning[Several accessors return mutable references]
 
