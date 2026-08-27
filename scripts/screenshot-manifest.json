@@ -179,22 +179,23 @@
       }
     },
     "/assets/images/docs/plugins/world-assembly/editor-mode/rail-cell.webp": {
-      "subject": "Cell category: the strip with Organ hidden, and the panel's tile, list, SELECTED ACTOR and QUICK OPTIONS groups",
+      "subject": "Cell rail: the vertical category strip with Cell selected, and the panel's Bounds/Vertices/Edges tools, calculate commands, SELECTED ACTOR, QUICK OPTIONS and the DISPLAY group (Draw Bounds, Draw Hull, Draw Fill Bounds)",
       "pages": [
         "plugins/world-assembly/editor-mode/cell",
         "plugins/world-assembly/editor-mode/index"
       ],
       "level": "/NexusWorldAssemblySamples/Cells/CELL_Simple_00",
-      "setup": "Activate World Assembly mode from the level-editor mode dropdown; the Cell category is auto-selected in a cell level.",
+      "setup": "Activate World Assembly mode via the level-editor mode dropdown; the Cell rail auto-selects in a cell level. Camera moved to empty space (z=80000, pitch 85) for a black viewport, cursor moved off the panel to clear hover. Cropped from a SlateInspector Screenshot of sp5 with a 20px margin around the measured strip+panel bounds.",
       "watch": [
         "WorldAssembly/Source/NexusWorldAssemblyEditor/Private/EdMode/NCellEdModeRail.cpp",
+        "WorldAssembly/Source/NexusWorldAssemblyEditor/Public/EdMode/NCellEdModeRail.h",
         "WorldAssembly/Source/NexusWorldAssemblyEditor/Private/NWorldAssemblyEditorCommands.cpp",
         "WorldAssembly/Source/NexusWorldAssemblyEditor/Private/Widgets/SNWorldAssemblyRail.cpp",
         "WorldAssembly/Source/NexusWorldAssemblyEditor/Private/Widgets/SNWorldAssemblyRailPanel.cpp"
       ],
       "captured": {
-        "sha": "bd4e345d1bac1b43929d4f3f2aa417aaf2cc10d9",
-        "date": "2026-08-12"
+        "sha": "853f69f18cfce37da25d1864d0f9def2b67f0c85",
+        "date": "2026-08-27"
       }
     },
     "/assets/images/docs/plugins/world-assembly/editor-mode/rail-junction.webp": {
@@ -247,17 +248,17 @@
       }
     },
     "/assets/images/docs/plugins/world-assembly/world-assembly-editor-preferences-user.webp": {
-      "subject": "Editor Preferences > World Assembly (User): the Color Palette swatches under Bones, Cell and Junctions, plus Debug, Notifications and Quick Assembly",
+      "subject": "Editor Preferences > NEXUS > World Assembly (User): the whole category — Color Palette (Bones, Cell, Junctions incl. Connector Corners), Debug (Draw Unfilled Junctions, Draw Junction Connectors, Draw Bounds, Draw Hull, Draw Fill Bounds), Notifications, Quick Assembly",
       "pages": [
         "plugins/world-assembly/user-settings"
       ],
-      "setup": "Edit > Editor Preferences > NEXUS > World Assembly (User). Expand every group including the three Color Palette sub-groups. Ed Mode Panel Position/Width are Config-only and never appear here.",
+      "setup": "Ctrl+Alt+E, then select NEXUS > World Assembly (User) in the tree (click the current row to focus, then Down arrow). Editor Preferences scopes the pane to the selected category, so it already ends where the category does. Collapse Connector Corners so every color row is uniform. Window sized to 1212x1045 logical for a ~931 logical pane; captured by ref on the pane's List node and cropped to the last content row.",
       "watch": [
         "WorldAssembly/Source/NexusWorldAssemblyEditor/Public/NWorldAssemblyEditorUserSettings.h"
       ],
       "captured": {
-        "sha": "bd4e345d1bac1b43929d4f3f2aa417aaf2cc10d9",
-        "date": "2026-08-12"
+        "sha": "853f69f18cfce37da25d1864d0f9def2b67f0c85",
+        "date": "2026-08-27"
       }
     },
     "/assets/images/docs/plugins/world-assembly/world-assembly-editor-preferences.webp": {

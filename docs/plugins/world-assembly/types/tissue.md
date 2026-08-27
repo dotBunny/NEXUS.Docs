@@ -75,10 +75,41 @@ Each row of the tissue's cell list is an `FNTissueEntry` — a cell reference pl
 | Minimum Node Distance | The minimum number of cell links away this cell must be to be used again. | `1` |
 | Minimum Node Depth | The minimum graph depth at which this cell may be used, as a 1-based node depth. The start cell is depth `1`, its direct neighbors depth `2`, etc. A value of `N` first allows the cell at depth `N`. (_`0` no constraint; `1` is the start cell and likewise unconstrained_) | `0`  |
 | Maximum Node Depth | The maximum graph depth at which this cell may still be used, as a 1-based node depth. A value of `N` allows the cell up to depth `N`; a value of `1` restricts it to the start cell only. (_`0` no constraint_) | `0` |
+| Use Minimum Floor | When enabled, this cell may not be placed anywhere its world bounds would reach below `Minimum Floor`. | `false` |
+| Minimum Floor | The lowest world-space Z, in world units, any part of this cell's bounds may occupy. **Absolute world height, not relative to the organ.** Shown while `Use Minimum Floor` is set. | `0.0` |
+| Use Maximum Ceiling | When enabled, this cell may not be placed anywhere its world bounds would reach above `Maximum Ceiling`. | `false` |
+| Maximum Ceiling | The highest world-space Z, in world units, any part of this cell's bounds may occupy. Absolute world height, as with `Minimum Floor`. Shown while `Use Maximum Ceiling` is set. | `0.0` |
 | Has Direction Constraint | When enabled, this cell may only be placed toward `Direction Constraint` relative to the Organ's directional reference point. | `false` |
 | Direction Constraint | The compass heading — measured from the Organ's directional reference point out to the candidate's placement — this cell is restricted to while `Has Direction Constraint` is set. The reference point is chosen per Organ by its [Direction Mode](organ-volume.md#direction-mode) (start bone, organ center, or dynamic centroid). Enforced within the project/operation Direction Tolerance (degrees ±) during cell filtering. | `North` |
 | Weighting | Relative weight for random selection during generation. | `1`|
 | Cell | A soft-object reference to the `UNCell` asset that will be consumed. | `n/a` |
+
+#### Height Constraints
+
+`Minimum Floor` and `Maximum Ceiling` restrict a cell to a vertical band of the world. They are the per-cell half of a pair — an [Organ](organ-volume.md#height-constraints) declares the same two limits for everything it places.
+
+**The two combine by narrowing.** Whichever floor sits *higher* is the one enforced, and whichever ceiling sits *lower*. A cell can therefore be stricter than its organ but can never escape it:
+
+| Organ | Cell | Enforced |
+| :-- | :-- | :-- |
+| Floor `0` | Floor `500` | `500` — the cell is stricter |
+| Floor `500` | Floor `0` | `500` — the organ still wins |
+| Floor `0` | *(none)* | `0` |
+| *(none)* | Floor `500` | `500` |
+
+The gate runs during cell filtering, against the **rotation-baked world AABB** the candidate would occupy — the same box the placed node caches, so what is tested is exactly what gets placed. Because the box is an axis-aligned bound of the *rotated* cell, it deliberately exceeds the space a cell rotated off-axis actually fills; a cell sitting near its limit at an angle may be gated on bounds that are partly empty.
+
+The comparison is **inclusive**: bounds resting exactly on the floor, or reaching exactly to the ceiling, are allowed. Only a genuine overshoot gates. A candidate with no valid bounds is let through rather than rejected on missing data.
+
+:::note[Absolute, not organ-relative]
+
+Both values are world-space Z. A tissue authored against one altitude behaves differently when reused by an organ sitting at another — this is the one constraint on an entry that is not expressed relative to the assembly around it.
+
+:::
+
+Filtering happens **per junction**, not once per cell, so a junction that cannot take this cell at its height is skipped while the rest of the pool is still offered to it — the junction is not left open as a result.
+
+When neither the organ nor any cell in the pool declares a limit, the whole check is skipped: resolving each candidate's prospective world bounds is the only per-junction geometry work the filter would otherwise do.
 
 ### Additional Tissue
 

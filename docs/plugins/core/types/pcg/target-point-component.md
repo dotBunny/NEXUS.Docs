@@ -21,20 +21,33 @@ The alternative is to scatter separate marker *actors* through the outliner and 
 
 ## In The Viewport
 
-The component attaches nothing of its own to be seen by. Everything visible is drawn by [Target Point Component Visualizer](../../editor-types/visualizers/target-point-component-visualizer.md):
+A marker is drawn in two layers, and the split matters because they appear at different times.
+
+An **editor-only billboard** carries the marker's presence: it uses the engine's own `S_TargetPoint` sprite — the one `ATargetPoint` uses — so a marker reads as the same kind of thing as the built-in it stands in for. It is what tells you a marker exists at all.
+
+[Target Point Component Visualizer](../../editor-types/visualizers/target-point-component-visualizer.md) layers the authoring detail on top, once the marker's actor is selected:
 
 - **Scaled axes** at the marker, which turn with it.
 - **An arrow pointing world down**, in the Get Component Points node colour — a fixed reference against the axes beside it.
 - **The component's tags**, labelled beside the marker, so you can read off the level which node will gather it.
 
-Two consequences follow from drawing entirely in a visualizer rather than from an attached primitive:
+Clicking either layer selects **the component**, not the actor holding it, so the transform gizmo lands on the marker you are moving. The visualizer draws at foreground priority, so it wins over the sprite where the two overlap — both routes end at the same component regardless.
 
-| | Why |
-| :-- | :-- |
-| Markers are only drawn while their actor is **selected**. | Component visualizers only run for a selected actor's components. That is when a marker is being authored, which is when you want to see it. |
-| Nothing of the marker reaches `Get Actor Data`. | Any primitive hung off the marker — a sprite, a billboard, anything — would be something PCG's actor parsing has to be trusted to skip. Attaching none is the guarantee. |
+### Why The Sprite Is Not Decoration
 
-Clicking a marker selects **the component**, not the actor holding it, so the transform gizmo lands on the marker you are moving and alt-drag duplicates it the way it duplicates an actor.
+Drawing the marker purely in its visualizer is what the component used to do, and it fails in the Blueprint editor. A Blueprint viewport runs component visualizers only for components selected in the **Components panel** (`FSCSEditorViewportClient::Draw`), never for the rest of the preview actor the way a level viewport does. A marker with nothing else in the world is therefore invisible there — and, being invisible, offers no click target to become selected with. The sprite breaks that loop: clicking it resolves up the attachment chain to the component's tree node, which is what then brings the visualizer in.
+
+### A Billboard Is The Only Primitive Allowed
+
+`Get Actor Data` walks every component on an actor and turns each `UPrimitiveComponent` it does not recognise into `UPCGPrimitiveData`. There is exactly one carve-out — `UBillboardComponent`, in `FPCGGetDataFunctionRegistry::DefaultDataFromComponent`.
+
+That carve-out is the entire reason a sprite is safe here and an arrow, a shape, or a mesh used as the icon would not be: any of those would feed the marker's own decoration back into the graph as geometry.
+
+:::note[The icon is built at register time, not in the constructor]
+
+A marker is a Blueprint-spawnable component, and a default subobject of a *component* serializes an `AttachParent` pointing at the component template rather than the instance. So the icon comes from `N_WORLD_ICON_ON_REGISTER` and is outered to the owning **actor** — never serialized, never a default subobject — which is the same pattern the engine uses for `USceneCaptureComponent`'s proxy mesh. It is also always `Movable`: marker components force themselves `Static`, and a `Static` child under a `Movable` parent is refused outright.
+
+:::
 
 ## Tags Are Visible On Purpose
 

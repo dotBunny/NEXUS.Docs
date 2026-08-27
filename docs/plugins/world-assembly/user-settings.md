@@ -64,7 +64,6 @@ What is drawn is the route's **stored samples** — the exact points that were s
 
 | Setting | Type | Description | Default |
 | :-- | :-- | :-- | :-- |
-| `Display Viewport Messages` | `bool` | Show relevant alerts and messages in the viewport's upper-left corner while editing cells. | `true` |
 | `Toast Editor Assembly Operations` | `bool` | Show a toast notification when an editor-triggered Assembly Operation completes, and summarize [Quick Assembly](editor-mode/index.mdx#quick-assembly) (including Auto Assembly) runs. | `true` |
 
 ### Quick Assembly

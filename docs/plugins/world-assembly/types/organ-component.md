@@ -40,6 +40,14 @@ Both are Blueprint-callable. `GetVolume()` returns `nullptr` for a non-volume ow
 
 :::
 
+## Height Constraints
+
+`Use Minimum Floor` / `Minimum Floor` and `Use Maximum Ceiling` / `Maximum Ceiling` clip every cell this organ places to a vertical band of the world, measured in **absolute world Z**.
+
+They are **independent of `Unbound`**, and that is the point: an unbound organ has no brush for the containment check to clip against, so a floor and ceiling are the only vertical limit it can express at all.
+
+A cell narrows the window further through its own [tissue entry](tissue.md#height-constraints) — higher floor wins, lower ceiling wins. See [Organ → Height Constraints](organ-volume.md#height-constraints) for the full table.
+
 ## Generation Trigger
 
 ```cpp

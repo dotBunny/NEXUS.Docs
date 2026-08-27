@@ -48,6 +48,16 @@ An array of [Tissues](../types/tissue.md) defining what should be used to popula
 | Activated | `bool` | Should this Organ be included in World Assembly? | `true` |
 | Required | `bool` | Is a successful generation of this organ required for the whole assembly operation to be considered successful? | `true` |
 | Unbound | `bool` | Should the Organ **NOT** enforce that placed Cells during generation fall within its bounds / brush. | `false` |
+| Use Minimum Floor | `bool` | When enabled, no cell this Organ places may reach below `Minimum Floor`. Independent of `Unbound`. | `false` |
+| Minimum Floor | `float` | The lowest world-space Z, in world units, any cell this Organ places may occupy. **Absolute world height**, not relative to the Organ. Shown while `Use Minimum Floor` is set. | `0.0` |
+| Use Maximum Ceiling | `bool` | When enabled, no cell this Organ places may reach above `Maximum Ceiling`. Independent of `Unbound`. | `false` |
+| Maximum Ceiling | `float` | The highest world-space Z, in world units, any cell this Organ places may occupy. Absolute world height, as with `Minimum Floor`. Shown while `Use Maximum Ceiling` is set. | `0.0` |
+
+#### Height Constraints
+
+The floor and ceiling clip placement to a vertical band of the world, and are **independent of `Unbound`** — they are in fact the only vertical limit an unbound Organ can express, since an unbound Organ carries no volume bounds for the containment check to clip against.
+
+A cell can narrow the window further through its own [tissue entry](tissue.md#height-constraints): whichever floor sits *higher* is enforced, and whichever ceiling sits *lower*, so a cell may be stricter than its Organ but never escape it.
 
 ### Requirements
 

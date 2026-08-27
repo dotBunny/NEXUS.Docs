@@ -83,9 +83,14 @@ The criteria used to be four trailing parameters; they are now one struct, which
 | `bIncludeTransientActors` | `bool` | Transient actors also contribute. | `false` |
 | `bIncludeLandscapes` | `bool` | Landscape actors contribute. | `false` |
 | `bIncludeMeshTerrains` | `bool` | Mesh Terrain sections contribute, **even though they are transient**. | `false` |
+| `bIncludeFoliage` | `bool` | Foliage actors contribute. | `false` |
 
 Transient actors are excluded by default — flip `bIncludeTransientActors` to `true` only when you specifically need throwaway/runtime-only actors (e.g. debug markers) to influence the resulting bounds.
 
 The two terrain flags are separate because only one of them is about transience. A landscape is an **ordinary saved actor**, so `bIncludeLandscapes` buys no exemption — it is purely whether landscape geometry counts. `bIncludeMeshTerrains` is the one that is deliberately **narrower** than `bIncludeTransientActors`: Mesh Partition represents an authored terrain in the editor as transient `APreviewSection` actors, so a level whose floor is a Mesh Terrain produces bounds that omit it entirely unless something admits them — and admitting *every* transient actor to get the floor back is far too broad.
 
 Both are classified by [FNActorUtils](actor-utils.md#terrain-classification).
+
+`bIncludeFoliage` follows the landscape pattern rather than the terrain one: a flag, not an exemption. Foliage is scenery in nearly every case, but a level whose only occupants are trees still has bounds worth measuring, so the answer is the caller's. **PCG partition containers get no such flag** — this filter drops them outright, because a container the generator rewrites has no stable bounds to contribute in the first place. See [Foliage And Generated Containers](actor-utils.md#foliage-and-generated-containers).
+
+Note that landscape grass is **not** foliage under this flag; it belongs to its landscape and answers to `bIncludeLandscapes`.

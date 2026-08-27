@@ -11,7 +11,7 @@ import TypeDetails from '@site/src/components/TypeDetails';
 
 Editor-only component visualizer for [Target Point Component](../../types/pcg/target-point-component.md). Registered with the editor's `ComponentVisualizers` module, so markers appear automatically whenever a selected actor carries one.
 
-This is **the whole of a target point's presence in the world**. The component attaches nothing of its own, so what is drawn here is all there is to see and all there is to click.
+This is the **authoring layer** over a marker, not the whole of it. The component's own editor-only billboard is what shows that a marker exists at all; what is drawn here is the detail that only matters while one is being placed.
 
 ## What It Draws
 
@@ -45,9 +45,11 @@ Accepting a click makes this the **active** component visualizer. Both of the en
 
 ## Only While Selected
 
-Component visualizers are only drawn for the components of a **selected** actor, so markers are visible while their actor is selected and not otherwise.
+Component visualizers are only drawn for the components of a **selected** actor, so this layer appears while the marker's actor is selected and not otherwise. That is the right trade for authoring detail: orientation, scale and tag labels matter while a marker is being placed, and are clutter the rest of the time.
 
-That is deliberate rather than a limitation to work around. Drawing entirely from the visualizer is what keeps markers out of `Get Actor Data` with no exceptions relied on — any primitive hung off a marker, sprite or otherwise, is something PCG's actor parsing has to be trusted to skip, and PCG's component parsing is the reason the component exists at all. The trade is that markers are only drawn when they are being authored, which is when you want them.
+In a **Blueprint editor** viewport the gate is tighter still — `FSCSEditorViewportClient::Draw` feeds visualizers only the components selected in the Components panel, never the rest of the preview actor. This layer therefore appears there only while the marker itself is selected.
+
+That is why the component carries a sprite rather than relying on this visualizer alone. The sprite is what makes a marker findable in the windows this layer does not reach, and what gives it a click target to be selected with in the first place — see [Target Point Component](../../types/pcg/target-point-component.md#why-the-sprite-is-not-decoration). Its hit proxy resolves to the same component this one does; the marker drawn here takes foreground priority where the two overlap.
 
 ## See Also
 

@@ -20,8 +20,9 @@ The common case is a scatter of modular pieces that should face any of four dire
 | `Step Angle` | `double` | Size of a single turn, in degrees. Clamped `0`–`360`. | `90.0` |
 | `Axis` | `ENAxis` | The axis the turn is applied around: X rolls, Y pitches, Z yaws. `None` leaves every point unrotated. | `Z` |
 | `Rotation Space` | `ENRotationSpace` | Whether the turn follows the point's own axis or the world axis. | `Local` |
+| `Base Rotation` | `FRotator` | A fixed turn applied to **every** point before the step, in the mesh's own space. See [Base Rotation Squares The Mesh Up](#base-rotation-squares-the-mesh-up). | `ZeroRotator` |
 
-All three are `PCG_Overridable`.
+All four are `PCG_Overridable`.
 
 ## Pins
 
@@ -52,6 +53,19 @@ A step angle that does not divide 360 evenly drops the final partial step: `100`
 
 These only differ once a point is already tilted off the chosen axis. On a flat scatter of upright points rotating about Z, both produce identical results — the distinction starts mattering when the input has come off a slope or through a prior rotation node.
 
+## Base Rotation Squares The Mesh Up
+
+Stepping only means something once the mesh is **square to the axis being stepped around**, and that is what `Base Rotation` is for. It is a fixed turn applied to every point, before the step and in the mesh's own space, to bring a mesh authored at some other angle into a state the step can work from.
+
+Two cases it exists for:
+
+- A prism whose faces were authored **half a step off**. That half step has to come out before a 90° step lands its faces anywhere sensible.
+- A mesh modelled **lying down**. It needs standing up before a yaw spins it about its own length rather than rolling it end over end.
+
+The base is applied **first and innermost**, whichever space the step is in. Applied after the step it would turn the stepped *result* rather than the mesh, and a base meant to stand a mesh upright would be undone by whatever the step had just done to it.
+
+It applies whether or not the step does anything, so leaving `Step Angle` at zero turns this node into a plain fixed rotation.
+
 ## Determinism
 
 The node declares `UseSeed`, and the roll combines the node's `Seed` with **each point's own seed**. Points therefore keep their orientation across regenerations: re-running the graph does not reshuffle a layout you were happy with, and changing the node's seed reshuffles all of it at once.
@@ -76,7 +90,20 @@ static NEXUSCORE_API int32 GetStepCount(double StepAngle);
  * @return The delta rotation to compose onto the point's existing rotation.
  */
 static NEXUSCORE_API FQuat GetStepRotation(int32 StepIndex, double StepAngle, ENAxis Axis);
+
+/**
+ * Composes a point's final rotation from the turn it already had, the step it drew, and the fixed
+ * base turn that squares its mesh up.
+ * @param PointRotation The rotation the point arrived with.
+ * @param StepRotation The step this point drew; identity where the step does nothing.
+ * @param BaseRotation The fixed turn applied to every point.
+ * @param bLocalSpace True to turn around the point's own axis, false to turn around the world axis.
+ * @return The rotation to give the point.
+ */
+static NEXUSCORE_API FQuat GetPointRotation(const FQuat& PointRotation, const FQuat& StepRotation, const FQuat& BaseRotation, bool bLocalSpace);
 ```
+
+`GetPointRotation` is where the ordering above is decided: `Local` composes the step on the right so the turn follows the point's own axis, `World` composes it on the left so it follows the world axis, and the base goes innermost either way.
 
 ## Behavior
 

@@ -57,6 +57,7 @@ The `UNCellRootComponent` represents the data which is going to get mirrored int
 | Include Editor Only | `bool` | Include `AActors` flagged as `EditorOnly` in bounds calculations. | `false` |
 | Include Landscapes (EXPERIMENTAL) | `bool` | Landscapes contribute to the bounds. See [Terrain Is Two Flags](#terrain-is-two-flags). | `false` |
 | Include Mesh Terrains (EXPERIMENTAL) | `bool` | Mesh Terrain sections contribute to the bounds, **even though they are transient**. | `false` |
+| Include Foliage | `bool` | Foliage actors contribute to the bounds. See [Foliage Is Its Own Flag](#foliage-is-its-own-flag). | `false` |
 | Actor Ignore Tags | `TArray<FName>` | `AActor`'s with these tags will be ignored during bounds calculations. | `NCell_Ignore`, `NCell_BoundsIgnore` |
 
 ### Rotation Constraints
@@ -82,6 +83,7 @@ The cell exposes a dual-interval `FNRotationConstraints` set. The _matching_ int
 | Include Editor Only | `bool` | Include `AActors` flagged as `EditorOnly` in hull calculations. | `false` |
 | Include Landscapes (EXPERIMENTAL) | `bool` | Landscapes contribute to the hull. See [Terrain Is Two Flags](#terrain-is-two-flags). | `false` |
 | Include Mesh Terrains (EXPERIMENTAL) | `bool` | Mesh Terrain sections contribute to the hull, **even though they are transient**. Without it a cell whose floor is a Mesh Terrain gets a hull with no floor in it, and the assembly penetration tests that consume that hull let other cells sink through it. | `false` |
+| Include Foliage | `bool` | Foliage actors contribute to the hull. See [Foliage Is Its Own Flag](#foliage-is-its-own-flag). | `false` |
 | Terrain Simplification Grid Size | `float` | Grid size, in centimetres, that terrain vertices are thinned onto before the hull is built. `0` keeps every one. See [Terrain Simplification](#terrain-simplification). | `100.f` |
 | Build Method | `ENullBuildMethod` | This is the method/version used by Chaos to create the convex hull initially. It is currently locked out due to some of the newer versions of the system producing n-gons. | `Original` |
 | Actor Ignore Tags | `TArray<FName>` | `AActor`'s with these tags will be ignored during hull calculations. | `NCell_Ignore`, `NCell_HullIgnore` |
@@ -106,10 +108,25 @@ This applies to **generation only**, and assumes the convex build that follows i
 | Include Editor Only | `bool` | Include `AActors` flagged as `EditorOnly` in voxel data calculations. | `false` |
 | Include Landscapes (EXPERIMENTAL) | `bool` | Landscapes contribute to voxel occupancy. See [Terrain Is Two Flags](#terrain-is-two-flags). | `false` |
 | Include Mesh Terrains (EXPERIMENTAL) | `bool` | Mesh Terrain sections contribute to voxel occupancy. | `false` |
+| Include Foliage | `bool` | Foliage actors contribute to voxel occupancy. See [Foliage Is Its Own Flag](#foliage-is-its-own-flag). | `false` |
 | Actor Ignore Tags | `TArray<FName>` | `AActor`'s with these tags will be ignored during voxel data calculations. | `NCell_Ignore`, `NCell_VoxelIgnore` |
 | Collision Channel | `ECollisionChannel` | The collision channel used when tracing for collisions to determine occupancy. | `WorldStatic` |
 
-Both voxel flags govern **two halves at once**: whether the terrain grows the voxel grid's extents, and whether the occupancy sweep can hit it. Excluded terrain joins the ignored-actor list the sweep is issued with, so it cannot register as occupied even though the physics world would otherwise report it.
+All three voxel include flags govern **two halves at once**: whether the terrain grows the voxel grid's extents, and whether the occupancy sweep can hit it. Excluded terrain joins the ignored-actor list the sweep is issued with, so it cannot register as occupied even though the physics world would otherwise report it.
+
+### Foliage Is Its Own Flag
+
+Each of the three calculations also carries `Include Foliage`, separate from the terrain pair and **off by default**.
+
+It is a setting rather than an unconditional refusal, exactly as landscape is. Foliage is scenery in nearly every case — a cell whose bounds are grown by a tree it happens to contain is a cell that no longer fits where it should — but it is scenery somebody placed, and may legitimately want accounting for. The answer is the author's.
+
+**PCG partition containers get no such flag.** All three calculations drop them outright: a container the generator owns and rewrites holds whatever the graph last happened to spawn, and would shape the cell differently after every regeneration.
+
+:::note[Landscape grass is not foliage]
+
+Grass belongs to its landscape and answers to `Include Landscapes`, not to this flag. See [`FNActorUtils::IsFoliageActor`](../../core/types/actor-utils.md#foliage-and-generated-containers) for why the two are held apart.
+
+:::
 
 ### Terrain Is Two Flags
 

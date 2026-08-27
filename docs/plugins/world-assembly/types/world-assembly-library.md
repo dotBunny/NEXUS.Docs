@@ -239,13 +239,31 @@ UFUNCTION(BlueprintCallable, Category = "NEXUS|WorldAssembly", DisplayName = "Do
 static bool DoesJunctionLeadTowardHotPath(ANCellLevelInstance* LevelInstance, const int32 JunctionIdentifier);
 ```
 
-`Does Junction Lead Toward Important` is the same test against the nearest `Important`-flagged cell. Both ship the usual exec-pin twins.
+An `Does Junction Lead Toward HotPath ?` exec-pin variant (`DoesJunctionLeadTowardHotPathExec`) is provided for branching directly in Blueprint.
 
 :::note
 
-The comparison is strict, so a cell **already on** the route reports false in every direction rather than pointing at whichever neighbour happens to also be on it. An unconnected junction carries `UnreachableScore` and can only ever be false — which is what an opening onto nothing should report.
+The comparison is strict, so a cell **already on** the route reports false in every direction rather than pointing at whichever neighbour happens to also be on it. An unconnected junction — and one reaching a bone — carries `UnreachableScore` and can only ever be false, which is what an opening onto nothing should report.
 
 :::
+
+### Does Junction Lead Toward Important
+
+The same test against the nearest `Important`-flagged cell: whether the cell across a given junction sits **nearer** a landmark than the cell you are asking from.
+
+```cpp
+/**
+ * @param LevelInstance The cell level instance to query.
+ * @param JunctionIdentifier The junction to test.
+ * @return true when the cell across that junction sits nearer an Important-flagged cell than this one.
+ */
+UFUNCTION(BlueprintCallable, Category = "NEXUS|WorldAssembly", DisplayName = "Does Junction Lead Toward Important")
+static bool DoesJunctionLeadTowardImportant(ANCellLevelInstance* LevelInstance, const int32 JunctionIdentifier);
+```
+
+An `Does Junction Lead Toward Important ?` exec-pin variant (`DoesJunctionLeadTowardImportantExec`) is provided for branching directly in Blueprint.
+
+Because both tests read the score recorded on the link rather than resolving the far cell, the two compose into a wayfinding pass over a cell's junctions without streaming any of its neighbours in — walk the junction identifiers, ask each question, and take the doorway that answers true.
 
 ### Get Junction World Size
 

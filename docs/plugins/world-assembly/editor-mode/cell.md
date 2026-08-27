@@ -98,7 +98,7 @@ Each one switched off is reported in the panel's [warning footer](index.mdx#warn
 
 ## Display
 
-Which parts of the cell overlay get drawn — everything in the viewport list [above](#cell-rail), other than the junction rectangles themselves — as checkboxes below [Options](#options).
+Which parts of the cell overlay get drawn — everything in the viewport list at the top of this page, other than the junction rectangles themselves — as checkboxes below [Options](#options).
 
 | Option | Description |
 | :-- | :-- |
@@ -106,7 +106,7 @@ Which parts of the cell overlay get drawn — everything in the viewport list [a
 | **Draw Hull** | Draw the blue wireframe of the collision/convex mesh. |
 | **Draw Fill Bounds** | Draw the grey box at each junction previewing the volume its filler would occupy. |
 
-They are ruled off from the Options above them because they persist somewhere else entirely. An Option is authored onto the `ANCellActor` and ships with the cell; these two are **per-user**, stored in `NexusUserSettings.ini` and mirrored in `Edit > Editor Preferences` under [World Assembly (User) > Debug](../user-settings.md#debug), so switching one off changes what you see and nothing that anyone else gets.
+They are ruled off from the Options above them because they persist somewhere else entirely. An Option is authored onto the `ANCellActor` and ships with the cell; these three are **per-user**, stored in `NexusUserSettings.ini` and mirrored in `Edit > Editor Preferences` under [World Assembly (User) > Debug](../user-settings.md#debug), so switching one off changes what you see and nothing that anyone else gets.
 
 They also hold wherever a cell draws, rather than only while this mode is open — a cell viewed with the World Assembly mode closed honours them too.
 
