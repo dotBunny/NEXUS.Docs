@@ -33,8 +33,10 @@ const WHATS_NEW_PINNED = ['changelog', 'roadmap'];
 const GUIDES_PINNED = ['getting-started'];
 const DOCS_PINNED = ['index'];
 
-// Documented plugins, used to rewrite the pre-flatten `/docs/**/plugins/<slug>/` URLs.
-// Keep in sync with the folders under `docs/` (and the `Plugins` map in PluginDetails).
+// Plugins that existed under the old `/docs/**/plugins/<slug>/` URLs, used to redirect them to
+// the flattened paths. This is a historical list, not a registry: a plugin added after the
+// flatten never had such a URL and does not belong here. Renaming an existing slug does, or the
+// shipped links for the old name stop resolving.
 const PLUGIN_SLUGS = [
   'actor-pools',
   'blockout',

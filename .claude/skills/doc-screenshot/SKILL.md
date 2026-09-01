@@ -235,7 +235,7 @@ This is the part that bites. **`static/` is a single pool shared by every versio
 `scripts/screenshot.mjs` therefore **refuses to overwrite** unless you pass `--force` — and when you do, it **preserves the outgoing image for you**. For every archived version whose pages reference it, the old pixels are copied to `static/assets/images/docs/_archive/<version>/<same relative path>` and that version's references are repointed at the copy. The live path never changes, so `docs/` is untouched.
 
 ```
-archived for 0.3.2: /assets/images/docs/_archive/0.3.2/plugins/.../world-collision-visualizer.webp (1 page repointed)
+archived for 0.3.2: /assets/images/docs/_archive/0.3.2/world-assembly/.../world-collision-visualizer.webp (1 page repointed)
 wrote static/assets/images/docs/.../world-collision-visualizer.webp (502x600, 15KB)
 ```
 
