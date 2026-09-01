@@ -1,0 +1,26 @@
+---
+sidebar_class_name: type ue-widget
+description: An extension on the UMG USlider which adds functionality to set its value without broadcasting / triggering events.
+---
+
+import TypeDetails from '@site/src/components/TypeDetails';
+
+# Slider
+
+<TypeDetails icon="ue-widget" base="USlider" type="UNSlider" typeExtra="" headerFile="NexusUI/Public/Components/NSlider.h" />
+
+![UNSlider](/assets/images/docs/ui/types/components/slider.webp)
+
+An extension on the UMG `USlider` which adds functionality to set its value without broadcasting / triggering events. This is the workaround for the [usual UMG behavior](../../faq.md) where setting a value re-fires the same handler the user is bound to — useful when you want to load a saved value without re-triggering the change logic that would normally re-save it.
+
+## UFunctions
+
+### Set Value (No Broadcast)
+
+```cpp
+/**
+  * Set the value of the USlider without triggering exposed event bindings.
+  * @param NewValue  The new value.
+  */
+void SetValue_NoBroadcast(const float NewValue);
+```

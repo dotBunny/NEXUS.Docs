@@ -21,7 +21,7 @@ var Plugins: { [id: string]: IPlugin; } = {
     category: "N/A",
     owner: "reapazor",
     description: "Functionality used by all NEXUS plugins in the framework.",
-    link: "/docs/plugins/core/",
+    link: "/docs/core/",
     blueprintCategory: ""
   },
 
@@ -32,7 +32,7 @@ var Plugins: { [id: string]: IPlugin; } = {
     category: "Systems",
     owner: "reapazor",
     description: "Generalized pooling system for Actors.",
-    link: "/docs/plugins/actor-pools/",
+    link: "/docs/actor-pools/",
     blueprintCategory: "NEXUS > Actor Pools"
   },
 
@@ -43,7 +43,7 @@ var Plugins: { [id: string]: IPlugin; } = {
     category: "Content",
     owner: "reapazor",
     description: "A collection of useful content for blocking out a level or two early in development.",
-    link: "/docs/plugins/blockout/",
+    link: "/docs/blockout/",
     blueprintCategory: ""
   },
 
@@ -54,7 +54,7 @@ var Plugins: { [id: string]: IPlugin; } = {
     category: "Systems",
     owner: "reapazor",
     description: "Method for referring to UObjects prior to runtime, and by developer readable names.",
-    link: "/docs/plugins/dynamic-references/",
+    link: "/docs/dynamic-references/",
     blueprintCategory: "NEXUS > DynamicRef"
   },
 
@@ -65,7 +65,7 @@ var Plugins: { [id: string]: IPlugin; } = {
     category: "Systems",
     owner: "reapazor",
     description: "A system which monitors metrics and takes action when thresholds are hit.",
-    link: "/docs/plugins/guardian/",
+    link: "/docs/guardian/",
     blueprintCategory: "NEXUS > Guardian"
   },
 
@@ -76,7 +76,7 @@ var Plugins: { [id: string]: IPlugin; } = {
     category: "Helpers",
     owner: "reapazor",
     description: "Selection functionality for points and other items.",
-    link: "/docs/plugins/picker/",
+    link: "/docs/picker/",
     blueprintCategory: "NEXUS > Picker"
   },
 
@@ -87,7 +87,7 @@ var Plugins: { [id: string]: IPlugin; } = {
     category: "Systems",
     owner: "reapazor",
     description: "A procedural generation system focused on creating dynamic gameplay-focused spaces.",
-    link: "/docs/plugins/world-assembly/",
+    link: "/docs/world-assembly/",
     blueprintCategory: "NEXUS > World Assembly"
   },
 
@@ -98,7 +98,7 @@ var Plugins: { [id: string]: IPlugin; } = {
     category: "Editor",
     owner: "reapazor",
     description: "An assortment of developer tools for the Unreal Editor.",
-    link: "/docs/plugins/tooling/",
+    link: "/docs/tooling/",
     blueprintCategory: ""
   },
 
@@ -109,7 +109,7 @@ var Plugins: { [id: string]: IPlugin; } = {
     category: "Content",
     owner: "reapazor",
     description: "Components for creating a user interface based on UMG/Slate.",
-    link: "/docs/plugins/ui/",
+    link: "/docs/ui/",
     blueprintCategory: "NEXUS > User Interface"
   },
 };

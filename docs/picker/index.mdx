@@ -1,0 +1,33 @@
+---
+description: Selection functionality for points and other items.
+---
+
+import DocCardList from '@theme/DocCardList';
+import PluginDetails from '@site/src/components/PluginDetails';
+
+# Picker
+
+<PluginDetails moduleName="NexusPicker" />
+
+This plugin provides a suite of tools for generating random and deterministic points within various geometric shapes and along splines.  
+
+- **Multiple Shape Types**: Generate points across a wide variety of shapes and specialized components.
+- **NavMesh Projection**: Points can be projected to the nearest NavMesh.
+- **Various Strategies**: Different number generating strategies allowing developers to define their own "random".
+- **Blueprint Integration**: Full Blueprint support through mirrored function definitions.
+
+Essentially solving the common game development problem of _"how do I randomly but intelligently place things in my world"_ with a comprehensive, performance-oriented solution.
+
+## Architecture
+
+Picker docs are grouped by **distribution** rather than the conventional `types/`-flat layout because each shape has its own `FN<Shape>Picker` / `UN<Shape>PickerLibrary` / `FN<Shape>PickerParams` triple, and the Blueprint `Help` button on every UFUNCTION points at `/distributions/<shape>/`. See [Distributions](distributions/) for per-shape pages; the base [PickerParams](types/picker-params.md) lives under [types](types/), and the projection defaults are configured in [Project Settings](project-settings.md).
+
+<DocCardList />
+
+## Samples
+
+![NPicker](/assets/images/docs/picker/picker-samples.webp)
+
+The `DEMO_NPicker` sample map is available once you have enabled the `NEXUS Samples: Picker` plugin. This is found in the `NEXUS Samples` category in the `Edit > Plugins` window.
+
+The map shows at runtime all of the different distributions available through the different picking methods.

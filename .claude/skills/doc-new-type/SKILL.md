@@ -1,6 +1,6 @@
 ---
 name: doc-new-type
-description: Scaffold a new NEXUS type documentation page (.md) under docs/plugins/<plugin>/types/ or editor-types/ from a UCLASS / USTRUCT / UINTERFACE / UENUM header in ../NEXUS/Plugins. Use whenever the user asks to "document a type", "add a type page", "create docs for <TypeName>", or hands you a header path/symbol from the NEXUS source tree.
+description: Scaffold a new NEXUS type documentation page (.md) under docs/<plugin>/types/ or editor-types/ from a UCLASS / USTRUCT / UINTERFACE / UENUM header in ../NEXUS/Plugins. Use whenever the user asks to "document a type", "add a type page", "create docs for <TypeName>", or hands you a header path/symbol from the NEXUS source tree.
 ---
 
 # doc-new-type
@@ -14,7 +14,7 @@ Ask the user only for what you cannot infer:
 1. **Header path** under `../NEXUS/Plugins/<Plugin>/Source/...` (or a symbol name to grep for).
 2. **Plugin slug** — derive from the header's plugin folder, then resolve via `src/components/PluginDetails/index.tsx` (`link` field). Slugs are NOT mechanical — `NexusWorldAssembly` → `world-assembly`, `NexusDynamicRefs` → `dynamic-references`, `NexusUI` → `ui`. If unsure, ask.
 3. **Runtime vs editor** — if the module name ends in `Editor` or the header lives under an `Editor` module, target `editor-types/`; otherwise `types/`.
-4. **Subfolder** — `types/` and `editor-types/` mirror the source `Public/` layout. If the header lives in a `Public/<Subfolder>/` (e.g. `Public/Math/`, `Public/Components/`, `Public/Widgets/`, `Public/Developer/`, `Public/Collections/`, `Public/Types/`, `Public/ComponentVisProxies/`, `Public/DelayedEditorTasks/`), the page goes in the matching `types/<subfolder>/` or `editor-types/<subfolder>/` folder. Top-level headers (directly under `Public/`) go at the folder root. If the matching subfolder doesn't exist yet, create it (lower-case the source folder name) and scaffold its `index.mdx` — see [docs/plugins/core/types/math/index.mdx](docs/plugins/core/types/math/index.mdx) for the shape.
+4. **Subfolder** — `types/` and `editor-types/` mirror the source `Public/` layout. If the header lives in a `Public/<Subfolder>/` (e.g. `Public/Math/`, `Public/Components/`, `Public/Widgets/`, `Public/Developer/`, `Public/Collections/`, `Public/Types/`, `Public/ComponentVisProxies/`, `Public/DelayedEditorTasks/`), the page goes in the matching `types/<subfolder>/` or `editor-types/<subfolder>/` folder. Top-level headers (directly under `Public/`) go at the folder root. If the matching subfolder doesn't exist yet, create it (lower-case the source folder name) and scaffold its `index.mdx` — see [docs/core/types/math/index.mdx](docs/core/types/math/index.mdx) for the shape.
 
 Everything else comes from the header.
 
@@ -171,7 +171,7 @@ Don't fabricate `blueprintue.com` IDs — leave a `<TODO: blueprint render id>` 
 If the source header lives in a `Public/<Subfolder>/` that doesn't yet have a docs counterpart, create the subfolder before writing the type page.
 
 1. **Folder name** — lowercase the source subfolder name. `Public/Math/` → `math/`. `Public/ComponentVisProxies/` → `component-vis-proxies/` (kebab-case multi-word names).
-2. **Create `index.mdx`** at `docs/plugins/<slug>/types/<subfolder>/index.mdx` (or `editor-types/<subfolder>/index.mdx`):
+2. **Create `index.mdx`** at `docs/<slug>/types/<subfolder>/index.mdx` (or `editor-types/<subfolder>/index.mdx`):
 
    ```mdx
    ---
@@ -195,7 +195,7 @@ If the source header lives in a `Public/<Subfolder>/` that doesn't yet have a do
    In practice: if the parent had 3 subfolders (positions 1, 2, 3) and 5 at-level pages (positions 4-8), and you're inserting a new subfolder that alphabetizes between #1 and #2, the new layout is subfolders 1, 2, 3, 4 (alpha), then at-level pages 5-9.
 4. **Don't run `npm run build`** — `npm run start` will surface any sidebar issues.
 
-For the canonical shape, see [docs/plugins/core/types/math/index.mdx](docs/plugins/core/types/math/index.mdx) and [docs/plugins/ui/types/components/index.mdx](docs/plugins/ui/types/components/index.mdx).
+For the canonical shape, see [docs/core/types/math/index.mdx](docs/core/types/math/index.mdx) and [docs/ui/types/components/index.mdx](docs/ui/types/components/index.mdx).
 
 ## Cross-linking
 

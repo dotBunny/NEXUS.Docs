@@ -20,8 +20,8 @@ yarn-debug.log*
 yarn-error.log*
 
 # Remote Resources
-/community/changelog.md
-/community/changelog-dev.md
+/whats-new/changelog.md
+/whats-new/changelog-dev.md
 
 # Claude
 /.claude/settings.local.json

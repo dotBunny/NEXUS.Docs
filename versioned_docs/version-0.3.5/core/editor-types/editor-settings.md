@@ -1,0 +1,32 @@
+---
+sidebar_class_name: type ue-settings
+description: Project-level NEXUS editor settings (updates channel, update-check cadence).
+---
+
+import TypeDetails from '@site/src/components/TypeDetails';
+
+# Editor Settings
+
+<TypeDetails icon="ue-settings" base="UDeveloperSettings" type="UNEditorSettings" typeExtra="" headerFile="NexusCoreEditor/Public/NEditorSettings.h" />
+
+Project-level NEXUS editor settings (updates channel, update-check cadence). Saved to the `NexusEditor` config hierarchy (`DefaultNexusEditor.ini`) and surfaced under **Editor Preferences → NEXUS → Core**.
+
+![Editor Preferences showing the NEXUS Core section and its Updates group](/assets/images/docs/core/editor-types/editor-settings.webp)
+
+Only four of the six properties appear above: `UpdatesCustomQueryURI` and `UpdatesCustomUpdateURI` are `EditConditionHides`, so the panel shows them only once `Channel` is set to `Custom`.
+
+## Properties
+
+| Property | Type | Default | Description |
+| :-- | :-- | :-- | :-- |
+| `bUpdatesCheck` | `bool` | `true` | Should the NEXUS Framework check for updates periodically and notify you? |
+| `UpdatesFrequency` | `int32` | `7` | Update-check frequency in days. |
+| `UpdatesChannel` | `ENUpdatesChannel` | `GithubRelease` | Channel to query (Release, Main, or Custom). See [Update Check Delayed Editor Task](delayed-editor-tasks/update-check-delayed-editor-task.md). |
+| `UpdatesCustomQueryURI` | `FString` | `""` | Fully-qualified URI to the `NCoreMinimal.h` file in a custom fork. Only used when `UpdatesChannel == Custom`. |
+| `UpdatesCustomUpdateURI` | `FString` | `""` | Fully-qualified URI to open when an update is detected. Only used when `UpdatesChannel == Custom`. |
+| `UpdatesIgnoreVersion` | `int32` | `NEXUS::Version::Number` | Suppress update notifications for versions less than or equal to this number. |
+
+## See Also
+
+- [Editor User Settings](editor-user-settings.md) — per-user, machine-local state (e.g. last update-check timestamp).
+- [Update Check Delayed Editor Task](delayed-editor-tasks/update-check-delayed-editor-task.md) — the task that consumes these settings.

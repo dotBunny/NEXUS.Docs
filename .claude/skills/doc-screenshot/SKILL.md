@@ -161,7 +161,7 @@ Pass `--subject` and the image gets an entry in `scripts/screenshot-manifest.jso
 ```bash
 npm run screenshot -- --in "$SCRATCH/shot.b64" --base64 --out static/assets/images/docs/<path>.webp \
   --subject "Cell category: the strip with Organ hidden, and the panel's tile, list, SELECTED ACTOR and QUICK OPTIONS groups" \
-  --pages plugins/world-assembly/editor-mode/cell \
+  --pages world-assembly/editor-mode/cell \
   --level /NexusWorldAssemblySamples/Cells/CELL_Simple_00 \
   --setup "Activate World Assembly mode; select the Cell rail." \
   --watch "WorldAssembly/Source/NexusWorldAssemblyEditor/Private/EdMode/NCellEdModeRail.cpp"
@@ -211,7 +211,7 @@ So a crop box is only valid for the editor state the snapshot was taken in. Re-s
 
 | Page | Image |
 |---|---|
-| `docs/plugins/world-assembly/types/junction-component.md` | `static/assets/images/docs/plugins/world-assembly/types/<name>.webp` |
+| `docs/world-assembly/types/junction-component.md` | `static/assets/images/docs/world-assembly/types/<name>.webp` |
 
 Two neighbouring trees are *not* this one, and putting a page screenshot in either is a mistake:
 
@@ -223,7 +223,7 @@ Two neighbouring trees are *not* this one, and putting a page screenshot in eith
 Always **absolute**, never relative:
 
 ```markdown
-![Alt text](/assets/images/docs/plugins/world-assembly/types/<name>.webp)
+![Alt text](/assets/images/docs/world-assembly/types/<name>.webp)
 ```
 
 The docs are versioned: `docusaurus docs:version` copies the whole `docs/` tree, so a co-located image would be duplicated into every snapshot (~13 MB each) and a relative path would shift depth. Absolute paths into `static/` are stable across snapshots and shared by every version. Docusaurus still webpack-processes them, so content-hashing, lazy-loading, and automatic `width`/`height` all still work.
@@ -236,7 +236,7 @@ This is the part that bites. **`static/` is a single pool shared by every versio
 
 ```
 archived for 0.3.2: /assets/images/docs/_archive/0.3.2/plugins/.../world-collision-visualizer.webp (1 page repointed)
-wrote static/assets/images/docs/plugins/.../world-collision-visualizer.webp (502x600, 15KB)
+wrote static/assets/images/docs/.../world-collision-visualizer.webp (502x600, 15KB)
 ```
 
 Nothing is duplicated until the moment it would otherwise become wrong: an image that is never replaced is already correct for every version, which is why this happens on replacement rather than by copying the pool at each version cut.
@@ -246,8 +246,8 @@ Nothing is duplicated until the moment it would otherwise become wrong: an image
 **Decide it by diffing, not by memory.** For a settings page the archived version's own property table is the evidence: if the set of documented properties is identical, the panel is unchanged and the better shot belongs to every version; if the live page has rows the archived one does not, the archived page would end up describing a picture it never documented.
 
 ```bash
-diff <(grep -o '^| `[^`]*`' versioned_docs/version-<x>/plugins/<page>.md) \
-     <(grep -o '^| `[^`]*`' docs/plugins/<page>.md)
+diff <(grep -o '^| `[^`]*`' versioned_docs/version-<x>/<page>.md) \
+     <(grep -o '^| `[^`]*`' docs/<page>.md)
 ```
 
 Across the six settings pages this ran on, four came back identical (`--no-archive`) and two had genuinely gained properties (`--force`, archived) — a split you would not have guessed from how old the images looked.
@@ -260,7 +260,7 @@ When an editor-UI change invalidates a batch of shots:
 
 1. **List what a plugin actually references.** Grep the pages rather than the folder — an orphaned file on disk is not a screenshot anyone sees:
    ```bash
-   grep -rho "/assets/images/docs/plugins/<slug>/[^)]*" docs/plugins/<slug>/ | sort -u
+   grep -rho "/assets/images/docs/<slug>/[^)]*" docs/<slug>/ | sort -u
    ```
 2. **Re-capture each**, reusing the widget ref where the panel still exists.
 3. **Decide archive-vs-overwrite per image**, using the test above. A UI change that prompted the refresh is exactly the case where archiving may be warranted for shipped versions.

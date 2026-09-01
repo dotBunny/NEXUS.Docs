@@ -25,7 +25,7 @@ There are no tests in this repository.
 
 - `docs/` — Main plugin documentation. The sidebar is **auto-generated** from the filesystem via `sidebars.ts`.
 - `community/` — Contributing guides, roadmap, coding standards, and changelog. Uses a manually-configured sidebar in `sidebarsCommunity.js`.
-- `community/changelog.md` — **Do not edit manually.** It is fetched at build time from the main `dotBunny/NEXUS` repo via the `@docusaurus/plugin-content-pages` remote-content plugin configured in `docusaurus.config.ts`.
+- `whats-new/changelog.md` — **Do not edit manually.** It is fetched at build time from the main `dotBunny/NEXUS` repo via the `@docusaurus/plugin-content-pages` remote-content plugin configured in `docusaurus.config.ts`.
 
 ### Custom Components (`src/components/`)
 
@@ -49,7 +49,17 @@ Import them in `.mdx` files directly; Docusaurus handles MDX compilation.
 
 ### Deployment
 
-CI/CD via `.github/workflows/build-deploy.yml` on push to `main`: `npm ci` → `npm run build` → GitHub Pages. Runs on a self-hosted runner with Node 20.
+There is **no CI**. The GitHub Actions workflow that used to build and publish on push to `main` was removed (commit `a26509d`), and nothing replaced it, so no build, typecheck, or lint runs automatically on a push.
+
+**That makes the local checks the only gate.** Run them before pushing, because nothing downstream will catch what they would have:
+
+```bash
+npm run lint:md        # markdownlint over docs/, community/, versioned_docs/
+npm run typecheck      # tsc
+npm run build          # the only thing that validates links and MDX
+```
+
+`npm run build` exits non-zero on a broken internal link (`onBrokenLinks: 'throw'`) — note that a client redirect does **not** satisfy it, so a link to a redirected path still fails the build and must be repointed at the real page. Deployment is manual via `npm run deploy` (`docusaurus deploy` → GitHub Pages).
 
 ## Plugin Source Code
 
@@ -58,9 +68,9 @@ The actual plugin source code can be found locally in `../NEXUS/Plugins` or remo
 ## Conventions
 
 - **Type pages are `.md`, not `.mdx`** — even though they import the `TypeDetails` component. Docusaurus handles MDX-in-Markdown for these. Plugin landing pages (`index.mdx`) and folder index pages (`types/index.mdx`, `editor-types/index.mdx`, and any subfolder `index.mdx`) are the exceptions.
-- **`src/components/PluginDetails/index.tsx`** holds the canonical `Plugins` map — every plugin documented in `docs/plugins/<slug>/` must have a matching entry keyed by its runtime module name (e.g. `"NexusActorPools"`). Adding or renaming a plugin requires editing this file.
+- **`src/components/PluginDetails/index.tsx`** holds the canonical `Plugins` map — every plugin documented in `docs/<slug>/` must have a matching entry keyed by its runtime module name (e.g. `"NexusActorPools"`). Adding or renaming a plugin requires editing this file.
 - **Static asset paths**:
-  - **Page screenshots are never co-located with the page.** They live under `static/assets/images/docs/`, mirroring the page's path inside `docs/`, and are referenced by **absolute** URL. A screenshot for `docs/plugins/world-assembly/types/junction-component.md` lives at `static/assets/images/docs/plugins/world-assembly/types/<name>.webp` and is written `![Alt](/assets/images/docs/plugins/world-assembly/types/<name>.webp)`. Never write a relative image reference (`![Alt](foo.webp)`) — see below for why.
+  - **Page screenshots are never co-located with the page.** They live under `static/assets/images/docs/`, mirroring the page's path inside `docs/`, and are referenced by **absolute** URL. A screenshot for `docs/world-assembly/types/junction-component.md` lives at `static/assets/images/docs/world-assembly/types/<name>.webp` and is written `![Alt](/assets/images/docs/world-assembly/types/<name>.webp)`. Never write a relative image reference (`![Alt](foo.webp)`) — see below for why.
   - Plugin landing-card icons live at `static/assets/images/plugins/<slug>-icon.webp` and are referenced from the `Plugins` map's `icon` field. Note this is a *different* tree from the `docs/` mirror above — don't put page screenshots here.
   - Plugin-branded type/overlay SVGs live at `static/assets/svg/<slug>/<file>.svg` and are referenced from `<TypeDetails icon="/assets/svg/<slug>/<file>.svg" iconType="img" />`.
   - The shared type-icon vocabulary (`ue-object`, `ue-widget`, `ue-world-subsystem`, etc.) lives at `static/assets/svg/types/` — glob this folder before inventing a new icon key.
@@ -76,17 +86,17 @@ The actual plugin source code can be found locally in `../NEXUS/Plugins` or remo
   **Prefer new filenames when the UI genuinely changed.** If the pages are being rewritten anyway, name the new captures differently and leave the old files alone — the archived version keeps its images with no `_archive` indirection. The EdMode rework did this: `mode-toolbar-*.webp` still serves 0.3.2 untouched while dev uses `rail-*.webp`.
 
   **`onBrokenLinks: 'throw'` does not validate image sources** — a bad image path fails silently at build time and only shows up as a missing image in the browser. After bulk image work, verify refs resolve on disk rather than trusting a green build.
-- **Per-plugin Developer Overlay pages** live at the plugin root (e.g. `docs/plugins/actor-pools/developer-overlay.md`), not inside `types/`. They subclass `UNDeveloperOverlay` and follow a shared structure — see existing overlays under actor-pools, dynamic-references, and guardian. The **abstract base `UNDeveloperOverlay` itself** is the exception: it is documented as a type page at [docs/plugins/ui/types/widgets/developer-overlay.md](docs/plugins/ui/types/widgets/developer-overlay.md) (it lives in the UI plugin) and subclasses `UCommonUserWidget`, not a stock `UUserWidget` — the UI plugin is built on CommonUI.
+- **Per-plugin Developer Overlay pages** live at the plugin root (e.g. `docs/actor-pools/developer-overlay.md`), not inside `types/`. They subclass `UNDeveloperOverlay` and follow a shared structure — see existing overlays under actor-pools, dynamic-references, and guardian. The **abstract base `UNDeveloperOverlay` itself** is the exception: it is documented as a type page at [docs/ui/types/widgets/developer-overlay.md](docs/ui/types/widgets/developer-overlay.md) (it lives in the UI plugin) and subclasses `UCommonUserWidget`, not a stock `UUserWidget` — the UI plugin is built on CommonUI.
 - **Macro headers are intentionally undocumented.** `*Macros.h` files in any plugin's `Public/Macros/` (or editor equivalents like `Public/Macros/NEditor*Macros.h`) are header-only convenience and not part of the public type surface. Do not scaffold pages for them — the doc-new-type skill should skip them, and any audit that lists them as "missing" is reporting policy, not a gap.
 
-  **But a macro header can still hold behaviour worth documenting.** `Math/NRangeMacros.h` defines `FNRangeSampler`, whose scalar-type dispatch is what makes float/double range sampling half-open and integer sampling inclusive — a semantic difference every consumer needs. The rule is "no page for the macro header", not "the behaviour goes undocumented": explain it on the pages of the types that mix the macro in ([double-range.md](docs/plugins/core/types/math/double-range.md#sampler-dispatch) is the canonical write-up, with the other two ranges linking to it). Check a macro header for support types before assuming it is pure boilerplate.
+  **But a macro header can still hold behaviour worth documenting.** `Math/NRangeMacros.h` defines `FNRangeSampler`, whose scalar-type dispatch is what makes float/double range sampling half-open and integer sampling inclusive — a semantic difference every consumer needs. The rule is "no page for the macro header", not "the behaviour goes undocumented": explain it on the pages of the types that mix the macro in ([double-range.md](docs/core/types/math/double-range.md#sampler-dispatch) is the canonical write-up, with the other two ranges linking to it). Check a macro header for support types before assuming it is pure boilerplate.
 - **Out of scope for a type page.** These are deliberate exclusions, not backlog. An audit listing them is reporting policy:
   - `*Macros.h`, plus **macro-only headers not named that way** (`NPickerUtils.h` is macros only — either rename it or treat it as one).
   - `*Minimal.h` (include aggregators) and `*Module.h` (module boot classes).
   - `*Style.h`, `*Commands.h`, `*GameplayTags.h` — near-identical per-plugin boilerplate. Core documents its own as the reference pattern; the other plugins' copies are skipped.
   - `*Tests` modules.
   - **Engine-contract overrides** — `OnRegister`, `Tick`, `IsTickable`, `PostEditChangeProperty`, `GetPaletteCategory`, `GetMouseCursor`, latent-command `Update`, PCG's `CreateElement`/`ExecuteInternal`. Their meaning comes from the base class; documenting them is noise.
-  - World Assembly's pipeline internals, which are covered as prose under `docs/plugins/world-assembly/architecture/` rather than one page per header.
+  - World Assembly's pipeline internals, which are covered as prose under `docs/world-assembly/architecture/` rather than one page per header.
   - **Editor-type parity is settled, in favour of documenting them.** Visualizers, asset definitions, and factories *do* get pages — ActorPools and World Assembly both ship a full `editor-types/` tree (`visualizers/`, `asset-definitions/`, and the factory at the root). This resolves what was previously recorded as an open inconsistency: a plugin adding one of these should add the page too, not treat it as skipped boilerplate. `*Style.h` / `*Commands.h` / customizations remain excluded.
 - **A property's edit scope belongs in the docs.** `EditInstanceOnly` and `EditDefaultsOnly` change where a user can set a value, and readers hit this repeatedly (bone `Socket Size`/`Type`/`Requirements`, kill-zone properties, the spawner's `Spline Component Name`). Say so in the settings table rather than leaving someone hunting for a field on a Blueprint default.
 - **Verification loop**: `npm run audit:coverage` first — it is fast and catches far more than a build (see below). Then `npm run start` for fast iteration; reserve `npm run build` for catching MDX errors before pushing. Avoid `npm run build` during scaffolding — it is slow and the dev server surfaces the same errors.
@@ -108,7 +118,7 @@ The actual plugin source code can be found locally in `../NEXUS/Plugins` or remo
 
 `types/` and `editor-types/` mirror the source's `Public/` layout. When the source organizes headers into subfolders (`Public/Math/`, `Public/Components/`, `Public/Widgets/`, `Public/Developer/`, `Public/Collections/`, `Public/Types/`, `Public/ComponentVisProxies/`, `Public/DelayedEditorTasks/`, …), the docs mirror that structure under `types/<subfolder>/` or `editor-types/<subfolder>/`. Top-level headers (those directly under `Public/`) keep their pages at the root of `types/` or `editor-types/`.
 
-Each subfolder needs its own `index.mdx` describing the group — see [docs/plugins/core/types/math/index.mdx](docs/plugins/core/types/math/index.mdx) for the canonical shape. The `Plugins` map's `link` field still points at the plugin root; subfolders are never surfaced there.
+Each subfolder needs its own `index.mdx` describing the group — see [docs/core/types/math/index.mdx](docs/core/types/math/index.mdx) for the canonical shape. The `Plugins` map's `link` field still points at the plugin root; subfolders are never surfaced there.
 
 ### Component imports always use `@site`
 
@@ -140,7 +150,7 @@ npm run build                             # verify
 - **Editing `docs/` only changes `/docs/dev/`.** Released versions are frozen copies in `versioned_docs/`. To correct an error in a shipped version you must edit that snapshot directly.
 - **A snapshot is text-only (~1.2 MB).** Images live in `static/` and are shared by every version — see the static-asset conventions above, including the archive-on-change recipe when a screenshot must stay period-accurate.
 - **Never use relative component imports** (see `@site` above) — this is the one thing that silently breaks every future snapshot.
-- **Navbar plugin links use `type: 'doc'` + `docId`**, not raw `to:` paths, so a reader stays inside the version they're browsing. docIds keep the trailing `/index` (e.g. `plugins/core/index`). Adding a plugin means adding a `docId` entry, not a URL.
+- **Navbar plugin links use `type: 'doc'` + `docId`**, not raw `to:` paths, so a reader stays inside the version they're browsing. docIds keep the trailing `/index` (e.g. `/core/index`). Adding a plugin means adding a `docId` entry, not a URL.
 - **`onlyIncludeVersions` is dev-only** and derived from `versions.json`; production builds always contain every version.
 - **Algolia `contextualSearch` is on**, which scopes results to the active version. It depends on the crawler emitting version facets — that is configured at algolia.com, not in this repo.
 
@@ -150,7 +160,7 @@ Six skills cover doc work — invoke them by user prompt rather than working fro
 
 **Writing pages:**
 
-- `doc-new-plugin` — scaffolds the `docs/plugins/<slug>/` folder, `index.mdx`, `types/index.mdx`, optional `editor-types/index.mdx`, optional `developer-overlay.md`, and the `Plugins` map entry in `PluginDetails/index.tsx`.
+- `doc-new-plugin` — scaffolds the `docs/<slug>/` folder, `index.mdx`, `types/index.mdx`, optional `editor-types/index.mdx`, optional `developer-overlay.md`, and the `Plugins` map entry in `PluginDetails/index.tsx`.
 - `doc-new-type` — scaffolds a single type page from a header file, choosing the appropriate body shape (default / wrapper UObject / list-view entry / async action / subsystem) based on the engine base class.
 - `doc-audit` — verifies existing pages against the source and repairs drift. Read it before trusting `npm run audit:coverage` output, and for the housekeeping every doc edit needs (versioned-snapshot sync, `@see` backlink, `DocsURL` meta, baseline update).
 

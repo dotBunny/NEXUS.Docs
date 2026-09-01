@@ -37,7 +37,7 @@ page`:
 ```
 === source moved since the audited commit (22 commits, 62 in-scope headers)
   M NexusWorldAssembly/Public/Cell/NCellJunctionComponent.h
-      plugins/world-assembly/types/junction-component.md
+      world-assembly/types/junction-component.md
   A NexusWorldAssembly/Public/Cell/NCellJunctionConnection.h
       no page
 ```

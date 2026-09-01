@@ -1,0 +1,21 @@
+---
+description: A spot-check function which fires off a configurable, timed-delayed task in the editor to look at any created UObjects.
+---
+
+# Leak Check
+
+A spot-check function which fires off a configurable, timed-delayed task in the editor to look at any created `UObjects`. The delayed half is a `UNLeakTestDelayedEditorTask`, which is what survives the wait and takes the second reading.
+
+![Leak Check Command](/assets/images/docs/tooling/debuggers/leak-check-menu.webp)
+
+:::info
+
+If a leak is detected, an `FNObjectSnapshotDiff` will be written out to the project's log folder with the prefix `NEXUS_LeakCheck_*`.
+
+:::
+
+## Settings
+
+The configuration of the delay is a user-defined setting, available in a developer's Editor Preferences under  `NEXUS > Tooling (User) > Leak Check > Duration`.
+
+![Tooling Settings: Leak Check](/assets/images/docs/tooling/debuggers/leak-check-settings.webp)

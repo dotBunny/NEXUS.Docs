@@ -9,7 +9,7 @@ Thank you for your interest in contributing to the **NEXUS** Framework! ♥️ W
 
 Bug reports, bug fixes, documentation additions, features, code, coffee, etc., benefit everyone.
 
-While items on the [Roadmap](roadmap.md) correspond to our own needs and ambitions, that doesn’t mean that contributions should be limited to just those things. If you want to drop in a feature that you think would benefit others, *make a Pull Request!* (against `main`). We track open work and "good first issue"-shaped tasks on the [GitHub Project board](https://github.com/orgs/dotBunny/projects/6/views/1) — it's a good place to look before starting something larger.
+While items on the [Roadmap](/whats-new/roadmap) correspond to our own needs and ambitions, that doesn’t mean that contributions should be limited to just those things. If you want to drop in a feature that you think would benefit others, *make a Pull Request!* (against `main`). We track open work and "good first issue"-shaped tasks on the [GitHub Project board](https://github.com/orgs/dotBunny/projects/6/views/1) — it's a good place to look before starting something larger.
 
 :::tip[Not sure where to start?]
 

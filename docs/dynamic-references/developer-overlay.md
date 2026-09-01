@@ -1,0 +1,43 @@
+---
+sidebar_label: Developer Overlay
+sidebar_position: 2
+description: An overlay listing every live ENDynamicRef slot and FName bucket in the active world(s).
+---
+
+import TypeDetails from '@site/src/components/TypeDetails';
+
+# Developer Overlay
+
+<TypeDetails icon="/assets/svg/dynamic-references/dynamic-ref-component.svg" iconType="img" base="UNDeveloperOverlay" type="UNDynamicRefsDeveloperOverlay" typeExtra="" headerFile="NexusDynamicRefs/Public/NDynamicRefsDeveloperOverlay.h" />
+
+By going to `Tools > NEXUS > Dynamic References`, you can create an [UNEditorUtilityWidget](/docs/ui/editor-types/editor-utility-widget/) wrapped version of `/NexusDynamicRefs/WB_NDynamicRefsDeveloperOverlay` which will list every live [ENDynamicRef](types/dynamic-ref.md) slot and `FName` bucket registered with the [UNDynamicRefSubsystem](types/dynamic-ref-subsystem.md).
+
+<div class="image-split">
+![No DynamicRefs](/assets/images/docs/dynamic-references/dynamicrefs-developer-overlay-none.webp)
+![DynamicRefs](/assets/images/docs/dynamic-references/dynamicrefs-developer-overlay.webp)
+</div>
+
+## Layout
+
+The overlay is split into two stacked lists, each preceded by a header that auto-hides when its list is empty:
+
+| Section | Contents |
+| :-- | :-- |
+| `Dynamic References` | Every populated [ENDynamicRef](types/dynamic-ref.md) slot, one row per slot. |
+| `Named References` | Every populated `FName` bucket, one row per bucket (this includes `FGameplayTag` entries as they are still `FName` under-the-hood.) |
+
+Each row is a [UNDynamicRefListViewEntry](types/dynamic-ref-list-view-entry.md) bound to a [UNDynamicRefObject](types/dynamic-ref-object.md) wrapper. Inside each row, a nested list contains one button per `UObject` currently registered to that slot/bucket. When no references are present in any world, the overlay displays a `No References Found` banner.
+
+:::info[Weak References]
+
+The overlay only holds `TWeakObjectPtr`s to the displayed `UObject`s — it never roots them, never extends their lifetime, and never crashes when an underlying object is garbage-collected between paints. Because a weak reference expires silently with no delegate to listen for, the overlay polls for staleness every tick (`NativeTick` → `ReconcileStaleEntries`) and drops any wrapper row whose tracked objects have all gone away.
+
+:::
+
+## Multi-World Support
+
+The overlay subscribes to `OnPostWorldInitialization` and `OnWorldBeginTearDown` and automatically binds to every `Game` / `PIE` world's [UNDynamicRefSubsystem](types/dynamic-ref-subsystem.md). It takes four subscriptions per world — `OnAdded` / `OnRemoved` drive the `Dynamic References` list and `OnAddedByName` / `OnRemovedByName` drive `Named References` — holding the handles per world so each can be dropped independently. All worlds feed the same lists, so a PIE session with both server and client worlds shows the union of their registrations.
+
+## Click Handling
+
+`UNDynamicRefsDeveloperOverlay` exposes a `BlueprintAssignable` delegate, `OnButtonClicked(UObject* TargetObject)`, that fires whenever a row's per-object button is pressed. The shipped Blueprint subclass wires this to actor selection in the editor — clicking a row's button selects that `AActor` in the level outliner. Subclasses can override this binding to drive any other inspection workflow (focus camera, open property editor, log a stack trace, etc.).

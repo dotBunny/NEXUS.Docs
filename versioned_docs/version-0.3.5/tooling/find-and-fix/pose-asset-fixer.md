@@ -1,0 +1,25 @@
+---
+description: An action to find and resolve UPoseAssets that are out-of-date with their source animation.
+---
+
+# Pose Asset Fixer
+
+Implemented by `FNPoseAssetFixer`, reachable from the editor's **Fixers** menu.
+
+## Outdated PoseAsset Source Animations
+
+A particularly annoying error when cooking occurs when your `UPoseAsset` _throws_ because the saved hash of the source animation no longer matches the calculated source animation hash at the time of the cook. What makes this annoying is that the error only occurs during cooking because both assets are opened and evaluated. It's a latent error that content developers will not see outside of the build process.
+
+```log
+LogAnimation: Error: [CookWorker #]: PoseAsset <YourPoseAssetPath> is out-of-date with its source animation <YourAnimationAssetPath> <HashA> vs <HashB>
+```
+
+Found in the **Content Browser's** context menu `Find & Fix > Outdated PoseAsset Source Animations`, this command will scan your project's content for UPoseAssets and perform the check done when cooking. If the hashes do not match, it will update from the source animation automatically for you.
+
+The fixer will not run against `/All` — pick a specific subfolder before invoking it. Before any work begins, an interactive confirmation prompt reports the total number of `UPoseAssets` about to be processed so you can cancel large jobs; the prompt is skipped when running under `-run=<commandlet>`, so automation scripts proceed without intervention.
+
+:::warning
+
+This action will update/replace any different content related to the source animation, which could have unintended consequences. **Check the results!**
+
+:::

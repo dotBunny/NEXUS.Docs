@@ -22,9 +22,9 @@ Every C++ source file (`.h` / `.cpp`) starts with the standard two-line header �
 // See the LICENSE file at the repository root for more information.
 ```
 
-Headers use `#pragma once` rather than include guards, and module APIs follow Unreal's standard `Public/` / `Private/` split. Inside `Public/`, headers are organized into themed subfolders that mirror their logical grouping — for example, [`Math/`](https://github.com/dotBunny/NEXUS/tree/main/Plugins/Core/Source/NexusCore/Public/Math), [`Types/`](https://github.com/dotBunny/NEXUS/tree/main/Plugins/Core/Source/NexusCore/Public/Types), [`Macros/`](https://github.com/dotBunny/NEXUS/tree/main/Plugins/Core/Source/NexusCore/Public/Macros), and [`Developer/`](https://github.com/dotBunny/NEXUS/tree/main/Plugins/Core/Source/NexusCore/Public/Developer) under `NexusCore`. New plugins should follow the same shape; the documentation site mirrors it under `types/<subfolder>/`.
+Headers use `#pragma once` rather than include guards, and module APIs follow Unreal's standard `Public/` / `Private/` split. Inside `Public/`, headers are organized into themed subfolders that mirror their logical grouping — for example, [`Math/`](https://github.com/dotBunny/NEXUS/tree/main/core/Source/NexusCore/Public/Math), [`Types/`](https://github.com/dotBunny/NEXUS/tree/main/core/Source/NexusCore/Public/Types), [`Macros/`](https://github.com/dotBunny/NEXUS/tree/main/core/Source/NexusCore/Public/Macros), and [`Developer/`](https://github.com/dotBunny/NEXUS/tree/main/core/Source/NexusCore/Public/Developer) under `NexusCore`. New plugins should follow the same shape; the documentation site mirrors it under `types/<subfolder>/`.
 
-Every plugin exposes a single-namespace minimal header (e.g. `NActorPoolsMinimal.h`) and a public log category declared with `<MODULE>_API DECLARE_LOG_CATEGORY_EXTERN(LogNexus<Module>, …)`. Module classes are `FN<Name>Module` and use the `N_IMPLEMENT_MODULE` macro from [`NModuleMacros.h`](https://github.com/dotBunny/NEXUS/blob/main/Plugins/Core/Source/NexusCore/Public/Macros/NModuleMacros.h).
+Every plugin exposes a single-namespace minimal header (e.g. `NActorPoolsMinimal.h`) and a public log category declared with `<MODULE>_API DECLARE_LOG_CATEGORY_EXTERN(LogNexus<Module>, …)`. Module classes are `FN<Name>Module` and use the `N_IMPLEMENT_MODULE` macro from [`NModuleMacros.h`](https://github.com/dotBunny/NEXUS/blob/main/core/Source/NexusCore/Public/Macros/NModuleMacros.h).
 
 ## Naming Conventions
 
@@ -42,7 +42,7 @@ Every plugin exposes a single-namespace minimal header (e.g. `NActorPoolsMinimal
 Other rules:
 
 - **Macros** are prefixed `N_` (e.g. `N_WORLD_SUBSYSTEM`, `N_TEST_SMOKE`, `N_TRUE_FALSE`). Reserve all-caps `N_` identifiers for macros.
-- **Namespaces** for compile-time constants and lightweight helpers nest under `NEXUS::<Subsystem>::<Group>` — see [`NEXUS::Version`](https://github.com/dotBunny/NEXUS/blob/main/Plugins/Core/Source/NexusCore/Public/NCoreMinimal.h) and `NEXUS::Core::CardinalDirection`.
+- **Namespaces** for compile-time constants and lightweight helpers nest under `NEXUS::<Subsystem>::<Group>` — see [`NEXUS::Version`](https://github.com/dotBunny/NEXUS/blob/main/core/Source/NexusCore/Public/NCoreMinimal.h) and `NEXUS::Core::CardinalDirection`.
 - **Log categories** follow `LogNexus<Module>` (e.g. `LogNexusCore`, `LogNexusActorPools`).
 - **Booleans** use the `b` prefix on locals, parameters, and fields (`bIsAttachedToActorPool`) — enforced by EditorConfig.
 - Prefer `int32` over `int` to remove ambiguity between 32-bit and 64-bit values.
@@ -78,26 +78,26 @@ Any `@tag` marked as `Passthrough` will show up in tooltips as-is.
 
 ## Macros & Boilerplate
 
-Common patterns are wrapped in macros under [`Public/Macros/`](https://github.com/dotBunny/NEXUS/tree/main/Plugins/Core/Source/NexusCore/Public/Macros). Prefer using these over hand-rolled boilerplate so behavior stays consistent across plugins:
+Common patterns are wrapped in macros under [`Public/Macros/`](https://github.com/dotBunny/NEXUS/tree/main/core/Source/NexusCore/Public/Macros). Prefer using these over hand-rolled boilerplate so behavior stays consistent across plugins:
 
-- **Module declaration** — [`N_IMPLEMENT_MODULE`](https://github.com/dotBunny/NEXUS/blob/main/Plugins/Core/Source/NexusCore/Public/Macros/NModuleMacros.h) inside an `FN<Name>Module` class body.
-- **World subsystems** — [`N_WORLD_SUBSYSTEM`](https://github.com/dotBunny/NEXUS/blob/main/Plugins/Core/Source/NexusCore/Public/Macros/NSubsystemMacros.h), `N_WORLD_SUBSYSTEM_GAME_ONLY`, and the `N_TICKABLE_WORLD_SUBSYSTEM_*` family inject the standard `Get(World)` accessors, stat IDs, and `ShouldCreateSubsystem` gating.
-- **Tests** — [`N_TEST`](https://github.com/dotBunny/NEXUS/blob/main/Plugins/Core/Source/NexusCore/Public/Macros/NTestMacros.h) plus its priority/filter variants (`N_TEST_SMOKE_HIGH`, `N_TEST_PERF_CRITICAL`, etc.) auto-tag tests with `[NEXUS]` and the appropriate filter so they show up correctly in [Automation](automation.md).
-- **General helpers** — [`NGeneralMacros.h`](https://github.com/dotBunny/NEXUS/blob/main/Plugins/Core/Source/NexusCore/Public/Macros/NGeneralMacros.h) provides small utilities like `N_TRUE_FALSE`, `N_STRINGIFY`, and `N_CONCAT` for log/format expressions.
+- **Module declaration** — [`N_IMPLEMENT_MODULE`](https://github.com/dotBunny/NEXUS/blob/main/core/Source/NexusCore/Public/Macros/NModuleMacros.h) inside an `FN<Name>Module` class body.
+- **World subsystems** — [`N_WORLD_SUBSYSTEM`](https://github.com/dotBunny/NEXUS/blob/main/core/Source/NexusCore/Public/Macros/NSubsystemMacros.h), `N_WORLD_SUBSYSTEM_GAME_ONLY`, and the `N_TICKABLE_WORLD_SUBSYSTEM_*` family inject the standard `Get(World)` accessors, stat IDs, and `ShouldCreateSubsystem` gating.
+- **Tests** — [`N_TEST`](https://github.com/dotBunny/NEXUS/blob/main/core/Source/NexusCore/Public/Macros/NTestMacros.h) plus its priority/filter variants (`N_TEST_SMOKE_HIGH`, `N_TEST_PERF_CRITICAL`, etc.) auto-tag tests with `[NEXUS]` and the appropriate filter so they show up correctly in [Automation](automation.md).
+- **General helpers** — [`NGeneralMacros.h`](https://github.com/dotBunny/NEXUS/blob/main/core/Source/NexusCore/Public/Macros/NGeneralMacros.h) provides small utilities like `N_TRUE_FALSE`, `N_STRINGIFY`, and `N_CONCAT` for log/format expressions.
 
 When a public `UCLASS`, `USTRUCT`, `UINTERFACE`, or `UENUM` is documented on this site, link back to its page from the header's Doxygen comment using `@see` so the type's tooltip points users at the live documentation:
 
 ```cpp
 /**
  * ...
- * @see <a href="https://nexus-framework.com/docs/plugins/<plugin>/types/<type>/">UNExampleType</a>
+ * @see <a href="https://nexus-framework.com/docs/<plugin>/types/<type>/">UNExampleType</a>
  */
 ```
 
 ## Choices
 
 - Prefer to use `int32` over `int` to match typedef and remove any ambiguity between 32-bit and 64-bit values.
-- Prefer `using enum E…;` inside `switch`/lookup blocks to keep enumerator references readable — see [`FNCardinalDirectionUtils`](https://github.com/dotBunny/NEXUS/blob/main/Plugins/Core/Source/NexusCore/Public/Types/NCardinalDirection.h) for the pattern.
+- Prefer `using enum E…;` inside `switch`/lookup blocks to keep enumerator references readable — see [`FNCardinalDirectionUtils`](https://github.com/dotBunny/NEXUS/blob/main/core/Source/NexusCore/Public/Types/NCardinalDirection.h) for the pattern.
 - Prefer `FORCEINLINE` accessors on subsystem `Get` helpers and other one-line wrappers; the subsystem macros already do this.
 
 ## ReSharper Warnings

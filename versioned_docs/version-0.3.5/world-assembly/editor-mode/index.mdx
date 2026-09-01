@@ -1,0 +1,109 @@
+---
+description: The editor mode used to author and inspect cells, junctions and organs without leaving the level viewport.
+sidebar_position: 4
+---
+
+import DocCardList from '@theme/DocCardList';
+
+# Editor Mode
+
+World Assembly ships an editor mode (`UNWorldAssemblyEdMode`) that puts cell, junction and organ authoring into the level editor. Its UI floats **over the level viewport** in two boxes: a pinned strip of category buttons, and a draggable window showing whichever category the strip has selected.
+
+![The World Assembly category strip and panel over the level viewport, showing the Cell category](/assets/images/docs/world-assembly/editor-mode/rail-cell.webp)
+
+The mode never opens a **Mode Toolbox** tab — the toolkit leaves that tab's spawner unbound, so nothing of this mode lives in the level editor's side panels.
+
+## Entering the Mode
+
+A single entry point sits on the level-editor toolbar. The whole NEXUS section — the mode button and the [Quick Assembly](#quick-assembly) controls — appears only when the current level contains **either** a `ANCellActor` **or** a `UNOrganComponent`; in an unrelated level it collapses entirely.
+
+![The World Assembly mode button on the level-editor toolbar](/assets/images/docs/world-assembly/editor-mode/mode-button.webp)
+
+Above is a cell-only level: the mode button is there, and the Quick Assembly controls beside it have collapsed because no organ is present.
+
+## Quick Assembly
+
+Quick Assembly is **not** part of the mode's UI — it stays on the level-editor toolbar and works whether or not the mode is open. It requires at least one [Organ](../types/organ-volume.md) registered in the world; with only a cell actor present the controls collapse and the mode button appears on its own.
+
+![The Quick Assembly organ picker and start button on the level-editor toolbar](/assets/images/docs/world-assembly/editor-mode/quick-assembly-toolbar.webp)
+
+Select an [Organ](../types/organ-volume.md) from the combo box and start an operation. The resulting run carries the placed [Cells](../types/cell.md) through `ANCellProxy` to the actualized `ANCellLevelInstance`. While it runs, the button becomes a cancel action and its progress bar tracks the operation.
+
+The options dropdown (`⋮`) beside the start/cancel button exposes quick toggles that mirror [User Settings → Quick Assembly](../user-settings.md#quick-assembly):
+
+- **Load Level Instances** — carry each run through to actualized `ANCellLevelInstance`s rather than stopping at `ANCellProxy`.
+- **Auto Assembly** — after each run finishes, re-trigger the operation on a timer (the **Auto Assembly Timer**, 2–180s) and loop until cancelled. While looping, the button stays in its cancel state and its progress bar shows the countdown between runs. When you stop the loop a single summary toast reports the accumulated pass / warning / fail counts, total cells created, and total time — provided **Toast Editor Assembly Operations** is enabled in the [User Settings](../user-settings.md#notifications).
+
+:::info
+
+**Fillers** are not placed outside of `PIE` or runtime; optionally the unfilled junctions can have their gizmos colored differently in this situation.
+
+:::
+
+## The Strip and the Panel
+
+Two separate viewport overlays, sharing one selection between them.
+
+| Part | Behaviour |
+| :-- | :-- |
+| **Strip** | Icon-only category buttons, pinned to the viewport's top-left corner. The selected category stays lit. Not movable — it is the target you aim at to change category, and a fixed target is worth more than a movable one. |
+| **Panel** | The selected category's content. Draggable anywhere in the viewport and resizable from its right edge, between 200 and 520 wide. Untitled: the strip's lit icon already says which category is showing. |
+
+Both follow the active viewport, so a viewport layout change does not leave the mode behind on one you have left. Where you put the panel and how wide you made it are remembered between sessions — see [Editor Mode Panel](../user-settings.md#editor-mode-panel) in the User Settings.
+
+### The Strip
+
+Categories appear in this order, and a category with nothing in the level to act on is **hidden rather than greyed out** — the buttons below simply close the gap.
+
+| Category | Purpose | Shown when |
+| :-- | :-- | :-- |
+| [World](world.md) | World-scoped tools: the collision visualizer, the entry points that create a cell or organ, and the actor-ignore tagging toggle. | Always. |
+| [Cell](cell.md) | Author the focused cell: the bounds, hull and edge tools, and the calculate commands. | A `ANCellActor` is present. |
+| [Cell Data](cell-data.md) | Manage the cell's side-car asset and the actor itself. | A `ANCellActor` is present. |
+| [Junction](junction.md) | Place and align the focused cell's junctions. | A `ANCellActor` is present. |
+| [Organ](organ.md) | Generate and clear organ proxies, and manage their level instances. | A `UNOrganComponent` is present in the world. |
+
+Availability is polled roughly four times a second rather than read per-frame — the cell and junction predicates walk the level's actors, which is too expensive to answer on every paint.
+
+:::note[Hiding, Not Greying]
+
+Earlier versions greyed an unavailable category out so it still said it existed. Hiding replaced that: a category with nothing in the level to act on is not one you can do anything about from the strip, so a dead button was spending a slot to say so.
+
+Two consequences follow from it. The mode **opens on the first available category** rather than the first one outright, and if the selected category becomes unavailable the selection **falls back** to the first one that is — otherwise the strip would point at a category with no button while the panel beside it still showed that category's content. [World](world.md) is what makes that fallback safe: it is the one category that is always shown.
+
+:::
+
+### Inside the Panel
+
+A category's content is a column of groups, scrolled, with the warning footer pinned below it.
+
+Groups carry **no headings**. What separates one run of groups from the next is a horizontal rule, used between groups that are a different kind of thing from each other rather than between every pair — so the pages here name sections the source does not.
+
+| Group shape | Used for |
+| :-- | :-- |
+| **Tiles** | Icon tiles wrapping across the panel, on a recessed backing. The interactive tools, and the World rail's visualizer. |
+| **Grid** | Half-width buttons, two to a row, icon beside label. |
+| **List** | Full-width buttons, one to a row, for labels too long to halve. |
+| **Checkboxes** | Commands that read as persistent settings rather than actions. |
+
+A **picker** naming what the category acts on is part of that same column rather than a header above it — the [Organ](organ.md#organ-picker) rail heads its selected-organ group with one, and the [Junction](junction.md#junction-picker) rail puts its own at the bottom.
+
+There is **no tool-properties area**. The running tool draws its handles in the viewport and takes its input there; nothing about it is shown in the panel.
+
+### Warnings
+
+The warning footer reports everything currently applying to the focused cell — unsaved cell data, and each of the auto-calculate options that has been switched off. It sits outside the scroll box so it cannot be scrolled out of reach, and collapses to nothing when there is nothing to report, which is why it is absent from the captures on these pages.
+
+It is amber rather than red: everything it reports is a "this will not regenerate on save" advisory, not a failure. Earlier versions drew this text over the viewport canvas, where it competed with the scene and had to be suppressed to take a clean screenshot.
+
+## Tools
+
+Four of the five interactive tools ship visible: [Bounds](cell.md#bounds), [Vertices](cell.md#vertices) and [Edges](cell.md#edges) on the Cell rail, and [Place](junction.md#place) on the Junction rail. The voxel tool is [currently hidden](cell.md#voxel-data).
+
+Three rules apply to all of them:
+
+- **They commit as they go.** Every edit is applied as it is made, so there is nothing to accept or discard on the way out — leaving is the whole gesture.
+- **`Esc` ends the running tool.** Because edits are already committed, this is a stop rather than a cancel.
+- **Switching category ends the running tool too.** Tools are scoped to the category that presents them, so one left running under a different category would keep drawing handles and swallowing viewport clicks with nothing on screen to say why.
+
+<DocCardList />

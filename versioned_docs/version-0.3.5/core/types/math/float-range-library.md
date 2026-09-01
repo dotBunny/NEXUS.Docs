@@ -1,0 +1,46 @@
+---
+sidebar_class_name: type ue-blueprint-function-library
+description: Blueprint-exposed wrappers around FNFloatRange's sampling API.
+---
+
+import TypeDetails from '@site/src/components/TypeDetails';
+
+# Float Range Library
+
+<TypeDetails icon="ue-blueprint-function-library" base="UBlueprintFunctionLibrary" type="UNFloatRangeLibrary" typeExtra="" headerFile="NexusCore/Public/Math/NFloatRangeLibrary.h" />
+
+Blueprint-exposed wrappers around [`Float Range`](float-range.md)'s sampling API. Thin passthroughs so that Blueprint authors can reach the same `NextValue` / `RandomValue` / `PercentageValue` helpers that native code uses via `N_RANGE_BASE`.
+
+:::warning[`Random*` nodes are half-open]
+
+They sample `[Minimum, Maximum)`, so `Maximum` never comes out. The range stays inclusive for `Percentage Value` and sub-range clamping — see [Sampling Is Half-Open](float-range.md#sampling-is-half-open).
+
+:::
+
+## UFunctions
+
+```cpp
+UFUNCTION(BlueprintCallable, DisplayName="Next Value (Float)")
+static float NextValue(const FNFloatRange& Range, UNMersenneTwisterObject* TwisterObject);
+
+UFUNCTION(BlueprintCallable, DisplayName="Next Value In Sub-Range (Float)")
+static float NextValueInSubRange(const FNFloatRange& Range, UNMersenneTwisterObject* TwisterObject, float MinimumValue, float MaximumValue);
+
+UFUNCTION(BlueprintCallable, DisplayName="Percentage Value (Float)")
+static float PercentageValue(const FNFloatRange& Range, float Percentage);
+
+UFUNCTION(BlueprintCallable, DisplayName="Random Value (Float)")
+static float RandomValue(const FNFloatRange& Range);
+
+UFUNCTION(BlueprintCallable, DisplayName="Random Value In Sub-Range (Float)")
+static float RandomValueInSubRange(const FNFloatRange& Range, float MinimumValue, float MaximumValue);
+
+UFUNCTION(BlueprintCallable, DisplayName="Random One-Shot Value (Float)")
+static float RandomOneShotValue(const FNFloatRange& Range, const int32 Seed);
+
+UFUNCTION(BlueprintCallable, DisplayName="Random One-Shot Value In Sub-Range (Float)")
+static float RandomOneShotValueInSubRange(const FNFloatRange& Range, int32 Seed, float MinimumValue, float MaximumValue);
+
+UFUNCTION(BlueprintCallable, DisplayName="Value Percentage (Float)")
+static float ValuePercentage(const FNFloatRange& Range, float Value);
+```

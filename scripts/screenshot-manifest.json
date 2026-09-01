@@ -1,7 +1,7 @@
 {
   "note": "Provenance for documentation screenshots, written by `npm run screenshot` when it is given --subject. Deliberately partial: images captured before this file existed have no entry, and gain one when they are next retaken rather than being backfilled from guesswork. \"watch\" lists the source paths whose change invalidates the image; `npm run audit:coverage` diffs them since \"captured.sha\" and reports possible staleness.",
   "images": {
-    "/assets/images/docs/plugins/actor-pools/actor-pools-settings.webp": {
+    "/assets/images/docs/actor-pools/actor-pools-settings.webp": {
       "subject": "Project Settings > NEXUS > Actor Pools: Default Settings with both transforms expanded, plus Initialization and Behavior",
       "pages": [
         "plugins/actor-pools/project-settings"
@@ -16,7 +16,7 @@
         "date": "2026-08-12"
       }
     },
-    "/assets/images/docs/plugins/actor-pools/editor-types/visualizers/actor-pool-spawner-component-visualizer.webp": {
+    "/assets/images/docs/actor-pools/editor-types/visualizers/actor-pool-spawner-component-visualizer.webp": {
       "subject": "The spawner visualizer drawing two distribution shapes in a level viewport: the Radius distribution as concentric circles, and the Sphere distribution as a three-axis wireframe",
       "pages": [
         "plugins/actor-pools/editor-types/visualizers/actor-pool-spawner-component-visualizer"
@@ -31,7 +31,7 @@
         "date": "2026-08-12"
       }
     },
-    "/assets/images/docs/plugins/core/editor-types/editor-settings.webp": {
+    "/assets/images/docs/core/editor-types/editor-settings.webp": {
       "subject": "Editor Preferences > NEXUS > Core: the Updates group with the four properties visible on a non-Custom channel",
       "pages": [
         "plugins/core/editor-types/editor-settings"
@@ -45,7 +45,7 @@
         "date": "2026-08-12"
       }
     },
-    "/assets/images/docs/plugins/guardian/guardian-settings.webp": {
+    "/assets/images/docs/guardian/guardian-settings.webp": {
       "subject": "Project Settings > NEXUS > Guardian: the Subsystem, Baseline and Thresholds groups",
       "pages": [
         "plugins/guardian/project-settings"
@@ -59,7 +59,7 @@
         "date": "2026-08-12"
       }
     },
-    "/assets/images/docs/plugins/picker/picker-settings.webp": {
+    "/assets/images/docs/picker/picker-settings.webp": {
       "subject": "Project Settings > NEXUS > Picker: the Projection group with its Trace and Nav Mesh sub-groups",
       "pages": [
         "plugins/picker/project-settings"
@@ -73,7 +73,7 @@
         "date": "2026-08-12"
       }
     },
-    "/assets/images/docs/plugins/tooling/tooling-editor-settings.webp": {
+    "/assets/images/docs/tooling/tooling-editor-settings.webp": {
       "subject": "Editor Preferences > Tooling: Editor Icon, Project, Validators (Severity and Ignored), Multiplayer Test and Selection Lock, all expanded",
       "pages": [
         "plugins/tooling/editor-settings"
@@ -87,7 +87,7 @@
         "date": "2026-08-21"
       }
     },
-    "/assets/images/docs/plugins/tooling/tooling-user-settings-multiplayer-test.webp": {
+    "/assets/images/docs/tooling/tooling-user-settings-multiplayer-test.webp": {
       "subject": "Editor Preferences > Tooling (User) > Multiplayer Test: Setup, Clients, Network Simulation and Server, all expanded",
       "pages": [
         "plugins/tooling/user-settings"
@@ -101,7 +101,7 @@
         "date": "2026-08-21"
       }
     },
-    "/assets/images/docs/plugins/tooling/tooling-user-settings.webp": {
+    "/assets/images/docs/tooling/tooling-user-settings.webp": {
       "subject": "Editor Preferences > Tooling (User): Graph Navigation, Editor Performance, Leak Check, Quick High Res Screenshot and Visualizers > Distribution, all expanded",
       "pages": [
         "plugins/tooling/user-settings"
@@ -115,7 +115,7 @@
         "date": "2026-08-21"
       }
     },
-    "/assets/images/docs/plugins/ui/editor-types/widgets/command-tile.webp": {
+    "/assets/images/docs/ui/editor-types/widgets/command-tile.webp": {
       "subject": "A single SNCommandTile in a wrap box: the Collision Visualizer command drawn as an icon above a two-line centered label on the recessed tile backing",
       "pages": [
         "plugins/ui/editor-types/widgets/command-tile"
@@ -131,7 +131,7 @@
         "date": "2026-08-12"
       }
     },
-    "/assets/images/docs/plugins/world-assembly/editor-mode/mode-button.webp": {
+    "/assets/images/docs/world-assembly/editor-mode/mode-button.webp": {
       "subject": "The World Assembly mode button on the level-editor toolbar, in a cell-only level where Quick Assembly has collapsed",
       "pages": [
         "plugins/world-assembly/editor-mode/index"
@@ -146,7 +146,7 @@
         "date": "2026-08-12"
       }
     },
-    "/assets/images/docs/plugins/world-assembly/editor-mode/quick-assembly-toolbar.webp": {
+    "/assets/images/docs/world-assembly/editor-mode/quick-assembly-toolbar.webp": {
       "subject": "Quick Assembly organ picker, start button and options dropdown on the level-editor toolbar, with Organ_Main selected",
       "pages": [
         "plugins/world-assembly/editor-mode/index"
@@ -162,7 +162,7 @@
         "date": "2026-08-12"
       }
     },
-    "/assets/images/docs/plugins/world-assembly/editor-mode/rail-cell-data.webp": {
+    "/assets/images/docs/world-assembly/editor-mode/rail-cell-data.webp": {
       "subject": "Cell Data category: Remove Actor, Capture Thumbnails, Force Save and Reset as one list",
       "pages": [
         "plugins/world-assembly/editor-mode/cell-data"
@@ -178,7 +178,7 @@
         "date": "2026-08-12"
       }
     },
-    "/assets/images/docs/plugins/world-assembly/editor-mode/rail-cell.webp": {
+    "/assets/images/docs/world-assembly/editor-mode/rail-cell.webp": {
       "subject": "Cell rail: the vertical category strip with Cell selected, and the panel's Bounds/Vertices/Edges tools, calculate commands, SELECTED ACTOR, QUICK OPTIONS and the DISPLAY group (Draw Bounds, Draw Hull, Draw Fill Bounds)",
       "pages": [
         "plugins/world-assembly/editor-mode/cell",
@@ -198,7 +198,7 @@
         "date": "2026-08-27"
       }
     },
-    "/assets/images/docs/plugins/world-assembly/editor-mode/rail-junction.webp": {
+    "/assets/images/docs/world-assembly/editor-mode/rail-junction.webp": {
       "subject": "Junction category: the Place tool, the disabled Add Component and Collect All commands, and the junction picker at the bottom",
       "pages": [
         "plugins/world-assembly/editor-mode/junction"
@@ -214,7 +214,7 @@
         "date": "2026-08-12"
       }
     },
-    "/assets/images/docs/plugins/world-assembly/editor-mode/rail-organ.webp": {
+    "/assets/images/docs/world-assembly/editor-mode/rail-organ.webp": {
       "subject": "Organ category: the world-wide proxy commands, the SELECTED ORGAN group headed by the organ picker with Organ_Main chosen, and the idle Operations block",
       "pages": [
         "plugins/world-assembly/editor-mode/organ"
@@ -231,7 +231,7 @@
         "date": "2026-08-12"
       }
     },
-    "/assets/images/docs/plugins/world-assembly/editor-mode/rail-world.webp": {
+    "/assets/images/docs/world-assembly/editor-mode/rail-world.webp": {
       "subject": "World category: the Collision Visualizer tile, the Create commands with Add Cell Actor refused in an organ level, and the SELECTED ACTOR tagging toggle",
       "pages": [
         "plugins/world-assembly/editor-mode/world"
@@ -247,7 +247,7 @@
         "date": "2026-08-12"
       }
     },
-    "/assets/images/docs/plugins/world-assembly/world-assembly-editor-preferences-user.webp": {
+    "/assets/images/docs/world-assembly/world-assembly-editor-preferences-user.webp": {
       "subject": "Editor Preferences > NEXUS > World Assembly (User): the whole category — Color Palette (Bones, Cell, Junctions incl. Connector Corners), Debug (Draw Unfilled Junctions, Draw Junction Connectors, Draw Bounds, Draw Hull, Draw Fill Bounds), Notifications, Quick Assembly",
       "pages": [
         "plugins/world-assembly/user-settings"
@@ -261,7 +261,7 @@
         "date": "2026-08-27"
       }
     },
-    "/assets/images/docs/plugins/world-assembly/world-assembly-editor-preferences.webp": {
+    "/assets/images/docs/world-assembly/world-assembly-editor-preferences.webp": {
       "subject": "Editor Preferences > World Assembly: the Cell (Defaults) and World Context groups",
       "pages": [
         "plugins/world-assembly/editor-settings"
@@ -275,7 +275,7 @@
         "date": "2026-08-12"
       }
     },
-    "/assets/images/docs/plugins/world-assembly/world-assembly-settings-assembly.webp": {
+    "/assets/images/docs/world-assembly/world-assembly-settings-assembly.webp": {
       "subject": "Project Settings > NEXUS > World Assembly > Assembly: World Collisions expanded, plus Junction Matching, Tagging and Spawning",
       "pages": [
         "plugins/world-assembly/project-settings"
@@ -289,7 +289,7 @@
         "date": "2026-08-12"
       }
     },
-    "/assets/images/docs/plugins/world-assembly/world-assembly-settings-debug.webp": {
+    "/assets/images/docs/world-assembly/world-assembly-settings-debug.webp": {
       "subject": "Project Settings > NEXUS > World Assembly > Debug: the Proxy Material property",
       "pages": [
         "plugins/world-assembly/project-settings"
@@ -303,7 +303,7 @@
         "date": "2026-08-12"
       }
     },
-    "/assets/images/docs/plugins/world-assembly/world-assembly-settings-junction-connecting.webp": {
+    "/assets/images/docs/world-assembly/world-assembly-settings-junction-connecting.webp": {
       "subject": "Project Settings > NEXUS > World Assembly > Junction Connecting: the default connector and the full connector-settings struct",
       "pages": [
         "plugins/world-assembly/project-settings"
@@ -317,7 +317,7 @@
         "date": "2026-08-12"
       }
     },
-    "/assets/images/docs/plugins/world-assembly/world-assembly-settings.webp": {
+    "/assets/images/docs/world-assembly/world-assembly-settings.webp": {
       "subject": "Project Settings > NEXUS > World Assembly: the General, Network and Organ groups",
       "pages": [
         "plugins/world-assembly/project-settings"

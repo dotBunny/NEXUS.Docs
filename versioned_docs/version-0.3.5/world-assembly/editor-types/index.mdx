@@ -1,0 +1,16 @@
+---
+description: Editor-only types for World Assembly — the component visualizers that draw and edit cells in the viewport, the Content Browser asset definitions, and the cell-proxy actor factory.
+sidebar_position: 3
+---
+
+import DocCardList from '@theme/DocCardList';
+
+# Editor Types
+
+Editor-only types that surface World Assembly in the Unreal Editor: the [component visualizers](visualizers/index.mdx) that draw bones, junctions, and cells into level viewports — and, in the cell's case, accept the drag input that edits them — plus the [asset definitions](asset-definitions/index.mdx) registering `UNCell` and `UNTissue` with the Content Browser, and the factory that turns a dropped cell asset into a placed proxy. Mirrors the layout of `NexusWorldAssemblyEditor/Public/`.
+
+None of this is available at runtime; the whole module is editor-only.
+
+For the authoring workflow these types implement, see [Editor Mode](../editor-mode/index.mdx). This section is the type-level reference behind it.
+
+<DocCardList />
