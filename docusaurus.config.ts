@@ -58,6 +58,34 @@ const DEV_ONLY_VERSIONS =
     ? ['current', LAST_VERSION].filter(Boolean)
     : undefined;
 
+// Every `/docs` prefix the site serves: the default version at the bare path, the unreleased
+// docs at `/dev/`, then each remaining archive by number. `lastVersion` is excluded because it
+// is the one served at the bare path — `/docs/<lastVersion>/` is not a route, and the redirect
+// plugin validates every `to` against the real route list, so pointing at it fails the build.
+// Derived rather than written out so it follows `lastVersion` as it moves each release: the
+// version at the bare path today takes a numbered path after the next `docs:version`.
+//
+// DEV_ONLY_VERSIONS needs no consideration here — the redirect plugin runs in `postBuild`, so
+// none of this is evaluated by `npm run start` and a production build always has every version.
+const DOC_VERSION_PREFIXES = [
+  '/docs',
+  '/docs/dev',
+  ...DOC_VERSIONS.filter((v) => v !== LAST_VERSION).map((v) => `/docs/${v}`),
+];
+
+// `getting-started/` used to be a folder of pages inside `docs/`, versioned along with
+// everything else. It is now one un-versioned page in the guides section, and the archived
+// snapshots no longer carry their own copy, so those URLs 404 in every version. The old
+// per-page split survives as one H2 per former page, which is what these anchors point at.
+const REMOVED_GETTING_STARTED_PAGES: Record<string, string> = {
+  'getting-started': '/guides/getting-started/',
+  'getting-started/installation': '/guides/getting-started/#installation',
+  'getting-started/configuration': '/guides/getting-started/#configuration',
+  'getting-started/test-project': '/guides/getting-started/#test-project',
+  'getting-started/updates': '/guides/getting-started/#updates',
+  'getting-started/faq': '/guides/getting-started/#frequently-asked-questions',
+};
+
 const config: Config = {
   title: 'NEXUS Framework',
   tagline: 'A battle-tested collection of game-ready plugins for Unreal Engine.',
@@ -395,6 +423,19 @@ const config: Config = {
         redirects: [
           { from: '/whats-new', to: '/whats-new/changelog' },
           { from: '/guides', to: '/guides/getting-started' },
+
+          // Pages that were removed from `docs/` — including from the archived snapshots,
+          // which is why one entry per version prefix is needed. `from` takes no wildcard,
+          // so each old URL is enumerated.
+          ...DOC_VERSION_PREFIXES.flatMap((prefix) => [
+            // The plugins overview was folded into that version's docs index, so unlike
+            // getting-started this one stays inside the version the reader came from.
+            { from: `${prefix}/plugins`, to: `${prefix}/` },
+            ...Object.entries(REMOVED_GETTING_STARTED_PAGES).map(([from, to]) => ({
+              from: `${prefix}/${from}`,
+              to,
+            })),
+          ]),
         ],
 
         createRedirects(existingPath: string) {
