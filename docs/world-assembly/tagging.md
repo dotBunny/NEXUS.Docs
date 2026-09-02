@@ -9,30 +9,38 @@ Tags play a powerful role within `World Assembly`, providing a cheap and effecti
 
 :::tip
 
-Actor-based tags are available natively in the `NEXUS::WorldAssembly::ActorTags` namespace.
+These tags are available natively in the `NEXUS::WorldAssembly::ActorTags` namespace.
 
 :::
 
 ## Cell Markup Tags
 
-By adding pre-defined `FName` tags to any `AActor` in a Cell's source level it will alter how the `UNCell` spatial calculations apply to it.
+By adding pre-defined `FName` tags to any `AActor` in a Cell's source level — or to an individual component on one — it will alter how the `UNCell` spatial calculations apply to it.
 
 | Tag | Native | Effect |
 | --- | --- |--- |
-| `NCell_Ignore` | `CellIgnore` | Excludes the actor from every cell-generation spatial calculation. |
-| `NCell_BoundsIgnore` | `BoundsIgnore` | Excludes the actor from the cell's axis-aligned bounds calculation only. |
-| `NCell_HullIgnore` | `HullIgnore` | Excludes the actor from the cell's convex-hull calculation only. |
-| `NCell_VoxelIgnore` | `VoxelIgnore` | Excludes the actor from the cell's voxel-occupancy calculation only. |
+| `NCell_Ignore` | `CellIgnore` | Excludes the actor or component from every cell-generation spatial calculation. |
+| `NCell_BoundsIgnore` | `CellBoundsIgnore` | Excludes the actor or component from the cell's axis-aligned bounds calculation only. |
+| `NCell_HullIgnore` | `CellHullIgnore` | Excludes the actor or component from the cell's convex-hull calculation only. |
+| `NCell_VoxelIgnore` | `CellVoxelIgnore` | Excludes the actor or component from the cell's voxel-occupancy calculation only. |
+
+:::note
+
+Each tag is read at both levels from a single list — the `Ignore Tags` property on the cell's `Bounds`, `Hull` and `Voxel` generation settings — so a tag added there applies to actors and components alike. Tagging a component excludes only that component: the rest of its actor goes on contributing, and the actor is still measured. The case this exists for is generated content — a PCG graph writes its whole output onto one container actor, so an actor tag takes all of it, where tagging the spawner's components individually keeps part of what it produced in the cell's shape and leaves the rest out.
+
+:::
 
 ## World Collision Markup Tags
 
-Plain `FName` tags added to any `AActor`, consumed by the virtual-world capture phase before any cell pass runs in an assembly operation.
+Plain `FName` tags added to any `AActor`, or to an individual component on one, consumed by the virtual-world capture phase before any cell pass runs in an assembly operation.
 
 | Tag | Native| Effect |
 | --- | --- | --- |
-| `NWorldCollision_Ignore` | `WorldCollisionIgnore` | Excludes the actor from the virtual-world collision capture; the actor is not visible to any subsequent assembly pass at all. |
+| `NWorldCollision_Ignore` | `WorldCollisionIgnore` | Excludes the actor or component from the virtual-world collision capture; what is excluded is not visible to any subsequent assembly pass at all. |
 
-[Editor Mode](editor-mode/index.mdx) provides quick-toggle commands for these tags on the current selection: `NCell_Ignore` from the [Cell rail](editor-mode/cell.md#tagging), and `NWorldCollision_Ignore` from the [World rail](editor-mode/world.md#tagging).
+`World Assembly` project settings carry the lists these are matched against, as `World Collisions` > `Actor Ignore Tags` and `Component Ignore Tags`, so a project can add markup tags of its own alongside the built-in one.
+
+[Editor Mode](editor-mode/index.mdx) provides quick-toggle commands for these tags on the current selection: `NCell_Ignore` from the [Cell rail](editor-mode/cell.md#tagging), and `NWorldCollision_Ignore` from the [World rail](editor-mode/world.md#tagging). Both act on the selected components when any are selected, and on the selected actors otherwise — selecting a component in the level editor leaves its owning actor selected too, so the component selection is what wins when both are present.
 
 ## Assembly Gameplay Tags
 

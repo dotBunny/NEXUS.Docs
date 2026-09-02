@@ -72,9 +72,11 @@ They also wait on the terrain. Where a level's floor is a Mesh Partition terrain
 
 | Command | Description |
 | :-- | :-- |
-| **Ignore Cell Collision** | Toggles the [`NCell_Ignore`](../tagging.md#cell-markup-tags) tag on the selected actors, excluding them when calculating this cell's bounds, hull and voxel data. |
+| **Ignore Cell Collision** | Toggles the [`NCell_Ignore`](../tagging.md#cell-markup-tags) tag on the selected components — or on the selected actors, when no component is selected — excluding them when calculating this cell's bounds, hull and voxel data. |
 
-The button's icon reports what the next click will do: any tagged actor in the selection means the click strips the tag from all of them, and it swaps to the remove-tag icon to say so. Available with actors selected, provided the `ANCellActor` itself is not among them.
+The button's icon reports what the next click will do: any tagged entry in the selection means the click strips the tag from all of them, and it swaps to the remove-tag icon to say so. Available with actors selected, provided the `ANCellActor` itself is not among them.
+
+Selecting a component in the level editor leaves its owning actor selected too, so the component selection is what wins when both are present. Tagging a component excludes only that component, which is what generated content needs: a graph writes its whole output onto one container actor, so an actor tag would take all of it.
 
 This is about a cell's own geometry. To exclude an actor from the world collision an assembly run places cells *against*, use [Ignore World Collision](world.md#tagging).
 

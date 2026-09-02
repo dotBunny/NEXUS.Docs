@@ -60,8 +60,8 @@ Only the cell is a singleton — a level is meant to hold as many organ volumes 
 
 | Command | Description |
 | :-- | :-- |
-| **Ignore World Collision** | Toggles the [`NWorldCollision_Ignore`](../tagging.md#world-collision-markup-tags) tag on the selected actors, excluding them from the world collision an assembly run places cells against. |
+| **Ignore World Collision** | Toggles the [`NWorldCollision_Ignore`](../tagging.md#world-collision-markup-tags) tag on the selected components — or on the selected actors, when no component is selected — excluding them from the world collision an assembly run places cells against. |
 
 Available only with actors selected, and **only in a level that is not itself a cell**. World collision is what an assembly operation places cells *against*, so tagging it out is a decision about the destination level rather than about a cell's own geometry — for that, use [Ignore Cell Collision](cell.md#tagging) on the Cell rail.
 
-As on the Cell rail, the button's icon reports what the next click will do: any tagged actor in the selection means the click strips the tag from all of them.
+As on the Cell rail, the button's icon reports what the next click will do: any tagged entry in the selection means the click strips the tag from all of them. Selecting a component in the level editor leaves its owning actor selected too, so the component selection is what wins when both are present.
