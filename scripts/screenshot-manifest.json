@@ -4,7 +4,7 @@
     "/assets/images/docs/actor-pools/actor-pools-settings.webp": {
       "subject": "Project Settings > NEXUS > Actor Pools: Default Settings with both transforms expanded, plus Initialization and Behavior",
       "pages": [
-        "plugins/actor-pools/project-settings"
+        "actor-pools/project-settings"
       ],
       "setup": "Edit > Project Settings > NEXUS > Actor Pools. The Project Settings pane lists every NEXUS category in one scroll, so crop to the section before the next category header.",
       "watch": [
@@ -19,7 +19,7 @@
     "/assets/images/docs/actor-pools/editor-types/visualizers/actor-pool-spawner-component-visualizer.webp": {
       "subject": "The spawner visualizer drawing two distribution shapes in a level viewport: the Radius distribution as concentric circles, and the Sphere distribution as a three-axis wireframe",
       "pages": [
-        "plugins/actor-pools/editor-types/visualizers/actor-pool-spawner-component-visualizer"
+        "actor-pools/editor-types/visualizers/actor-pool-spawner-component-visualizer"
       ],
       "level": "/NexusActorPoolsSamples/DEMO_NActorPools",
       "setup": "Select the BP_NActorPoolSpawner_* actors; the visualizer only draws for a selected component. Captured with EditorAppToolset.CaptureViewport at bShowUI:false, which hides gizmos and selection outlines but leaves component visualizers drawing.",
@@ -34,7 +34,7 @@
     "/assets/images/docs/core/editor-types/editor-settings.webp": {
       "subject": "Editor Preferences > NEXUS > Core: the Updates group with the four properties visible on a non-Custom channel",
       "pages": [
-        "plugins/core/editor-types/editor-settings"
+        "core/editor-types/editor-settings"
       ],
       "setup": "Edit > Editor Preferences > NEXUS > Core. Custom Query URI and Custom Update URI are EditConditionHides and only appear when Channel is Custom, so four of the six properties show by default.",
       "watch": [
@@ -48,7 +48,7 @@
     "/assets/images/docs/guardian/guardian-settings.webp": {
       "subject": "Project Settings > NEXUS > Guardian: the Subsystem, Baseline and Thresholds groups",
       "pages": [
-        "plugins/guardian/project-settings"
+        "guardian/project-settings"
       ],
       "setup": "Edit > Project Settings > NEXUS > Guardian. Selecting the category scrolls the shared NEXUS pane to it; crop to the section before the next category header.",
       "watch": [
@@ -62,7 +62,7 @@
     "/assets/images/docs/picker/picker-settings.webp": {
       "subject": "Project Settings > NEXUS > Picker: the Projection group with its Trace and Nav Mesh sub-groups",
       "pages": [
-        "plugins/picker/project-settings"
+        "picker/project-settings"
       ],
       "setup": "Edit > Project Settings > NEXUS > Picker. Selecting the category scrolls the shared NEXUS pane to it; crop to the section before the next category header.",
       "watch": [
@@ -76,7 +76,7 @@
     "/assets/images/docs/tooling/tooling-editor-settings.webp": {
       "subject": "Editor Preferences > Tooling: Editor Icon, Project, Validators (Severity and Ignored), Multiplayer Test and Selection Lock, all expanded",
       "pages": [
-        "plugins/tooling/editor-settings"
+        "tooling/editor-settings"
       ],
       "setup": "Edit > Editor Preferences > NEXUS > Tooling. Expand Editor Icon, Project, Severity and Ignored; the Levels and Ignored arrays stay collapsed.",
       "watch": [
@@ -90,7 +90,7 @@
     "/assets/images/docs/tooling/tooling-user-settings-multiplayer-test.webp": {
       "subject": "Editor Preferences > Tooling (User) > Multiplayer Test: Setup, Clients, Network Simulation and Server, all expanded",
       "pages": [
-        "plugins/tooling/user-settings"
+        "tooling/user-settings"
       ],
       "setup": "Edit > Editor Preferences > NEXUS > Tooling (User). Collapse the five groups above Multiplayer Test so the whole tree fits the pane without scrolling, then expand Setup, Clients, Network Simulation and Server.",
       "watch": [
@@ -104,7 +104,7 @@
     "/assets/images/docs/tooling/tooling-user-settings.webp": {
       "subject": "Editor Preferences > Tooling (User): Graph Navigation, Editor Performance, Leak Check, Quick High Res Screenshot and Visualizers > Distribution, all expanded",
       "pages": [
-        "plugins/tooling/user-settings"
+        "tooling/user-settings"
       ],
       "setup": "Edit > Editor Preferences > NEXUS > Tooling (User). Expand every group including Visualizers > Distribution; collapse Multiplayer Test, which is captured separately.",
       "watch": [
@@ -118,7 +118,7 @@
     "/assets/images/docs/ui/editor-types/widgets/command-tile.webp": {
       "subject": "A single SNCommandTile in a wrap box: the Collision Visualizer command drawn as an icon above a two-line centered label on the recessed tile backing",
       "pages": [
-        "plugins/ui/editor-types/widgets/command-tile"
+        "ui/editor-types/widgets/command-tile"
       ],
       "level": "/NexusWorldAssemblySamples/DEMO_NWorldAssembly",
       "setup": "Activate World Assembly mode; select the World category. The tile group is the recessed block at the top of the panel.",
@@ -134,7 +134,7 @@
     "/assets/images/docs/world-assembly/editor-mode/mode-button.webp": {
       "subject": "The World Assembly mode button on the level-editor toolbar, in a cell-only level where Quick Assembly has collapsed",
       "pages": [
-        "plugins/world-assembly/editor-mode/index"
+        "world-assembly/editor-mode/index"
       ],
       "level": "/NexusWorldAssemblySamples/Cells/CELL_Simple_00",
       "setup": "Open a cell level with the mode INACTIVE; the button hides once the mode is active.",
@@ -149,7 +149,7 @@
     "/assets/images/docs/world-assembly/editor-mode/quick-assembly-toolbar.webp": {
       "subject": "Quick Assembly organ picker, start button and options dropdown on the level-editor toolbar, with Organ_Main selected",
       "pages": [
-        "plugins/world-assembly/editor-mode/index"
+        "world-assembly/editor-mode/index"
       ],
       "level": "/NexusWorldAssemblySamples/DEMO_NWorldAssembly",
       "setup": "Open a level containing an organ and activate the mode; the controls collapse without an organ, and the toolbar shifts left once the mode button hides. The cluster is the combo, the start button and the options dropdown.",
@@ -165,7 +165,7 @@
     "/assets/images/docs/world-assembly/editor-mode/rail-cell-data.webp": {
       "subject": "Cell Data category: Remove Actor, Capture Thumbnails, Force Save and Reset as one list",
       "pages": [
-        "plugins/world-assembly/editor-mode/cell-data"
+        "world-assembly/editor-mode/cell-data"
       ],
       "level": "/NexusWorldAssemblySamples/Cells/CELL_Simple_00",
       "setup": "Activate World Assembly mode; select the Cell Data category from the strip.",
@@ -181,8 +181,8 @@
     "/assets/images/docs/world-assembly/editor-mode/rail-cell.webp": {
       "subject": "Cell rail: the vertical category strip with Cell selected, and the panel's Bounds/Vertices/Edges tools, calculate commands, SELECTED ACTOR, QUICK OPTIONS and the DISPLAY group (Draw Bounds, Draw Hull, Draw Fill Bounds)",
       "pages": [
-        "plugins/world-assembly/editor-mode/cell",
-        "plugins/world-assembly/editor-mode/index"
+        "world-assembly/editor-mode/cell",
+        "world-assembly/editor-mode/index"
       ],
       "level": "/NexusWorldAssemblySamples/Cells/CELL_Simple_00",
       "setup": "Activate World Assembly mode via the level-editor mode dropdown; the Cell rail auto-selects in a cell level. Camera moved to empty space (z=80000, pitch 85) for a black viewport, cursor moved off the panel to clear hover. Cropped from a SlateInspector Screenshot of sp5 with a 20px margin around the measured strip+panel bounds.",
@@ -201,7 +201,7 @@
     "/assets/images/docs/world-assembly/editor-mode/rail-junction.webp": {
       "subject": "Junction category: the Place tool, the disabled Add Component and Collect All commands, and the junction picker at the bottom",
       "pages": [
-        "plugins/world-assembly/editor-mode/junction"
+        "world-assembly/editor-mode/junction"
       ],
       "level": "/NexusWorldAssemblySamples/Cells/CELL_Simple_00",
       "setup": "Activate World Assembly mode; select the Junction category. Add Component and Collect All stay disabled with no actor selected.",
@@ -217,7 +217,7 @@
     "/assets/images/docs/world-assembly/editor-mode/rail-organ.webp": {
       "subject": "Organ category: the world-wide proxy commands, the SELECTED ORGAN group headed by the organ picker with Organ_Main chosen, and the idle Operations block",
       "pages": [
-        "plugins/world-assembly/editor-mode/organ"
+        "world-assembly/editor-mode/organ"
       ],
       "level": "/NexusWorldAssemblySamples/DEMO_NWorldAssembly",
       "setup": "Activate World Assembly mode; the Organ category is auto-selected in an organ level. Pick Organ_Main from the picker so the Selected Organ commands enable.",
@@ -234,7 +234,7 @@
     "/assets/images/docs/world-assembly/editor-mode/rail-world.webp": {
       "subject": "World category: the Collision Visualizer tile, the Create commands with Add Cell Actor refused in an organ level, and the SELECTED ACTOR tagging toggle",
       "pages": [
-        "plugins/world-assembly/editor-mode/world"
+        "world-assembly/editor-mode/world"
       ],
       "level": "/NexusWorldAssemblySamples/DEMO_NWorldAssembly",
       "setup": "Activate World Assembly mode; select the World category. An actor must be selected for the tagging toggle to enable.",
@@ -250,7 +250,7 @@
     "/assets/images/docs/world-assembly/world-assembly-editor-preferences-user.webp": {
       "subject": "Editor Preferences > NEXUS > World Assembly (User): the whole category — Color Palette (Bones, Cell, Junctions incl. Connector Corners), Debug (Draw Unfilled Junctions, Draw Junction Connectors, Draw Bounds, Draw Hull, Draw Fill Bounds), Notifications, Quick Assembly",
       "pages": [
-        "plugins/world-assembly/user-settings"
+        "world-assembly/user-settings"
       ],
       "setup": "Ctrl+Alt+E, then select NEXUS > World Assembly (User) in the tree (click the current row to focus, then Down arrow). Editor Preferences scopes the pane to the selected category, so it already ends where the category does. Collapse Connector Corners so every color row is uniform. Window sized to 1212x1045 logical for a ~931 logical pane; captured by ref on the pane's List node and cropped to the last content row.",
       "watch": [
@@ -264,7 +264,7 @@
     "/assets/images/docs/world-assembly/world-assembly-editor-preferences.webp": {
       "subject": "Editor Preferences > World Assembly: the Cell (Defaults) and World Context groups",
       "pages": [
-        "plugins/world-assembly/editor-settings"
+        "world-assembly/editor-settings"
       ],
       "setup": "Edit > Editor Preferences > NEXUS > World Assembly. Expand both groups; the nested generation-settings structs stay collapsed because the page documents them at group level.",
       "watch": [
@@ -278,7 +278,7 @@
     "/assets/images/docs/world-assembly/world-assembly-settings-assembly.webp": {
       "subject": "Project Settings > NEXUS > World Assembly > Assembly: World Collisions expanded, plus Junction Matching, Tagging and Spawning",
       "pages": [
-        "plugins/world-assembly/project-settings"
+        "world-assembly/project-settings"
       ],
       "setup": "Collapse General, Network and Organ so Assembly reaches the top of the pane; double-click the World Collisions struct row to expand it.",
       "watch": [
@@ -292,7 +292,7 @@
     "/assets/images/docs/world-assembly/world-assembly-settings-debug.webp": {
       "subject": "Project Settings > NEXUS > World Assembly > Debug: the Proxy Material property",
       "pages": [
-        "plugins/world-assembly/project-settings"
+        "world-assembly/project-settings"
       ],
       "setup": "Collapse Junction Connecting so Debug sits just below it.",
       "watch": [
@@ -306,7 +306,7 @@
     "/assets/images/docs/world-assembly/world-assembly-settings-junction-connecting.webp": {
       "subject": "Project Settings > NEXUS > World Assembly > Junction Connecting: the default connector and the full connector-settings struct",
       "pages": [
-        "plugins/world-assembly/project-settings"
+        "world-assembly/project-settings"
       ],
       "setup": "Junction Connecting is nested inside Assembly. Collapse World Collisions, Junction Matching, Tagging and Spawning to lift it to the top of the pane.",
       "watch": [
@@ -320,7 +320,7 @@
     "/assets/images/docs/world-assembly/world-assembly-settings.webp": {
       "subject": "Project Settings > NEXUS > World Assembly: the General, Network and Organ groups",
       "pages": [
-        "plugins/world-assembly/project-settings"
+        "world-assembly/project-settings"
       ],
       "setup": "Edit > Project Settings > NEXUS > World Assembly. Expand every group; capture the section before Assembly.",
       "watch": [
