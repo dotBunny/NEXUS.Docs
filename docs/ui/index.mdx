@@ -13,6 +13,7 @@ This plugin functions as a force multiplier for utilizing UMG:
 
 - **Programmatic Widget Updates:** Provide complementary components which do not trigger their associated event handlers when updated via specific pathways.
 - **Default Content:** Often required content to use with your user interface.
+- **Safe 3D Text Streaming:** The [Text Render Warmup Subsystem](types/text-render-warmup-subsystem.md) creates text-render font materials on the game thread before a streamed level registers, so World Partition cells full of `UTextRenderComponent`s don't create `UObject`s on a worker thread. It is on by default and has nothing to configure beyond a [project setting](project-settings.md).
 
 ## Samples
 
