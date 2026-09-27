@@ -222,7 +222,7 @@ as designed, **Low** a papercut or inconsistency.
 
 ### D2. Existing lint errors in `whats-new/world-assembly.md`
 
-- **Severity:** Low. **Status:** Open (it will be fixed while that file is edited).
+- **Severity:** Low. **Status:** Fixed.
 - **Claim:** There are two issues: MD012 (a double blank line at about line 22) and MD047 (no trailing newline). `whats-new/` is not in the default `lint:md` globs, so this only shows up when the file is linted explicitly. `whats-new/tooling.md` had the same MD047 problem, now fixed.
 
 ### D3. `audit:coverage` did not see a doc comment above an explicit template specialization
