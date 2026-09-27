@@ -13,6 +13,14 @@ Backed by `UNGuardianSettings`; from C++, read it with `UNGuardianSettings::Get(
 
 ## Subsystem
 
+:::danger[Known issue in 0.3.5: `Build Availability` is ignored]
+
+In 0.3.5, `Build Availability` never takes effect. The macro that decides whether to create the subsystem expanded its condition without parentheses, so Guardian's conditional was misread as "always create". As a result, `UNGuardianSubsystem` is created in **every** build, **Shipping included**. By default it takes a baseline 15 seconds into every world and counts `UObject`s every second after that.
+
+Upgrade to 0.4.0, which fixes this. On 0.3.5 you can keep it out of Shipping by disabling the plugin for that configuration in your game's `Target.cs`, for example `if (Configuration == UnrealTargetConfiguration.Shipping) { DisablePlugins.Add("NexusGuardian"); }`. Nothing else in NEXUS depends on Guardian.
+
+:::
+
 | Setting | Description | Default |
 | :-- | --- | :-- |
 | `Build Availability` | Bitmask of `ENBuildConfigurationAvailability` flags (`Debug`, `Development`, `Shipping`, `Test`, `Editor`) controlling which build configurations the [UNGuardianSubsystem](types/guardian-subsystem.md) is created in. Set to `None` (`0`) to disable the subsystem entirely. | `Debug`, `Development`, `Test`, `Editor` (everything except `Shipping`) |
