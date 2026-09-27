@@ -23,7 +23,7 @@ This supersedes the old **Add Component** flow, which attached a junction at the
 
 | Command | Description |
 | :-- | :-- |
-| **Add** | Adds a `UNCellJunctionComponent` to the current actor, at the identity transform. Needs an actor selected. |
+| **Add Component** | Adds a `UNCellJunctionComponent` to the current actor, at the identity transform. Needs an actor selected. |
 | **Collect All** | Collects every [Junction](../types/junction-component.md) in the level and moves it onto the selected `AActor`, preserving each one's world transform — handy for consolidating scattered junctions under a single owner. |
 
 ## Junction Picker

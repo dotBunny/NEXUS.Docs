@@ -49,6 +49,12 @@ The four score accessors return the stored `uint8` rather than widening it; see 
 
 `UpdateFromAssemblyData()` refreshes the instance from the current data, and is what the `OnRep_AssemblyData` notify calls when a client receives it.
 
+```cpp
+bool HasAssemblyData() const;
+```
+
+True once the cell's assembly data has arrived, which is judged by its per-junction link details being present. The data is replicated, so on a client it can arrive **after** the cell's junctions have registered and begun play. Until then, a junction asking for its link details would get a default that looks exactly like "unconnected". Junctions check this, and [wait](junction-component.md#waiting-for-replicated-data) for `UpdateFromAssemblyData()` instead of acting on the default.
+
 ## Junction Data
 
 ```cpp

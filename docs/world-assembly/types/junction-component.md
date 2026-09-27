@@ -78,7 +78,7 @@ The spawned actor **must** implement [INCellJunctionFiller](cell-junction-filler
 | Required Context Tags | `FGameplayTagContainer` | Tags that must be present in the generated cell's `Context Tags` for this entry to be eligible. | `(Empty)` |
 | Tag Counter Constraints | `TArray<FNGameplayTagCounterConstraint>` | `Tag Counter` constraints that must **all** pass for this entry to be eligible. A constrained tag absent from the counter compares as `0`. | `(Empty)` |
 | Weighting | `int32` | Relative weight for random selection among eligible entries. Higher values are more likely to be chosen. | `1` |
-| Skip Additional Actors | `bool` | When this entry wins selection, leave the [Additional Filled Actors](#additional-actors) hidden instead of revealing them. Useful for a filler that already provides its own geometry and would otherwise double up. Additional Connected Actors are still hidden as normal. | `false` |
+| Skip Additional Actors | `bool` | Once **this entry's filler has actually spawned**, hide the [Additional Filled Actors](#additional-actors) that resolving unconnected had shown. Useful for a filler that already provides its own geometry and would otherwise double up. It only ever hides: Additional Connected Actors stay hidden as normal. If the spawn fails and the default filler runs instead, the filled actors stay shown. | `false` |
 
 #### Disable Filling
 
@@ -154,9 +154,19 @@ Both are `EditInstanceOnly` — assign them on a placed junction inside the cell
 
 :::info[What "Shown" Means]
 
-Toggling here is **not** spawning or destroying. Each actor gets `SetActorHiddenInGame` and `SetActorEnableCollision` applied together, so the actors persist in the level either way and simply become visible and collidable, or invisible and non-collidable.
+Toggling here is **not** spawning or destroying. At runtime, each actor gets `SetActorHiddenInGame` and `SetActorEnableCollision` applied together, so the actors persist in the level either way and simply become visible and collidable, or invisible and non-collidable.
 
 Anything else the actor does — ticking, audio, lights, gameplay logic — keeps running. If an actor needs to fully stand down when its junction resolves the other way, implement [INCellJunctionBeginPlay](cell-junction-begin-play.md) and handle it explicitly.
+
+:::
+
+:::tip[You see it in the editor too]
+
+A cell **generated in the editor** (spawned from a [Cell Proxy](cell-proxy.md), for example by [Quick Assembly](../editor-mode/index.mdx#quick-assembly)) shows the same dressing in the viewport that it would in game. `BeginPlay` never runs in an editor world, so the lists are applied when the junction **registers**, which is the point at which a generated cell's junction learns how it resolved.
+
+At author time only **visibility** changes, through `SetIsTemporarilyHiddenInEditor`. That doesn't dirty the level or create an undo transaction, and a regeneration applies it again. Collision is left alone on purpose. The [world-collision](../world-collision.md) gather skips primitives with collision switched off, so toggling collision here would make the level's baked cache depend on which junctions happened to connect.
+
+A cell you have opened for **authoring** is left untouched; only cells spawned from a proxy are resolved. Fillers, connectors and the [OnBeginPlay Targets](#callbacks) callbacks remain **runtime only**, because the game-only [World Assembly Subsystem](world-assembly-subsystem.md) that builds them doesn't exist in an editor world.
 
 :::
 
@@ -207,12 +217,27 @@ Because `Forward` is the default and anchors at `0`, a filler that simply spawns
 
 ### Order of Operations
 
-When a junction's `BeginPlay` runs, it works through the following in order:
+When a junction's `BeginPlay` runs, it resolves its connection state **once**, working through the following in order:
 
-1. If the junction **connected**, its [Additional Actors](#additional-actors) pass runs immediately in the connected direction.
+1. Its [Additional Actors](#additional-actors) pass runs, for **every** junction, in whichever direction it resolved: connected actors shown for a connected junction, filled actors shown for any other.
 2. Every actor on [OnBeginPlay Targets](#callbacks) is invoked, connected or not.
-3. If the junction connected, it stops here.
-4. Otherwise `Requirements` decides: `Required` does nothing (a required junction that reached this point failed to satisfy the graph), `Allow Empty` does nothing, and `Allow Blocking` either fills immediately or registers with the [World Assembly Subsystem](world-assembly-subsystem.md) for time-sliced filling.
+3. A connector-paired junction registers with the [World Assembly Subsystem](world-assembly-subsystem.md), which builds the bridging connector once both cells are live, and stops.
+4. A connected junction stops.
+5. Otherwise `Requirements` decides: `Required` does nothing (a required junction that reached this point failed to satisfy the graph), `Allow Empty` does nothing, and `Allow Blocking` either fills immediately or registers with the subsystem for time-sliced filling.
+
+Step 1 happens first, for every junction, on purpose. Every later step is conditional, and a junction that never reached a fill (no eligible filler and no `Junction Default Filler`, `Allow Empty`, or an unconnected `Required`) used to leave both lists at whatever visibility they were authored with.
+
+:::warning[Upgrading to 0.4.0: expect actors to disappear]
+
+Before 0.4.0, only a junction that ended up connected reliably had its lists applied. An `Additional Connected Actors` entry on a junction that never resolved therefore stayed visible in practice. It is now hidden as authored. If a level came to rely on the old behavior, those actors will vanish.
+
+:::
+
+### Waiting For Replicated Data
+
+On a **client**, a cell's [assembly data](cell-level-instance.md) can arrive after its junctions have registered and begun play. Until it does, the junction can't tell a real "unconnected" apart from "not known yet". Acting on it would hide a connected junction's actors and spawn a filler into an opening another cell is about to meet.
+
+So a junction whose [Cell Level Instance](cell-level-instance.md) reports `HasAssemblyData()` as false **waits**. When the data lands, `UpdateFromAssemblyData` resolves every waiting junction in its cell, following the same order as above. A junction that already resolved from real data is left as it is.
 
 ### Selection Is Deterministic
 

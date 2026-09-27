@@ -47,6 +47,7 @@ The panel is taller than one screen, so the remaining groups are captured under 
 | --- | :-- | :-- |
 | `Retry Count` | The maximum amount of full attempts at assembling a space before it is considered a complete failure. | `10000` |
 | `World Collisions > Actor Ignore Tags` | Additional `FName` tags to query for when ignoring actors from world collision detection. Supplements the [`NWorldCollision_Ignore` markup tag](tagging.md#world-collision-markup-tags). | `(empty)` |
+| `World Collisions > Component Ignore Tags` | Additional `FName` tags that exclude an individual **component** (an instanced static mesh, say) from world collision without excluding the actor holding it. The component-level counterpart of `Actor Ignore Tags`, and read by both the bake and the live gather. See [What Counts As World Collision](world-collision.md#what-counts-as-world-collision). | `(empty)` |
 | `World Collisions > Exclude Non-Collision Enabled Actors` | Do not include actors that have their collision turned off when capturing world collision. | `true` |
 | `World Collisions > Include Player Starts` | Player start positions should be considered (avoided) when capturing world collision. | `true` |
 | `World Collisions > Include Landscapes (EXPERIMENTAL)` | Landscapes are sampled into the world collision representation. See [Terrain Is Opt-In](#terrain-is-opt-in). | `false` |
@@ -83,6 +84,16 @@ Every other actor contributes its **simple collision** to world collision, read 
 This is the only terrain that needs sampling. A Mesh Terrain arrives as ordinary actors with real collision and is read like anything else — what its own `Include Mesh Terrains` flags buy it, here and on the [cell calculations](types/cell.md#terrain-is-two-flags), is a transient exemption rather than a sampling pass.
 
 Terrain *authoring apparatus* — modifiers and helpers describing how a terrain is built — is filtered out of world collision entirely. A modifier's bounds are its region of influence, not a surface, so treating one as an obstacle would have assembly avoiding empty space.
+
+### World Collision Cache
+
+Found under `Assembly > World Collision Cache`. These decide whether [world collision](world-collision.md) is baked into the level and read back instead of gathered on every run. They are kept separate from `World Collisions` on purpose. Every `World Collisions` field feeds the fingerprint that decides whether a bake is still valid, while these only control caching, so toggling one never invalidates every cache in the project.
+
+| Setting | Description | Default |
+| --- | :-- | :-- |
+| `Cache On Save` | Bake world collision into the level when it is saved. Organs whose geometry has not changed are skipped, and a level nothing collision-relevant has been touched in skips the check entirely. | `true` |
+| `Use Cache` | Let an assembly read baked world collision instead of gathering the world again. Turn off to always gather fresh. | `true` |
+| `Validate Cache` | Check each organ's cache against the live world before trusting it, falling back to a fresh gather when it no longer matches. Turning this off trusts whatever was baked, and makes anything spawned or streamed in before the run invisible to it. | `true` |
 
 ### Junction Matching
 

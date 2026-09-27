@@ -17,13 +17,24 @@ It is populated in **three phases**, which is easy to miss:
 
 | Phase | By | Contents |
 | :-- | :-- | :-- |
-| Up front, game thread | `FNCreateVirtualWorldTask` | World collision geometry gathered from live actors, [filtered as it is gathered](tasks.md#why-the-game-thread-jobs-are-pinned). |
+| Up front, game thread | `FNCreateVirtualWorldTask` | World collision geometry. It is read from the level's [baked cache](../world-collision.md) for every organ whose cache is still current, and gathered from live actors, [filtered as it is gathered](tasks.md#why-the-game-thread-jobs-are-pinned), only for the organs that missed. |
 | Incrementally, between passes | `FNProcessPassTask` | Hulls of cells placed by the pass that just finished. |
 | Once, after every pass | `FNConnectJunctionsTask` | Swept volumes of each [junction connector](tasks.md#junction-connecting) it accepts. |
 
 The second phase is what makes phased organs compose. A later pass sees earlier passes' cells as collision to avoid, because their hulls were added to this context when those passes completed — see [Tasks](tasks.md#the-off-thread-work).
 
 All transforms are pre-resolved so builder tasks never resolve a component transform themselves.
+
+### Cached And Gathered Collision
+
+The first phase fills **two** arrays, which are combined into one before anything reads them:
+
+- **Cached hulls** go into `CachedWorldCollisionMeshes`. They were already made world-space, convex and validated when they were baked (see [FNWorldCollisionBaker](../types/world-collision-baker.md)), so they skip the processing step.
+- **Freshly gathered meshes** go into `WorldCollisionMeshes`, with their transforms still separate. `FNProcessVirtualWorldTask` bakes them the same way off the game thread, then appends the cached hulls, then builds the broadphase.
+
+By the time any organ builder runs, the distinction is gone and every index is stable. A gather that runs because some organs missed the cache doesn't emit again the elements the cache already supplied: it drops any mesh whose [key](../types/world-collision-source-key.md) was already resolved. A mesh with no stable key can't have been cached, so it is always kept. Dropping it would be the one mistake here that **removes** geometry rather than duplicating it.
+
+When every organ **and** the landscape section come from the cache, the live gather doesn't run at all.
 
 ### Three Collision Domains
 

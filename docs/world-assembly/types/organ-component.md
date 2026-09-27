@@ -55,7 +55,8 @@ UENUM(BlueprintType)
 enum class ENOrganGenerationTrigger : uint8
 {
     OnDemand = 0    UMETA(DisplayName="On Demand"),
-    BeginPlay = 1   UMETA(DisplayName="Begin Play")
+    BeginPlay = 1   UMETA(DisplayName="Begin Play"),
+    LevelScript = 2 UMETA(DisplayName="Level Script")
 };
 ```
 
@@ -63,12 +64,25 @@ enum class ENOrganGenerationTrigger : uint8
 | :-- | :-- |
 | `OnDemand` | Only when something asks — Blueprint, the [subsystem](world-assembly-subsystem.md), or the editor-mode toolbar. This is the default. |
 | `BeginPlay` | Automatically, when the component receives `BeginPlay`. |
+| `LevelScript` | **Reserved; not yet functional.** Intended for generation driven from a level's Level Script Actor. Nothing reads this value yet, so an organ set to it currently behaves exactly like `OnDemand`. |
 
 :::warning[Begin Play is server-only]
 
 An organ set to `BeginPlay` queues **only on the authority**. On a client the request is dropped, and the resulting cells replicate in from the server rather than being generated locally — which is what keeps a multiplayer session consistent instead of having every machine generate its own layout.
 
 :::
+
+## World Collision Cache
+
+Each organ records what [world collision](../world-collision.md) it was last baked against, in `CollisionCache` (an [FNOrganCollisionCache](organ-collision-cache.md)). The record is a fingerprint plus a list of keys into the level's [pool](world-collision-pool.md), and holds no geometry. It is derived state and not editable. It is written by a bake, from the [World rail](../editor-mode/world.md#cache), from a level save, or from the button below. An assembly reads it to skip gathering geometry that hasn't changed.
+
+The details panel shows it as a read-only **World Collision Cache** row in the `Organ Component` category:
+
+- **Not baked** means the world is gathered on every run.
+- Otherwise it shows the element count, whether the cache is **current** or **stale** (a stale cache means that organ gathers fresh), and when it was baked.
+- With several organs selected, it shows how many of them have been baked.
+
+The **Bake** button beside it forces a re-bake of the selected organs now. A stale or empty cache is never an error; it only costs the run a fresh gather.
 
 ## Connectors
 

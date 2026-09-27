@@ -25,6 +25,7 @@ The `Color Palette` groups drive the gizmos and debug markers drawn in the viewp
 | :-- | :-- | :-- | :-- |
 | `Valid` | `FLinearColor` | Color of a [bone](types/bone-component.md) that resolved to a valid (matchable) connection. | Cyan `#46FFFF` |
 | `Invalid` | `FLinearColor` | Color of a [bone](types/bone-component.md) that could not be matched. | Violet `#8A1EFF` |
+| `Unverified` | `FLinearColor` | Replaces **both** colors above while the level's [world collision](world-collision.md) is unbaked or stale. With nothing current to measure against, a bone's penetration readout reads zero, and zero in the valid color would claim a check that never happened. | Grey `#8A8A8A` |
 
 #### Cell
 
@@ -32,6 +33,12 @@ The `Color Palette` groups drive the gizmos and debug markers drawn in the viewp
 | :-- | :-- | :-- | :-- |
 | `Bounds` | `FLinearColor` | Color used to draw a [cell](types/cell.md)'s bounds. | Red `#B01406` |
 | `Hull` | `FLinearColor` | Color used to draw a [cell](types/cell.md)'s hull. | Sky Blue `#00D0FF` |
+
+#### World Collision
+
+| Setting | Type | Description | Default |
+| :-- | :-- | :-- | :-- |
+| `Stale` | `FLinearColor` | Wireframe overlaid on the [collision visualizer](editor-mode/world.md#visualizers) while it is drawing a bake the level has since changed from. | Orange `#FF8A00` |
 
 #### Junctions
 
@@ -65,6 +72,7 @@ What is drawn is the route's **stored samples** — the exact points that were s
 | Setting | Type | Description | Default |
 | :-- | :-- | :-- | :-- |
 | `Toast Editor Assembly Operations` | `bool` | Show a toast notification when an editor-triggered Assembly Operation completes, and summarize [Quick Assembly](editor-mode/index.mdx#quick-assembly) (including Auto Assembly) runs. | `true` |
+| `World Collision Unavailable` | `bool` | Show a notification the first time a level's [world collision](world-collision.md) is found unbaked or stale while the [collision visualizer](editor-mode/world.md#visualizers) is up, offering to bake. It appears once when the level becomes stale, never repeats while it stays that way, and a bake dismisses it. Turn it off if you bake out of habit: the World rail's badged bake button and the visualizer's stale wireframe still report it. | `true` |
 
 ### Quick Assembly
 

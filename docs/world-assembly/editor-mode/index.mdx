@@ -29,7 +29,9 @@ Quick Assembly is **not** part of the mode's UI — it stays on the level-editor
 
 Select an [Organ](../types/organ-volume.md) from the combo box and start an operation. The resulting run carries the placed [Cells](../types/cell.md) through `ANCellProxy` to the actualized `ANCellLevelInstance`. While it runs, the button becomes a cancel action and its progress bar tracks the operation.
 
-The options dropdown (`⋮`) beside the start/cancel button exposes quick toggles that mirror [User Settings → Quick Assembly](../user-settings.md#quick-assembly):
+**Clear Generated Proxies**, between the start/cancel button and the options dropdown, undoes a run: it destroys every generated `ANCellProxy` in the level, together with the Cell Level Instances loaded from them. It clears **everything** in the level, not just the selected organ's output. The toolbar doesn't track which earlier runs produced what, and a clear that left an earlier organ's proxies behind would look like it had failed. It is greyed out while an operation is running, because clearing mid-run would remove proxies an operation is still spawning. Cancel the run first. (The same clear is available on the [Organ rail](organ.md) as **Clear All Proxies**.)
+
+The options dropdown (`⋮`) beside it exposes quick toggles that mirror [User Settings → Quick Assembly](../user-settings.md#quick-assembly):
 
 - **Load Level Instances** — carry each run through to actualized `ANCellLevelInstance`s rather than stopping at `ANCellProxy`.
 - **Auto Assembly** — after each run finishes, re-trigger the operation on a timer (the **Auto Assembly Timer**, 2–180s) and loop until cancelled. While looping, the button stays in its cancel state and its progress bar shows the countdown between runs. When you stop the loop a single summary toast reports the accumulated pass / warning / fail counts, total cells created, and total time — provided **Toast Editor Assembly Operations** is enabled in the [User Settings](../user-settings.md#notifications).

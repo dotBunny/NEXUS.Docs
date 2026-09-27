@@ -4,6 +4,77 @@ description: A highlight reel for the World Assembly plugin and it's additions o
 
 # World Assembly
 
+## 0.4.0
+
+This round is mostly about **trust**: knowing when the collision cache is lying to you, knowing whether a generation
+actually worked, and making "ready" mean ready. There's a pile of multiplayer fixes, and you can finally see a
+generated cell's junction dressing without pressing Play.
+
+:::warning Expect things to change on upgrade
+
+- **Every world collision cache reads as stale once** and re-bakes on the next save. Nothing to do; the first save per
+  level just works harder.
+- **`Is Ready?` returns true later** on a listen server or standalone game. It now waits for the cells to actually load.
+- **Some junction dressing may disappear.** `Additional Connected Actors` on junctions that never connected used to be
+  left visible by accident. They are now hidden, as authored.
+
+:::
+
+### Know When Your Cache Is Stale
+
+The [World Collision](/docs/dev/world-assembly/world-collision) cache from 0.3.5 was quick, but it was quiet about being
+out of date. Now it shows it everywhere you look:
+
+- the World rail's `Cache World Collision` button wears a **warning badge** while the level needs a bake,
+- the collision visualizer gets an orange **stale wireframe**,
+- bones switch to an `Unverified` grey instead of claiming a penetration check nobody ran.
+
+The notification that used to pop up every ten seconds, whether or not you were doing anything, now appears **once**
+and is dismissed by a bake.
+
+The cache actor also got a proper details panel: status, a visualizer toggle, and a `Bake World Collision` button, all
+one Outliner click away without opening the edit mode. The visualizer itself moved out of the edit mode, so it can
+be created from there too.
+
+### Tag A Component, Not The Whole Actor
+
+PCG writes its entire output onto one container actor, so tagging that actor out of world collision took everything
+with it. `NWorldCollision_Ignore`, and the cell markup tags `NCell_Ignore`, `NCell_HullIgnore`, `NCell_BoundsIgnore`
+and `NCell_VoxelIgnore`, now work on **individual components** too. Tag the spawner's components and keep exactly the
+collision you want. Both rails' tag buttons act on selected components. The fingerprint records *whether* each
+component is excluded rather than the tags themselves, so PCG re-stamping its components on every generate no longer
+invalidates the cache forever. See [Tagging](/docs/dev/world-assembly/tagging).
+
+### Did It Work?
+
+`Get Operation Progress` gives you `0..1` for the operations in flight, and `GetFailedOperationResult` reports an
+operation that finished with a required organ left unsatisfied. **Both work on clients**, because the server now sends
+throttled progress and each operation's result through the relay. Before this, a loading screen could not tell a
+failed generation from a successful one. See the
+[subsystem](/docs/dev/world-assembly/types/world-assembly-subsystem#did-it-fail).
+
+### Ready Means Ready
+
+A listen server or standalone game used to call itself ready once no operation was running. But operations finish
+when their cells are **spawned**, not **loaded**. Hosts with a local player now wait on their own relay, exactly as a
+client does. Clients got two fixes of their own: a relay no longer reads as ready during the round trip after it asks
+for nearby cells, and a junction whose cell data hasn't replicated yet [waits for
+it](/docs/dev/world-assembly/types/junction-component#waiting-for-replicated-data) instead of hiding its connected
+actors and spawning a filler into a doorway another cell is about to use.
+
+### See The Dressing In The Editor
+
+A junction's `Additional Filled Actors` and `Additional Connected Actors` are now applied at author time, so a cell
+generated in the editor looks the way it will in game. The lists are also applied for **every** junction however it
+resolved, not just the ones that connected, and `Skip Additional Actors` only takes effect once its filler has really
+spawned.
+
+### Smaller Things
+
+- **Clear Generated Proxies** on the Quick Assembly toolbar undoes a run without opening the edit mode.
+- `Level Script` joins the organ `Generation Trigger` options. It is reserved for now and behaves like `On Demand`.
+- Saving a cell level no longer leaves an empty world-collision cache actor in it.
+
 ## 0.3.5
 
 Two headliners this round. **World Collision Cache** stops World Assembly re-deriving the level's collision on every
@@ -18,7 +89,6 @@ as geometry, and everything now measures the same convex hulls an assembly actua
 tighter. Expect assemblies to start placing cells in spots they previously refused, because they were dodging geometry
 that was never really there.
 :::
-
 
 ### World Collision Cache
 

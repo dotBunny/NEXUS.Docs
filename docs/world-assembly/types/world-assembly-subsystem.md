@@ -102,13 +102,8 @@ Relays are spawned for you as players log in, so `Spawn Relay` is only needed wh
 
 ```cpp
 /**
- * @param bWaitOnStreaming When true, also report not-ready while any level streaming is still in
- *        flight (see FNWorldUtils::IsStreaming). Pass false to ignore streaming and gate purely on
- *        operation/relay state.
+ * @param bWaitOnStreaming When true, also report not-ready while any level streaming is still in flight (see FNWorldUtils::IsStreaming). Pass false to ignore streaming and gate purely on operation/relay state.
  * @return true when the local WorldAssembly view is settled relative to the server.
- * @remark Server path: no operations are currently in flight.
- *         Client path: LocalRelay has replicated, the nearby-cell payload has been received,
- *         and no operations the client has been notified of are pending.
  * @note Does not gate Generate() — that can be called at any time regardless of this value.
  */
 UFUNCTION(BlueprintCallable, DisplayName="Is Ready?", Category = "NEXUS|WorldAssembly")
@@ -117,17 +112,55 @@ bool IsReady(bool bWaitOnStreaming = true);
 
 Use `IsReady` for UI gating ("ready to start"), not as a precondition for issuing more work. It surfaces in Blueprint graphs as **Is Ready?**. By default (`bWaitOnStreaming = true`) it also stays not-ready until level streaming settles; pass `false` to skip that streaming check.
 
-For a progress readout rather than a boolean, clients can ask how much is still inbound:
+What "ready" means depends on the machine asking:
+
+| Machine | Ready When |
+| :-- | :-- |
+| **Dedicated server** | No organs are queued for assembly, and no operations are in flight. |
+| **Listen server or standalone** | As above, **and** the cells around the local player are ready, checked through its own [relay](world-assembly-relay.md) exactly as a client checks. |
+| **Client** | Its relay has replicated, the server has answered its **latest** nearby-cells request, those cells' levels are loaded, and no operation it has been told about is pending. |
+
+A host with a local player gets its relay at world begin play in every mode, whatever `Support Seamless Travel` is set to.
+
+:::warning[Upgrading to 0.4.0: expect `Is Ready?` to return true later]
+
+A listen server or standalone game used to count as ready once no operation was in flight. But an operation finishes when its cells have been **spawned** and their levels **requested**, so a host read as ready while every level was still loading. It also read as ready for the one tick between queueing organs and those becoming an operation. Both are fixed, and anything gating on `Is Ready?` (the `DEMO_NWorldAssembly` samples included) now waits for the cells to actually load.
+
+:::
+
+### Progress
 
 ```cpp
-/** @return On clients, the ANCellLevelInstances still to sync as (Remaining, Total); zero on the server. */
+/** @return The ANCellLevelInstances around the local player still to sync, as (Remaining, Total); zero where there is no local relay (a dedicated server, or before the relay spawns). */
 UFUNCTION(BlueprintCallable, DisplayName="Get Remaining Status", Category = "NEXUS|WorldAssembly")
 FIntVector2 GetRemainingStatus();
+
+UFUNCTION(BlueprintCallable, DisplayName="Get Operation Progress", Category = "NEXUS|WorldAssembly")
+float GetOperationProgress() const;
 ```
 
-`X` is how many cell level instances have yet to sync and `Y` is the total, which makes it directly usable as a loading-bar fraction.
+There are two progress readouts, answering different questions:
 
-Both components are zero whenever there is no local relay to ask — on the server, where nothing needs syncing, but also on a client before its relay has replicated. So a zero `Total` means "not applicable yet", not "complete"; pair it with [`IsReady`](#readiness) rather than treating `Remaining == 0` as done on its own.
+- **`Get Remaining Status`** counts cells still to sync around the local player as `(Remaining, Total)`, which is usable directly as a loading-bar fraction. It works on a client, and on a host with a local player, through the local relay. Both values are zero wherever there is no local relay: on a dedicated server, and on a client before its relay has replicated. A zero `Total` therefore means "not applicable yet", not "complete", so pair it with [`IsReady`](#readiness).
+- **`Get Operation Progress`** is the combined progress, `0..1`, of the assembly operations **in flight**, or `-1` when none is running. On a client it reflects what the server last reported through the relay, which is at most four updates a second and only for a change of at least 1%. Use it for the "generating" half of a loading screen, and `Get Remaining Status` for the "streaming in" half.
+
+### Did It Fail?
+
+```cpp
+bool GetFailedOperationResult(FNAssemblyOperationResult& OutResult) const;
+```
+
+Returns `true` when an operation has **finished without success** (a required organ left unsatisfied) since the world began play or was last [cleared](#clearing), and fills `OutResult` with the most recent one. It also works on a **client**: the server sends each operation's result to every relay just before announcing it finished, and on a client only the result's title and message come across.
+
+A cancelled operation is **not** a failure. Cancelling is deliberate, whether through `Clear()` or the world ending.
+
+Before 0.4.0 an operation's result was lost as soon as it finished, since the operation is torn down straight after, so nothing outside the subsystem could tell a failed generation from a successful one. A loading screen can now show *"generation failed"* instead of waiting forever.
+
+:::note
+
+`GetFailedOperationResult` is **C++ only**. It is not a `UFUNCTION`. A Blueprint loading screen needs a small C++ wrapper to read it.
+
+:::
 
 ## Junction Connectors
 

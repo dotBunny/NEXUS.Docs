@@ -21,7 +21,7 @@ This is why a client never generates anything. Generation runs on the authority;
 
 ## Operation Notifications
 
-Three client RPCs, all `Reliable`, keyed by operation ticket:
+The server keeps every relay informed about the operations it runs, keyed by operation ticket, so a client can follow progress and outcome without generating anything itself:
 
 ```cpp
 /** Notify the client that an operation has started on the server. */
@@ -35,9 +35,20 @@ void Client_OperationFinished(int32 OperationTicket);
 /** Notify the client that an operation has been destroyed. */
 UFUNCTION(Client, Reliable)
 void Client_OperationDestroyed(int32 OperationTicket);
+
+UFUNCTION(Client, Unreliable)
+void Client_OperationProgress(int32 OperationTicket, float Progress);
+
+UFUNCTION(Client, Reliable)
+void Client_OperationResult(int32 OperationTicket, bool bSuccess, const FText& Title, const FText& Message);
 ```
 
-The client tracks which tickets it has been told about but not yet seen finish — that pending set is half of what [readiness](#readiness) means. Because only the ticket crosses the wire, a client learns *that* an operation is running without receiving its contents.
+The client tracks which tickets it has been told about but not yet seen finish. That pending set is part of what [readiness](#readiness) means.
+
+- **`Client_OperationProgress`** carries `0..1` progress. It is **unreliable** and throttled by the server to at most four a second, and only for a change of at least 1%. A lost update is replaced by the next, and one arriving after the operation finished is ignored.
+- **`Client_OperationResult`** is sent **before** `Client_OperationFinished`. It says whether every required organ was satisfied, with the result's title and message. A cancelled operation isn't reported as a failure.
+
+The subsystem turns these into [`Get Operation Progress`](world-assembly-subsystem.md#progress) and [`GetFailedOperationResult`](world-assembly-subsystem.md#did-it-fail) on the client. Before 0.4.0, only tickets crossed the wire, so a client could learn *that* an operation ran but never how far along it was or whether it worked.
 
 ## Nearby Cells
 
@@ -67,14 +78,24 @@ void UpdateNearbyCells(bool bIsLevelLoaded = true);
 ## Readiness
 
 ```cpp
-/** @return true when the server has answered the nearby-cells RPC at least once and no operations the client has been notified about are pending. */
+/** @return true when the server has answered the latest nearby-cells request, its cells are loaded, and no operations the client has been notified about are pending. */
 bool IsReady();
 
 /** @return The ANCellLevelInstances still to sync as (Remaining, Total). */
 FIntVector2 GetRemainingStatus() const;
 ```
 
-Readiness on a client is two conditions together: the nearby-cells exchange has completed **at least once**, and nothing the client was told about is still pending. Either alone is insufficient — a client that has never heard from the server is not ready even with no pending operations.
+Readiness is three conditions together:
+
+- the server has answered the **latest** nearby-cells request,
+- the cells it named are loaded,
+- nothing the client was told about is still pending.
+
+None of them is enough alone. A client that has never heard from the server isn't ready, even with no pending operations.
+
+"Latest" matters. Sending a request clears the cached list first, and an empty list used to pass the loaded-cells check trivially. So for one round trip after the relay registered, and after every operation finished, a client read as settled with nothing synced. Anything gating on it, such as a loading screen, could let go and then watch the cells arrive. Since 0.4.0 the relay reads as not ready until the reply arrives.
+
+On a listen server or standalone game, the host's **own** relay answers the same question for its local player. See [World Assembly Subsystem](world-assembly-subsystem.md#readiness).
 
 `GetRemainingStatus()` is the progress form of the same question, returning `(Remaining, Total)` so it can drive a loading bar. Both surface through the subsystem, which is where callers should normally read them — see [World Assembly Subsystem](world-assembly-subsystem.md#readiness).
 

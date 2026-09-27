@@ -29,3 +29,23 @@ The goal from the start with **World Assembly** was to create a tool that just m
 ## Inspiration
 
 From the awe-inspiring interconnected spaces of [Dark Souls](https://store.steampowered.com/app/570940/) to the fast player-responsive generation of [Returnal](https://store.steampowered.com/app/1649240/); the goal is to be able to achieve and exceed both pillars, with one piece of tech. Where you can have an outer [Organ](types/organ-volume.md) defining a forest, with numerous encompassed [Organ](types/organ-volume.md)(s) defining the cities, with individual landmarks inside those cities generating their own interiors, all facilitated and parallelized.
+
+## Samples
+
+The sample content is available once you enable the `NEXUS Samples: World Assembly` plugin, found in the `NEXUS Samples` category of the `Edit > Plugins` window. Open any `DEMO_` map and press Play.
+
+| Content | What It Shows |
+| :-- | :-- |
+| `DEMO_NWorldAssembly` | The overview map. [Organs](types/organ-volume.md) assembled at play, with a simple [filler](types/cell-junction-filler.md) capping open junctions, and a level script that waits on the subsystem's [`Is Ready?`](types/world-assembly-subsystem.md#readiness). |
+| `DEMO_NWorldAssembly_Simple` | The smallest complete setup: one [Tissue](types/tissue.md) (`TISSUE_Simple`) feeding an organ. Start here. |
+| `DEMO_NWorldAssembly_Complex` | Several organs drawing from `TISSUE_Complex` in one level. |
+| `DEMO_NWorldAssembly_Deterministic` | A seeded, unbounded organ. The same seed produces the same layout on every run and every machine. |
+| `Cells/CELL_Simple_00`–`07` | The [Cell](types/cell.md) levels the tissues draw from, each with its `_NCell` asset. Open one in the [editor mode](editor-mode/index.mdx) to see how junctions are authored. |
+| `Extras/` | Minimal Blueprint implementations of the extension points: [INCellInitialized](types/cell-initialized.md), [INCellJunctionBeginPlay](types/cell-junction-begin-play.md), [INCellJunctionConnector](types/cell-junction-connector.md) and [INCellJunctionFiller](types/cell-junction-filler.md). |
+| `PCG/` | `PCG_NCellRoomGenerator` and `PCG_JunctionFiller`, PCG graphs built with World Assembly's PCG elements. |
+
+:::note[`Is Ready?` waits longer since 0.4.0]
+
+On a listen server or standalone game, `Is Ready?` now waits for the cells around the local player to finish loading, not just for generation to finish. The demo maps take a moment longer to report ready than they did before 0.4.0. See [Readiness](types/world-assembly-subsystem.md#readiness).
+
+:::

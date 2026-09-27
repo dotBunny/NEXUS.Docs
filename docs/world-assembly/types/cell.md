@@ -58,7 +58,7 @@ The `UNCellRootComponent` represents the data which is going to get mirrored int
 | Include Landscapes (EXPERIMENTAL) | `bool` | Landscapes contribute to the bounds. See [Terrain Is Two Flags](#terrain-is-two-flags). | `false` |
 | Include Mesh Terrains (EXPERIMENTAL) | `bool` | Mesh Terrain sections contribute to the bounds, **even though they are transient**. | `false` |
 | Include Foliage | `bool` | Foliage actors contribute to the bounds. See [Foliage Is Its Own Flag](#foliage-is-its-own-flag). | `false` |
-| Actor Ignore Tags | `TArray<FName>` | `AActor`'s with these tags will be ignored during bounds calculations. | `NCell_Ignore`, `NCell_BoundsIgnore` |
+| Ignore Tags | `TArray<FName>` | Actors, or individual components of an actor, carrying any of these tags are ignored during bounds calculations. One list covers both, so a tag means the same thing on an actor or on a component. | `NCell_Ignore`, `NCell_BoundsIgnore` |
 
 ### Rotation Constraints
 
@@ -86,7 +86,7 @@ The cell exposes a dual-interval `FNRotationConstraints` set. The _matching_ int
 | Include Foliage | `bool` | Foliage actors contribute to the hull. See [Foliage Is Its Own Flag](#foliage-is-its-own-flag). | `false` |
 | Terrain Simplification Grid Size | `float` | Grid size, in centimetres, that terrain vertices are thinned onto before the hull is built. `0` keeps every one. See [Terrain Simplification](#terrain-simplification). | `100.f` |
 | Build Method | `ENullBuildMethod` | This is the method/version used by Chaos to create the convex hull initially. It is currently locked out due to some of the newer versions of the system producing n-gons. | `Original` |
-| Actor Ignore Tags | `TArray<FName>` | `AActor`'s with these tags will be ignored during hull calculations. | `NCell_Ignore`, `NCell_HullIgnore` |
+| Ignore Tags | `TArray<FName>` | Actors, or individual components of an actor, carrying any of these tags are ignored during hull calculations. One list covers both, so a tag means the same thing on an actor or on a component. | `NCell_Ignore`, `NCell_HullIgnore` |
 
 #### Terrain Simplification
 
@@ -109,7 +109,7 @@ This applies to **generation only**, and assumes the convex build that follows i
 | Include Landscapes (EXPERIMENTAL) | `bool` | Landscapes contribute to voxel occupancy. See [Terrain Is Two Flags](#terrain-is-two-flags). | `false` |
 | Include Mesh Terrains (EXPERIMENTAL) | `bool` | Mesh Terrain sections contribute to voxel occupancy. | `false` |
 | Include Foliage | `bool` | Foliage actors contribute to voxel occupancy. See [Foliage Is Its Own Flag](#foliage-is-its-own-flag). | `false` |
-| Actor Ignore Tags | `TArray<FName>` | `AActor`'s with these tags will be ignored during voxel data calculations. | `NCell_Ignore`, `NCell_VoxelIgnore` |
+| Ignore Tags | `TArray<FName>` | Actors, or individual components of an actor, carrying any of these tags are ignored during voxel data calculations. One list covers both, so a tag means the same thing on an actor or on a component. | `NCell_Ignore`, `NCell_VoxelIgnore` |
 | Collision Channel | `ECollisionChannel` | The collision channel used when tracing for collisions to determine occupancy. | `WorldStatic` |
 
 All three voxel include flags govern **two halves at once**: whether the terrain grows the voxel grid's extents, and whether the occupancy sweep can hit it. Excluded terrain joins the ignored-actor list the sweep is issued with, so it cannot register as occupied even though the physics world would otherwise report it.
@@ -146,7 +146,7 @@ Terrain support is early. Both flags default to **off** on all three calculation
 
 The Mesh Terrain half is the one that silently breaks things when off. The editor represents a Mesh Partition terrain as transient actors, which every ordinary actor filter skips — so without it a cell whose floor is a Mesh Terrain gets bounds that omit it and a hull with no floor in it, and the assembly penetration tests that consume that hull then let other cells sink straight through the ground.
 
-`Actor Ignore Tags` cannot substitute for it either. A Mesh Partition terrain's actors are regenerated on every build, so a tag placed on one does not survive; these flags are the only control over it.
+`Ignore Tags` cannot substitute for it either. A Mesh Partition terrain's actors are regenerated on every build, so a tag placed on one does not survive; these flags are the only control over it.
 
 Terrain also gates *when* a calculation may run — see [Commands](../editor-mode/cell.md#commands) on the Cell rail.
 
