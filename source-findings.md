@@ -101,7 +101,7 @@ as designed, **Low** a papercut or inconsistency.
 
 ### S8. `ANNullGameMode` still describes itself as DETHOL's bootstrap
 
-- **Severity:** Low. **Status:** Open (it will be fixed during the Core pass).
+- **Severity:** Low. **Status:** Fixed (comment). It now describes the class generically, and the file gained the standard second licence line.
 - **File:** `Plugins/Core/Source/NexusCore/Public/Framework/NNullGameMode.h`.
 - **Claim:** The header comment says "DETHOL Bootstrap GameMode", which is left over from a game project, on a framework type.
 
@@ -164,11 +164,33 @@ as designed, **Low** a papercut or inconsistency.
   - The `GetMesh` header also says it returns "an empty mesh when GetState is not Available". That is inaccurate for `Stale`, which returns the last mesh built this session.
 - **Suggested fix:** in the `Stale` branch, build from the pool's stored meshes (`ResolvePooled` with `bValidate = false`) when nothing has been built yet. Correct the `GetMesh` comment either way.
 
+### S15. Core: `NStringUtils.h` used the regex API without including it
+
+- **Severity:** Low (a latent compile error). **Status:** Fixed. The include has been added.
+- **File:** `Plugins/Core/Source/NexusCore/Public/NStringUtils.h`.
+- **Claim:**
+  - `FNStringUtils::IsValidEmail` is defined inline in the header and uses `FRegexPattern` / `FRegexMatcher`, but the header included nothing.
+  - Nothing in the repository includes `NStringUtils.h` yet, so the problem never showed up. The first consumer that includes it without already having `Internationalization/Regex.h` would fail to compile.
+  - `#include "Internationalization/Regex.h"` has been added, along with a doc comment and an `@see` backlink.
+  - The type also had no doc comment.
+- **To validate:** include `NStringUtils.h` first in an otherwise empty `.cpp` in any module that depends on `NexusCore`, and build.
+
+### S16. Blockout: the barrier mesh set is incomplete compared with walls and parapets
+
+- **Severity:** Low (content). **Status:** Open (docs describe what ships).
+- **Folder:** `Plugins/Blockout/Content/Meshes/Barriers/`.
+- **Claim:**
+  - Walls and parapets both ship `Straight` L100–L400, `Curve45` R200–R500 and `Curve90` R200–R500, each in `T050` and `T100`.
+  - Barriers ship `Corner_L200`, `Curve45` R200–R500 and `Curve90` R200–R300 in both thicknesses. For `Curve90_R400` they ship only the `T050` pair.
+  - Barriers have **no** `Curve90_R500`, **no** `Curve90_R400_T100_*`, and **no** straight pieces.
+  - The recent Gauntlet commits (`ffd58f2`, then removed in `31d666e`) touched this area, so it may be unfinished rather than deliberate.
+- **To validate:** list the folder. Either fill in the set or confirm the gaps are intentional.
+
 ## Docs Tooling (dotBunny/NEXUS.Docs)
 
 ### D1. `audit:coverage` under-reports missing pages: its plugin-slug map is empty
 
-- **Severity:** Medium: it hides coverage gaps. **Status:** Open (a fix is planned in this branch).
+- **Severity:** Medium: it hides coverage gaps. **Status:** Fixed in `scripts/audit-coverage.mjs`. After the fix, no additional `missing-page` findings appeared, so nothing had actually been hidden at this commit.
 - **File:** `scripts/audit-coverage.mjs`, `pluginSlugs` (about line 179) and the `missing-page` fallback (about line 575).
 - **Claim:**
   - `pluginSlugs` parses `src/components/PluginDetails/index.tsx` with a regex that expects `link: "/docs/plugins/<slug>/"`. Since the docs were flattened, the links read `link: "/docs/<slug>/"`, so the regex matches **nothing** and the map is empty.
@@ -183,3 +205,11 @@ as designed, **Low** a papercut or inconsistency.
 
 - **Severity:** Low. **Status:** Open (it will be fixed while that file is edited).
 - **Claim:** There are two issues: MD012 (a double blank line at about line 22) and MD047 (no trailing newline). `whats-new/` is not in the default `lint:md` globs, so this only shows up when the file is linted explicitly. `whats-new/tooling.md` had the same MD047 problem, now fixed.
+
+### D3. `audit:coverage` did not see a doc comment above an explicit template specialization
+
+- **Severity:** Low (a false positive). **Status:** Fixed in `scripts/audit-coverage.mjs`.
+- **Claim:**
+  - When looking upward from a declaration for its doc comment, the check stopped at `template<>`.
+  - So a documented `TStructOpsTypeTraits<…>` or `TWidgetTypeTraits<…>` specialization was reported as `missing-typedoc`.
+  - The line is now skipped. This cleared one baselined false positive (`SNWorldAssemblyOperations.h|TWidgetTypeTraits`) and the two new trait specializations.
