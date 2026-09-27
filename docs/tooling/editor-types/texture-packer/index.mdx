@@ -1,0 +1,18 @@
+---
+description: Editor-only types behind the Texture Packer — the naming conventions, the job that packs and unpacks, the Blueprint library, and the window.
+sidebar_position: 3
+---
+
+import DocCardList from '@theme/DocCardList';
+
+# Texture Packer
+
+Editor-only types behind the [Texture Packer](../../texture-packer.md). The work happens in three layers:
+
+- **Conventions.** [UNTexturePackerSettings](texture-packer-settings.md) holds the naming tables, built from the types on [Texture Packer Types](texture-packer-types.md).
+- **The work itself.** [FNTexturePackerJob](texture-packer-job.md) does the packing and unpacking, and [FNTexturePackerUtils](texture-packer-utils.md) handles the naming and pixel work.
+- **Entry points.** The [Blueprint library](texture-packer-library.md), the [Content Browser actions](texture-packer-asset-actions.md), and the [window](texture-packer-window.md) with its [tab](texture-packer-tab.md).
+
+Everything that makes a decision lives in the job, not the UI. That way a batch run over a folder produces the same result the window would have proposed. Mirrors the layout of `NexusToolingEditor/Public/TexturePacker/`.
+
+<DocCardList />

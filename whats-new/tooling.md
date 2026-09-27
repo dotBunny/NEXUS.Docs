@@ -4,6 +4,29 @@ description: A highlight reel for the Tooling plugin and it's additions over tim
 
 # Tooling
 
+## 0.4.0
+
+### Texture Packer
+
+Somewhere in your project there is a folder of `_AO`, `_R` and `_M` textures waiting to become one `_ORM`. There is
+also a marketplace pack full of `_ORM` textures you would rather have as separate maps. The
+[Texture Packer](/docs/dev/tooling/texture-packer) handles both, inside the editor, under `Tools > NEXUS`.
+
+**Pack** takes up to four maps and writes one texture. **Unpack** takes a packed texture and writes one asset per map
+it holds. Both read your asset names to work out what goes where. Select `T_Rock_AO`, `T_Rock_R` and `T_Rock_M`,
+right-click, choose **Pack**, and `T_Rock_ORM` appears beside them. Select a folder's worth of `_ORM` textures,
+choose **Unpack**, and they all come apart in one go, skipping any whose names say nothing.
+
+The naming conventions are two tables in Editor Preferences, filled in with the common ones (`ORM`, `ARM`, `RMA`,
+`MRA`, `MRAO`, `ORMH` and friends), so a studio with its own vocabulary edits a table rather than C++. Color is
+handled properly: sources are decoded exactly as a material sampler would decode them, a gamma-encoded source packed
+at 8 bits earns a warning pointing at 16-bit, and a color map packed across RGB unpacks as one RGB texture rather
+than three grayscales.
+
+Nothing is saved for you. Every generated texture is left dirty for review. The whole thing is scriptable too, through
+[UNTexturePackerLibrary](/docs/dev/tooling/editor-types/texture-packer/texture-packer-library), from Blueprint,
+Python or C++.
+
 ## 0.3.5
 
 ### Selection Lock
