@@ -186,6 +186,25 @@ as designed, **Low** a papercut or inconsistency.
   - The recent Gauntlet commits (`ffd58f2`, then removed in `31d666e`) touched this area, so it may be unfinished rather than deliberate.
 - **To validate:** list the folder. Either fill in the set or confirm the gaps are intentional.
 
+### S17. Core: `UNDoubleRangeLibrary::PercentageValue` returns `float`
+
+- **Severity:** Low. **Status:** Open (the comment now says so).
+- **File:** `Plugins/Core/Source/NexusCore/Public/Math/NDoubleRangeLibrary.h`.
+- **Claim:**
+  - `FNDoubleRange::PercentageValue` returns `double`. The Blueprint wrapper is declared `static float PercentageValue(const FNDoubleRange& Range, float Percentage)`, so the result is cut down to `float`.
+  - For a range like `[0, 1e9]` that loses whole units of precision, which defeats the point of a double range.
+  - `ValuePercentage` returning `float` is fine, because a 0..1 fraction fits.
+- **Suggested fix:** return `double`, and take `double Percentage`, matching the other `Double` nodes.
+
+### S18. Comment drift found while adding `@param` / `@return`
+
+- **Severity:** Low. **Status:** Fixed (comments).
+- **Files and fixes:**
+  - `UI/.../NGameUserSettingsLibrary.h`, `GetSelectionFromDisplayResolution`: it said "from the **current** display resolution", but the function takes the resolution as a parameter. The comment was copied from its sibling.
+  - `WorldAssembly/.../NAssemblyOperationListViewEntry.h`: the `CancelButton` property was documented as "Left-aligned label (operation display name)", which was copied from `LeftText`.
+  - `WorldAssembly/.../NCellJunctionFillerEntry.h`: `RequiredContextTags` said "place this **cell**" on a *filler* entry. The ToolTip beside it already said "fill".
+  - `Picker/.../NPickerSettings.h`: the comment named `FNPickerUtils`, which no longer exists (flagged by the audit as `unknown-symbol`).
+
 ## Docs Tooling (dotBunny/NEXUS.Docs)
 
 ### D1. `audit:coverage` under-reports missing pages: its plugin-slug map is empty
