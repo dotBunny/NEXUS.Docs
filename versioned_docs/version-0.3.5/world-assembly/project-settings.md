@@ -84,6 +84,16 @@ This is the only terrain that needs sampling. A Mesh Terrain arrives as ordinary
 
 Terrain *authoring apparatus* — modifiers and helpers describing how a terrain is built — is filtered out of world collision entirely. A modifier's bounds are its region of influence, not a surface, so treating one as an obstacle would have assembly avoiding empty space.
 
+### World Collision Cache
+
+Found under `Assembly > World Collision Cache`. These decide whether [world collision](world-collision.md) is baked into the level and read back instead of gathered on every run. They are kept separate from `World Collisions` on purpose. Every `World Collisions` field feeds the fingerprint that decides whether a bake is still valid, while these only control caching, so toggling one never invalidates every cache in the project.
+
+| Setting | Description | Default |
+| --- | :-- | :-- |
+| `Cache On Save` | Bake world collision into the level when it is saved. Organs whose geometry has not changed are skipped, and a level nothing collision-relevant has been touched in skips the check entirely. | `true` |
+| `Use Cache` | Let an assembly read baked world collision instead of gathering the world again. Turn off to always gather fresh. | `true` |
+| `Validate Cache` | Check each organ's cache against the live world before trusting it, falling back to a fresh gather when it no longer matches. Turning this off trusts whatever was baked, and makes anything spawned or streamed in before the run invisible to it. | `true` |
+
 ### Junction Matching
 
 Found under `Assembly > Junction Matching`. These govern how the graph builders **mate** two cells directly — socket onto socket, with the cells flush.

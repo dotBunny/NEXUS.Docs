@@ -28,7 +28,7 @@ Only four are pinned to the game thread, and each for a concrete engine reason r
 
 ## Why The Game-Thread Jobs Are Pinned
 
-**`FNCreateVirtualWorldTask`** walks live `AActor`s to gather their simple-collision meshes and transforms. Those queries are not safe from a worker thread, so the snapshot must be taken on the game thread — which is precisely why it is a *snapshot*. Everything downstream reads the copy.
+**`FNCreateVirtualWorldTask`** first asks the level's [world-collision cache](../world-collision.md#how-a-run-reads-it) for every organ it can supply, then walks live `AActor`s to gather simple-collision meshes and transforms for the organs it couldn't. The gather described below is also exactly what the [baker](../types/world-collision-baker.md) runs, so a cache hit and a cache miss see the same world. Those queries are not safe from a worker thread, so the snapshot must be taken on the game thread — which is precisely why it is a *snapshot*. Everything downstream reads the copy.
 
 It also filters as it gathers, and the filter is part structural and part authored:
 
@@ -43,7 +43,7 @@ It also filters as it gathers, and the filter is part structural and part author
 
 The distinction matters because the structural exclusions cannot be overridden — a level designer cannot make an organ volume act as collision by tagging it — while the settings-driven ones are the knobs for tuning what a given project treats as an obstacle.
 
-The terrain exclusion is the one worth understanding, because it excludes *apparatus* and not terrain. The editor's [collision visualizer](../editor-mode/world.md#visualizers) and the author-time penetration cache both gather through this same predicate, so a phantom obstacle here would be drawn as world collision *and* avoided during assembly — and a modifier's box has measured larger than every piece of real geometry in a level put together. Terrain **surface** still contributes; a landscape reaches this snapshot by [sampling](../project-settings.md#landscape-is-sampled-rather-than-read) rather than through its collision, which lives behind no body setup.
+The terrain exclusion is the one worth understanding, because it excludes *apparatus* and not terrain. The editor's [collision visualizer](../editor-mode/world.md#visualizers) and the author-time penetration readout both draw from a bake made through this same predicate, so a phantom obstacle here would be drawn as world collision *and* avoided during assembly — and a modifier's box has measured larger than every piece of real geometry in a level put together. Terrain **surface** still contributes; a landscape reaches this snapshot by [sampling](../project-settings.md#landscape-is-sampled-rather-than-read) rather than through its collision, which lives behind no body setup.
 
 Player starts run the other way: [`Include Player Starts`](../project-settings.md#assembly) is `true` by default, so they are captured *as* collision and generation places cells around them rather than on top of them.
 

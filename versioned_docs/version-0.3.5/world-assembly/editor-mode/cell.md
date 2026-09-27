@@ -72,11 +72,11 @@ They also wait on the terrain. Where a level's floor is a Mesh Partition terrain
 
 | Command | Description |
 | :-- | :-- |
-| **Ignore Cell Collision** | Toggles the [`NCell_Ignore`](../tagging.md#cell-markup-tags) tag on the selected actors, excluding them when calculating this cell's bounds, hull and voxel data. |
+| **Cell Collision** | Toggles the [`NCell_Ignore`](../tagging.md#cell-markup-tags) tag on the selected actors, excluding them when calculating this cell's bounds, hull and voxel data. |
 
 The button's icon reports what the next click will do: any tagged actor in the selection means the click strips the tag from all of them, and it swaps to the remove-tag icon to say so. Available with actors selected, provided the `ANCellActor` itself is not among them.
 
-This is about a cell's own geometry. To exclude an actor from the world collision an assembly run places cells *against*, use [Ignore World Collision](world.md#tagging).
+This is about a cell's own geometry. To exclude an actor from the world collision an assembly run places cells *against*, use the [World Collision](world.md#tagging) tag button on the World rail.
 
 :::note[Tags Cannot Exclude a Terrain]
 
