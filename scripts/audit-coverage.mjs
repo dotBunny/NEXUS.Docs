@@ -181,7 +181,8 @@ const pluginSlugs = (() => {
   const tsx = path.join(ROOT, 'src', 'components', 'PluginDetails', 'index.tsx');
   if (!fs.existsSync(tsx)) return map;
   const t = fs.readFileSync(tsx, 'utf8');
-  for (const m of t.matchAll(/moduleName:\s*"([^"]+)"[\s\S]*?link:\s*"\/docs\/plugins\/([^/"]+)\//g)) {
+  // Links are /docs/<slug>/ since the docs were flattened out of /docs/plugins/<slug>/.
+  for (const m of t.matchAll(/moduleName:\s*"([^"]+)"[\s\S]*?link:\s*"\/docs\/([^/"]+)\//g)) {
     map.set(m[1], m[2]);
   }
   return map;
@@ -278,6 +279,7 @@ const headers = headerFiles.map(f => {
       if (mm) { macro = mm[1]; continue; }
       if (/\*\/$/.test(t) || /^\/\/\//.test(t)) { hasDoc = true; break; }
       if (/^\/\//.test(t)) continue;                       // pragma / ReSharper line
+      if (/^template\s*</.test(t)) continue;               // explicit specialization: template<> sits between
       if (/[,(]$/.test(t) || /^[A-Za-z_]\w*\s*=/.test(t) || /\)\)?$/.test(t)) continue; // macro continuation
       break;                                                // unrelated code
     }
@@ -574,7 +576,7 @@ for (const h of headers) {
   // the primary type.
   const slug = pluginSlugs.get(`Nexus${h.pluginDir}`);
   const named = h.decls.length && pages.some(pg =>
-    (!slug || pg.p.startsWith(`plugins/${slug}/`)) &&
+    (!slug || pg.p.startsWith(`${slug}/`)) &&
     h.decls.some(d => new RegExp(`\\b${d.name}\\b`).test(pg.text)));
   if (named) continue;
   add('missing-page', h.modulePath, 'nopage',
