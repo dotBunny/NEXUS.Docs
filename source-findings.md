@@ -95,7 +95,7 @@ as designed, **Low** a papercut or inconsistency.
 
 ### S7. `NBoneComponent.h` refers to a type that no longer exists
 
-- **Severity:** Low. **Status:** Open (it will be fixed during the World Assembly pass).
+- **Severity:** Low. **Status:** Fixed (comment). It now names `FNWorldCollisionPreview`.
 - **File:** `Plugins/WorldAssembly/Source/NexusWorldAssembly/Public/Organ/NBoneComponent.h`, about line 103.
 - **Claim:** The doc comment names `FNWorldCollisionCache`. The world-collision rework deleted that type (it was replaced by `FNWorldCollisionPool` and `FNOrganCollisionCache`). Found by the audit (`unknown-symbol`).
 
@@ -126,6 +126,43 @@ as designed, **Low** a papercut or inconsistency.
 - **Folder:** `Samples/DynamicRefs/`.
 - **Claim:** Both `DEMO_NDynamicRef` and `DEMO_NDynamicRefs` exist, and so do `TESTS_NDynamicRef` and `TESTS_NDynamicRefs`. They may be leftovers from a rename.
 - **To validate:** list the folder, and check what references each map (functional-test registration, docs, `DocsURL`s).
+
+### S12. World Assembly: the organ panel's **Bake** button skips the shared bake entry point
+
+- **Severity:** Low. **Status:** Open.
+- **Files:**
+  - `Plugins/WorldAssembly/Source/NexusWorldAssemblyEditor/Private/Customizations/NOrganComponentCustomization.cpp`, `OnBakeCollisionCacheClicked` (about line 208).
+  - `Plugins/WorldAssembly/Source/NexusWorldAssemblyEditor/Public/NWorldAssemblyEditorUtils.h`, the `CacheWorldCollision` comment (about line 70).
+- **Claim:**
+  - The 0.4.0 changelog and the `CacheWorldCollision` comment both describe it as "the single implementation behind every button that bakes".
+  - The organ component's `World Collision Cache` → **Bake** button calls `FNWorldCollisionBaker::BakeOrgans` directly instead, in its own transaction ("Bake Organ World Collision").
+  - As a result, that button writes no `World collision cache: baked N organ(s)` log line, and uses a different transaction label. That is exactly the kind of drift the shared entry point exists to prevent.
+- **Suggested fix:** route it through `FNWorldAssemblyEditorUtils::CacheWorldCollision(World, Organs)`.
+
+### S13. World Assembly: the organ panel fingerprints the world every time the details panel repaints
+
+- **Severity:** Medium (performance). Plausible, but not measured. **Status:** Open.
+- **File:** `NOrganComponentCustomization.cpp`, `GetCollisionCacheSummary` (about lines 150–206). It is bound as the text of an `STextBlock` through `.Text(this, &FNOrganComponentCustomization::GetCollisionCacheSummary)`.
+- **Claim:**
+  - Slate re-reads that text every frame. For a single selected organ, every read calls `FNWorldCollisionFingerprint::Compute`, which is O(actors) and walks live actors and their components.
+  - The cache actor's panel and the rail badge avoid this deliberately, by asking `FNWorldCollisionPreview::GetState`, which is memoized ("which is what lets a viewport redraw call it").
+  - So selecting an organ in a large level likely costs a full fingerprint pass on every frame while its details panel is visible.
+- **To validate:** select an organ in a level with thousands of actors and profile with Unreal Insights (`FNWorldCollisionFingerprint::Compute` under Slate prepass/paint), or add a counter.
+- **Suggested fix:** memoize the result against `FNWorldCollisionPreview::GetGeneration(World)`, or read the per-organ status from `ResolvePooled`'s memoized result.
+
+### S14. World Assembly: a level that is already stale when opened shows no visualizer and no penetration readout
+
+- **Severity:** Low to Medium (UX). **Status:** Documented. The `GetMesh` comment is corrected; the behaviour is still open.
+- **Files:**
+  - `Plugins/WorldAssembly/Source/NexusWorldAssemblyEditor/Private/NWorldCollisionPreview.cpp`, `EnsureBuilt` (about lines 168–215).
+  - `NWorldCollisionPreview.h`, the `GetMesh` comment.
+- **Claim:**
+  - In the `Stale` branch, the memoized mesh is left as whatever was last built **in this editor session**. The pool is not read.
+  - On a freshly opened level that is already stale, that mesh is the default empty one. The effects:
+    1. **Collision Visualizer** spawns nothing (`RefreshWorldCollisionVisualizerActor` returns null for an empty mesh), even though the pool still holds the previous bake.
+    2. **Bone penetration** is sampled against an empty mesh and reads 0. The bones are correctly drawn `Unverified`.
+  - The `GetMesh` header also says it returns "an empty mesh when GetState is not Available". That is inaccurate for `Stale`, which returns the last mesh built this session.
+- **Suggested fix:** in the `Stale` branch, build from the pool's stored meshes (`ResolvePooled` with `bValidate = false`) when nothing has been built yet. Correct the `GetMesh` comment either way.
 
 ## Docs Tooling (dotBunny/NEXUS.Docs)
 
