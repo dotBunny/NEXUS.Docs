@@ -82,6 +82,28 @@ static EDataValidationResult ValidateAsset(const FAssetData& InAssetData, UObjec
 
 Called by `UNWorldAssemblyEditorValidator` during data-validation runs, so a malformed cell is caught on save or in a commandlet rather than at generation time.
 
+Both entry points apply the same rules, so a rule added for one applies to the other:
+
+| Rule | Error |
+| :-- | :-- |
+| The cell has bounds | `Cell {Name} has no bounds.` |
+| The hull has vertices | `Cell {Name} hull has no vertices.` |
+| The hull is convex, unless non-convex hulls are allowed on the cell | `Cell {Name} hull is not convex, and not allowed.` |
+| The cell has at least one junction | `Cell {Name} has no junctions.` |
+| *(asset only)* The side-car names a world | `Cell {Name} has no World set.` |
+
+### Validating A Cell Before It Is Saved
+
+```cpp
+static EDataValidationResult ValidateCellActor(const ANCellActor* CellActor, FDataValidationContext& Context);
+```
+
+Checks a cell **as it currently stands in its level**, using the same rules. `ValidateAsset` checks the side-car, which is only written from the actor when the level is saved, so between saves it describes an older shape. Use this one when you want to know what *would* be written, for example in a pre-save or pre-submit check of your own. Nothing in NEXUS calls it; it is there for your tools.
+
+- A null actor, or one without a root component, returns `NotValidated`.
+- Messages name the cell after its **level**, not its side-car. The side-car may not exist yet, and a World Partition cell actor lives in an external package whose name means nothing to a reader.
+- The two can legitimately disagree about the same cell. That is the point: this one reports the live state.
+
 ## See Also
 
 - [Cell](../../types/cell.md) — the cell actor, root component, and the side-car data this definition registers.

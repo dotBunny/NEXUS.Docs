@@ -66,6 +66,22 @@ Returns `false` when running an unsubmitted local build (`UE5-CL-0`), `true` oth
 static bool HasBuildInfo();
 ```
 
+### Get Project Version
+
+Returns the project's version string: `ProjectVersion` from the **Description** section of Project Settings (`[/Script/EngineSettings.GeneralProjectSettings]` in `DefaultGame.ini`). It is cached once found, and an empty string is returned when none is set.
+
+```cpp
+static FString GetProjectVersion();
+```
+
+### Get Build Commit
+
+Returns the changelist or commit identifier from the engine build version, which is the part after the last `-` of `FApp::GetBuildVersion()`. It is cached after the first successful read, and `"0"` is returned when the build version has no such part (a local, unsubmitted build).
+
+```cpp
+static FString GetBuildCommit();
+```
+
 ### Wait For Static Mesh Compilation
 
 Editor-only barrier that blocks until every currently-compiling `UStaticMesh` finishes its async compile. Iterates every loaded mesh, so cost scales with project size — call before operations that read mesh bounds, render data, or BodySetups where placeholder data would yield incorrect results.
