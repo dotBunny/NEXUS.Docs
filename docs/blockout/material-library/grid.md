@@ -29,3 +29,9 @@ This material is **entirely** based off of the public works of [**Nick Mower**](
 ![MI_NGrid_Yellow](/assets/images/docs/blockout/material-library/grid/grid-yellow.webp "MI_NGrid_Yellow")
 ![MI_NGrid_Red](/assets/images/docs/blockout/material-library/grid/grid-red.webp "MI_NGrid_Red")
 </div>
+
+Also in this set: `MI_NGrid_Brown` and `MI_NGrid_BrownDark`, for ground that shouldn't read as grey.
+
+## Finish Line
+
+`MI_NGrid_FinishLine` sits at the **root** of the plugin's content rather than with the other instances. It is an `M_NGrid` instance with its checkerboard turned up (`Checkerboard Contrast` and `Checkerboard Scale` overridden), which makes it handy for marking a start, a goal, or a finish line.

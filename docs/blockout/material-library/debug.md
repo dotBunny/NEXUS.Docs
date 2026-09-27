@@ -23,3 +23,11 @@ A selection of colored material instances (prefixed with `MI_NDebug_`) useful fo
 ![MI_NDebug_Yellow](/assets/images/docs/blockout/material-library/debug/debug-yellow.webp "MI_NDebug_Yellow")
 ![MI_NDebug_Red](/assets/images/docs/blockout/material-library/debug/debug-red.webp "MI_NDebug_Red")
 </div>
+
+## Emissive
+
+`MI_NDebug_White_Emissive` is an emissive white. Use it for markers that need to stay readable in a dark block-out or under a lighting test.
+
+## Debug Text
+
+The `MI_NDebugText_` instances are distance-field font materials for `UTextRenderComponent`, in the same shades and colors as above. Every one except black also comes in an **emissive** variant (`MI_NDebugText_Emissive_White`, `…_Emissive_Red`, and so on), so labels stay legible whatever the lighting.
