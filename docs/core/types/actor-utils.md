@@ -337,3 +337,18 @@ A Mesh Partition component returns a deliberately **tiny** box — not an invali
 That is exactly what makes it dangerous. `AActor::GetComponentsBoundingBox` treats the tiny box as a valid point and folds it in, pulling the result out to wherever the empty component happens to sit. `GetBuiltComponentsBoundingBox` differs from it in that one respect and no other.
 
 This pair is what [FNTerrainUtils::ComputeFingerprint](../editor-types/terrain-utils.md#compute-fingerprint) is built on, which is how a terrain build still landing sections is told from a finished one.
+
+### Filtering By Component Tag
+
+```cpp
+static bool HasAnyComponentTag(const UActorComponent* Component, const TArray<FName>& Tags);
+
+static FBox GetFilteredComponentsBoundingBox(const AActor* Actor, bool bIncludeNonColliding,
+	const TArray<FName>& ComponentIgnoreTags, bool bRejectPlaceholderBounds);
+```
+
+`GetFilteredComponentsBoundingBox` is the function `GetBuiltComponentsBoundingBox` is built on. Use it when you also need to leave out primitives by **component tag** (`UActorComponent::ComponentTags`). It applies the same registration and collision checks as `AActor::GetComponentsBoundingBox`, so an actor with nothing tagged measures identically to that function when `bRejectPlaceholderBounds` is false. An empty `ComponentIgnoreTags` measures every primitive.
+
+Tags are checked per primitive, not per actor, because the actor often isn't the unit an author can choose. A generator writes its whole output onto one container actor, so excluding the actor would take everything it generated. With component tags, an actor can contribute part of its bounds and withhold the rest.
+
+`HasAnyComponentTag` is the check both this and World Assembly's gather use. A null component carries nothing, and an empty tag list matches nothing, so a caller that doesn't filter pays nothing for it.

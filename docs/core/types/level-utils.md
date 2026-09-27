@@ -78,6 +78,7 @@ The criteria used to be four trailing parameters; they are now one struct, which
 | Field | Type | Description | Default |
 | :-- | :-- | :-- | :-- |
 | `ActorIgnoreTags` | `TArray<FName>` | Any actor carrying one of these tags is ignored. | *(empty)* |
+| `ComponentIgnoreTags` | `TArray<FName>` | Any **primitive** carrying one of these component tags is left out of its actor's contribution, **without** ignoring the actor. The actor is still walked and measured, and isn't reported in `OutIgnoredActors`. An actor made entirely of ignored primitives simply contributes nothing. | *(empty)* |
 | `bIncludeEditorOnly` | `bool` | Editor-only actors contribute to the bounds. | `false` |
 | `bIncludeNonColliding` | `bool` | Actors without collision also contribute. | `false` |
 | `bIncludeTransientActors` | `bool` | Transient actors also contribute. | `false` |

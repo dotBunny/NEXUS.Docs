@@ -20,6 +20,7 @@ Two distinct routes are exposed for complex-as-simple bodies — `FromStaticMesh
 Walks each supplied actor's registered `UPrimitiveComponents` and extracts their simple-collision representation as `FNRawMesh` entries, along with parallel world-space transforms.
 
 - Only actors whose world-space bounds **intersect** at least one of the supplied `ContainingBounds` are processed. Passing an empty array skips the overlap test entirely.
+- Primitives whose **collision is disabled are skipped**, per primitive. Collision on the source asset isn't enough: a component set to No Collision occupies no space in the world, and reading its body setup anyway would report geometry that nothing can hit. An actor that collides through one component doesn't drag in its non-colliding ones.
 - Aggregate-geometry path covers `FKConvexElem`, `FKBoxElem`, `FKSphereElem`, and `FKSphylElem` (capsule).
 - Complex-as-simple falls back to the source static-mesh render data (route 1) or Chaos `TriMeshGeometries` (route 2).
 - A body that emits **no simple geometry** falls back to its complex tri mesh, so a mesh whose only collision is the complex one — the default for a sculpted or imported asset — is not silently skipped.
@@ -28,8 +29,18 @@ Walks each supplied actor's registered `UPrimitiveComponents` and extracts their
 
 ```cpp
 static void FromActorsInBounds(const TArray<AActor*>& Actors, const TArray<FBoxSphereBounds>& ContainingBounds,
-  TArray<FNRawMesh>& OutMeshes, TArray<FTransform>& OutTransforms);
+  TArray<FNRawMesh>& OutMeshes, TArray<FTransform>& OutTransforms, TArray<FNRawMeshSource>* OutSources = nullptr);
 ```
+
+`OutSources` is optional. When supplied, it receives one `FNRawMeshSource` per emitted mesh, in the same order as `OutMeshes`:
+
+| Field | Type | Description |
+| :-- | :-- | :-- |
+| `Component` | `const UPrimitiveComponent*` | The primitive that produced the mesh. Never null in an emitted record. |
+| `InstanceIndex` | `int32` | The instance that produced it, for an instanced primitive; `INDEX_NONE` otherwise. |
+| `ElementOrdinal` | `int32` | Which of the meshes that one component (or instance) produced this is, counted from zero. |
+
+Together the three fields identify an element precisely enough to recognize it in a later gather, which is what the [World Assembly collision cache](../../../world-assembly/types/world-collision-source-key.md) builds its keys from. Leave `OutSources` null if you only need the geometry, since each record costs an allocation. The component pointer is **borrowed** and only valid during the gather. Anything that outlives the gather must turn it into something durable (a name, a hash) first.
 
 ### Per-Element Emitters
 
