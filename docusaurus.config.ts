@@ -354,7 +354,7 @@ const config: Config = {
           title: 'Extras',
           items: [
             {
-              to: 'https://discord.gg/2M9HczHanW',
+              to: 'https://discord.gg/MFDRBKbxjQ',
               label: 'Discord',
             },
             {
